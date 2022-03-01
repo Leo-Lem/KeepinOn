@@ -8,22 +8,42 @@
 import SwiftUI
 
 struct ProjectsView: View {
-    let closed: Bool
-    let projects: FetchRequest<Project>
+    
+    let closed: Bool,
+        projects: FetchRequest<Project>
+    
+    @EnvironmentObject var dataController: DataController
+    @Environment(\.managedObjectContext) var context
     
     var body: some View {
         NavigationView {
             List {
                 ForEach(projects.wrappedValue) { project in
-                    Section(project.title ?? "") {
-                        ForEach(project.items?.allObjects as? [Item] ?? []) { item in
-                            Text(item.title ?? "")
+                    Section {
+                        ForEach(project.projectItems) { item in
+                            ItemRowView(item: item)
                         }
+                    } header: {
+                        ProjectHeaderView(project: project)
                     }
                 }
             }
             .listStyle(.insetGrouped)
             .navigationTitle("\(closed ? "Closed" : "Open") Projects")
+            .toolbar {
+                if !closed {
+                    Button {
+                        withAnimation {
+                            let project = Project(context: context)
+                            project.closed = false
+                            project.timestamp = Date()
+                            try? dataController.save()
+                        }
+                    } label: {
+                        Label("Add project", systemImage: "plus")
+                    }
+                }
+            }
         }
     }
     
@@ -42,7 +62,7 @@ struct ProjectsView: View {
 #if DEBUG
 //MARK: - Previews
 struct ProjectsView_Previews: PreviewProvider {
-    private static let dataController = DataController.preview
+    private static let dataController: DataController = .preview
     
     static var previews: some View {
         ProjectsView(closed: true)

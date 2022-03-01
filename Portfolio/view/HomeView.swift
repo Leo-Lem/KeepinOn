@@ -8,11 +8,21 @@
 import SwiftUI
 
 struct HomeView: View {
-    @EnvironmentObject private var dataController: DataController
+    
+    @EnvironmentObject var dataController: DataController
     
     var body: some View {
-        TestingView()
+        NavigationView {
+            VStack {
+                Button("Add Data") {
+                    try? dataController.deleteAll()
+                    try? dataController.createSampleData()
+                }
+            }
+            .navigationTitle("Home")
+        }
     }
+    
 }
 
 #if DEBUG
@@ -28,22 +38,5 @@ struct HomeView_Previews: PreviewProvider {
             )
             .environmentObject(dataController)
     }
-}
-
-struct TestingView: View {
-    @EnvironmentObject private var dataController: DataController
-    
-    var body: some View {
-        NavigationView {
-            VStack {
-                Button("Add Data") {
-                    try? dataController.deleteAll()
-                    try? dataController.createSampleData()
-                }
-            }
-            .navigationTitle("Home")
-        }
-    }
-    
 }
 #endif

@@ -8,17 +8,33 @@
 import SwiftUI
 
 struct ContentView: View {
+    @SceneStorage("tab") private var tab: Tab = .home
+    
     var body: some View {
-        TabView {
-            HomeView().tabItem { Label("Home", systemImage: "house") }
-            
-            ProjectsView(closed: false).tabItem { Label("Open", systemImage: "list.bullet") }
-            
-            ProjectsView(closed: true).tabItem { Label("Closed", systemImage: "checkmark") }
+        TabView(selection: $tab) {
+            HomeView()
+                .tag(Tab.home)
+                .tabItem { Label(Tab.home.rawValue, systemImage: "house") }
+                
+            ProjectsView(closed: false)
+                .tag(Tab.open)
+                .tabItem { Label(Tab.open.rawValue, systemImage: "list.bullet") }
+                
+            ProjectsView(closed: true)
+                .tag(Tab.closed)
+                .tabItem { Label(Tab.closed.rawValue, systemImage: "checkmark") }
         }
         #if DEBUG
-        .navigationViewStyle(.stack)
+        .navigationViewStyle(.stack) //for suppressing distracting warnings about the navigationtitle
         #endif
+    }
+}
+
+extension ContentView {
+    enum Tab: String {
+        case home = "Home",
+             open = "Open",
+             closed = "Closed"
     }
 }
 
