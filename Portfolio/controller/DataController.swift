@@ -47,7 +47,7 @@ extension DataController {
             project.title = "Project \(i)"
             project.items = []
             project.timestamp = Date()
-            project.open = Bool.random()
+            project.closed = Bool.random()
             
             for j in 1...10 {
                 let item = Item(context: context)
@@ -74,13 +74,12 @@ extension DataController {
     }()
     
     func deleteAll() throws {
-        let fetchRequest1: NSFetchRequest<NSFetchRequestResult> = Item.fetchRequest()
-        let batchDeleteRequest1 = NSBatchDeleteRequest(fetchRequest: fetchRequest1)
-        try container.viewContext.execute(batchDeleteRequest1)
-
-        let fetchRequest2: NSFetchRequest<NSFetchRequestResult> = Project.fetchRequest()
-        let batchDeleteRequest2 = NSBatchDeleteRequest(fetchRequest: fetchRequest2)
-        try container.viewContext.execute(batchDeleteRequest2)
+        let fetchRequests: [NSFetchRequest<NSFetchRequestResult>] = [Item.fetchRequest(), Project.fetchRequest()],
+        batchDeleteRequests = fetchRequests.map(NSBatchDeleteRequest.init)
+        
+        try batchDeleteRequests.forEach { request in
+            try container.viewContext.execute(request)
+        }
     }
     
 }

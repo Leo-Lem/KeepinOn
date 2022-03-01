@@ -8,23 +8,27 @@
 
 /* Begin PBXBuildFile section */
 		6E033F8827CE20DD001C53F2 /* PortfolioApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E033F8727CE20DD001C53F2 /* PortfolioApp.swift */; };
-		6E033F8A27CE20DD001C53F2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E033F8927CE20DD001C53F2 /* ContentView.swift */; };
+		6E033F8A27CE20DD001C53F2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E033F8927CE20DD001C53F2 /* HomeView.swift */; };
 		6E033F8C27CE20DE001C53F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E033F8B27CE20DE001C53F2 /* Assets.xcassets */; };
 		6E033F9B27CE219E001C53F2 /* Main.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6E033F9927CE219E001C53F2 /* Main.xcdatamodeld */; };
 		6E033F9D27CE23D9001C53F2 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E033F9C27CE23D9001C53F2 /* DataController.swift */; };
 		6E033FA127CE2BA2001C53F2 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E033FA027CE2BA2001C53F2 /* CloudKit.framework */; };
+		6E033FA627CE2EFB001C53F2 /* ProjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E033FA527CE2EFB001C53F2 /* ProjectsView.swift */; };
+		6E033FA827CE320F001C53F2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E033FA727CE320F001C53F2 /* ContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6E033F8427CE20DD001C53F2 /* Portfolio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Portfolio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E033F8727CE20DD001C53F2 /* PortfolioApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioApp.swift; sourceTree = "<group>"; };
-		6E033F8927CE20DD001C53F2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		6E033F8927CE20DD001C53F2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		6E033F8B27CE20DE001C53F2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6E033F9A27CE219E001C53F2 /* Main.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Main.xcdatamodel; sourceTree = "<group>"; };
 		6E033F9C27CE23D9001C53F2 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		6E033F9E27CE28F2001C53F2 /* Portfolio.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Portfolio.entitlements; sourceTree = "<group>"; };
 		6E033FA027CE2BA2001C53F2 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		6E033FA227CE2BB3001C53F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6E033FA527CE2EFB001C53F2 /* ProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsView.swift; sourceTree = "<group>"; };
+		6E033FA727CE320F001C53F2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,7 +109,9 @@
 		6E033FA427CE2C3A001C53F2 /* view */ = {
 			isa = PBXGroup;
 			children = (
-				6E033F8927CE20DD001C53F2 /* ContentView.swift */,
+				6E033FA727CE320F001C53F2 /* ContentView.swift */,
+				6E033F8927CE20DD001C53F2 /* HomeView.swift */,
+				6E033FA527CE2EFB001C53F2 /* ProjectsView.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -179,7 +185,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E033F8A27CE20DD001C53F2 /* ContentView.swift in Sources */,
+				6E033FA627CE2EFB001C53F2 /* ProjectsView.swift in Sources */,
+				6E033F8A27CE20DD001C53F2 /* HomeView.swift in Sources */,
+				6E033FA827CE320F001C53F2 /* ContentView.swift in Sources */,
 				6E033F9D27CE23D9001C53F2 /* DataController.swift in Sources */,
 				6E033F8827CE20DD001C53F2 /* PortfolioApp.swift in Sources */,
 				6E033F9B27CE219E001C53F2 /* Main.xcdatamodeld in Sources */,
