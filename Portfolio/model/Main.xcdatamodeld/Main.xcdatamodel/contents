@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21D62" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
-    <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
+    <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="category">
         <attribute name="completed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="details" optional="YES" attributeType="String"/>
         <attribute name="priority" optional="YES" attributeType="Integer 16" minValueString="1" maxValueString="3" defaultValueString="1" usesScalarValueType="YES"/>
@@ -8,7 +8,7 @@
         <attribute name="title" optional="YES" attributeType="String"/>
         <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="items" inverseEntity="Project"/>
     </entity>
-    <entity name="Project" representedClassName="Project" syncable="YES" codeGenerationType="class">
+    <entity name="Project" representedClassName="Project" syncable="YES" codeGenerationType="category">
         <attribute name="closed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="color" optional="YES" attributeType="String"/>
         <attribute name="details" optional="YES" attributeType="String"/>
