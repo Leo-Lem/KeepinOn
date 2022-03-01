@@ -49,7 +49,7 @@ struct EditItemView: View {
         _completed = State(initialValue: item.completed)
     }
     
-    func update() {
+    private func update() {
         item.project?.objectWillChange.send()
         
         item.title = title
@@ -63,8 +63,6 @@ struct EditItemView: View {
 #if DEBUG
 //MARK: - Previews
 struct EditItemView_Previews: PreviewProvider {
-    private static let dataController: DataController = .preview
-    
     static var previews: some View {
         EditItemView(.example)
             .environment(

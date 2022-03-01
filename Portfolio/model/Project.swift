@@ -26,22 +26,29 @@ extension Project {
     }
     
     var projectItems: [Item] {
-        let itemsArray = items?.allObjects as? [Item] ?? []
-        
-        return itemsArray.sorted { first, second in
-            if !first.completed && second.completed {
-                return true
-            } else if first.completed && !second.completed {
-                return false
+        items?.allObjects as? [Item] ?? []
+    }
+    
+    func projectItems(using sortOrder: Item.SortOrder) -> [Item] {
+        switch sortOrder {
+        case .title: return projectItems.sorted(by: \.itemTitle)
+        case .creationDate: return projectItems.sorted(by: \.itemTimestamp)
+        case .optimized:
+            return projectItems.sorted { first, second in
+                if !first.completed && second.completed {
+                    return true
+                } else if first.completed && !second.completed {
+                    return false
+                }
+                
+                if first.priority > second.priority {
+                    return true
+                } else if first.priority < second.priority {
+                    return false
+                }
+                
+                return first.itemTimestamp < second.itemTimestamp
             }
-            
-            if first.priority > second.priority {
-                return true
-            } else if first.priority < second.priority {
-                return false
-            }
-            
-            return first.itemTimestamp < second.itemTimestamp
         }
     }
     

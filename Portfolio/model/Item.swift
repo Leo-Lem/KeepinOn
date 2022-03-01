@@ -14,7 +14,7 @@ class Item: NSManagedObject {}
 extension Item {
     
     var itemTitle: String {
-        title ?? ""
+        title ?? "New Item"
     }
 
     var itemDetails: String {
@@ -23,6 +23,14 @@ extension Item {
 
     var itemTimestamp: Date {
         timestamp ?? Date()
+    }
+    
+}
+
+extension Item {
+    
+    enum SortOrder {
+        case optimized, title, creationDate
     }
     
 }

@@ -23,6 +23,10 @@ struct ContentView: View {
             ProjectsView(closed: true)
                 .tag(Tab.closed)
                 .tabItem { Label(Tab.closed.rawValue, systemImage: "checkmark") }
+            
+            AwardsView()
+                .tag(Tab.awards)
+                .tabItem { Label(Tab.awards.rawValue, systemImage: "rosette") }
         }
         #if DEBUG
         .navigationViewStyle(.stack) //for suppressing distracting warnings about the navigationtitle
@@ -34,15 +38,14 @@ extension ContentView {
     enum Tab: String {
         case home = "Home",
              open = "Open",
-             closed = "Closed"
+             closed = "Closed",
+             awards = "Awards"
     }
 }
 
 #if DEBUG
 //MARK: - Previews
 struct ContentView_Previews: PreviewProvider {
-    private static let dataController = DataController.preview
-    
     static var previews: some View {
         ContentView()
             .environment(

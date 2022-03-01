@@ -22,7 +22,7 @@ struct EditProjectView: View {
             }
             
             Section("Custom project color") {
-                LazyVGrid(columns: [GridItem](repeating: GridItem(.adaptive(minimum: 44)), count: 1)) {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 44))]) {
                     ForEach(Project.colors, id: \.self) { item in
                         ZStack {
                             Color(item)
@@ -96,8 +96,6 @@ struct EditProjectView: View {
 #if DEBUG
 //MARK: - Previews
 struct EditProjectView_Previews: PreviewProvider {
-    private static let dataController: DataController = .preview
-    
     static var previews: some View {
         EditProjectView(.example)
             .environment(

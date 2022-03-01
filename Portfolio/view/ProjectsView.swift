@@ -20,38 +20,80 @@ struct ProjectsView: View {
             List {
                 ForEach(projects.wrappedValue) { project in
                     Section {
-                        ForEach(project.projectItems) { item in
-                            ItemRowView(item: item)
+                        ForEach(project.projectItems(using: sortOrder)) { item in
+                            ItemRowView(project: project, item: item)
                         }
+                        .onDelete { offsets in
+                            let items = project.projectItems(using: sortOrder)
+                            
+                            offsets.forEach { offset in
+                                let item = items[offset]
+                                dataController.delete(item)
+                            }
+                            
+                            try? dataController.save()
+                        }
+                        
+                        if !closed {
+                            Button {
+                                withAnimation {
+                                    let item = Item(context: context)
+                                    item.project = project
+                                    item.timestamp = Date()
+                                    try? dataController.save()
+                                }
+                            } label: {
+                                Label("Add New Item", systemImage: "plus")
+                            }                        }
                     } header: {
                         ProjectHeaderView(project: project)
                     }
                 }
             }
             .listStyle(.insetGrouped)
+            .replace(if: projects.wrappedValue.count < 1, placeholder: "There's nothing here right now.")
             .navigationTitle("\(closed ? "Closed" : "Open") Projects")
             .toolbar {
-                if !closed {
-                    Button {
-                        withAnimation {
-                            let project = Project(context: context)
-                            project.closed = false
-                            project.timestamp = Date()
-                            try? dataController.save()
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    if !closed {
+                        Button {
+                            withAnimation {
+                                let project = Project(context: context)
+                                project.closed = false
+                                project.timestamp = Date()
+                                try? dataController.save()
+                            }
+                        } label: {
+                            Label("Add project", systemImage: "plus")
                         }
+                    }
+                }
+                
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        sorting.toggle()
                     } label: {
-                        Label("Add project", systemImage: "plus")
+                        Label("Sort", systemImage: "arrow.up.arrow.down")
                     }
                 }
             }
+            .confirmationDialog("Sort Items", isPresented: $sorting) {
+                Button("Optimized") { sortOrder = .optimized }
+                Button("Creation Date") { sortOrder = .creationDate }
+                Button("Title") { sortOrder = .title }
+            }
+            
+            SelectSomethingView()
         }
     }
+    
+    @State private var sorting = false
+    @State private var sortOrder: Item.SortOrder = .optimized
     
     init(closed: Bool) {
         self.closed = closed
         
         projects = FetchRequest<Project>(
-            entity: Project.entity(),
             sortDescriptors: [NSSortDescriptor(keyPath: \Project.timestamp, ascending: false)],
             predicate: NSPredicate(format: "closed = %d", closed)
         )
@@ -62,20 +104,16 @@ struct ProjectsView: View {
 #if DEBUG
 //MARK: - Previews
 struct ProjectsView_Previews: PreviewProvider {
-    private static let dataController: DataController = .preview
-    
     static var previews: some View {
-        ProjectsView(closed: true)
-            .environment(
-                \.managedObjectContext,
-                 dataController.container.viewContext
-            )
-        
-        ProjectsView(closed: false)
-            .environment(
-                \.managedObjectContext,
-                 dataController.container.viewContext
-            )
+        Group {
+            ProjectsView(closed: false)
+            ProjectsView(closed: true)
+        }
+        .environmentObject(dataController)
+        .environment(
+            \.managedObjectContext,
+             dataController.container.viewContext
+        )
     }
 }
-#endif
+#endif 
