@@ -1,0 +1,103 @@
+/* 
+  Localizable.strings
+  Portfolio
+
+  Created by Leopold Lemmermann on 02.03.22.
+  
+*/
+
+/* GENERAL TEXT */
+"OK" = "OK";
+"Delete" = "Delete";
+"Basic Settings" = "Basic Settings";
+"Please select something from the menu to begin." = "Please select something from the menu to begin."; /* Shown by default when the user hasn't select a project or item */
+
+
+
+/* TABS */
+"Home" = "Home";
+"Open" = "Open";
+"Closed" = "Closed";
+"Awards" = "Awards";
+
+
+
+/* HOME VIEW */
+"Up next" = "Up next";
+"More to explore" = "More to explore";
+"%@, %lld items, %g%% complete." = "%@, %lld items, %g%% complete.";
+
+
+
+/* PROJECTS VIEW */
+"%@ Projects" = "%@ Projects";
+"Open" = "Open";
+"Closed" = "Closed";
+"Add Project" = "Add Project";
+"Add New Item" = "Add New Item";
+"There's nothing here right now" = "There's nothing here right now"; /* displayed if no projects exist */
+
+/* accessibility */
+"%@, completed." = "%@, completed."; /* asserts that a given project is completed */
+"%@, high priority." = "%@, high priority."; /* asserts that a given project has a high priority  */
+
+/* A button that shows a menu with the following options */
+"Sort" = "Sort";
+"Sort items" = "Sort items"; /* The title of the menu */
+"Optimized" = "Optimized"; /* Sort using an optimized algorithm */
+"Creation Date" = "Creation Date"; /* Sort by the date items were created */
+"Title" = "Title"; /* Sort by item title */
+
+/* Default names for a new project and a new item */
+"New Project" = "New Project";
+"New Item" = "New Item";
+
+
+
+/* EDITING PROJECTS */
+"Edit Project" = "Edit Project";
+"Project name" = "Project name"; /* placeholder for a project name */
+"Description of this project" = "Description of this project"; /* placeholder for a project description */
+"Select a project color" = "Select a project color";
+
+"Custom project color" = "Custom project color";
+"Pink" = "Pink";
+"Purple" = "Purple";
+"Red" = "Red";
+"Orange" = "Orange";
+"Gold" = "Gold";
+"Green" = "Green";
+"Teal" = "Teal";
+"Light Blue" = "Light Blue";
+"Dark Blue" = "Dark Blue";
+"Midnight" = "Midnight";
+"Dark Gray" = "Dark Gray";
+"Gray" = "Gray";
+
+/* Options to close (mark as finished), open (mark as unfinished), or delete a project. */
+"Close this project" = "Close this project";
+"Closing a project moves it from the Open to Closed tab; deleting it removes the project entirely." = "Closing a project moves it from the Open to Closed tab; deleting it removes the project entirely."; /* warning about the difference between closing a project and deleting it */
+"Reopen this project" = "Reopen this project";
+"Delete this project" = "Delete this project";
+"Delete project?" = "Delete project?";
+"Are you sure you want to delete this project? You will also delete all the items it contains." = "Are you sure you want to delete this project? You will also delete all the items it contains.";
+
+
+
+/* EDITING ITEMS */
+"Edit Item" = "Edit Item";
+"Item name" = "Item name";
+"Description" = "Description";
+
+"Priority" = "Priority";
+"Low" = "Low";
+"Mid" = "Mid";
+"High" = "High";
+
+"Mark Completed" = "Mark Completed"; /* Mark this item as being completed (finished/accomplished) */
+
+
+
+/* AWARDS VIEW */
+"Locked" = "Locked"; /* award has not been earned */
+"Unlocked: %@" = "Unlocked: %@"; /* award has been earned, displaying the award */

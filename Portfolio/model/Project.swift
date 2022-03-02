@@ -14,7 +14,7 @@ class Project: NSManagedObject {}
 extension Project {
     
     var projectTitle: String {
-        title ?? "New Project"
+        title ?? NSLocalizedString("New Project", comment: "")
     }
 
     var projectDetails: String {

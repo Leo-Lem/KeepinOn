@@ -77,7 +77,7 @@ struct ProjectsView: View {
                     }
                 }
             }
-            .confirmationDialog("Sort Items", isPresented: $sorting) {
+            .confirmationDialog("Sort items", isPresented: $sorting) {
                 Button("Optimized") { sortOrder = .optimized }
                 Button("Creation Date") { sortOrder = .creationDate }
                 Button("Title") { sortOrder = .title }

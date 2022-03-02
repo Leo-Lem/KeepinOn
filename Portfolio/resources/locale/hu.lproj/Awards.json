@@ -1,0 +1,162 @@
+[
+    {
+        "name": "Első lépések",
+        "description": "Adja hozzá az első tételt.",
+        "color": "Light Blue",
+        "criterion": "items",
+        "value": 1,
+        "image": "figure.walk"
+    },
+    {
+        "name": "Nagyszerű kezdet",
+        "description": "Adjon hozzá 10 tételt.",
+        "color": "Light Blue",
+        "criterion": "items",
+        "value": 10,
+        "image": "hand.thumbsup.fill"
+    },
+    {
+        "name": "Feljebb lépés",
+        "description": "Adjon hozzá 20 tételt.",
+        "color": "Light Blue",
+        "criterion": "items",
+        "value": 20,
+        "image": "tray.and.arrow.up.fill"
+    },
+    {
+        "name": "Felgyorsul",
+        "description": "Adjon hozzá 50 tételt.",
+        "color": "Light Blue",
+        "criterion": "items",
+        "value": 50,
+        "image": "speedometer"
+    },
+    {
+        "name": "Hullámzik",
+        "description": "Adjon hozzá 100 tételt.",
+        "color": "Light Blue",
+        "criterion": "items",
+        "value": 100,
+        "image": "dot.radiowaves.left.and.right"
+    },
+    {
+        "name": "Nagy teljesítményű",
+        "description": "Adjon hozzá 250 tételt.",
+        "color": "Light Blue",
+        "criterion": "items",
+        "value": 250,
+        "image": "square.stack.3d.up.fill"
+    },
+    {
+        "name": "Sztár előadó",
+        "description": "Adjon hozzá 500 tételt.",
+        "color": "Light Blue",
+        "criterion": "items",
+        "value": 500,
+        "image": "star.circle.fill"
+    },
+    {
+        "name": "Bajnok előadó",
+        "description": "Adjon hozzá 1000 tételt.",
+        "color": "Light Blue",
+        "criterion": "items",
+        "value": 1000,
+        "image": "crown.fill"
+    },
+    {
+        "name": "Dobozok ellenőrzése",
+        "description": "Töltse ki az első tételt.",
+        "color": "Orange",
+        "criterion": "complete",
+        "value": 1,
+        "image": "checkmark.shield.fill"
+    },
+    {
+        "name": "Ringatózva",
+        "description": "Töltsön ki 10 tételt.",
+        "color": "Orange",
+        "criterion": "complete",
+        "value": 10,
+        "image": "guitars.fill"
+    },
+    {
+        "name": "A 20 elég",
+        "description": "Töltsön ki 20 tételt.",
+        "color": "Orange",
+        "criterion": "complete",
+        "value": 20,
+        "image": "20.square.fill"
+    },
+    {
+        "name": "Telitalálat!",
+        "description": "Töltsön ki 50 tételt.",
+        "color": "Orange",
+        "criterion": "complete",
+        "value": 50,
+        "image": "target"
+    },
+    {
+        "name": "Magasan repül",
+        "description": "Töltsön ki 100 tételt.",
+        "color": "Orange",
+        "criterion": "complete",
+        "value": 100,
+        "image": "airplane.circle.fill"
+    },
+    {
+        "name": "Lángol!",
+        "description": "Töltsön ki 250 tételt.",
+        "color": "Orange",
+        "criterion": "complete",
+        "value": 250,
+        "image": "flame.fill"
+    },
+    {
+        "name": "Nagy főnök",
+        "description": "Töltsön ki 500 tételt.",
+        "color": "Orange",
+        "criterion": "complete",
+        "value": 500,
+        "image": "text.badge.checkmark"
+    },
+    {
+        "name": "Bumm!",
+        "description": "Töltsön ki 1000 tételt.",
+        "color": "Orange",
+        "criterion": "complete",
+        "value": 1000,
+        "image": "bolt.circle.fill"
+    },
+    {
+        "name": "Első üzenet",
+        "description": "Első üzenetét elküldte a csoportos csevegésbe.",
+        "color": "Purple",
+        "criterion": "chat",
+        "value": 1,
+        "image": "person.fill"
+    },
+    {
+        "name": "Gyakori csevegés",
+        "description": "10 üzenetet tett közzé a csoportos csevegésben.",
+        "color": "Purple",
+        "criterion": "chat",
+        "value": 10,
+        "image": "message.fill"
+    },
+    {
+        "name": "Közösségi erőmű",
+        "description": "100 üzenetet tett közzé a csoportos csevegésben.",
+        "color": "Purple",
+        "criterion": "chat",
+        "value": 100,
+        "image": "arrow.up.heart.fill"
+    },
+    {
+        "name": "Támogató",
+        "description": "Megvásárolta a prémium verziót.",
+        "color": "Green",
+        "criterion": "unlock",
+        "value": 0,
+        "image": "dollarsign.square.fill"
+    }
+]

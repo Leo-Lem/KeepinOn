@@ -26,12 +26,14 @@
 		6E033FBB27CE7471001C53F2 /* Sequence-sorted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E033FBA27CE7471001C53F2 /* Sequence-sorted.swift */; };
 		6E033FBD27CE8017001C53F2 /* View-replace(if).swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E033FBC27CE8017001C53F2 /* View-replace(if).swift */; };
 		6E033FBF27CE8195001C53F2 /* SelectSomethingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E033FBE27CE8195001C53F2 /* SelectSomethingView.swift */; };
-		6E033FC127CE85D0001C53F2 /* Awards.json in Resources */ = {isa = PBXBuildFile; fileRef = 6E033FC027CE85D0001C53F2 /* Awards.json */; };
 		6E033FC327CE8679001C53F2 /* Bundle-load.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E033FC227CE8679001C53F2 /* Bundle-load.swift */; };
 		6E033FC527CE9D46001C53F2 /* Award.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E033FC427CE9D46001C53F2 /* Award.swift */; };
 		6E033FC727CE9F4B001C53F2 /* AwardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E033FC627CE9F4B001C53F2 /* AwardsView.swift */; };
 		6E033FCC27CEA40D001C53F2 /* Previews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E033FCB27CEA40D001C53F2 /* Previews.swift */; };
 		6E033FCE27CEA6C8001C53F2 /* Color-additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E033FCD27CEA6C8001C53F2 /* Color-additions.swift */; };
+		6E033FD627CF8AD2001C53F2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6E033FD827CF8AD2001C53F2 /* Localizable.strings */; };
+		6E033FD927CF8AD5001C53F2 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 6E033FDB27CF8AD5001C53F2 /* Localizable.stringsdict */; };
+		6E033FE927CF8DAA001C53F2 /* Awards.json in Resources */ = {isa = PBXBuildFile; fileRef = 6E033FE727CF8DAA001C53F2 /* Awards.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,12 +59,17 @@
 		6E033FBA27CE7471001C53F2 /* Sequence-sorted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence-sorted.swift"; sourceTree = "<group>"; };
 		6E033FBC27CE8017001C53F2 /* View-replace(if).swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View-replace(if).swift"; sourceTree = "<group>"; };
 		6E033FBE27CE8195001C53F2 /* SelectSomethingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSomethingView.swift; sourceTree = "<group>"; };
-		6E033FC027CE85D0001C53F2 /* Awards.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Awards.json; sourceTree = "<group>"; };
 		6E033FC227CE8679001C53F2 /* Bundle-load.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle-load.swift"; sourceTree = "<group>"; };
 		6E033FC427CE9D46001C53F2 /* Award.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Award.swift; sourceTree = "<group>"; };
 		6E033FC627CE9F4B001C53F2 /* AwardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsView.swift; sourceTree = "<group>"; };
 		6E033FCB27CEA40D001C53F2 /* Previews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Previews.swift; sourceTree = "<group>"; };
 		6E033FCD27CEA6C8001C53F2 /* Color-additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color-additions.swift"; sourceTree = "<group>"; };
+		6E033FD727CF8AD2001C53F2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6E033FDA27CF8AD5001C53F2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		6E033FDE27CF8C30001C53F2 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6E033FDF27CF8C30001C53F2 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = hu; path = hu.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		6E033FE827CF8DAA001C53F2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = en; path = en.lproj/Awards.json; sourceTree = "<group>"; };
+		6E033FEA27CF8DB4001C53F2 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = hu; path = hu.lproj/Awards.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,12 +117,10 @@
 		6E033F9527CE210C001C53F2 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				6E033FD127CF7E0F001C53F2 /* locale */,
+				6E033FD027CF7DF2001C53F2 /* config */,
+				6E033FCF27CF7DE3001C53F2 /* assets */,
 				6E033FCA27CEA404001C53F2 /* previews */,
-				6E033FB627CE645D001C53F2 /* Colors.xcassets */,
-				6E033F8B27CE20DE001C53F2 /* Assets.xcassets */,
-				6E033FC027CE85D0001C53F2 /* Awards.json */,
-				6E033FA227CE2BB3001C53F2 /* Info.plist */,
-				6E033F9E27CE28F2001C53F2 /* Portfolio.entitlements */,
 			);
 			path = resources;
 			sourceTree = "<group>";
@@ -199,6 +204,34 @@
 			path = previews;
 			sourceTree = "<group>";
 		};
+		6E033FCF27CF7DE3001C53F2 /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				6E033F8B27CE20DE001C53F2 /* Assets.xcassets */,
+				6E033FB627CE645D001C53F2 /* Colors.xcassets */,
+			);
+			path = assets;
+			sourceTree = "<group>";
+		};
+		6E033FD027CF7DF2001C53F2 /* config */ = {
+			isa = PBXGroup;
+			children = (
+				6E033FA227CE2BB3001C53F2 /* Info.plist */,
+				6E033F9E27CE28F2001C53F2 /* Portfolio.entitlements */,
+			);
+			path = config;
+			sourceTree = "<group>";
+		};
+		6E033FD127CF7E0F001C53F2 /* locale */ = {
+			isa = PBXGroup;
+			children = (
+				6E033FE727CF8DAA001C53F2 /* Awards.json */,
+				6E033FD827CF8AD2001C53F2 /* Localizable.strings */,
+				6E033FDB27CF8AD5001C53F2 /* Localizable.stringsdict */,
+			);
+			path = locale;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -241,6 +274,7 @@
 			knownRegions = (
 				en,
 				Base,
+				hu,
 			);
 			mainGroup = 6E033F7B27CE20DD001C53F2;
 			productRefGroup = 6E033F8527CE20DD001C53F2 /* Products */;
@@ -258,7 +292,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E033F8C27CE20DE001C53F2 /* Assets.xcassets in Resources */,
-				6E033FC127CE85D0001C53F2 /* Awards.json in Resources */,
+				6E033FE927CF8DAA001C53F2 /* Awards.json in Resources */,
+				6E033FD627CF8AD2001C53F2 /* Localizable.strings in Resources */,
+				6E033FD927CF8AD5001C53F2 /* Localizable.stringsdict in Resources */,
 				6E033FB727CE645D001C53F2 /* Colors.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -296,11 +332,42 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXVariantGroup section */
+		6E033FD827CF8AD2001C53F2 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6E033FD727CF8AD2001C53F2 /* en */,
+				6E033FDE27CF8C30001C53F2 /* hu */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		6E033FDB27CF8AD5001C53F2 /* Localizable.stringsdict */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6E033FDA27CF8AD5001C53F2 /* en */,
+				6E033FDF27CF8C30001C53F2 /* hu */,
+			);
+			name = Localizable.stringsdict;
+			sourceTree = "<group>";
+		};
+		6E033FE727CF8DAA001C53F2 /* Awards.json */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6E033FE827CF8DAA001C53F2 /* en */,
+				6E033FEA27CF8DB4001C53F2 /* hu */,
+			);
+			name = Awards.json;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		6E033F9027CE20DE001C53F2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -362,6 +429,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -418,14 +486,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Portfolio/resources/Portfolio.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Portfolio/resources/config/Portfolio.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = Portfolio/resources/previews;
 				DEVELOPMENT_TEAM = 4UUEFBYP76;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Portfolio/resources/Info.plist;
+				INFOPLIST_FILE = Portfolio/resources/config/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -449,14 +517,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Portfolio/resources/Portfolio.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Portfolio/resources/config/Portfolio.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = Portfolio/resources/previews;
 				DEVELOPMENT_TEAM = 4UUEFBYP76;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Portfolio/resources/Info.plist;
+				INFOPLIST_FILE = Portfolio/resources/config/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

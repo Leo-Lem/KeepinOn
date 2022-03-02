@@ -14,7 +14,7 @@ class Item: NSManagedObject {}
 extension Item {
     
     var itemTitle: String {
-        title ?? "New Item"
+        title ?? NSLocalizedString("New Item", comment: "")
     }
 
     var itemDetails: String {

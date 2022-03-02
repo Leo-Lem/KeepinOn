@@ -1,0 +1,83 @@
+/* 
+  Localizable.strings
+  Portfolio
+
+  Created by Leopold Lemmermann on 02.03.22.
+  
+*/
+
+/* GENERAL STRINGS */
+"OK" = "OK";
+"Delete" = "Töröl";
+"Basic settings" = "Alapbeállítások";
+"Please select something from the menu to begin." = "A kezdéshez válasszon valamit a menüből."; /* Shown by default when the user hasn't select a project or item */
+
+
+
+/* MAIN ACTIVITIES */
+"Home" = "Haza";
+"Open" = "Nyitva";
+"Closed" = "Zárva";
+"Awards" = "Díjak";
+
+
+/* HOME VIEW */
+"Up next" = "Következő";
+"More to explore" = "Felfedezendő dolgok";
+
+
+
+/* PROJECTS VIEW */
+
+"Open Projects" = "Nyitott projektek";
+"Closed Projects" = "Lezárt projektek";
+"Add Project" = "Projekt hozzáadása";
+"Add New Item" = "Új tétel hozzáadása";
+"There's nothing here right now." = "Itt most nincs semmi.";
+
+/* A button that shows a menu with the following options */
+"Sort" = "Válogatás";
+"Sort items" = "Tételek rendezése"; /* The title of the menu */
+"Optimized" = "Optimalizálás"; /* Sort using an optimized algorithm */
+"Creation Date" = "Létrehozás dátuma"; /* Sort by the date items were created */
+"Title" = "Cím"; /* Sort by item title */
+
+/* Default names for a new project and a new item */
+"New Project" = "Új projekt";
+"New Item" = "Új tétel";
+
+
+
+/* EDITING PROJECTS */
+"Edit Project" = "Projekt szerkesztése";
+"Project name" = "Projekt név";
+"Description of this project" = "Projekt dokumentáció";
+"Custom project color" = "Egyedi projekt szín";
+
+/* Options to close (mark as finished), open (mark as unfinished), or delete a project. */
+"Close this project" = "Projekt bezárása";
+"Closing a project moves it from the Open to Closed tab; deleting it removes the project completely." = "A projekt bezárásával a Nyitottról a Zárt ablakba kerül; törlésével a projekt teljesen el lesz távolítva.";
+"Reopen this project" = "Projekt újra nyitása";
+"Delete this project" = "Projekt törlése";
+"Delete project?" = "Projekt törlése?";
+"Are you sure you want to delete this project? You will also delete all the items it contains." = "Biztosan törli a projektet? Az összes elem törlődni fog.";
+
+
+
+/* EDITING ITEMS */
+"Edit Item" = "Tétel szerkesztése";
+"Item name" = "Tétel név";
+"Description" = "Leírás";
+"Priority" = "Elsőbbség";
+"Low" = "Alacsony";
+"Medium" = "Közepes";
+"High" = "Magas";
+
+"Mark Completed" = "Befejezve"; /* Mark this item as being completed (finished/accomplished) */
+
+
+
+/* AWARDS */
+
+"Locked" = "Zárt";
+"Unlocked: %@" = "Nyitott: %@";
