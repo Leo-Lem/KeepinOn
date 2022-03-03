@@ -12,10 +12,6 @@ class Project: NSManagedObject {}
 
 //MARK: - convenience extensions
 extension Project {
-    
-    var projectTitle: String {
-        title ?? NSLocalizedString("New Project", comment: "")
-    }
 
     var projectDetails: String {
         details ?? ""
@@ -31,7 +27,7 @@ extension Project {
     
     func projectItems(using sortOrder: Item.SortOrder) -> [Item] {
         switch sortOrder {
-        case .title: return projectItems.sorted(by: \.itemTitle)
+        case .title: return projectItems.sorted { ($0.title ?? " ") < ($1.title ?? " ") }
         case .creationDate: return projectItems.sorted(by: \.itemTimestamp)
         case .optimized:
             return projectItems.sorted { first, second in

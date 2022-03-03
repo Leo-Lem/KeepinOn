@@ -34,6 +34,12 @@
 		6E033FD627CF8AD2001C53F2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6E033FD827CF8AD2001C53F2 /* Localizable.strings */; };
 		6E033FD927CF8AD5001C53F2 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 6E033FDB27CF8AD5001C53F2 /* Localizable.stringsdict */; };
 		6E033FE927CF8DAA001C53F2 /* Awards.json in Resources */ = {isa = PBXBuildFile; fileRef = 6E033FE727CF8DAA001C53F2 /* Awards.json */; };
+		6E033FEC27CFACEE001C53F2 /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E033FEB27CFACEE001C53F2 /* Localizable.swift */; };
+		6E033FEE27CFAEBD001C53F2 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E033FED27CFAEBD001C53F2 /* Strings.swift */; };
+		6EF937D927D1411600B9CFC6 /* ItemListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF937D827D1411600B9CFC6 /* ItemListView.swift */; };
+		6EF937DB27D1424500B9CFC6 /* ProjectSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF937DA27D1424500B9CFC6 /* ProjectSummaryView.swift */; };
+		6EF937DD27D1433900B9CFC6 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF937DC27D1433900B9CFC6 /* Layout.swift */; };
+		6EF937E027D1445B00B9CFC6 /* ProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF937DF27D1445B00B9CFC6 /* ProjectView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +76,12 @@
 		6E033FDF27CF8C30001C53F2 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = hu; path = hu.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		6E033FE827CF8DAA001C53F2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = en; path = en.lproj/Awards.json; sourceTree = "<group>"; };
 		6E033FEA27CF8DB4001C53F2 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = hu; path = hu.lproj/Awards.json; sourceTree = "<group>"; };
+		6E033FEB27CFACEE001C53F2 /* Localizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localizable.swift; sourceTree = "<group>"; };
+		6E033FED27CFAEBD001C53F2 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
+		6EF937D827D1411600B9CFC6 /* ItemListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListView.swift; sourceTree = "<group>"; };
+		6EF937DA27D1424500B9CFC6 /* ProjectSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectSummaryView.swift; sourceTree = "<group>"; };
+		6EF937DC27D1433900B9CFC6 /* Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
+		6EF937DF27D1445B00B9CFC6 /* ProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,8 +129,8 @@
 		6E033F9527CE210C001C53F2 /* resources */ = {
 			isa = PBXGroup;
 			children = (
-				6E033FD127CF7E0F001C53F2 /* locale */,
 				6E033FD027CF7DF2001C53F2 /* config */,
+				6E033FD127CF7E0F001C53F2 /* locale */,
 				6E033FCF27CF7DE3001C53F2 /* assets */,
 				6E033FCA27CEA404001C53F2 /* previews */,
 			);
@@ -159,7 +171,8 @@
 				6E033F8927CE20DD001C53F2 /* HomeView.swift */,
 				6E033FA527CE2EFB001C53F2 /* ProjectsView.swift */,
 				6E033FC627CE9F4B001C53F2 /* AwardsView.swift */,
-				6E033FC827CEA081001C53F2 /* editing */,
+				6E033FAD27CE5925001C53F2 /* EditItemView.swift */,
+				6E033FB827CE64CC001C53F2 /* EditProjectView.swift */,
 				6E033FC927CEA1D0001C53F2 /* blocks */,
 			);
 			path = view;
@@ -169,6 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				6E033FB227CE5F7A001C53F2 /* Binding-onChange.swift */,
+				6E033FEB27CFACEE001C53F2 /* Localizable.swift */,
 				6E033FBC27CE8017001C53F2 /* View-replace(if).swift */,
 				6E033FBA27CE7471001C53F2 /* Sequence-sorted.swift */,
 				6E033FC227CE8679001C53F2 /* Bundle-load.swift */,
@@ -177,20 +191,15 @@
 			path = "to package";
 			sourceTree = "<group>";
 		};
-		6E033FC827CEA081001C53F2 /* editing */ = {
-			isa = PBXGroup;
-			children = (
-				6E033FAD27CE5925001C53F2 /* EditItemView.swift */,
-				6E033FB827CE64CC001C53F2 /* EditProjectView.swift */,
-			);
-			path = editing;
-			sourceTree = "<group>";
-		};
 		6E033FC927CEA1D0001C53F2 /* blocks */ = {
 			isa = PBXGroup;
 			children = (
 				6E033FAF27CE5CA3001C53F2 /* ItemRowView.swift */,
+				6EF937DC27D1433900B9CFC6 /* Layout.swift */,
+				6EF937D827D1411600B9CFC6 /* ItemListView.swift */,
 				6E033FB427CE6125001C53F2 /* ProjectHeaderView.swift */,
+				6EF937DF27D1445B00B9CFC6 /* ProjectView.swift */,
+				6EF937DA27D1424500B9CFC6 /* ProjectSummaryView.swift */,
 				6E033FBE27CE8195001C53F2 /* SelectSomethingView.swift */,
 			);
 			path = blocks;
@@ -228,6 +237,7 @@
 				6E033FE727CF8DAA001C53F2 /* Awards.json */,
 				6E033FD827CF8AD2001C53F2 /* Localizable.strings */,
 				6E033FDB27CF8AD5001C53F2 /* Localizable.stringsdict */,
+				6E033FED27CFAEBD001C53F2 /* Strings.swift */,
 			);
 			path = locale;
 			sourceTree = "<group>";
@@ -306,9 +316,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E033FEE27CFAEBD001C53F2 /* Strings.swift in Sources */,
+				6E033FEC27CFACEE001C53F2 /* Localizable.swift in Sources */,
 				6E033FA627CE2EFB001C53F2 /* ProjectsView.swift in Sources */,
 				6E033FC527CE9D46001C53F2 /* Award.swift in Sources */,
 				6E033FB527CE6125001C53F2 /* ProjectHeaderView.swift in Sources */,
+				6EF937DD27D1433900B9CFC6 /* Layout.swift in Sources */,
 				6E033FBB27CE7471001C53F2 /* Sequence-sorted.swift in Sources */,
 				6E033F8A27CE20DD001C53F2 /* HomeView.swift in Sources */,
 				6E033FC727CE9F4B001C53F2 /* AwardsView.swift in Sources */,
@@ -323,8 +336,11 @@
 				6E033F8827CE20DD001C53F2 /* PortfolioApp.swift in Sources */,
 				6E033F9B27CE219E001C53F2 /* Main.xcdatamodeld in Sources */,
 				6E033FBF27CE8195001C53F2 /* SelectSomethingView.swift in Sources */,
+				6EF937D927D1411600B9CFC6 /* ItemListView.swift in Sources */,
 				6E033FAC27CE491C001C53F2 /* Project.swift in Sources */,
+				6EF937DB27D1424500B9CFC6 /* ProjectSummaryView.swift in Sources */,
 				6E033FC327CE8679001C53F2 /* Bundle-load.swift in Sources */,
+				6EF937E027D1445B00B9CFC6 /* ProjectView.swift in Sources */,
 				6E033FCC27CEA40D001C53F2 /* Previews.swift in Sources */,
 				6E033FAE27CE5925001C53F2 /* EditItemView.swift in Sources */,
 			);

@@ -29,15 +29,17 @@ struct AwardsView: View {
                                 .frame(width: 100, height: 100)
                                 .foregroundColor(unlocked ? Color(award.color) : .secondary.opacity(0.5))
                         }
-                        .alert(unlocked ? "Unlocked: \(selected?.name ?? "")" : "Locked", isPresented: $selecting) {
-                            Button("OK") {}
+                        .alert(unlocked ? ~Strings.unlocked(selected?.name ?? "") : ~.locked, isPresented: $selecting) {
+                            Button(~.ok) {}
                         } message: {
                             Text(selected?.description ?? "")
                         }
+                        .accessibilityLabel(unlocked ? ~Strings.unlocked(selected?.name ?? "") : ~.locked)
+                        .accessibilityHint(award.description)
                     }
                 }
             }
-            .navigationTitle("Awards")
+            .navigationTitle(~.awards)
         }
         .navigationViewStyle(.stack)
     }

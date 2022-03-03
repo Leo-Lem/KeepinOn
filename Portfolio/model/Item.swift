@@ -12,10 +12,6 @@ class Item: NSManagedObject {}
 
 //MARK: - convenience extensions
 extension Item {
-    
-    var itemTitle: String {
-        title ?? NSLocalizedString("New Item", comment: "")
-    }
 
     var itemDetails: String {
         details ?? ""
@@ -23,14 +19,6 @@ extension Item {
 
     var itemTimestamp: Date {
         timestamp ?? Date()
-    }
-    
-}
-
-extension Item {
-    
-    enum SortOrder {
-        case optimized, title, creationDate
     }
     
 }

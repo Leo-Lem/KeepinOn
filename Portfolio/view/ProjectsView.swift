@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct ProjectsView: View {
     
@@ -17,88 +18,106 @@ struct ProjectsView: View {
     
     var body: some View {
         NavigationView {
-            List {
-                ForEach(projects.wrappedValue) { project in
-                    Section {
-                        ForEach(project.projectItems(using: sortOrder)) { item in
-                            ItemRowView(project: project, item: item)
-                        }
-                        .onDelete { offsets in
-                            let items = project.projectItems(using: sortOrder)
-                            
-                            offsets.forEach { offset in
-                                let item = items[offset]
-                                dataController.delete(item)
-                            }
-                            
-                            try? dataController.save()
-                        }
-                        
-                        if !closed {
-                            Button {
-                                withAnimation {
-                                    let item = Item(context: context)
-                                    item.project = project
-                                    item.timestamp = Date()
-                                    try? dataController.save()
-                                }
-                            } label: {
-                                Label("Add New Item", systemImage: "plus")
-                            }                        }
-                    } header: {
-                        ProjectHeaderView(project: project)
-                    }
+            List(projects.wrappedValue) { project in
+                Section {
+                    ProjectView(
+                        sortOrder: sortOrder,
+                        closed: closed,
+                        project: project,
+                        addItem: addItem,
+                        deleteItem: deleteItem
+                    )
+                } header: {
+                    ProjectHeaderView(project: project)
                 }
             }
+            .replace(if: projects.wrappedValue.count < 1, placeholder: ~.projPlaceholder)
             .listStyle(.insetGrouped)
-            .replace(if: projects.wrappedValue.count < 1, placeholder: "There's nothing here right now.")
-            .navigationTitle("\(closed ? "Closed" : "Open") Projects")
+            .navigationTitle(closed ? ~.closedProjs : ~.openProjs)
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    if !closed {
-                        Button {
-                            withAnimation {
-                                let project = Project(context: context)
-                                project.closed = false
-                                project.timestamp = Date()
-                                try? dataController.save()
-                            }
-                        } label: {
-                            Label("Add project", systemImage: "plus")
-                        }
-                    }
-                }
-                
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        sorting.toggle()
-                    } label: {
-                        Label("Sort", systemImage: "arrow.up.arrow.down")
-                    }
-                }
-            }
-            .confirmationDialog("Sort items", isPresented: $sorting) {
-                Button("Optimized") { sortOrder = .optimized }
-                Button("Creation Date") { sortOrder = .creationDate }
-                Button("Title") { sortOrder = .title }
+                addProjectToolbarItem
+                sortOrderToolbarItem
             }
             
             SelectSomethingView()
         }
     }
     
-    @State private var sorting = false
     @State private var sortOrder: Item.SortOrder = .optimized
     
     init(closed: Bool) {
         self.closed = closed
-        
-        projects = FetchRequest<Project>(
-            sortDescriptors: [NSSortDescriptor(keyPath: \Project.timestamp, ascending: false)],
-            predicate: NSPredicate(format: "closed = %d", closed)
-        )
+        self.projects = FetchRequest(fetchRequest: ProjectsView.projectRequest(closed: closed))
     }
     
+}
+
+private extension ProjectsView {
+    
+    static func projectRequest(closed: Bool) -> NSFetchRequest<Project> {
+        let request: NSFetchRequest<Project> = Project.fetchRequest()
+        request.predicate = NSPredicate(format: "closed = %d", closed)
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \Project.timestamp, ascending: false)]
+        
+        return request
+    }
+    
+    func addProject() {
+        withAnimation {
+            let project = Project(context: context)
+            project.closed = false
+            project.timestamp = Date()
+            try? dataController.save()
+        }
+    }
+    
+    func addItem(to project: Project) {
+        withAnimation {
+            let item = Item(context: context)
+            item.project = project
+            item.timestamp = Date()
+            try? dataController.save()
+        }
+    }
+    
+    func deleteItem(
+        from project: Project,
+        at offsets: IndexSet
+    ) {
+        let items = project.projectItems(using: sortOrder)
+        
+        offsets.forEach { offset in
+            let item = items[offset]
+            dataController.delete(item)
+        }
+        
+        try? dataController.save()
+    }
+    
+}
+
+extension ProjectsView {
+    var addProjectToolbarItem: some ToolbarContent {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            if !closed {
+                Button(action: addProject) {
+                    Label(~.addProj, systemImage: "plus")
+                }
+            }
+        }
+    }
+    
+    var sortOrderToolbarItem: some ToolbarContent {
+        ToolbarItemGroup(placement: .navigationBarLeading) {
+            Menu {
+                Button(~.optimizedSort) { sortOrder = .optimized }
+                Button(~.creationDateSort) { sortOrder = .creationDate }
+                Button(~.titleSort) { sortOrder = .title }
+            } label: {
+                Label(~.sortLabel, systemImage: "arrow.up.arrow.down")
+            }
+        }
+    }
 }
 
 #if DEBUG

@@ -13,7 +13,7 @@ struct ProjectHeaderView: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                Text(project.projectTitle)
+                Text(project.titleLabel)
 
                 ProgressView(value: project.completionAmount)
                     .tint(Color(project.projectColor))
@@ -29,6 +29,8 @@ struct ProjectHeaderView: View {
             }
         }
         .padding(.bottom, 10)
+        
+        .accessibilityElement(children: .combine)
     }
 }
 

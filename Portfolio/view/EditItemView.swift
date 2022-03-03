@@ -14,24 +14,24 @@ struct EditItemView: View {
     
     var body: some View {
         Form {
-            Section("Basic Settings") {
-                TextField("Item name", text: $title.onChange(update))
-                TextField("Description", text: $details.onChange(update))
+            Section(~.settings) {
+                TextField(~.itemNamePlaceholder, text: $title.onChange(update))
+                TextField(~.itemDescPlaceholder, text: $details.onChange(update))
             }
             
-            Section("Priority") {
-                Picker("Priority", selection: $priority.onChange(update)) {
-                    Text("Low").tag(1)
-                    Text("Mid").tag(2)
-                    Text("High").tag(3)
+            Section(~.priority) {
+                Picker(~.priority, selection: $priority.onChange(update)) {
+                    Text(~Strings.priorities.low).tag(1)
+                    Text(~Strings.priorities.mid).tag(2)
+                    Text(~Strings.priorities.high).tag(3)
                 }
                 .pickerStyle(.segmented)
             }
             Section {
-                Toggle("Mark Completed", isOn: $completed.onChange(update))
+                Toggle(~.markItemCompleted, isOn: $completed.onChange(update))
             }
         }
-        .navigationTitle("Edit Item")
+        .navigationTitle(~.editItem)
         .onDisappear { try? dataController.save() }
     }
     
@@ -43,7 +43,7 @@ struct EditItemView: View {
     init(_ item: Item) {
         self.item = item
         
-        _title = State(initialValue: item.itemTitle)
+        _title = State(initialValue: item.titleLabel)
         _details = State(initialValue: item.itemDetails)
         _priority = State(initialValue: Int(item.priority))
         _completed = State(initialValue: item.completed)
