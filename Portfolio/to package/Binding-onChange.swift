@@ -8,7 +8,7 @@
 import SwiftUI
 
 public extension Binding {
-    
+
     /***/
     func onChange(_ handler: @escaping () -> Void) -> Binding<Value> {
         Binding(
@@ -19,5 +19,5 @@ public extension Binding {
             }
         )
     }
-    
+
 }

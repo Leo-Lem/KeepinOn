@@ -121,7 +121,7 @@ extension ProjectsView {
 }
 
 #if DEBUG
-//MARK: - Previews
+// MARK: - (Previews)
 struct ProjectsView_Previews: PreviewProvider {
     static var previews: some View {
         Group {

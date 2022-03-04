@@ -35,7 +35,7 @@ struct ProjectHeaderView: View {
 }
 
 #if DEBUG
-//MARK: - Previews
+// MARK: - (Previews)
 struct ProjectHeaderView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {

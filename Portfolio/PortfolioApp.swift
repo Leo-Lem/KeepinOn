@@ -16,7 +16,11 @@ struct PortfolioApp: App {
             ContentView()
                 .environment(\.managedObjectContext, dataController.container.viewContext)
                 .environmentObject(dataController)
-                .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in try? dataController.save() }
+                .onReceive(
+                    NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)
+                ) { _ in
+                    try? dataController.save()
+                }
         }
     }
     

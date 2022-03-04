@@ -8,7 +8,7 @@
 import SwiftUI
 
 public extension View {
-    
+
     /***/
     func replace<Content: View>(
         if condition: @autoclosure () -> Bool,
@@ -22,7 +22,7 @@ public extension View {
             }
         }
     }
-    
+
     /***/
     func replace<S: StringProtocol>(
         if condition: @autoclosure () -> Bool,
@@ -36,7 +36,7 @@ public extension View {
             }
         }
     }
-    
+
     /***/
     func replace(
         if condition: @autoclosure () -> Bool,
@@ -50,5 +50,5 @@ public extension View {
             }
         }
     }
-    
+
 }

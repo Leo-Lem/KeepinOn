@@ -9,7 +9,7 @@ import Foundation
 
 struct Award: Decodable, Identifiable {
     var id: String { name }
-    
+
     let name: String,
         description: String,
         color: String,

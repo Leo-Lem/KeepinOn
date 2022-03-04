@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-//TODO: add bridge types for the coredata classes
+// TODO: add bridge types for the coredata classes
 extension Item {
     
     var titleLabel: String { title ?? (~.itemDefault).localize() }

@@ -16,7 +16,7 @@ struct SelectSomethingView: View {
 }
 
 #if DEBUG
-//MARK: - Previews
+// MARK: - (Previews)
 struct SelectSomethingView_Previews: PreviewProvider {
     static var previews: some View {
         SelectSomethingView()

@@ -49,7 +49,7 @@ struct ItemRowView: View {
 }
 
 #if DEBUG
-//MARK: - Previews
+// MARK: - (Previews)
 struct ItemRowView_Previews: PreviewProvider {
     static var previews: some View {
         ItemRowView(project: .example, item: .example)

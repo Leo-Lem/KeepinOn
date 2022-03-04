@@ -43,7 +43,7 @@ struct EditItemView: View {
     init(_ item: Item) {
         self.item = item
         
-        _title = State(initialValue: item.titleLabel)
+        _title = State(initialValue: item.title ?? "")
         _details = State(initialValue: item.itemDetails)
         _priority = State(initialValue: Int(item.priority))
         _completed = State(initialValue: item.completed)
@@ -61,7 +61,7 @@ struct EditItemView: View {
 }
 
 #if DEBUG
-//MARK: - Previews
+// MARK: - (Previews)
 struct EditItemView_Previews: PreviewProvider {
     static var previews: some View {
         EditItemView(.example)

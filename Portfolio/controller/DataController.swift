@@ -32,7 +32,7 @@ final class DataController: ObservableObject {
     func delete(_ object: NSManagedObject) {
         container.viewContext.delete(object)
     }
-    
+
     func count<T>(for fetchRequest: NSFetchRequest<T>) -> Int {
         (try? container.viewContext.count(for: fetchRequest)) ?? 0
     }
@@ -58,21 +58,21 @@ final class DataController: ObservableObject {
     
 }
 
-//MARK: - Examples and Previews
 #if DEBUG
+// MARK: - (Examples and Previews)
 extension DataController {
     
     func createSampleData() throws {
         let context = container.viewContext
-        
-        for i in 1...5 {
+
+        for i in 1...5 { // swiftlint:disable:this identifier_name
             let project = Project(context: context)
             project.title = "Project \(i)"
             project.items = []
             project.timestamp = Date()
             project.closed = Bool.random()
             
-            for j in 1...10 {
+            for j in 1...10 { // swiftlint:disable:this identifier_name
                 let item = Item(context: context)
                     item.title = "Item \(j)"
                     item.timestamp = Date()
@@ -81,29 +81,29 @@ extension DataController {
                     item.priority = Int16.random(in: 1...3)
             }
         }
-        
+
         try context.save()
     }
-    
+
     static var preview: DataController = {
         let dataController = DataController(inMemory: true)
         let context = dataController.container.viewContext
-        
+
         do {
             try dataController.createSampleData()
         } catch { fatalError("Fatal error creating previews: \(error)") }
-        
+
         return dataController
     }()
-    
+
     func deleteAll() throws {
         let fetchRequests: [NSFetchRequest<NSFetchRequestResult>] = [Item.fetchRequest(), Project.fetchRequest()],
         batchDeleteRequests = fetchRequests.map(NSBatchDeleteRequest.init)
-        
+
         try batchDeleteRequests.forEach { request in
             try container.viewContext.execute(request)
         }
     }
-    
+
 }
 #endif

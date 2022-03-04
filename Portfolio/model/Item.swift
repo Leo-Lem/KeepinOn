@@ -10,7 +10,7 @@ import CoreData
 @objc(Item)
 class Item: NSManagedObject {}
 
-//MARK: - convenience extensions
+// MARK: - (convenience extensions)
 extension Item {
 
     var itemDetails: String {
@@ -20,13 +20,13 @@ extension Item {
     var itemTimestamp: Date {
         timestamp ?? Date()
     }
-    
+
 }
 
-//MARK: - Example
 #if DEBUG
+// MARK: - (Example)
 extension Item {
-    
+
     static var example: Item {
         let controller = DataController(inMemory: true)
         let viewContext = controller.container.viewContext
@@ -38,6 +38,6 @@ extension Item {
         item.timestamp = Date()
         return item
     }
-    
+
 }
 #endif

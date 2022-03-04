@@ -10,7 +10,7 @@ import CoreData
 @objc(Project)
 class Project: NSManagedObject {}
 
-//MARK: - convenience extensions
+// MARK: - (convenience extensions)
 extension Project {
 
     var projectDetails: String {
@@ -55,12 +55,15 @@ extension Project {
         return Double(completedItems.count) / Double(projectItems.count)
     }
     
-    static let colors = ["Pink", "Purple", "Red", "Orange", "Gold", "Green", "Teal", "Light Blue", "Dark Blue", "Midnight", "Dark Gray", "Gray"]
+    static let colors = [
+        "Pink", "Purple", "Red", "Orange", "Gold", "Green", "Teal",
+        "Light Blue", "Dark Blue", "Midnight", "Dark Gray", "Gray"
+    ]
     
 }
 
-//MARK: - Example
 #if DEBUG
+// MARK: - (Example)
 extension Project {
     
     static var example: Project {

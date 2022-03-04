@@ -50,7 +50,7 @@ struct AwardsView: View {
 }
 
 #if DEBUG
-//MARK: - Previews
+// MARK: - (Previews)
 struct AwardsView_Previews: PreviewProvider {
     static var previews: some View {
         AwardsView()

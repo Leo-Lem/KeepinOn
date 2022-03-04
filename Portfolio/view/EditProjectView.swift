@@ -57,7 +57,7 @@ struct EditProjectView: View {
     init(_ project: Project) {
         self.project = project
         
-        _title = State(initialValue: project.titleLabel)
+        _title = State(initialValue: project.title ?? "")
         _details = State(initialValue: project.projectDetails)
         _color = State(initialValue: project.projectColor)
     }
@@ -109,7 +109,7 @@ private extension EditProjectView {
 }
 
 #if DEBUG
-//MARK: - Previews
+// MARK: - (Previews)
 struct EditProjectView_Previews: PreviewProvider {
     static var previews: some View {
         EditProjectView(.example)

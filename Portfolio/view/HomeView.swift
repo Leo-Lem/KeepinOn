@@ -41,7 +41,10 @@ private extension HomeView {
     
     static let itemRequest: NSFetchRequest<Item> = {
         let request: NSFetchRequest<Item> = Item.fetchRequest()
-        request.predicate = NSPredicate(format: "completed = false")
+        let completedPredicate = NSPredicate(format: "completed = false"),
+            openPredicate = NSPredicate(format: "project.closed = false"),
+            compoundPredicate = NSCompoundPredicate(type: .and, subpredicates: [completedPredicate, openPredicate])
+        request.predicate = compoundPredicate
         request.sortDescriptors = [NSSortDescriptor(keyPath: \Item.priority, ascending: false)]
         request.fetchLimit = 10
         
@@ -55,11 +58,11 @@ private extension HomeView {
         
         return request
     }()
-    
+
 }
 
 #if DEBUG
-//MARK: - Previews
+// MARK: - (Previews)
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
