@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MySwiftUI
 
 enum Strings: LocalizedStringKey, Localizable {
     case ok = "OK", // swiftlint:disable:this identifier_name
@@ -60,11 +61,13 @@ enum Strings: LocalizedStringKey, Localizable {
          itemDescPlaceholder  = "ITEM_DESCRIPTION",
          markItemCompleted = "MARK_COMPLETED",
          priority = "PRIORITY"
-    static let priorities: ( // swiftlint:disable:this large_tuple
-        low: LocalizedStringKey,
-        mid: LocalizedStringKey,
-        high: LocalizedStringKey
-    ) = ("PRIORITY_LOW", "PRIORITY_MID", "PRIORITY_HIGH")
+    static func priority(_ priority: Item.Priority) -> LocalizedStringKey {
+        switch priority {
+        case .low: return "PRIORITY_LOW"
+        case .mid: return "PRIORITY_MID"
+        case .high: return "PRIORITY_HIGH"
+        }
+    }
 
     static func a11yDescription(
         project: String,
@@ -73,8 +76,8 @@ enum Strings: LocalizedStringKey, Localizable {
     ) -> LocalizedStringKey { "A11Y_COMPLETE_DESCRIPTION \(project) \(items) \(progress)" }
     static func a11yCompleted(project: String) -> LocalizedStringKey { "A11Y_COMPLETED \(project)"}
     static func a11yPriority(project: String) -> LocalizedStringKey { "A11Y_PRIORITY \(project)"}
-    static func a11yColor(_ name: String) -> LocalizedStringKey {
-        LocalizedStringKey(name.uppercased().replacingOccurrences(of: " ", with: "_"))
+    static func a11yColor(_ id: Project.ColorID) -> LocalizedStringKey {
+        LocalizedStringKey(id.rawValue.uppercased().replacingOccurrences(of: " ", with: "_"))
     }
 
     prefix static func ~ (_ arg: Self) -> LocalizedStringKey { arg.key }

@@ -6,11 +6,21 @@
 //
 
 import CoreData
+import MyData
+import MyOthers
 
+/// An environment singleton responsible for managing our Core Data stack, including handling saving,
+/// counting fetch requests, tracking awards, and dealing with sample data.
 final class DataController: ObservableObject {
-    
+
+    /// The lone CloudKit container used to store all our data.
     let container: NSPersistentCloudKitContainer
+
+    var context: NSManagedObjectContext { container.viewContext }
     
+    /// Initializes a data controller, either in memory (for temporary use such as testing and previewing),
+    /// or on permanent storage (for use in regular app runs).
+    /// - Parameter inMemory: Whether to store this data in temporary memory or not. Defaults to permanent storage.
     init(inMemory: Bool = false) {
         container = NSPersistentCloudKitContainer(name: "Main")
         
@@ -24,36 +34,31 @@ final class DataController: ObservableObject {
             }
         }
     }
-    
-    func save() throws {
-        if container.viewContext.hasChanges { try container.viewContext.save() }
-    }
-    
-    func delete(_ object: NSManagedObject) {
-        container.viewContext.delete(object)
+
+    /// Saves our Core Data context iff there are changes. This silently ignores
+    /// any errors caused by saving, but this should be fine because all our attributes are optional.
+    func save() {
+        if context.hasChanges {
+            do { try context.save() } catch { print("saving failed") }
+        }
     }
 
-    func count<T>(for fetchRequest: NSFetchRequest<T>) -> Int {
-        (try? container.viewContext.count(for: fetchRequest)) ?? 0
+    /// Deletes a given object from our Core Data context.
+    /// - Parameter object: Some NSManagedObject to be deleted.
+    func delete<T: CDRepresentable>(_ object: T) {
+        context.delete(object.cd)
     }
     
-    func hasEarned(award: Award) -> Bool {
-        switch award.criterion {
-        case "items":
-            let fetchRequest = NSFetchRequest<Item>(entityName: "Item")
-            let awardCount = count(for: fetchRequest)
-            return awardCount >= award.value
-            
-        case "complete":
-            let fetchRequest = NSFetchRequest<Item>(entityName: "Item")
-            fetchRequest.predicate = NSPredicate(format: "completed = true")
-            let awardCount = count(for: fetchRequest)
-            return awardCount >= award.value
-            
-        default:
-            // fatalError("Unknown award criterion \(award.criterion).")
-            return false
-        }
+}
+
+// MARK: - (fetching)
+extension DataController {
+    
+    /// Gets the count of fetched items for a given fetch request
+    /// - Parameter for: A generic fetch request.
+    /// - Returns: A count of fetched items. Defaults to 0.
+    func count<T>(for request: NSFetchRequest<T>) throws -> Int {
+        try context.count(for: request)
     }
     
 }
@@ -61,19 +66,21 @@ final class DataController: ObservableObject {
 #if DEBUG
 // MARK: - (Examples and Previews)
 extension DataController {
-    
+
+    /// Creates example projects and items to make manual testing easier.
+    /// - Throws: An NSError sent from calling save() on the NSManagedObjectContext.
     func createSampleData() throws {
         let context = container.viewContext
 
         for i in 1...5 { // swiftlint:disable:this identifier_name
-            let project = Project(context: context)
+            let project = CDProject(context: context)
             project.title = "Project \(i)"
             project.items = []
             project.timestamp = Date()
             project.closed = Bool.random()
             
             for j in 1...10 { // swiftlint:disable:this identifier_name
-                let item = Item(context: context)
+                let item = CDItem(context: context)
                     item.title = "Item \(j)"
                     item.timestamp = Date()
                     item.completed = Bool.random()
@@ -97,7 +104,7 @@ extension DataController {
     }()
 
     func deleteAll() throws {
-        let fetchRequests: [NSFetchRequest<NSFetchRequestResult>] = [Item.fetchRequest(), Project.fetchRequest()],
+        let fetchRequests: [NSFetchRequest<NSFetchRequestResult>] = [CDItem.fetchRequest(), CDProject.fetchRequest()],
         batchDeleteRequests = fetchRequests.map(NSBatchDeleteRequest.init)
 
         try batchDeleteRequests.forEach { request in

@@ -6,76 +6,110 @@
 //
 
 import CoreData
+import MyData
+import MyOthers
 
-@objc(Project)
-class Project: NSManagedObject {}
+@objc(CDProject)
+class CDProject: NSManagedObject {}
 
-// MARK: - (convenience extensions)
-extension Project {
+/// The Swift representation of the CoreData (CD)Project.
+struct Project: CDRepresentable {
 
-    var projectDetails: String {
-        details ?? ""
-    }
-
-    var projectColor: String {
-        color ?? "Light Blue"
+    let cd: CDProject
+    
+    init(_ cd: CDProject) { self.cd = cd }
+    
+    init?(_ cd: CDProject?) {
+        if let cd = cd { self.cd = cd  } else { return nil }
     }
     
-    var projectItems: [Item] {
-        items?.allObjects as? [Item] ?? []
+    func update() {
+        cd.objectWillChange.send()
+        items.forEach { $0.cd.objectWillChange.send() }
     }
-    
-    func projectItems(using sortOrder: Item.SortOrder) -> [Item] {
-        switch sortOrder {
-        case .title: return projectItems.sorted { ($0.title ?? " ") < ($1.title ?? " ") }
-        case .creationDate: return projectItems.sorted(by: \.itemTimestamp)
-        case .optimized:
-            return projectItems.sorted { first, second in
-                if !first.completed && second.completed {
-                    return true
-                } else if first.completed && !second.completed {
-                    return false
-                }
-                
-                if first.priority > second.priority {
-                    return true
-                } else if first.priority < second.priority {
-                    return false
-                }
-                
-                return first.itemTimestamp < second.itemTimestamp
-            }
-        }
-    }
-    
-    var completionAmount: Double {
-        guard !projectItems.isEmpty else { return 0 }
-        
-        let completedItems = projectItems.filter(\.completed)
-        return Double(completedItems.count) / Double(projectItems.count)
-    }
-    
-    static let colors = [
-        "Pink", "Purple", "Red", "Orange", "Gold", "Green", "Teal",
-        "Light Blue", "Dark Blue", "Midnight", "Dark Gray", "Gray"
-    ]
     
 }
+
+extension Project {
+    
+    var items: [Item] {
+        get {
+            let cdItems = cd.items?.allObjects as? [CDItem] ?? []
+            return cdItems.map(Item.init)
+        }
+        set {
+            let cdItems = newValue.map(\.cd)
+            cd.items = NSSet(array: cdItems)
+        }
+    }
+
+    var title: String? {
+        get { cd.title }
+        set { cd.title = newValue }
+    }
+
+    var details: String {
+        get { cd.details ?? "" }
+        set { cd.details = newValue }
+    }
+
+    var colorID: ColorID {
+        get { ColorID(rawValue: cd.color ?? "Light Blue") ?? .lightBlue }
+        set { cd.color = newValue.rawValue }
+    }
+    
+    enum ColorID: String, CaseIterable {
+        case pink = "Pink", purple = "Purple", red = "Red",
+             orange = "Orange", gold = "Gold", green = "Green",
+             teal = "Teal", lightBlue = "Light Blue", darkBlue = "Dark Blue",
+             midnight = "Midnight", darkGray = "Dark Gray", gray = "Gray"
+    }
+
+    var closed: Bool {
+        get { cd.closed }
+        set { cd.closed = newValue }
+    }
+
+    var timestamp: Date { cd.timestamp ?? Date() }
+
+    var progress: Double {
+        guard !items.isEmpty else { return 0 }
+
+        let completed = items.filter(\.completed)
+        return Double(completed.count) / Double(items.count)
+    }
+
+    init(
+        in context: NSManagedObjectContext,
+        title: String? = nil,
+        details: String = "",
+        colorID: ColorID = .lightBlue
+    ) {
+        cd = CDProject(context: context)
+
+        cd.timestamp = Date()
+        self.closed = false
+
+        self.title = title
+        self.details = details
+        self.colorID = colorID
+    }
+
+}
+
+extension Project: Identifiable { var id: ObjectIdentifier { cd.id } }
 
 #if DEBUG
 // MARK: - (Example)
 extension Project {
     
     static var example: Project {
-        let controller = DataController(inMemory: true)
-        let viewContext = controller.container.viewContext
-
-        let project = Project(context: viewContext)
-        project.title = "Example Project"
-        project.details = "This is an example project"
-        project.closed = true
-        project.timestamp = Date()
-        return project
+        Project(
+            in: DataController(inMemory: true).context,
+            title: "Example Project",
+            details: "This is an example project",
+            colorID: .gold
+        )
     }
     
 }

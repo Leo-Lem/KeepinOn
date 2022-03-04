@@ -29,7 +29,7 @@ struct ContentView: View {
                 .tabItem { Label(Tab.awards.label, systemImage: "rosette") }
         }
         #if DEBUG
-        .navigationViewStyle(.stack) // for suppressing distracting warnings about the navigationtitle
+        .navigationViewStyle(.stack)
         #endif
     }
 }
@@ -54,11 +54,6 @@ extension ContentView {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .environment(
-                \.managedObjectContext,
-                 dataController.container.viewContext
-            )
-            .environmentObject(dataController)
     }
 }
 #endif
