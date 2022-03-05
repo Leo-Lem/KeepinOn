@@ -43,7 +43,7 @@ enum Strings {
         case description(_ project: String, count: Int, progress: Double),
              completed(_ project: String),
              priority(_ project: String),
-             color(_ id: Project.ColorID)
+             color(_ id: ColorID)
     }
 
 }

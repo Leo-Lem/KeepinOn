@@ -57,13 +57,6 @@ extension Project {
         get { ColorID(rawValue: cd.color ?? "Light Blue") ?? .lightBlue }
         set { cd.color = newValue.rawValue }
     }
-    
-    enum ColorID: String, CaseIterable {
-        case pink = "Pink", purple = "Purple", red = "Red",
-             orange = "Orange", gold = "Gold", green = "Green",
-             teal = "Teal", lightBlue = "Light Blue", darkBlue = "Dark Blue",
-             midnight = "Midnight", darkGray = "Dark Gray", gray = "Gray"
-    }
 
     var closed: Bool {
         get { cd.closed }

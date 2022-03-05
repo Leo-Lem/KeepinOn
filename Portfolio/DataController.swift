@@ -22,7 +22,7 @@ final class DataController: ObservableObject {
     /// or on permanent storage (for use in regular app runs).
     /// - Parameter inMemory: Whether to store this data in temporary memory or not. Defaults to permanent storage.
     init(inMemory: Bool = false) {
-        container = NSPersistentCloudKitContainer(name: "Main")
+        container = NSPersistentCloudKitContainer(name: "Main", managedObjectModel: Self.model)
         
         if inMemory {
             container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
@@ -34,7 +34,24 @@ final class DataController: ObservableObject {
             }
         }
     }
+    
+    static let model: NSManagedObjectModel = {
+        guard let url = Bundle.main.url(forResource: "Main", withExtension: "momd") else {
+            fatalError("Failed to locate model file.")
+        }
 
+        guard let managedObjectModel = NSManagedObjectModel(contentsOf: url) else {
+            fatalError("Failed to load model file.")
+        }
+
+        return managedObjectModel
+    }()
+    
+}
+
+// MARK: - (helper methods)
+extension DataController {
+    
     /// Saves our Core Data context iff there are changes. This silently ignores
     /// any errors caused by saving, but this should be fine because all our attributes are optional.
     func save() {
@@ -49,16 +66,11 @@ final class DataController: ObservableObject {
         context.delete(object.cd)
     }
     
-}
-
-// MARK: - (fetching)
-extension DataController {
-    
     /// Gets the count of fetched items for a given fetch request
     /// - Parameter for: A generic fetch request.
     /// - Returns: A count of fetched items. Defaults to 0.
-    func count<T>(for request: NSFetchRequest<T>) throws -> Int {
-        try context.count(for: request)
+    func count<T>(for request: NSFetchRequest<T>) -> Int {
+        (try? context.count(for: request)) ?? 0
     }
     
 }

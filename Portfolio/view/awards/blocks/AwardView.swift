@@ -18,9 +18,9 @@ struct AwardView: View {
             .scaledToFit()
             .padding()
             .frame(width: 100, height: 100)
-            .foregroundColor(unlocked ? Color(award.color) : .secondary.opacity(0.5))
+            .foregroundColor(unlocked ? award.color.color : .secondary.opacity(0.5))
             .group { $0
-                .accessibilityLabel(unlocked ? ~Strings.unlocked(award.name) : ~.locked)
+                .accessibilityLabel(unlocked ? ~.unlocked(award.name) : ~.locked)
                 .accessibilityHint(award.description)
             }
     }

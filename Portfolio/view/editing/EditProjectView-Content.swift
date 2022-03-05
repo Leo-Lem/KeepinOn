@@ -11,7 +11,7 @@ import MySwiftUI
 extension EditProjectView {
     struct Content: View {
         
-        typealias UpdateClosure = (String, String, Project.ColorID, Bool) -> Void // swiftlint:disable:this nesting
+        typealias UpdateClosure = (String, String, ColorID, Bool) -> Void // swiftlint:disable:this nesting
         typealias DeleteClosure = () -> Void // swiftlint:disable:this nesting
         
         let updateProject: UpdateClosure,
@@ -26,7 +26,7 @@ extension EditProjectView {
                 
                 Section(~.projSelectColor) {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 44))]) {
-                        ForEach(Project.ColorID.allCases, id: \.self, content: colorButton)
+                        ForEach(ColorID.allCases, id: \.self, content: colorButton)
                     }
                     .padding(.vertical)
                 }
@@ -48,7 +48,7 @@ extension EditProjectView {
         
         @State private var title: String
         @State private var details: String
-        @State private var colorID: Project.ColorID
+        @State private var colorID: ColorID
         @State private var closed: Bool
         
         @State private var deleteAlert: (title: LocalizedStringKey, message: LocalizedStringKey)?
@@ -75,7 +75,7 @@ extension EditProjectView {
 
 extension EditProjectView.Content {
     
-    private func colorButton(_ id: Project.ColorID) -> some View {
+    private func colorButton(_ id: ColorID) -> some View {
         Button(systemImage: "checkmark.circle") {
             colorID = id
             update()

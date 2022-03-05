@@ -21,7 +21,7 @@ struct EditProjectView: View {
     func update(
         title: String,
         details: String,
-        colorID: Project.ColorID,
+        colorID: ColorID,
         closed: Bool
     ) {
         project.update()

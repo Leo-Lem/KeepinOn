@@ -8,6 +8,12 @@
 import SwiftUI
 import MySwiftUI
 
+extension ColorID {
+    
+    var color: Color { Color(self.rawValue) }
+    
+}
+
 // MARK: - (Projects)
 extension Project {
     
@@ -16,12 +22,6 @@ extension Project {
     var a11yLabel: LocalizedStringKey {
         ~.a11y(.description(titleLabel, count: items.count, progress: progress))
     }
-    
-}
-
-extension Project.ColorID {
-    
-    var color: Color { Color(self.rawValue) }
     
 }
 
@@ -66,3 +66,5 @@ extension Array where Element == Item {
     }
 
 }
+
+// MARK: - (Awards)

@@ -11,7 +11,7 @@ import Foundation
 extension Project {
     
     static var example = Project(
-        in: DataController(inMemory: true).context,
+        in: DataController.preview.context,
         title: "Example Project",
         details: "This is an example project",
         colorID: .gold
@@ -23,7 +23,7 @@ extension Project {
 extension Item {
 
     static var example = Item(
-        in: DataController(inMemory: true).context,
+        in: DataController.preview.context,
         title: "Example Item",
         details: "This is an example item",
         priority: .high
