@@ -20,7 +20,7 @@ extension ProjectsView {
         let projects: [Project]
         
         let addProject: AddProjectClosure,
-            addItem: AddItemClosure ,
+            addItem: AddItemClosure,
             deleteItem: DeleteItemClosure
 
         var body: some View {
@@ -44,7 +44,7 @@ extension ProjectsView {
             }
             .listStyle(.insetGrouped)
             .replace(if: projects.count < 1, placeholder: ~.projPlaceholder)
-            .navigationTitle(closed ? ~.closedProjs : ~.openProjs)
+            .navigationTitle(closed ? ~.navTitle(.closed) : ~.navTitle(.open))
             .toolbar {
                 addProjectToolbarItem
                 sortOrderToolbarItem
@@ -88,18 +88,18 @@ extension ProjectsView.Content {
     var sortOrderToolbarItem: some ToolbarContent {
         ToolbarItemGroup(placement: .navigationBarLeading) {
             Menu {
-                Button(~.optimizedSort) { sortOrder = .optimized }
-                Button(~.creationDateSort) { sortOrder = .creationDate }
-                Button(~.titleSort) { sortOrder = .title }
+                Button(~.sortOrder(.optimized)) { sortOrder = .optimized }
+                Button(~.sortOrder(.timestamp)) { sortOrder = .timestamp }
+                Button(~.sortOrder(.title)) { sortOrder = .title }
             } label: {
-                Label(~.sortLabel, systemImage: "arrow.up.arrow.down")
+                Label(~.sortOrder(sortOrder), systemImage: "arrow.up.arrow.down")
+                    .labelStyle(.titleAndIcon)
             }
         }
     }
     
 }
 
-#if DEBUG
 // MARK: - (Previews)
 // swiftlint:disable:next type_name
 struct ProjectsView_Content_Previews: PreviewProvider {
@@ -107,4 +107,3 @@ struct ProjectsView_Content_Previews: PreviewProvider {
         ProjectsView.Content(closed: false, projects: [.example]) {} addItem: {_ in} deleteItem: {_, _ in}
     }
 }
-#endif

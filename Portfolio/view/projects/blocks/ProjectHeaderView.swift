@@ -16,7 +16,7 @@ struct ProjectHeaderView: View {
                 Text(project.titleLabel)
 
                 ProgressView(value: project.progress)
-                    .tint(project.color)
+                    .tint(project.colorID.color)
             }
 
             Spacer()
@@ -39,7 +39,6 @@ struct ProjectHeaderView: View {
     
 }
 
-#if DEBUG
 // MARK: - (Previews)
 struct ProjectHeaderView_Previews: PreviewProvider {
     static var previews: some View {
@@ -48,4 +47,3 @@ struct ProjectHeaderView_Previews: PreviewProvider {
         }
     }
 }
-#endif

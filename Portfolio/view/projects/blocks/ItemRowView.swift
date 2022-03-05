@@ -39,14 +39,14 @@ struct ItemRowView: View {
         if item.completed {
             return (
                 "checkmark.circle",
-                item.project?.color ?? Color("Light Blue"),
-                Strings.a11yCompleted(project: item.titleLabel)
+                item.project?.colorID.color ?? Color("Light Blue"),
+                ~.a11y(.completed(item.titleLabel))
             )
         } else if item.priority == .high {
             return (
                 "exclamationmark.triangle",
-                item.project?.color ?? Color("Light Blue"),
-                Strings.a11yPriority(project: item.titleLabel)
+                item.project?.colorID.color ?? Color("Light Blue"),
+                ~.a11y(.priority(item.titleLabel))
             )
         } else {
             return (
@@ -57,11 +57,9 @@ struct ItemRowView: View {
     
 }
 
-#if DEBUG
 // MARK: - (Previews)
 struct ItemRowView_Previews: PreviewProvider {
     static var previews: some View {
         ItemRowView(.example)
     }
 }
-#endif

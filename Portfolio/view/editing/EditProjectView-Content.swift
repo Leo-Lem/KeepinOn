@@ -43,7 +43,7 @@ extension EditProjectView {
                     Button(~.delete, role: .destructive, action: delete)
                 } message: { Text($0.message) }
             }
-            .navigationTitle(~.editProj)
+            .navigationTitle(~.navTitleEditProj)
         }
         
         @State private var title: String
@@ -68,7 +68,7 @@ extension EditProjectView {
         }
         
         private func update() { updateProject(title, details, colorID, closed) }
-        private func startDelete() { deleteAlert = (Strings.deleteProjAlert.title, Strings.deleteProjAlert.message) }
+        private func startDelete() { deleteAlert = (~.deleteProjAlertTitle, ~.deleteProjAlertMessage) }
         
     }
 }
@@ -80,22 +80,23 @@ extension EditProjectView.Content {
             colorID = id
             update()
         }
+        .buttonStyle(.borderless) // otherwise the buttons can't be individually clicked in a list
         .font(.largeTitle)
         .foregroundColor(colorID == id ? .primary : .clear)
         .padding(5)
         .background {
-            Color(id.rawValue)
+            id.color
                 .aspectRatio(1, contentMode: .fit)
                 .cornerRadius(6)
         }
-        .accessibilityAddTraits(colorID == id ? .isSelected : [])
-        .accessibilityLabel(~Strings.a11yColor(id))
-        .buttonStyle(.borderless) // otherwise the buttons can't be individually clicked in a list
+        .group { $0
+            .if(colorID == id) { $0.accessibilityAddTraits(.isSelected) }
+            .accessibilityLabel(~.a11y(.color(id)))
+        }
     }
     
 }
     
-#if DEBUG
 // MARK: - (Previews)
 // swiftlint:disable:next type_name
 struct EditProjectView_Content_Previews: PreviewProvider {
@@ -103,4 +104,3 @@ struct EditProjectView_Content_Previews: PreviewProvider {
         EditProjectView.Content(.example) {_, _, _, _ in} delete: {}
     }
 }
-#endif

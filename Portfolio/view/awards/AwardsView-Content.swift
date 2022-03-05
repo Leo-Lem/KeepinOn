@@ -23,7 +23,7 @@ extension AwardsView {
                                 selecting = true
                             }
                             .alert(
-                                unlocked(award) ? ~Strings.unlocked(selected?.name ?? "") : ~.locked,
+                                unlocked(selected ?? award) ? ~.unlocked(selected?.name ?? "") : ~.locked,
                                 isPresented: $selecting
                             ) {
                                 Button(~.ok) {}
@@ -33,7 +33,7 @@ extension AwardsView {
                     }
                 }
             }
-            .navigationTitle(~.awards)
+            .navigationTitle(~.navTitle(.awards))
             .embedInNavigation()
             .navigationViewStyle(.stack)
         }
@@ -45,7 +45,6 @@ extension AwardsView {
     }
 }
 
-#if DEBUG
 // MARK: - (Previews)
 // swiftlint:disable:next type_name
 struct AwardsView_Content_Previews: PreviewProvider {
@@ -53,4 +52,3 @@ struct AwardsView_Content_Previews: PreviewProvider {
         AwardsView.Content {_ in false}
     }
 }
-#endif

@@ -95,19 +95,3 @@ extension Item {
 }
 
 extension Item: Identifiable { var id: ObjectIdentifier { cd.id } }
-
-#if DEBUG
-// MARK: - (Example)
-extension Item {
-
-    static var example: Item {
-        Item(
-            in: DataController(inMemory: true).context,
-            title: "Example Item",
-            details: "This is an example item",
-            priority: .high
-        )
-    }
-
-}
-#endif

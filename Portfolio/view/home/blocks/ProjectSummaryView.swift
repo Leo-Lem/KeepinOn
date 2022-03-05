@@ -14,12 +14,12 @@ struct ProjectSummaryView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text(Strings.items(project.items.count), font: .caption, color: .secondary)
+            Text(~.items(project.items.count), font: .caption, color: .secondary)
 
             Text(project.titleLabel, font: .title2)
 
             ProgressView(value: project.progress)
-                .tint(project.color)
+                .tint(project.colorID.color)
         }
         .padding()
         .background(Color.secondarySystemGroupedBackground)

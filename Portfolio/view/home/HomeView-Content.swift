@@ -29,7 +29,7 @@ extension HomeView {
                 .padding(.horizontal)
             }
             .background(Color.systemGroupedBackground.ignoresSafeArea())
-            .navigationTitle(~.home)
+            .navigationTitle(~.navTitle(.home))
             .embedInNavigation()
         }
     }

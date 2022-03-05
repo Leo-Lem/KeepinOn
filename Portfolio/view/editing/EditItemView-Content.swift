@@ -25,7 +25,7 @@ extension EditItemView {
                     Picker(
                         ~.priority, selection: $priority.onChange(update), items: Item.Priority.allCases, id: \.self
                     ) { priority in
-                        Text(Strings.priority(priority)).tag(priority)
+                        Text(~.priorityLevel(priority)).tag(priority)
                     }
                     .pickerStyle(.segmented)
                 }
@@ -33,7 +33,7 @@ extension EditItemView {
                     Toggle(~.markItemCompleted, isOn: $completed.onChange(update))
                 }
             }
-            .navigationTitle(~.editItem)
+            .navigationTitle(~.navTitleEditItem)
         }
         
         @State private var title: String
@@ -58,7 +58,6 @@ extension EditItemView {
     }
 }
 
-#if DEBUG
 // MARK: - (Previews)
 // swiftlint:disable:next type_name
 struct EditItemView_Content_Previews: PreviewProvider {
@@ -66,4 +65,3 @@ struct EditItemView_Content_Previews: PreviewProvider {
         EditItemView.Content(.example) {_, _, _, _ in}
     }
 }
-#endif

@@ -98,19 +98,3 @@ extension Project {
 }
 
 extension Project: Identifiable { var id: ObjectIdentifier { cd.id } }
-
-#if DEBUG
-// MARK: - (Example)
-extension Project {
-    
-    static var example: Project {
-        Project(
-            in: DataController(inMemory: true).context,
-            title: "Example Project",
-            details: "This is an example project",
-            colorID: .gold
-        )
-    }
-    
-}
-#endif

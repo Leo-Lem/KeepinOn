@@ -8,6 +8,7 @@
 import Foundation
 
 struct Award: Decodable, Identifiable {
+    
     var id: String { name }
 
     let name: String,
@@ -18,10 +19,5 @@ struct Award: Decodable, Identifiable {
         image: String
 
     static let allAwards: [Award] = Bundle.main.load(optional: "Awards.json") ?? []
+    
 }
-
-#if DEBUG
-extension Award {
-    static let example = allAwards[0]
-}
-#endif

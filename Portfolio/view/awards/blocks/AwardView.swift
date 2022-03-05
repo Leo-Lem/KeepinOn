@@ -26,11 +26,9 @@ struct AwardView: View {
     }
 }
 
-#if DEBUG
 // MARK: - (Previews)
 struct AwardView_Previews: PreviewProvider {
     static var previews: some View {
         AwardView(award: .example, unlocked: false)
     }
 }
-#endif

@@ -29,7 +29,7 @@ struct ItemListView: View {
         var body: some View {
             HStack(spacing: 20) {
                 Circle()
-                    .stroke(item.project?.color ?? Color("Light Blue"), lineWidth: 3)
+                    .stroke(item.project?.colorID.color ?? Color("Light Blue"), lineWidth: 3)
                     .frame(width: 20, height: 20)
 
                 VStack(alignment: .leading) {

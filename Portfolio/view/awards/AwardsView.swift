@@ -32,4 +32,5 @@ struct AwardsView: View {
             return false
         }
     }
+    
 }
