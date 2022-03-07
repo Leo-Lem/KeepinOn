@@ -9,13 +9,14 @@ import SwiftUI
 
 @main
 struct PortfolioApp: App {
-    @StateObject private var dc: DataController
+    
+    @StateObject private var state = AppState()
+    private var dc: DataController { state.dataController }
     
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(dc)
-                .environment(\.managedObjectContext, dc.context)
+                .environmentObject(state)
                 // Automatically save when we detect that we are no longer the foreground app.
                 // Use this rather than scene phase so we can port to macOS,
                 // where scene phase won't detect our app losing focus.
@@ -24,9 +25,5 @@ struct PortfolioApp: App {
                 ) { _ in dc.save() }
         }
     }
-
-    init() {
-        let dc = DataController()
-        _dc = StateObject(wrappedValue: dc)
-    }
+    
 }

@@ -57,3 +57,11 @@ extension DataController {
     }
 
 }
+
+extension AppState {
+    
+    static let preview: AppState = .init(
+        dataController: .preview
+    )
+    
+}

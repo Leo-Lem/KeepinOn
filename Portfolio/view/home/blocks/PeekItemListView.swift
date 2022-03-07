@@ -1,5 +1,5 @@
 //
-//  ItemListView.swift
+//  PeekItemListView.swift
 //  Portfolio
 //
 //  Created by Leopold Lemmermann on 03.03.22.
@@ -8,7 +8,10 @@
 import SwiftUI
 import MySwiftUI
 
-struct ItemListView: View {
+struct PeekItemListView: View {
+    
+    @EnvironmentObject var state: AppState
+    
     let title: LocalizedStringKey,
         items: Array<Item>.SubSequence
     
@@ -18,13 +21,14 @@ struct ItemListView: View {
                 .padding(.top)
             
             ForEach(items) { item in
-                NavigationLink(destination: EditItemView(item: item)) { ItemRow(item) }
+                NavigationLink(destination: EditItemView(appState: state, item: item)) { Row(item) }
             }
         }
     }
     
-    struct ItemRow: View {
+    struct Row: View {
         let item: Item
+        @ObservedObject private var cd: Item.CDObject
         
         var body: some View {
             HStack(spacing: 20) {
@@ -45,20 +49,19 @@ struct ItemListView: View {
             .shadow(color: .primary.opacity(0.2), radius: 5)
         }
         
-        @ObservedObject private var cd: Item.CDObject
-        
         init(_ item: Item) {
             self.item = item
             cd = item.cd
         }
     }
+    
 }
 
 #if DEBUG
 // MARK: - (Previews)
-struct ItemListView_Previews: PreviewProvider {
+struct PeekItemListView_Previews: PreviewProvider {
     static var previews: some View {
-        ItemListView(title: "My Items", items: [.example])
+        PeekItemListView(title: "My Items", items: [.example])
     }
 }
 #endif

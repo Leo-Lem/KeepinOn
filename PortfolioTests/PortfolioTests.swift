@@ -11,12 +11,12 @@ import XCTest
 
 class BaseTestCase: XCTestCase {
     
-    var dc: DataController!
-    var moc: NSManagedObjectContext!
+    var state: AppState!
+    var dc: DataController { state.dataController }
+    var moc: NSManagedObjectContext { state.dataController.context }
     
     override func setUpWithError() throws {
-        dc = .init(inMemory: true)
-        moc = dc.context
+        state = .init(dataController: .init(inMemory: true))
     }
     
 }

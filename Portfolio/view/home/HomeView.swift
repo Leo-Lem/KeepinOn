@@ -2,44 +2,51 @@
 //  HomeView.swift
 //  Portfolio
 //
-//  Created by Leopold Lemmermann on 01.03.22.
+//  Created by Leopold Lemmermann on 04.03.22.
 //
 
 import SwiftUI
-import CoreData
+import MySwiftUI
 
 struct HomeView: View {
     
-    @FetchRequest(fetchRequest: projectRequest) var cdProjects: FetchedResults<Project.CDObject>
-    @FetchRequest(fetchRequest: itemRequest) var cdItems: FetchedResults<Item.CDObject>
-    
     var body: some View {
-        Content(
-            projects: cdProjects.map(Project.init),
-            items: cdItems.map(Item.init)
-        ) }
-    
-    @EnvironmentObject var dataController: DataController
+        ScrollView {
+            ScrollView(.horizontal, showsIndicators: false) {
+                LazyHGrid(rows: [GridItem(.fixed(100))]) {
+                    ForEach(vm.projects, content: ProjectSummaryView.init)
+                }
+                .fixedSize(horizontal: false, vertical: true)
+            }
 
-    static let projectRequest: NSFetchRequest<Project.CDObject> = {
-        let request: NSFetchRequest<Project.CDObject> = Project.CDObject.fetchRequest()
-        
-        request.predicate = NSPredicate(format: "closed = false")
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \Project.CDObject.title, ascending: true)]
-            
-        return request
-    }()
+            VStack(alignment: .leading) {
+                PeekItemListView(title: ~.nextItems, items: vm.upNext)
+                PeekItemListView(title: ~.moreItems, items: vm.moreToExplore)
+            }
+            .padding(.horizontal)
+        }
+        .background(Color.systemGroupedBackground.ignoresSafeArea())
+        .navigationTitle(~.navTitle(.home))
+        #if DEBUG
+        .toolbar { Button("Add data", action: vm.createSampleData) }
+        #endif
+        .embedInNavigation()
+    }
     
-    static let itemRequest: NSFetchRequest<Item.CDObject> = {
-        let request: NSFetchRequest<Item.CDObject> = Item.CDObject.fetchRequest()
-        
-        let completedPredicate = NSPredicate(format: "completed = false"),
-            openPredicate = NSPredicate(format: "project.closed = false")
-        request.predicate = NSCompoundPredicate(type: .and, subpredicates: [completedPredicate, openPredicate])
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \Item.CDObject.priority, ascending: false)]
-        request.fetchLimit = 10
-        
-        return request
-    }()
+    @StateObject private var vm: ViewModel
+    
+    init(appState: AppState) {
+        let vm = ViewModel(appState: appState)
+        _vm = StateObject(wrappedValue: vm)
+    }
     
 }
+
+#if DEBUG
+// MARK: - (Previews)
+struct HomeView_Previews: PreviewProvider {
+    static var previews: some View {
+        HomeView(appState: .preview)
+    }
+}
+#endif

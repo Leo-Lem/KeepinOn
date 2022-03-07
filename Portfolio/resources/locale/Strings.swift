@@ -13,8 +13,7 @@ enum Strings {
     case ok, delete, settings, emptyTabPlaceholder
     
     case tab(_ tab: ContentView.Tab),
-         navTitle(_ tab: ContentView.Tab),
-         navTitleEditProj, navTitleEditItem
+         navTitle(_ tab: ContentView.Tab)
     
     case nextItems, moreItems, items(_ count: Int)
     
@@ -65,9 +64,8 @@ extension Strings: Localizable {
             case .open: return "OPEN"
             case .closed: return "CLOSED"
             case .awards: return "AWARDS"
+            default: return "UNKNOWN_TRANSLATION"
             }
-        case .navTitleEditProj: return "EDIT_PROJECT"
-        case .navTitleEditItem: return "EDIT_ITEM"
             
         case .nextItems: return "NEXT_ITEMS"
         case .moreItems: return "MORE_ITEMS"
@@ -82,6 +80,8 @@ extension Strings: Localizable {
             case .open: return "OPEN_PROJECTS"
             case .closed: return "CLOSED_PROJECTS"
             case .awards: return "AWARDS"
+            case .editProj: return "EDIT_PROJECT"
+            case .editItem: return"EDIT_ITEM"
             }
         case .addProj: return "ADD_PROJECT"
         case .addItem: return "ADD_ITEM"
@@ -90,9 +90,9 @@ extension Strings: Localizable {
         case .sortLabel: return "SORT_LABEL"
         case .sortOrder(let order):
             switch order {
-            case .title: return "OPTIMIZED_SORT"
+            case .title: return "TITLE_SORT"
             case .timestamp: return "CREATIONDATE_SORT"
-            case .optimized: return "TITLE_SORT"
+            case .optimized: return "OPTIMIZED_SORT"
             }
             
         case .projDefault: return "PROJECT_DEFAULTNAME"

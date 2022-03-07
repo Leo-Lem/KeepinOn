@@ -95,3 +95,4 @@ extension Item {
 }
 
 extension Item: Identifiable { var id: ObjectIdentifier { cd.id } }
+extension Item: Hashable {}

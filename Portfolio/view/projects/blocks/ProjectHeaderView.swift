@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct ProjectHeaderView: View {
+    
     let project: Project
+    @ObservedObject private var cd: Project.CDObject
+    @EnvironmentObject var state: AppState
 
     var body: some View {
         HStack {
@@ -21,16 +24,15 @@ struct ProjectHeaderView: View {
 
             Spacer()
 
-            NavigationLink(destination: EditProjectView(project: project)) {
+            NavigationLink(destination: EditProjectView(appState: state, project: project)) {
                 Image(systemName: "square.and.pencil")
                     .imageScale(.large)
             }
+            .accessibilityLabel(~.navTitle(.editProj))
         }
         .padding(.bottom, 10)
         .accessibilityElement(children: .combine)
     }
-    
-    @ObservedObject private var cd: Project.CDObject
     
     init(_ project: Project) {
         self.project = project

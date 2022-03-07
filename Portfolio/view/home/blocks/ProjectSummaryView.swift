@@ -11,6 +11,7 @@ import MySwiftUI
 struct ProjectSummaryView: View {
     
     let project: Project
+    @ObservedObject private var cd: Project.CDObject
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -31,8 +32,6 @@ struct ProjectSummaryView: View {
             .accessibilityLabel(project.a11yLabel)
         }
     }
-    
-    @ObservedObject private var cd: Project.CDObject
     
     init(_ project: Project) {
         self.project = project

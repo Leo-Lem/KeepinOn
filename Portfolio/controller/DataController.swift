@@ -32,6 +32,10 @@ final class DataController: ObservableObject {
             if let error = error {
                 fatalError("Fatal error loading store: \(error)")
             }
+            
+            #if DEBUG
+            if CommandLine.arguments.contains("enable-testing") { try? self.deleteAll() }
+            #endif
         }
     }
     

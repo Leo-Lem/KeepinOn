@@ -22,18 +22,22 @@ class AwardsTests: BaseTestCase {
     }
     
     func testNoAwards() throws {
+        let vm = AwardsView.ViewModel(appState: state)
+        
         for award in awards {
-            XCTAssertEqual(dc.isUnlocked(award), false,
+            XCTAssertEqual(vm.isUnlocked(award), false,
                            "New Users should have no awards unlocked.")
         }
     }
     
     func testItemAwards() throws {
+        let vm = AwardsView.ViewModel(appState: state)
+        
         for award in awards.filter({ $0.criterion == .items }) {
             addItems(award.value)
             defer { try? dc.deleteAll() }
             
-            XCTAssertEqual(dc.isUnlocked(award), true,
+            XCTAssertEqual(vm.isUnlocked(award), true,
                            "Award(value: \(award.value)) should be unlocked after adding the respective amount of items.")
             // swiftlint:disable:previous line_length
         }
@@ -46,11 +50,13 @@ class AwardsTests: BaseTestCase {
     }
     
     func testCompleteAwards() throws {
+        let vm = AwardsView.ViewModel(appState: state)
+        
         for award in awards.filter({ $0.criterion == .complete }) {
             addItems(award.value)
             defer { try? dc.deleteAll() }
             
-            XCTAssertEqual(dc.isUnlocked(award), true,
+            XCTAssertEqual(vm.isUnlocked(award), true,
                            "Award(value: \(award.value)) should be unlocked after completing the respective amount of items.") // swiftlint:disable:this line_length
         }
         
