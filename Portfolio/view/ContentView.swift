@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreSpotlight
 
 struct ContentView: View {
     
@@ -13,8 +14,13 @@ struct ContentView: View {
     
     var body: some View {
         TabView(selection: $state.screen) {
-            ForEach(Tab.displayedTabs, id: \.self) { $0.view(state: state) }
+            ForEach(Tab.allCases, id: \.self) { tab in
+                tab.view(state: state)
+                    .tag(tab)
+                    .tabItem { Label(~.tab(tab), systemImage: tab.icon) }
+            }
         }
+        .onContinueUserActivity(CSSearchableItemActionType) { _ in state.screen = .home }
         #if DEBUG
         .navigationViewStyle(.stack)
         #endif
@@ -24,29 +30,21 @@ struct ContentView: View {
 
 extension ContentView.Tab {
     
-    fileprivate static let displayedTabs: [Self] = [.home, .open, .closed, .awards]
-    
-    fileprivate func view(state: AppState) -> some View {
-        Group {
-            switch self {
-            case .home: HomeView(appState: state)
-            case .open: ProjectsView(appState: state, closed: false)
-            case .closed: ProjectsView(appState: state, closed: true)
-            case .awards: AwardsView(appState: state)
-            default: EmptyView()
-            }
+    @ViewBuilder fileprivate func view(state: AppState) -> some View {
+        switch self {
+        case .home: HomeView()
+        case .open: ProjectsView(closed: false)
+        case .closed: ProjectsView(closed: true)
+        case .awards: AwardsView()
         }
-        .tag(self)
-        .tabItem { Label(~.tab(self), systemImage: self.icon) }
     }
     
-    private var icon: String {
+    fileprivate var icon: String {
         switch self {
         case .home: return "house"
         case .open: return "list.bullet"
         case .closed: return "checkmark"
         case .awards: return "rosette"
-        default: return "questionmark"
         }
     }
     
@@ -56,7 +54,6 @@ extension ContentView.Tab {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .environmentObject(DataController.preview)
-            .environmentObject(AppState())
+            .environmentObject(AppState.preview)
     }
 }

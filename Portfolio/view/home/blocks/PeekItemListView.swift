@@ -21,14 +21,14 @@ struct PeekItemListView: View {
                 .padding(.top)
             
             ForEach(items) { item in
-                NavigationLink(destination: EditItemView(appState: state, item: item)) { Row(item) }
+                NavigationLink(destination: EditItemView(item: item)) { Row(item) }
             }
         }
     }
     
     struct Row: View {
         let item: Item
-        @ObservedObject private var cd: Item.CDObject
+        @ObservedObject private var cd: Item.CD
         
         var body: some View {
             HStack(spacing: 20) {

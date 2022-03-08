@@ -10,6 +10,7 @@
 "OK" = "OK";
 "DELETE" = "Delete";
 "SETTINGS" = "Basic Settings";
+"CHECK_SETTINGS" = "Check Settings";
 
 /* Shown by default when the user hasn't select a project or item */
 "EMPTY_TAB_PLACEHOLDER" = "Please select something from the menu to begin.";
@@ -63,6 +64,12 @@
 "PROJECT_NAME_PLACEHOLDER" = "Project name"; /* placeholder for a project name */
 "PROJECT_DESCRIPTION_PLACEHOLDER" = "Description of this project";
 "PROJECT_SELECT_COLOR" = "Select a project color";
+
+"PROJECT_REMINDERS" = "Project Reminders";
+"PROJECT_SHOW_REMINDERS" = "Show reminders";
+"PROJECT_REMINDER_TIME" = "Reminder time";
+"PROJECT_REMINDER_ERROR_TITLE" = "Oops!";
+"PROJECT_REMINDER_ERROR_MESSAGE" = "There was a problem. Please check you have notifications enabled.";
 
 /* Options to close (mark as finished), open (mark as unfinished), or delete a project. */
 "CLOSE_PROJECT" = "Close this project";

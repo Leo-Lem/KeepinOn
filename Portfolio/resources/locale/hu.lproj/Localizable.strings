@@ -10,6 +10,7 @@
 "OK" = "OK";
 "DELETE" = "Töröl";
 "SETTINGS" = "Alapbeállítások";
+"CHECK_SETTINGS" = "Ellenőrizze a Beállításokat";
 
 /* Shown by default when the user hasn't select a project or item */
 "EMPTY_TAB_PLACEHOLDER" = "A kezdéshez válasszon valamit a menüből.";
@@ -63,6 +64,12 @@
 "PROJECT_NAME_PLACEHOLDER" = "Projekt név"; /* placeholder for a project name */
 "PROJECT_DESCRIPTION_PLACEHOLDER" = "Projekt dokumentáció";
 "PROJECT_SELECT_COLOR" = "Egyedi projekt szín";
+
+"PROJECT_REMINDERS" = "Projekt emlékeztető";
+"PROJECT_SHOW_REMINDERS" = "Emlékeztetők megjelenítése";
+"PROJECT_REMINDER_TIME" = "Emlékeztető ideje";
+"PROJECT_REMINDER_ERROR_TITLE" = "Hoppá!";
+"PROJECT_REMINDER_ERROR_MESSAGE" = "Probléma. Ellenőrizze, hogy engedélyezve vannak az értesítések.";
 
 /* Options to close (mark as finished), open (mark as unfinished), or delete a project. */
 "CLOSE_PROJECT" = "Projekt bezárása";

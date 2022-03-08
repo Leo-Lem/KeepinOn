@@ -17,14 +17,9 @@ class CDItem: NSManagedObject {}
 struct Item: CDRepresentable {
     
     let cd: CDItem
-    
     init(_ cd: CDItem) { self.cd = cd }
     
-    init?(_ cd: CDItem?) {
-        if let cd = cd { self.cd = cd  } else { return nil }
-    }
-    
-    func update() {
+    func willChange() {
         cd.objectWillChange.send()
         project?.cd.objectWillChange.send()
     }

@@ -9,7 +9,7 @@ import SwiftUI
 import CoreData
 
 extension AwardsView {
-    final class ViewModel: ObservableObject {
+    @MainActor final class ViewModel: ObservableObject {
         
         private let state: AppState
         private var dc: DataController { state.dataController }

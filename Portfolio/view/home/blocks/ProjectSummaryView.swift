@@ -11,7 +11,7 @@ import MySwiftUI
 struct ProjectSummaryView: View {
     
     let project: Project
-    @ObservedObject private var cd: Project.CDObject
+    @ObservedObject private var cd: Project.CD
     
     var body: some View {
         VStack(alignment: .leading) {

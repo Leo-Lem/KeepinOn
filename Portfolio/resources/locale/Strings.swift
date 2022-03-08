@@ -10,10 +10,11 @@ import MySwiftUI
 
 enum Strings {
     
-    case ok, delete, settings, emptyTabPlaceholder
+    case ok, delete, settings, checkSettings, emptyTabPlaceholder
     
     case tab(_ tab: ContentView.Tab),
-         navTitle(_ tab: ContentView.Tab)
+         navTitle(_ tab: ContentView.Tab),
+         editProj, editItem
     
     case nextItems, moreItems, items(_ count: Int)
     
@@ -26,6 +27,9 @@ enum Strings {
     case projDefault, itemDefault
 
     case projNamePlaceholder, projDescPlaceholder, projSelectColor
+    
+    case projReminders, projShowReminders, projReminderTime,
+         reminderErrorTitle, reminderErrorMessage
 
     case projClose, projReopen, projDelete
 
@@ -56,6 +60,7 @@ extension Strings: Localizable {
         case .ok: return "OK"
         case .delete: return "DELETE"
         case .settings: return "DELETE"
+        case .checkSettings: return "CHECK_SETTINGS"
         case .emptyTabPlaceholder: return "EMPTY_TAB_PLACEHOLDER"
             
         case .tab(let tab):
@@ -64,7 +69,6 @@ extension Strings: Localizable {
             case .open: return "OPEN"
             case .closed: return "CLOSED"
             case .awards: return "AWARDS"
-            default: return "UNKNOWN_TRANSLATION"
             }
             
         case .nextItems: return "NEXT_ITEMS"
@@ -80,9 +84,10 @@ extension Strings: Localizable {
             case .open: return "OPEN_PROJECTS"
             case .closed: return "CLOSED_PROJECTS"
             case .awards: return "AWARDS"
-            case .editProj: return "EDIT_PROJECT"
-            case .editItem: return"EDIT_ITEM"
             }
+            
+        case .editProj: return "EDIT_PROJECT"
+        case .editItem: return "EDIT_ITEM"
         case .addProj: return "ADD_PROJECT"
         case .addItem: return "ADD_ITEM"
         case .projPlaceholder: return "PROJECTS_PLACEHOLDER"
@@ -101,6 +106,12 @@ extension Strings: Localizable {
         case .projNamePlaceholder: return "PROJECT_NAME_PLACEHOLDER"
         case .projDescPlaceholder: return "PROJECT_DESCRIPTION_PLACEHOLDER"
         case .projSelectColor: return "PROJECT_SELECT_COLOR"
+            
+        case .projReminders: return "PROJECT_REMINDERS"
+        case .projShowReminders: return "PROJECT_SHOW_REMINDERS"
+        case .projReminderTime: return "PROJECT_REMINDER_TIME"
+        case .reminderErrorTitle: return "PROJECT_REMINDER_ERROR_TITLE"
+        case .reminderErrorMessage: return "PROJECT_REMINDER_ERROR_MESSAGE"
             
         case .projClose: return "CLOSE_PROJECT"
         case .projReopen: return "REOPEN_PROJECT"

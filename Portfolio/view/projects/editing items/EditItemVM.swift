@@ -5,26 +5,28 @@
 //  Created by Leopold Lemmermann on 01.03.22.
 //
 
-import SwiftUI
-import MySwiftUI
+import Foundation
 
 extension EditItemView {
-    final class ViewModel: ObservableObject {
+    @MainActor final class ViewModel: ObservableObject {
     
+        private let state: AppState
+        private let dismiss: () -> Void
+        private var item: Item
+        
         @Published var title: String
         @Published var details: String
         @Published var priority: Item.Priority
         @Published var completed: Bool
-        
         let timestamp: Date
         
-        private var item: Item
-        
-        private let state: AppState
-        private var dc: DataController { state.dataController }
-        
-        init(appState: AppState, item: Item) {
+        init(
+            appState: AppState,
+            dismiss: @escaping () -> Void,
+            item: Item
+        ) {
             state = appState
+            self.dismiss = dismiss
             
             self.item = item
             
@@ -41,7 +43,7 @@ extension EditItemView {
 extension EditItemView.ViewModel {
     
     func updateItem() {
-        item.update()
+        item.willChange()
         
         if !title.isEmpty { item.title = title }
         
@@ -50,8 +52,13 @@ extension EditItemView.ViewModel {
         item.completed = completed
         
         save()
+        
+        dismiss()
     }
     
-    private func save() { dc.save() }
+    private func save() {
+        state.dataController.save()
+        state.spotlightController.update(item)
+    }
     
 }

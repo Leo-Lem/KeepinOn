@@ -16,14 +16,9 @@ class CDProject: NSManagedObject {}
 struct Project: CDRepresentable {
 
     let cd: CDProject
-    
     init(_ cd: CDProject) { self.cd = cd }
     
-    init?(_ cd: CDProject?) {
-        if let cd = cd { self.cd = cd  } else { return nil }
-    }
-    
-    func update() {
+    func willChange() {
         cd.objectWillChange.send()
         items.forEach { $0.cd.objectWillChange.send() }
     }
@@ -34,7 +29,7 @@ extension Project {
     
     var items: [Item] {
         get {
-            let cdItems = cd.items?.allObjects as? [CDItem] ?? []
+            let cdItems = cd.items?.allObjects as? [Item.CD] ?? []
             return cdItems.map(Item.init)
         }
         set {
@@ -61,6 +56,19 @@ extension Project {
     var closed: Bool {
         get { cd.closed }
         set { cd.closed = newValue }
+    }
+    
+    var reminder: Date? {
+        get {
+            if let reminder = cd.reminder, reminder > Date.now {
+                return reminder
+            } else { return nil }
+        }
+        set {
+            if let reminder = newValue, reminder > Date.now {
+                cd.reminder = reminder
+            } else { cd.reminder = nil }
+        }
     }
 
     var timestamp: Date { cd.timestamp ?? Date() }

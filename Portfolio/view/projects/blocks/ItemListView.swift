@@ -10,14 +10,14 @@ import SwiftUI
 struct ItemListView: View {
     
     let items: [Item]
-    @ObservedObject var cd: Project.CDObject
+    @ObservedObject var cd: Project.CD
     @EnvironmentObject var state: AppState
     
     let delete: ([Item], IndexSet) -> Void
     
     var body: some View {
         ForEach(items, id: \.self) { item in
-            NavigationLink(destination: EditItemView(appState: state, item: item)) {
+            NavigationLink(destination: EditItemView(item: item)) {
                 Label {
                     Text(item.titleLabel)
                 } icon: {
@@ -26,7 +26,7 @@ struct ItemListView: View {
                         .accessibilityLabel(item.icon.a11yLabel)
                 }
             }
-            .accessibilityLabel(~.navTitle(.editItem))
+            .accessibilityLabel(~.editItem)
         }
         .onDelete { delete(items, $0) }
     }

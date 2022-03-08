@@ -7,11 +7,10 @@
 
 import CoreData
 import MyData
-import MyOthers
 
-/// An environment singleton responsible for managing our Core Data stack, including handling saving,
+/// A singleton responsible for managing our Core Data stack, including handling saving,
 /// counting fetch requests, tracking awards, and dealing with sample data.
-final class DataController: ObservableObject {
+final class DataController {
 
     /// The lone CloudKit container used to store all our data.
     let container: NSPersistentCloudKitContainer

@@ -10,19 +10,17 @@ import CoreData
 import MyOthers
 
 extension ProjectsView {
-    final class ViewModel: NSObject, ObservableObject, NSFetchedResultsControllerDelegate {
+    @MainActor final class ViewModel: NSObject, ObservableObject, NSFetchedResultsControllerDelegate {
+        
+        private let state: AppState
+        private let projectsController: NSFetchedResultsController<Project.CD>
         
         let closed: Bool
-        
         var sortOrder: Item.SortOrder {
             get { state.itemSortOrder }
-            set { state.itemSortOrder = newValue } // possibly insert objectWillChange publisher
+            set { state.itemSortOrder = newValue }
         }
-        
         @Published var projects: [Project] = []
-        
-        private let projectsController: NSFetchedResultsController<Project.CDObject>
-        private let state: AppState
         
         init(appState: AppState, closed: Bool) {
             state = appState
@@ -47,8 +45,6 @@ extension ProjectsView {
 
 extension ProjectsView.ViewModel {
     
-    private var dc: DataController { state.dataController }
-    
     func addProject() {
         _ = Project(in: dc.context)
         
@@ -65,12 +61,14 @@ extension ProjectsView.ViewModel {
         offsets.forEach { offset in
             let item = items[offset]
             dc.delete(item)
+            state.spotlightController.delete(item)
         }
         
         save()
     }
     
     private func save() { dc.save() }
+    private var dc: DataController { state.dataController }
     
 }
 
@@ -78,18 +76,50 @@ extension ProjectsView.ViewModel {
 extension ProjectsView.ViewModel {
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        if let fetched = controller.fetchedObjects as? [Project.CDObject] {
+        if let fetched = controller.fetchedObjects as? [Project.CD] {
             projects = fetched.map(Project.init)
         }
     }
     
-    fileprivate static func projectsRequest(closed: Bool) -> NSFetchRequest<Project.CDObject> {
-        let request: NSFetchRequest<Project.CDObject> = Project.CDObject.fetchRequest()
+    fileprivate static func projectsRequest(closed: Bool) -> NSFetchRequest<Project.CD> {
+        let request: NSFetchRequest<Project.CD> = Project.CD.fetchRequest()
         
         request.predicate = NSPredicate(format: "closed = %d", closed)
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \Project.CDObject.timestamp, ascending: false)]
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \Project.CD.timestamp, ascending: false)]
         
         return request
     }
     
+}
+
+// MARK: - (items)
+extension Array where Element == Item {
+    
+    func sorted(using sortOrder: Item.SortOrder) -> [Item] {
+        switch sortOrder {
+        case .title:
+            return self.sorted {
+                ($0.title ?? "_").localizedCaseInsensitiveCompare($1.title ?? "_") == .orderedAscending
+            }
+        case .timestamp:
+            return self.sorted(by: \.timestamp, using: >)
+        case .optimized:
+            return self.sorted { first, second in
+                if !first.completed && second.completed {
+                    return true
+                } else if first.completed && !second.completed {
+                    return false
+                }
+
+                if first.priority > second.priority {
+                    return true
+                } else if first.priority < second.priority {
+                    return false
+                }
+
+                return first.timestamp < second.timestamp
+            }
+        }
+    }
+
 }

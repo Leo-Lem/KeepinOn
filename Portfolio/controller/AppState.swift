@@ -12,20 +12,26 @@ final class AppState: ObservableObject {
     @Published var screen: ContentView.Tab = .home
     @Published var itemSortOrder: Item.SortOrder = .optimized
     
-    let dataController: DataController
+    let dataController: DataController,
+        spotlightController: SpotlightController,
+        notificationController: NotificationController
     
     init(
-        dataController: DataController = .init()
+        dataController: DataController? = nil,
+        spotlightController: SpotlightController? = nil,
+        notificationController: NotificationController? = nil
     ) {
-        self.dataController = dataController
+        self.dataController = dataController ?? .init()
+        self.spotlightController = spotlightController ?? .init(dataController: self.dataController)
+        self.notificationController = notificationController ?? .init()
     }
     
 }
 
 extension ContentView {
     
-    enum Tab: String {
-        case home, open, closed, awards, editProj, editItem
+    enum Tab: String, CaseIterable {
+        case home, open, closed, awards
     }
     
 }

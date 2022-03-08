@@ -37,9 +37,10 @@
 		6E63526027D3C02C004F5A1F /* DevelopmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E63525F27D3C02C004F5A1F /* DevelopmentTests.swift */; };
 		6E63526227D3D0B2004F5A1F /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E63526127D3D0B2004F5A1F /* PerformanceTests.swift */; };
 		6E63526A27D3D4B6004F5A1F /* PortfolioUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E63526927D3D4B6004F5A1F /* PortfolioUITests.swift */; };
-		6E63527327D3E715004F5A1F /* Item-Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E63527227D3E715004F5A1F /* Item-Layout.swift */; };
 		6E63527527D3E99E004F5A1F /* ItemListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E63527427D3E99E004F5A1F /* ItemListView.swift */; };
 		6E63527827D3F2CC004F5A1F /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E63527727D3F2CC004F5A1F /* AppState.swift */; };
+		6E89B42427D755CC005C3EA4 /* SpotlightController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E89B42327D755CC005C3EA4 /* SpotlightController.swift */; };
+		6E89B42827D7712F005C3EA4 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E89B42727D7712F005C3EA4 /* NotificationController.swift */; };
 		6EC5A0CA27D23B1B008FE43B /* ProjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC5A0C927D23B1B008FE43B /* ProjectsView.swift */; };
 		6EC5A0CE27D242BB008FE43B /* MyPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 6EC5A0CD27D242BB008FE43B /* MyPackage */; };
 		6EC5A0D027D24D34008FE43B /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC5A0CF27D24D34008FE43B /* HomeView.swift */; };
@@ -109,9 +110,10 @@
 		6E63526127D3D0B2004F5A1F /* PerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceTests.swift; sourceTree = "<group>"; };
 		6E63526727D3D4B6004F5A1F /* PortfolioUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PortfolioUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E63526927D3D4B6004F5A1F /* PortfolioUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioUITests.swift; sourceTree = "<group>"; };
-		6E63527227D3E715004F5A1F /* Item-Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item-Layout.swift"; sourceTree = "<group>"; };
 		6E63527427D3E99E004F5A1F /* ItemListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListView.swift; sourceTree = "<group>"; };
 		6E63527727D3F2CC004F5A1F /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		6E89B42327D755CC005C3EA4 /* SpotlightController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotlightController.swift; sourceTree = "<group>"; };
+		6E89B42727D7712F005C3EA4 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		6EC5A0C927D23B1B008FE43B /* ProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsView.swift; sourceTree = "<group>"; };
 		6EC5A0CC27D242B2008FE43B /* MyPackage */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MyPackage; path = ../../MyPackage; sourceTree = "<group>"; };
 		6EC5A0CF27D24D34008FE43B /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -178,8 +180,8 @@
 			isa = PBXGroup;
 			children = (
 				6E033F8727CE20DD001C53F2 /* PortfolioApp.swift */,
-				6E63527627D3F2C0004F5A1F /* controller */,
 				6E033F9627CE2167001C53F2 /* model */,
+				6E63527627D3F2C0004F5A1F /* controller */,
 				6E033FA427CE2C3A001C53F2 /* view */,
 				6E033F9527CE210C001C53F2 /* resources */,
 			);
@@ -224,8 +226,6 @@
 				6EF937DC27D1433900B9CFC6 /* Layout.swift */,
 				6EC5A0C627D23A88008FE43B /* home */,
 				6EC5A0C727D23AA0008FE43B /* projects */,
-				6E89B42227D625E8005C3EA4 /* editing projects */,
-				6EC5A0DD27D2853A008FE43B /* editing items */,
 				6EC5A0C827D23AAC008FE43B /* awards */,
 			);
 			path = view;
@@ -296,6 +296,8 @@
 			children = (
 				6E63527727D3F2CC004F5A1F /* AppState.swift */,
 				6E033F9C27CE23D9001C53F2 /* DataController.swift */,
+				6E89B42327D755CC005C3EA4 /* SpotlightController.swift */,
+				6E89B42727D7712F005C3EA4 /* NotificationController.swift */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -324,6 +326,8 @@
 			children = (
 				6EC5A0C927D23B1B008FE43B /* ProjectsView.swift */,
 				6E033FA527CE2EFB001C53F2 /* ProjectsVM.swift */,
+				6E89B42227D625E8005C3EA4 /* editing projects */,
+				6EC5A0DD27D2853A008FE43B /* editing items */,
 				6EC5A0D727D26F65008FE43B /* blocks */,
 			);
 			path = projects;
@@ -332,8 +336,8 @@
 		6EC5A0C827D23AAC008FE43B /* awards */ = {
 			isa = PBXGroup;
 			children = (
-				6E033FC627CE9F4B001C53F2 /* AwardsVM.swift */,
 				6EC5A0D227D26950008FE43B /* AwardsView.swift */,
+				6E033FC627CE9F4B001C53F2 /* AwardsVM.swift */,
 				6EC5A0D827D26FDE008FE43B /* blocks */,
 			);
 			path = awards;
@@ -361,7 +365,6 @@
 			children = (
 				6E033FB427CE6125001C53F2 /* ProjectHeaderView.swift */,
 				6E63527427D3E99E004F5A1F /* ItemListView.swift */,
-				6E63527227D3E715004F5A1F /* Item-Layout.swift */,
 			);
 			path = blocks;
 			sourceTree = "<group>";
@@ -542,11 +545,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E89B42827D7712F005C3EA4 /* NotificationController.swift in Sources */,
 				6E033FEE27CFAEBD001C53F2 /* Strings.swift in Sources */,
 				6E033FA627CE2EFB001C53F2 /* ProjectsVM.swift in Sources */,
 				6E033FC527CE9D46001C53F2 /* Award.swift in Sources */,
 				6E63525E27D3A75E004F5A1F /* ColorID.swift in Sources */,
 				6E033FB527CE6125001C53F2 /* ProjectHeaderView.swift in Sources */,
+				6E89B42427D755CC005C3EA4 /* SpotlightController.swift in Sources */,
 				6EF937DD27D1433900B9CFC6 /* Layout.swift in Sources */,
 				6E033F8A27CE20DD001C53F2 /* HomeVM.swift in Sources */,
 				6E033FC727CE9F4B001C53F2 /* AwardsVM.swift in Sources */,
@@ -560,7 +565,6 @@
 				6EC5A0D327D26950008FE43B /* AwardsView.swift in Sources */,
 				6E033FAA27CE4918001C53F2 /* Item.swift in Sources */,
 				6E033F8827CE20DD001C53F2 /* PortfolioApp.swift in Sources */,
-				6E63527327D3E715004F5A1F /* Item-Layout.swift in Sources */,
 				6E033F9B27CE219E001C53F2 /* Main.xcdatamodeld in Sources */,
 				6EF937D927D1411600B9CFC6 /* PeekItemListView.swift in Sources */,
 				6E63527527D3E99E004F5A1F /* ItemListView.swift in Sources */,
