@@ -63,12 +63,6 @@ extension EditProjectView.ViewModel {
         project.details = self.details
         project.colorID = self.colorID
         
-        save()
-        
-        dismiss()
-    }
-    
-    func scheduleReminder() {
         project.reminder = reminder
         
         Task {
@@ -84,6 +78,10 @@ extension EditProjectView.ViewModel {
                 await state.notificationController.removeReminders(for: project)
             }
         }
+        
+        save()
+        
+        dismiss()
     }
     
     func showAppSettings() {

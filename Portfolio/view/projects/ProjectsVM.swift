@@ -21,6 +21,7 @@ extension ProjectsView {
             set { state.itemSortOrder = newValue }
         }
         @Published var projects: [Project] = []
+        @Published var unlocking = false
         
         init(appState: AppState, closed: Bool) {
             state = appState
@@ -46,6 +47,10 @@ extension ProjectsView {
 extension ProjectsView.ViewModel {
     
     func addProject() {
+        guard
+            state.iapController.fullVersionUnlocked || dc.count(for: Project.CD.fetchRequest()) < 3
+        else { return unlocking = true }
+        
         _ = Project(in: dc.context)
         
         save()

@@ -36,6 +36,9 @@ extension AwardsView.ViewModel {
             let count = dc.count(for: fetchRequest)
             return count >= award.value
             
+        case .unlock:
+            return state.iapController.fullVersionUnlocked
+            
         default:
             return false // fatalError("Unknown award: \(award)")
         }

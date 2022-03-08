@@ -25,6 +25,7 @@ struct ProjectsView: View {
                     
                     if !vm.closed {
                         Button { vm.addItem(to: project) } label: { Label(~.addItem, systemImage: "plus") }
+                            .foregroundColor(project.colorID.color)
                     }
                 } header: {
                     ProjectHeaderView(project)
@@ -40,6 +41,7 @@ struct ProjectsView: View {
             .embedInNavigation {
                 Text(~.emptyTabPlaceholder, font: .title2, color: .secondary)
             }
+            .sheet(isPresented: $vm.unlocking, content: UnlockView.init)
         }
             
     }

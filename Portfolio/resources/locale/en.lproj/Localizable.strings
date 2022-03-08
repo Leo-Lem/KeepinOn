@@ -1,15 +1,11 @@
-/* 
-  Localizable.strings
-  Portfolio
 
-  Created by Leopold Lemmermann on 02.03.22.
-  
-*/
 
-//MARK: - GENERAL
+
+//MARK: - (GENERAL)
 "OK" = "OK";
 "DELETE" = "Delete";
 "SETTINGS" = "Basic Settings";
+"DISMISS" = "Dismiss";
 "CHECK_SETTINGS" = "Check Settings";
 
 /* Shown by default when the user hasn't select a project or item */
@@ -17,7 +13,7 @@
 
 
 
-//MARK: - TABS
+//MARK: - (TABS)
 "HOME" = "Home";
 "OPEN" = "Open";
 "CLOSED" = "Closed";
@@ -27,19 +23,19 @@
 
 
 
-//MARK: - HOME VIEW
+//MARK: - (HOME VIEW)
 "NEXT_ITEMS" = "Up next";
 "MORE_ITEMS" = "More to explore";
 
 
 
-//MARK: - AWARDS VIEW
+//MARK: - (AWARDS VIEW)
 "LOCKED" = "Locked"; /* award has not been earned */
 "UNLOCKED %@" = "Unlocked: %@"; /* award has been earned, displaying the award */
 
 
 
-//MARK: - PROJECTS VIEW
+//MARK: - (PROJECTS VIEW)
 "OPEN_PROJECTS" = "Open Projects";
 "CLOSED_PROJECTS" = "Closed Projects";
 "ADD_PROJECT" = "Add Project";
@@ -60,7 +56,7 @@
 
 
 
-//MARK: - EDITING PROJECTS
+//MARK: - (EDITING PROJECTS)
 "PROJECT_NAME_PLACEHOLDER" = "Project name"; /* placeholder for a project name */
 "PROJECT_DESCRIPTION_PLACEHOLDER" = "Description of this project";
 "PROJECT_SELECT_COLOR" = "Select a project color";
@@ -84,7 +80,7 @@
 
 
 
-//MARK: - EDITING ITEMS
+//MARK: - (EDITING ITEMS)
 "ITEM_NAME" = "Item name";
 "ITEM_DESCRIPTION" = "Description";
 "MARK_COMPLETED" = "Mark Completed"; /* Mark this item as being completed (finished/accomplished) */
@@ -96,7 +92,22 @@
 
 
 
-//MARK: - ACCESSIBILITY
+//MARK: - (UNLOCKING PREMIUM)
+"IAP_HEADLINE" = "Get Unlimited Projects";
+"IAP_DESCRIPTION %@" = "You can add three projects for free, or pay %@ to add unlimited projects.";
+"IAP_RESTORE_DESCRIPTION" = "If you already bought the unlock on another device, press Restore Purchases.";
+
+"IAP_BUY_BUTTON %@" = "Buy: %@";
+"IAP_RESTORE_BUTTON" = "Restore Purchases";
+
+"IAP_ERROR" = "Sorry, there was an error loading the store. Please try again later.";
+"IAP_LOADING" = "Loading…";
+"IAP_SUCCESSFUL" = "Thank you!";
+"IAP_PENDING" = "Thank you! Your request is pending approval, but you can carry on using the app in the meantime.";
+
+
+
+//MARK: - (ACCESSIBILITY)
 /* describes elements on the home screen */
 "A11Y_COMPLETE_DESCRIPTION %@ %lld %g%%" = "%@, %lld items, %g%% complete.";
 /* asserts that a given project is completed */

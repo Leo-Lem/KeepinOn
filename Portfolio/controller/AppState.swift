@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import StoreKit
 
 final class AppState: ObservableObject {
     
@@ -14,16 +15,30 @@ final class AppState: ObservableObject {
     
     let dataController: DataController,
         spotlightController: SpotlightController,
-        notificationController: NotificationController
+        notificationController: NotificationController,
+        iapController: IAPController
     
     init(
         dataController: DataController? = nil,
         spotlightController: SpotlightController? = nil,
-        notificationController: NotificationController? = nil
+        notificationController: NotificationController? = nil,
+        iapController: IAPController? = nil
     ) {
         self.dataController = dataController ?? .init()
         self.spotlightController = spotlightController ?? .init(dataController: self.dataController)
         self.notificationController = notificationController ?? .init()
+        self.iapController = iapController ?? .init()
+    }
+    
+    func appLaunched() {
+        guard dataController.count(for: Project.CD.fetchRequest()) >= 5 else { return }
+        
+        let allScenes = UIApplication.shared.connectedScenes
+        let scene = allScenes.first { $0.activationState == .foregroundActive }
+        
+        if let windowScene = scene as? UIWindowScene {
+            SKStoreReviewController.requestReview(in: windowScene)
+        }
     }
     
 }

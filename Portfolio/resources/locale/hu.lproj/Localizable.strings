@@ -1,15 +1,11 @@
-/* 
-  Localizable.strings
-  Portfolio
 
-  Created by Leopold Lemmermann on 02.03.22.
-  
-*/
 
-//MARK: _ GENERAL
+
+//MARK: - (GENERAL)
 "OK" = "OK";
 "DELETE" = "Töröl";
 "SETTINGS" = "Alapbeállítások";
+"DISMISS" = "Elutasít";
 "CHECK_SETTINGS" = "Ellenőrizze a Beállításokat";
 
 /* Shown by default when the user hasn't select a project or item */
@@ -17,7 +13,7 @@
 
 
 
-//MARK: _ TABS
+//MARK: - (TABS)
 "HOME" = "Haza";
 "OPEN" = "Nyitva";
 "CLOSED" = "Zárva";
@@ -27,19 +23,19 @@
 
 
 
-//MARK: _ HOME VIEW
+//MARK: - (HOME VIEW)
 "NEXT_ITEMS" = "Következő";
 "MORE_ITEMS" = "Felfedezendő dolgok";
 
 
 
-//MARK: _ AWARDS VIEW
+//MARK: - (AWARDS VIEW)
 "LOCKED" = "Zárt"; /* award has not been earned */
 "UNLOCKED %@" = "Nyitott: %@"; /* award has been earned, displaying the award */
 
 
 
-//MARK: _ PROJECTS VIEW
+//MARK: - (PROJECTS VIEW)
 "OPEN_PROJECTS" = "Nyitott projektek";
 "CLOSED_PROJECTS" = "Lezárt projektek";
 "ADD_PROJECT" = "Projekt hozzáadása";
@@ -60,7 +56,7 @@
 
 
 
-//MARK: _ EDITING PROJECTS
+//MARK: - (EDITING PROJECTS)
 "PROJECT_NAME_PLACEHOLDER" = "Projekt név"; /* placeholder for a project name */
 "PROJECT_DESCRIPTION_PLACEHOLDER" = "Projekt dokumentáció";
 "PROJECT_SELECT_COLOR" = "Egyedi projekt szín";
@@ -84,7 +80,7 @@
 
 
 
-//MARK: _ EDITING ITEMS
+//MARK: - (EDITING ITEMS)
 "ITEM_NAME" = "Tétel név";
 "ITEM_DESCRIPTION" = "Leírás";
 
@@ -98,7 +94,20 @@
 
 
 
-//MARK: _ ACCESSIBILITY
+//MARK: - (UNLOCKING PREMIUM)
+"IAP_HEADLINE" = "Szerezzen korlátlan projekteket";
+"IAP_DESCRIPTION %@" = "Ingyen adhat hozzá három projektet, vagy korlátlan projekt hozzáadásához %@ fizethet.";
+"IAP_RESTORE_DESCRIPTION" = "Ha már egy másik eszközön megvásárolta a feloldást, nyomja meg a Vásárlások visszaállítása gombot.";
+
+"IAP_BUY_BUTTON %@" = "Vedd meg: %@";
+"IAP_RESTORE_BUTTON" = "Vásárlások visszaállítása";
+
+"IAP_ERROR" = "Sajnos hiba történt az áruház betöltésekor. Kérjük próbálja újra később.";
+"IAP_LOADING" = "Betöltés…";
+"IAP_SUCCESSFUL" = "Köszönjük!";
+"IAP_PENDING" = "Köszönöm! Kérése jóváhagyásra vár, de addig is folytathatja az alkalmazás használatát.";
+
+//MARK: - (ACCESSIBILITY)
 /* describes elements on the home screen */
 "A11Y_COMPLETE_DESCRIPTION %@ %lld %g%%" = "%@, %lld tétel, %g%% kész.";
 /* asserts that a given project is completed */

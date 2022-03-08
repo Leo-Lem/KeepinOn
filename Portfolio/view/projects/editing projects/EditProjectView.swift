@@ -35,13 +35,19 @@ struct EditProjectView: View {
                     .padding(.vertical)
                 }
                 
-                Section(~.projReminders) {
-                    OptionalDatePicker(
-                        $vm.reminder.animation(),
-                        toggleLabel: ~.projShowReminders,
-                        pickerLabel: ~.projReminderTime,
-                        displayedComponents: .hourAndMinute
-                    )
+                if !vm.closed {
+                    Section(~.projReminders) {
+                        OptionalPicker($vm.reminder.animation(), default: Date.now + 60) {
+                            Toggle(~.projShowReminders, isOn: $0)
+                        } picker: {
+                            DatePicker(
+                                ~.projReminderTime,
+                                selection: $0,
+                                in: $1...,
+                                displayedComponents: .hourAndMinute
+                            )
+                        }
+                    }
                 }
                 
                 Section {
@@ -62,7 +68,10 @@ struct EditProjectView: View {
                     .alert(
                         ~.reminderErrorTitle,
                         isPresented: $vm.reminderError,
-                        actions: { Button(~.checkSettings, action: { vm.showAppSettings() }) },
+                        actions: {
+                            Button(~.ok) {}
+                            Button(~.checkSettings, action: { vm.showAppSettings() })
+                        },
                         message: { Text(~.reminderErrorMessage) }
                     )
                 }

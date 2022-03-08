@@ -9,6 +9,8 @@ import UserNotifications
 
 final actor NotificationController {
     
+    private var center: UNUserNotificationCenter { .current() }
+    
     func addReminders(for project: Project) async -> Bool {
         let settings = await center.notificationSettings()
         
@@ -58,5 +60,4 @@ final actor NotificationController {
         }
     }
     
-    private let center = UNUserNotificationCenter.current()
 }

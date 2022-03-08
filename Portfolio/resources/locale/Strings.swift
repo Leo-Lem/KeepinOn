@@ -10,7 +10,8 @@ import MySwiftUI
 
 enum Strings {
     
-    case ok, delete, settings, checkSettings, emptyTabPlaceholder
+    case ok, delete, settings, dismiss,
+         checkSettings, emptyTabPlaceholder
     
     case tab(_ tab: ContentView.Tab),
          navTitle(_ tab: ContentView.Tab),
@@ -40,7 +41,15 @@ enum Strings {
          markItemCompleted, priority,
          priorityLevel(_ level: Item.Priority)
 
-    case a11y(_ string: A11Y)
+    case iap(_ kind: IAP)
+    
+    enum IAP {
+        case header, desc(_ price: String), restoreDesc
+        case buy(_ price: String), restore
+        case failure, loading, success, pending
+    }
+    
+    case a11y(_ kind: A11Y)
     
     enum A11Y {
         case description(_ project: String, count: Int, progress: Double),
@@ -60,6 +69,8 @@ extension Strings: Localizable {
         case .ok: return "OK"
         case .delete: return "DELETE"
         case .settings: return "DELETE"
+        case .dismiss: return "DISMISS"
+            
         case .checkSettings: return "CHECK_SETTINGS"
         case .emptyTabPlaceholder: return "EMPTY_TAB_PLACEHOLDER"
             
@@ -131,6 +142,21 @@ extension Strings: Localizable {
             case .low: return "PRIORITY_LOW"
             case .mid: return "PRIORITY_MID"
             case .high: return "PRIORITY_HIGH"
+            }
+            
+        case .iap(let kind):
+            switch kind {
+            case .header: return "IAP_HEADLINE"
+            case .desc(let price): return "IAP_DESCRIPTION \(price)"
+            case .restoreDesc: return "IAP_RESTORE_DESCRIPTION"
+                
+            case .buy(let price): return "IAP_BUY_BUTTON \(price)"
+            case .restore: return "IAP_RESTORE_BUTTON"
+                
+            case .failure: return "IAP_ERROR"
+            case .loading: return "IAP_LOADING"
+            case .success: return "IAP_SUCCESSFUL"
+            case .pending: return "IAP_PENDING"
             }
             
         case .a11y(let kind):

@@ -41,6 +41,9 @@
 		6E63527827D3F2CC004F5A1F /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E63527727D3F2CC004F5A1F /* AppState.swift */; };
 		6E89B42427D755CC005C3EA4 /* SpotlightController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E89B42327D755CC005C3EA4 /* SpotlightController.swift */; };
 		6E89B42827D7712F005C3EA4 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E89B42727D7712F005C3EA4 /* NotificationController.swift */; };
+		6E89B42A27D79D15005C3EA4 /* IAPController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E89B42927D79D15005C3EA4 /* IAPController.swift */; };
+		6E89B42F27D7A61F005C3EA4 /* ProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E89B42E27D7A61F005C3EA4 /* ProductView.swift */; };
+		6E89B43527D7AD58005C3EA4 /* UnlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E89B43427D7AD58005C3EA4 /* UnlockView.swift */; };
 		6EC5A0CA27D23B1B008FE43B /* ProjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC5A0C927D23B1B008FE43B /* ProjectsView.swift */; };
 		6EC5A0CE27D242BB008FE43B /* MyPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 6EC5A0CD27D242BB008FE43B /* MyPackage */; };
 		6EC5A0D027D24D34008FE43B /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC5A0CF27D24D34008FE43B /* HomeView.swift */; };
@@ -114,6 +117,10 @@
 		6E63527727D3F2CC004F5A1F /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		6E89B42327D755CC005C3EA4 /* SpotlightController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotlightController.swift; sourceTree = "<group>"; };
 		6E89B42727D7712F005C3EA4 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
+		6E89B42927D79D15005C3EA4 /* IAPController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPController.swift; sourceTree = "<group>"; };
+		6E89B42B27D79F12005C3EA4 /* config.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = config.storekit; sourceTree = "<group>"; };
+		6E89B42E27D7A61F005C3EA4 /* ProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductView.swift; sourceTree = "<group>"; };
+		6E89B43427D7AD58005C3EA4 /* UnlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockView.swift; sourceTree = "<group>"; };
 		6EC5A0C927D23B1B008FE43B /* ProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsView.swift; sourceTree = "<group>"; };
 		6EC5A0CC27D242B2008FE43B /* MyPackage */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MyPackage; path = ../../MyPackage; sourceTree = "<group>"; };
 		6EC5A0CF27D24D34008FE43B /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -223,10 +230,10 @@
 			isa = PBXGroup;
 			children = (
 				6E033FA727CE320F001C53F2 /* ContentView.swift */,
-				6EF937DC27D1433900B9CFC6 /* Layout.swift */,
 				6EC5A0C627D23A88008FE43B /* home */,
 				6EC5A0C727D23AA0008FE43B /* projects */,
 				6EC5A0C827D23AAC008FE43B /* awards */,
+				6EF937DC27D1433900B9CFC6 /* Layout.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -256,6 +263,7 @@
 				6E033FA227CE2BB3001C53F2 /* Info.plist */,
 				6E033F9E27CE28F2001C53F2 /* Portfolio.entitlements */,
 				6EF937EB27D2282200B9CFC6 /* .swiftlint.yml */,
+				6E89B42B27D79F12005C3EA4 /* config.storekit */,
 			);
 			path = config;
 			sourceTree = "<group>";
@@ -298,6 +306,7 @@
 				6E033F9C27CE23D9001C53F2 /* DataController.swift */,
 				6E89B42327D755CC005C3EA4 /* SpotlightController.swift */,
 				6E89B42727D7712F005C3EA4 /* NotificationController.swift */,
+				6E89B42927D79D15005C3EA4 /* IAPController.swift */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -309,6 +318,23 @@
 				6E033FB827CE64CC001C53F2 /* EditProjectVM.swift */,
 			);
 			path = "editing projects";
+			sourceTree = "<group>";
+		};
+		6E89B43627D7AEA5005C3EA4 /* unlocking */ = {
+			isa = PBXGroup;
+			children = (
+				6E89B43427D7AD58005C3EA4 /* UnlockView.swift */,
+				6E89B43727D7AEB2005C3EA4 /* blocks */,
+			);
+			path = unlocking;
+			sourceTree = "<group>";
+		};
+		6E89B43727D7AEB2005C3EA4 /* blocks */ = {
+			isa = PBXGroup;
+			children = (
+				6E89B42E27D7A61F005C3EA4 /* ProductView.swift */,
+			);
+			path = blocks;
 			sourceTree = "<group>";
 		};
 		6EC5A0C627D23A88008FE43B /* home */ = {
@@ -326,6 +352,7 @@
 			children = (
 				6EC5A0C927D23B1B008FE43B /* ProjectsView.swift */,
 				6E033FA527CE2EFB001C53F2 /* ProjectsVM.swift */,
+				6E89B43627D7AEA5005C3EA4 /* unlocking */,
 				6E89B42227D625E8005C3EA4 /* editing projects */,
 				6EC5A0DD27D2853A008FE43B /* editing items */,
 				6EC5A0D727D26F65008FE43B /* blocks */,
@@ -549,7 +576,9 @@
 				6E033FEE27CFAEBD001C53F2 /* Strings.swift in Sources */,
 				6E033FA627CE2EFB001C53F2 /* ProjectsVM.swift in Sources */,
 				6E033FC527CE9D46001C53F2 /* Award.swift in Sources */,
+				6E89B42A27D79D15005C3EA4 /* IAPController.swift in Sources */,
 				6E63525E27D3A75E004F5A1F /* ColorID.swift in Sources */,
+				6E89B42F27D7A61F005C3EA4 /* ProductView.swift in Sources */,
 				6E033FB527CE6125001C53F2 /* ProjectHeaderView.swift in Sources */,
 				6E89B42427D755CC005C3EA4 /* SpotlightController.swift in Sources */,
 				6EF937DD27D1433900B9CFC6 /* Layout.swift in Sources */,
@@ -575,6 +604,7 @@
 				6EC5A0CA27D23B1B008FE43B /* ProjectsView.swift in Sources */,
 				6E033FAE27CE5925001C53F2 /* EditItemVM.swift in Sources */,
 				6EC5A0D527D269FC008FE43B /* AwardView.swift in Sources */,
+				6E89B43527D7AD58005C3EA4 /* UnlockView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

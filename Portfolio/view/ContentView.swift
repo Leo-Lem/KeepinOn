@@ -21,6 +21,7 @@ struct ContentView: View {
             }
         }
         .onContinueUserActivity(CSSearchableItemActionType) { _ in state.screen = .home }
+        .onAppear(perform: state.appLaunched)
         #if DEBUG
         .navigationViewStyle(.stack)
         #endif
