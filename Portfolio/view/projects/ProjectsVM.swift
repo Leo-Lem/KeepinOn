@@ -47,13 +47,7 @@ extension ProjectsView {
 extension ProjectsView.ViewModel {
     
     func addProject() {
-        guard
-            state.iapController.fullVersionUnlocked || dc.count(for: Project.CD.fetchRequest()) < 3
-        else { return unlocking = true }
-        
-        _ = Project(in: dc.context)
-        
-        save()
+        if !state.addProject() { unlocking = true }
     }
     
     func addItem(to project: Project) {
@@ -66,7 +60,7 @@ extension ProjectsView.ViewModel {
         offsets.forEach { offset in
             let item = items[offset]
             dc.delete(item)
-            state.spotlightController.delete(item)
+            state.qaController.delete(item)
         }
         
         save()

@@ -1,5 +1,5 @@
 //
-//  SpotlightController.swift
+//  QAController.swift
 //  Portfolio
 //
 //  Created by Leopold Lemmermann on 08.03.22.
@@ -8,11 +8,21 @@
 import CoreSpotlight
 import MyData
 
-final class SpotlightController {
+// MARK: - (Spotlight)
+
+/// QAController (Quick Action Controller) deals with everything regarding system-wide integration.
+///
+/// Deals with things, such as:
+/// - home screen quick actions
+/// - spotlight search
+/// - user activities
+final class QAController {
     
     private let dataController: DataController
     init(dataController: DataController) { self.dataController = dataController }
     
+    /// <#Description#>
+    /// - Parameter item: <#item description#>
     func update(_ item: Item) {
         let id: (item: String, project: String?) = (item.idString, item.project?.idString)
         
@@ -46,6 +56,52 @@ final class SpotlightController {
         case is Project: CSSearchableIndex.default().deleteSearchableItems(withIdentifiers: [id])
         default: break
         }
+    }
+    
+}
+
+// MARK: - (Activities)
+extension QAController {
+    
+    enum UserActivityType: String {
+        case addProject
+        
+        var id: String { "\(Self.prefix)\(rawValue)" }
+        
+        private static let prefix = "LeoLem.Portfolio."
+    }
+    
+}
+
+extension String {
+    init(_ userActivityType: QAController.UserActivityType) {
+        self.init(userActivityType.id)
+    }
+}
+
+// MARK: - (Home screen quick actions)
+extension QAController {
+    
+    func checkQATriggered() -> QuickAction? {
+        guard let url = AppDelegate.shortcutItem?.type else { return nil }
+        
+        return QuickAction(url: url)
+    }
+    
+    enum QuickAction: String {
+        case addProject
+        
+        var url: String { "\(Self.prefix)\(rawValue)" }
+        
+        init?(url: String) {
+            guard url.hasPrefix(Self.prefix) else { return nil }
+            
+            let rawValue = String(url.dropFirst(Self.prefix.count))
+            
+            self.init(rawValue: rawValue)
+        }
+        
+        private static let prefix = "portfolio://"
     }
     
 }

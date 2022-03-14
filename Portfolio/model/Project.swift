@@ -99,3 +99,12 @@ extension Project {
 }
 
 extension Project: Identifiable { var id: ObjectIdentifier { cd.id } }
+
+enum ColorID: String, CaseIterable, Codable {
+    
+    case pink = "Pink", purple = "Purple", red = "Red",
+         orange = "Orange", gold = "Gold", green = "Green",
+         teal = "Teal", lightBlue = "Light Blue", darkBlue = "Dark Blue",
+         midnight = "Midnight", darkGray = "Dark Gray", gray = "Gray"
+    
+}

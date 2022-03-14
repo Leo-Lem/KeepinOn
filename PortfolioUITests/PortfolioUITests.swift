@@ -50,6 +50,4 @@ class PortfolioUITests: XCTestCase {
         }
     }
     
-    // TODO: figure out how I can make more tests work.
-    
 }

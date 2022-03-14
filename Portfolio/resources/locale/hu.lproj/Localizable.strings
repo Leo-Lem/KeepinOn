@@ -1,7 +1,7 @@
 
 
 
-//MARK: - (GENERAL)
+// MARK: - (GENERAL)
 "OK" = "OK";
 "DELETE" = "Töröl";
 "SETTINGS" = "Alapbeállítások";
@@ -13,7 +13,7 @@
 
 
 
-//MARK: - (TABS)
+// MARK: - (TABS)
 "HOME" = "Haza";
 "OPEN" = "Nyitva";
 "CLOSED" = "Zárva";
@@ -23,19 +23,19 @@
 
 
 
-//MARK: - (HOME VIEW)
+// MARK: - (HOME VIEW)
 "NEXT_ITEMS" = "Következő";
 "MORE_ITEMS" = "Felfedezendő dolgok";
 
 
 
-//MARK: - (AWARDS VIEW)
+// MARK: - (AWARDS VIEW)
 "LOCKED" = "Zárt"; /* award has not been earned */
 "UNLOCKED %@" = "Nyitott: %@"; /* award has been earned, displaying the award */
 
 
 
-//MARK: - (PROJECTS VIEW)
+// MARK: - (PROJECTS VIEW)
 "OPEN_PROJECTS" = "Nyitott projektek";
 "CLOSED_PROJECTS" = "Lezárt projektek";
 "ADD_PROJECT" = "Projekt hozzáadása";
@@ -56,7 +56,7 @@
 
 
 
-//MARK: - (EDITING PROJECTS)
+// MARK: - (EDITING PROJECTS)
 "PROJECT_NAME_PLACEHOLDER" = "Projekt név"; /* placeholder for a project name */
 "PROJECT_DESCRIPTION_PLACEHOLDER" = "Projekt dokumentáció";
 "PROJECT_SELECT_COLOR" = "Egyedi projekt szín";
@@ -80,7 +80,7 @@
 
 
 
-//MARK: - (EDITING ITEMS)
+// MARK: - (EDITING ITEMS)
 "ITEM_NAME" = "Tétel név";
 "ITEM_DESCRIPTION" = "Leírás";
 
@@ -94,7 +94,7 @@
 
 
 
-//MARK: - (UNLOCKING PREMIUM)
+// MARK: - (UNLOCKING PREMIUM)
 "IAP_HEADLINE" = "Szerezzen korlátlan projekteket";
 "IAP_DESCRIPTION %@" = "Ingyen adhat hozzá három projektet, vagy korlátlan projekt hozzáadásához %@ fizethet.";
 "IAP_RESTORE_DESCRIPTION" = "Ha már egy másik eszközön megvásárolta a feloldást, nyomja meg a Vásárlások visszaállítása gombot.";
@@ -107,7 +107,9 @@
 "IAP_SUCCESSFUL" = "Köszönjük!";
 "IAP_PENDING" = "Köszönöm! Kérése jóváhagyásra vár, de addig is folytathatja az alkalmazás használatát.";
 
-//MARK: - (ACCESSIBILITY)
+
+
+// MARK: - (ACCESSIBILITY)
 /* describes elements on the home screen */
 "A11Y_COMPLETE_DESCRIPTION %@ %lld %g%%" = "%@, %lld tétel, %g%% kész.";
 /* asserts that a given project is completed */

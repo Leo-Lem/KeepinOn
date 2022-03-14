@@ -55,7 +55,7 @@ extension HomeView.ViewModel {
     var moreToExplore: ArraySlice<Item> { items.dropFirst(3) }
     
     func selectItem(with id: String) {
-        selectedItem = state.spotlightController.item(with: id)
+        selectedItem = state.qaController.item(with: id)
     }
     
 }

@@ -14,18 +14,18 @@ final class AppState: ObservableObject {
     @Published var itemSortOrder: Item.SortOrder = .optimized
     
     let dataController: DataController,
-        spotlightController: SpotlightController,
+        qaController: QAController,
         notificationController: NotificationController,
         iapController: IAPController
     
     init(
         dataController: DataController? = nil,
-        spotlightController: SpotlightController? = nil,
+        qaController: QAController? = nil,
         notificationController: NotificationController? = nil,
         iapController: IAPController? = nil
     ) {
         self.dataController = dataController ?? .init()
-        self.spotlightController = spotlightController ?? .init(dataController: self.dataController)
+        self.qaController = qaController ?? .init(dataController: self.dataController)
         self.notificationController = notificationController ?? .init()
         self.iapController = iapController ?? .init()
     }
@@ -39,6 +39,36 @@ final class AppState: ObservableObject {
         if let windowScene = scene as? UIWindowScene {
             SKStoreReviewController.requestReview(in: windowScene)
         }
+    }
+    
+}
+
+extension AppState {
+    
+    @discardableResult func addProject() -> Bool {
+        let canCreate = iapController.fullVersionUnlocked || dataController.count(for: Project.CD.fetchRequest()) < 3
+        
+        if canCreate { dataController.createProject() }
+        
+        return canCreate
+    }
+    
+}
+
+// MARK: - Quick Actions etc.
+extension AppState {
+    
+    func triggerQA() {
+        guard let qa = qaController.checkQATriggered() else { return }
+        
+        switch qa {
+        case .addProject: addProjectQA()
+        }
+    }
+    
+    func addProjectQA() {
+        screen = .open
+        addProject()
     }
     
 }

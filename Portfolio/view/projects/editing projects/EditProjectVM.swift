@@ -92,7 +92,7 @@ extension EditProjectView.ViewModel {
     
     func delete() {
         state.dataController.delete(project)
-        state.spotlightController.delete(project)
+        state.qaController.delete(project)
         
         save()
         

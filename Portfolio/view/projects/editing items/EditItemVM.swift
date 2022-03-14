@@ -58,7 +58,7 @@ extension EditItemView.ViewModel {
     
     private func save() {
         state.dataController.save()
-        state.spotlightController.update(item)
+        state.qaController.update(item)
     }
     
 }

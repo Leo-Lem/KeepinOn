@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MySwiftUI
 import CoreSpotlight
 
 struct ContentView: View {
@@ -21,6 +22,11 @@ struct ContentView: View {
             }
         }
         .onContinueUserActivity(CSSearchableItemActionType) { _ in state.screen = .home }
+        .onContinueUserActivity(.init(.addProject)) { _ in state.addProjectQA() }
+        .userActivity(.init(.addProject)) { activity in
+            activity.isEligibleForPrediction = true
+            activity.title = (~.addProj).localize()
+        }
         .onAppear(perform: state.appLaunched)
         #if DEBUG
         .navigationViewStyle(.stack)

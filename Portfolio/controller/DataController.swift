@@ -76,4 +76,10 @@ extension DataController {
         (try? context.count(for: request)) ?? 0
     }
     
+    func createProject() {
+        _ = Project(in: context)
+        
+        save()
+    }
+    
 }

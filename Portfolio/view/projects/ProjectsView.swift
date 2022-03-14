@@ -43,7 +43,7 @@ struct ProjectsView: View {
             }
             .sheet(isPresented: $vm.unlocking, content: UnlockView.init)
         }
-            
+        
     }
     
 }
