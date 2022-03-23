@@ -4,7 +4,7 @@
 <dict>
 	<key>NSUserActivityTypes</key>
 	<array>
-		<string>LeoLem.addProject</string>
+		<string>LeoLem.Portfolio.addProject</string>
 	</array>
 	<key>CFBundleURLTypes</key>
 	<array>

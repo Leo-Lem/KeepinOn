@@ -46,7 +46,7 @@ extension EditProjectView.ViewModel {
         get { project.closed }
         set {
             project.closed = newValue
-            save()
+            state.save()
             
             dismiss()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -67,7 +67,7 @@ extension EditProjectView.ViewModel {
         
         Task {
             if reminder != nil {
-                guard await state.notificationController.addReminders(for: project) else {
+                guard await state.addReminders(for: project) else {
                     project.reminder = nil
                     reminder = nil
                     
@@ -75,11 +75,11 @@ extension EditProjectView.ViewModel {
                     return
                 }
             } else {
-                await state.notificationController.removeReminders(for: project)
+                await state.removeReminders(for: project)
             }
         }
         
-        save()
+        state.save()
         
         dismiss()
     }
@@ -91,14 +91,9 @@ extension EditProjectView.ViewModel {
     }
     
     func delete() {
-        state.dataController.delete(project)
-        state.qaController.delete(project)
-        
-        save()
+        state.delete(project)
         
         dismiss()
     }
-    
-    private func save() { state.dataController.save() }
     
 }

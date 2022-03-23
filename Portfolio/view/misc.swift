@@ -56,3 +56,13 @@ extension Item {
     }
     
 }
+
+enum ContentViewTab: String, CaseIterable {
+    case home, open, closed, awards
+}
+
+extension Item {
+    enum SortOrder: String, CaseIterable {
+        case optimized, title, timestamp
+    }
+}

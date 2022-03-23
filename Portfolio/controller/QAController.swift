@@ -18,9 +18,6 @@ import MyData
 /// - user activities
 final class QAController {
     
-    private let dataController: DataController
-    init(dataController: DataController) { self.dataController = dataController }
-    
     /// <#Description#>
     /// - Parameter item: <#item description#>
     func update(_ item: Item) {
@@ -39,16 +36,8 @@ final class QAController {
         CSSearchableIndex.default().indexSearchableItems([searchableItem])
     }
     
-    func item(with id: String) -> Item? {
-        guard
-            let url = URL(string: id),
-            let id = dataController.container.persistentStoreCoordinator.managedObjectID(forURIRepresentation: url),
-            let cd = try? dataController.context.existingObject(with: id) as? Item.CD
-        else { return nil }
-        
-        return Item(cd)
-    }
-    
+    /// <#Description#>
+    /// - Parameter object: <#object description#>
     func delete<T: CDRepresentable>(_ object: T) {
         let id = object.idString
         switch object {

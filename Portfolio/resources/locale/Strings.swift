@@ -13,8 +13,8 @@ enum Strings {
     case ok, delete, settings, dismiss,
          checkSettings, emptyTabPlaceholder
     
-    case tab(_ tab: ContentView.Tab),
-         navTitle(_ tab: ContentView.Tab),
+    case tab(_ tab: ContentViewTab),
+         navTitle(_ tab: ContentViewTab),
          editProj, editItem
     
     case nextItems, moreItems, items(_ count: Int)
@@ -42,7 +42,6 @@ enum Strings {
          priorityLevel(_ level: Item.Priority)
 
     case iap(_ kind: IAP)
-    
     enum IAP {
         case header, desc(_ price: String), restoreDesc
         case buy(_ price: String), restore
@@ -50,12 +49,17 @@ enum Strings {
     }
     
     case a11y(_ kind: A11Y)
-    
     enum A11Y {
         case description(_ project: String, count: Int, progress: Double),
              completed(_ project: String),
              priority(_ project: String),
              color(_ id: ColorID)
+    }
+    
+    case widget(_ kind: Self.Widget)
+    enum Widget {
+        case title, placeholder,
+             simpleDesc, complexDesc
     }
 
 }
@@ -169,6 +173,14 @@ extension Strings: Localizable {
                 return "A11Y_PRIORITY \(project)"
             case .color(let id):
                 return LocalizedStringKey(id.rawValue.uppercased().replacingOccurrences(of: " ", with: "_"))
+            }
+            
+        case .widget(let kind):
+            switch kind {
+            case .title: return "WIDGET_TITLE"
+            case .placeholder: return "WIDGET_PLACEHOLDER"
+            case .simpleDesc: return "WIDGET_SIMPLE_DESCRIPTION"
+            case .complexDesc: return "WIDGET_COMPLEX_DESCRIPTION"
             }
         }
     }

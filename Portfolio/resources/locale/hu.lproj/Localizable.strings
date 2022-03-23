@@ -109,6 +109,13 @@
 
 
 
+// MARK: - (WIDGETS)
+"WIDGET_TITLE" = "Következő…";
+"WIDGET_PLACEHOLDER" = "Semmi!";
+"WIDGET_SIMPLE_DESCRIPTION" = "Az #1 elsőbbségi tétel.";
+"WIDGET_COMPLEX_DESCRIPTION" = "Az elsőbbségi tételeid.";
+
+
 // MARK: - (ACCESSIBILITY)
 /* describes elements on the home screen */
 "A11Y_COMPLETE_DESCRIPTION %@ %lld %g%%" = "%@, %lld tétel, %g%% kész.";

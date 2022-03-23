@@ -15,7 +15,7 @@ final class DataController {
     /// The lone CloudKit container used to store all our data.
     let container: NSPersistentCloudKitContainer
 
-    var context: NSManagedObjectContext { container.viewContext }
+    private var context: NSManagedObjectContext { container.viewContext }
     
     /// Initializes a data controller, either in memory (for temporary use such as testing and previewing),
     /// or on permanent storage (for use in regular app runs).
@@ -25,12 +25,18 @@ final class DataController {
         
         if inMemory {
             container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
+        } else {
+            if let url = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: Self.groupID) {
+                container.persistentStoreDescriptions.first?.url = url.appendingPathComponent("Main.sqlite")
+            }
         }
         
         container.loadPersistentStores { _, error in
             if let error = error {
                 fatalError("Fatal error loading store: \(error)")
             }
+            
+            self.context.automaticallyMergesChangesFromParent = true
             
             #if DEBUG
             if CommandLine.arguments.contains("enable-testing") { try? self.deleteAll() }
@@ -49,6 +55,8 @@ final class DataController {
 
         return managedObjectModel
     }()
+    
+    static let groupID = "group.LeoLem.Portfolio"
     
 }
 
@@ -72,14 +80,42 @@ extension DataController {
     /// Gets the count of fetched items for a given fetch request
     /// - Parameter for: A generic fetch request.
     /// - Returns: A count of fetched items. Defaults to 0.
-    func count<T>(for request: NSFetchRequest<T>) -> Int {
-        (try? context.count(for: request)) ?? 0
+    func count<T: NSManagedObject>(for request: NSFetchRequest<T>) throws -> Int {
+        try context.count(for: request)
     }
     
-    func createProject() {
-        _ = Project(in: context)
-        
-        save()
+    func results<T: NSManagedObject>(for request: NSFetchRequest<T>) throws -> [T] {
+        try context.fetch(request)
     }
+    
+    /// <#Description#>
+    /// - Parameter count: <#count description#>
+    /// - Returns: <#description#>
+    func fetchRequestForTopItems(count: Int? = nil) -> NSFetchRequest<Item.CD> {
+        let itemRequest: NSFetchRequest<Item.CD> = Item.CD.fetchRequest()
+
+        let completedPredicate = NSPredicate(format: "completed = false")
+        let openPredicate = NSPredicate(format: "project.closed = false")
+        let compoundPredicate = NSCompoundPredicate(type: .and, subpredicates: [completedPredicate, openPredicate])
+        itemRequest.predicate = compoundPredicate
+
+        itemRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Item.CD.priority, ascending: false)]
+
+        if let count = count { itemRequest.fetchLimit = count }
+        
+        return itemRequest
+    }
+    
+    #if DEBUG
+    /// Deletes all items and projects in the context.
+    func deleteAll() throws {
+        let fetchRequests: [NSFetchRequest<NSFetchRequestResult>] = [Item.CD.fetchRequest(), Project.CD.fetchRequest()],
+        batchDeleteRequests = fetchRequests.map(NSBatchDeleteRequest.init)
+
+        try batchDeleteRequests.forEach { request in
+            try container.viewContext.execute(request)
+        }
+    }
+    #endif
     
 }

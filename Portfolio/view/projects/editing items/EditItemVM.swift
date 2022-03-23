@@ -51,14 +51,9 @@ extension EditItemView.ViewModel {
         item.priority = priority
         item.completed = completed
         
-        save()
+        state.save(item)
         
         dismiss()
-    }
-    
-    private func save() {
-        state.dataController.save()
-        state.qaController.update(item)
     }
     
 }

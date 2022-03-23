@@ -12,7 +12,6 @@ extension AwardsView {
     @MainActor final class ViewModel: ObservableObject {
         
         private let state: AppState
-        private var dc: DataController { state.dataController }
         
         init(appState: AppState) {
             state = appState
@@ -27,17 +26,17 @@ extension AwardsView.ViewModel {
         switch award.criterion {
         case .items:
             let fetchRequest = CDItem.fetchRequest()
-            let count = dc.count(for: fetchRequest)
+            let count = state.count(for: fetchRequest)
             return count >= award.value
             
         case .complete:
             let fetchRequest = CDItem.fetchRequest()
             fetchRequest.predicate = NSPredicate(format: "completed = true")
-            let count = dc.count(for: fetchRequest)
+            let count = state.count(for: fetchRequest)
             return count >= award.value
             
         case .unlock:
-            return state.iapController.fullVersionUnlocked
+            return state.fullVersion
             
         default:
             return false // fatalError("Unknown award: \(award)")

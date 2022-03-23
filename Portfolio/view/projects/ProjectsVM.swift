@@ -10,7 +10,7 @@ import CoreData
 import MyOthers
 
 extension ProjectsView {
-    @MainActor final class ViewModel: NSObject, ObservableObject, NSFetchedResultsControllerDelegate {
+    final class ViewModel: NSObject, ObservableObject, NSFetchedResultsControllerDelegate {
         
         private let state: AppState
         private let projectsController: NSFetchedResultsController<Project.CD>
@@ -29,7 +29,7 @@ extension ProjectsView {
             
             projectsController = .init(
                 fetchRequest: Self.projectsRequest(closed: closed),
-                managedObjectContext: state.dataController.context,
+                managedObjectContext: state.viewContext,
                 sectionNameKeyPath: nil, cacheName: nil
             )
             super.init()
@@ -51,23 +51,19 @@ extension ProjectsView.ViewModel {
     }
     
     func addItem(to project: Project) {
-        _ = Item(in: dc.context, project: project)
+        state.addItem(to: project)
         
-        save()
+        state.save()
     }
     
     func deleteItem(from items: [Item], at offsets: IndexSet) {
         offsets.forEach { offset in
             let item = items[offset]
-            dc.delete(item)
-            state.qaController.delete(item)
+            state.delete(item)
         }
         
-        save()
+        state.save()
     }
-    
-    private func save() { dc.save() }
-    private var dc: DataController { state.dataController }
     
 }
 

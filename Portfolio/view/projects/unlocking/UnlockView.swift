@@ -15,7 +15,7 @@ struct UnlockView: View {
     
     var body: some View {
         VStack {
-            switch state.iapController.requestState {
+            switch state.requestState {
             case .loaded(let product): ProductView(product: product)
             case .failed: Text(~.iap(.failure))
             case .loading: ProgressView(~.iap(.loading))

@@ -15,7 +15,7 @@ struct ContentView: View {
     
     var body: some View {
         TabView(selection: $state.screen) {
-            ForEach(Tab.allCases, id: \.self) { tab in
+            ForEach(ContentViewTab.allCases, id: \.self) { tab in
                 tab.view(state: state)
                     .tag(tab)
                     .tabItem { Label(~.tab(tab), systemImage: tab.icon) }
@@ -27,7 +27,7 @@ struct ContentView: View {
             activity.isEligibleForPrediction = true
             activity.title = (~.addProj).localize()
         }
-        .onAppear(perform: state.appLaunched)
+        .onAppear(perform: state.requestFeedback)
         #if DEBUG
         .navigationViewStyle(.stack)
         #endif
@@ -35,7 +35,7 @@ struct ContentView: View {
     
 }
 
-extension ContentView.Tab {
+extension ContentViewTab {
     
     @ViewBuilder fileprivate func view(state: AppState) -> some View {
         switch self {

@@ -2,7 +2,7 @@
 //  controller-previews.swift
 //  Portfolio
 //
-//  Created by Leopold Lemmermann on 05.03.22.
+//  Created by Leopold Lemmermann on 14.03.22.
 //
 
 import CoreData
@@ -47,10 +47,4 @@ extension DataController {
         return dataController
     }()
 
-}
-
-extension AppState {
-    
-    static let preview: AppState = .init(dataController: .preview)
-    
 }

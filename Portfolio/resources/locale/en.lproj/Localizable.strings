@@ -107,6 +107,14 @@
 
 
 
+// MARK: - (WIDGETS)
+"WIDGET_TITLE" = "Up next…";
+"WIDGET_PLACEHOLDER" = "Nothing!";
+"WIDGET_SIMPLE_DESCRIPTION" = "Your #1 top-priority item.";
+"WIDGET_COMPLEX_DESCRIPTION" = "Your most important items.";
+
+
+
 // MARK: - (ACCESSIBILITY)
 /* describes elements on the home screen */
 "A11Y_COMPLETE_DESCRIPTION %@ %lld %g%%" = "%@, %lld items, %g%% complete.";

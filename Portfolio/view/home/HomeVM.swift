@@ -10,7 +10,7 @@ import CoreData
 import MyOthers
 
 extension HomeView {
-    @MainActor class ViewModel: NSObject, ObservableObject, NSFetchedResultsControllerDelegate {
+    class ViewModel: NSObject, ObservableObject, NSFetchedResultsControllerDelegate {
         
         private let state: AppState
         private let projectsController: NSFetchedResultsController<Project.CD>
@@ -25,12 +25,12 @@ extension HomeView {
             
             projectsController = .init(
                 fetchRequest: Self.projectsRequest,
-                managedObjectContext: state.dataController.context,
+                managedObjectContext: state.viewContext,
                 sectionNameKeyPath: nil, cacheName: nil
             )
             itemsController = .init(
-                fetchRequest: Self.itemsRequest,
-                managedObjectContext: state.dataController.context,
+                fetchRequest: state.fetchRequestForTopItems(10),
+                managedObjectContext: state.viewContext,
                 sectionNameKeyPath: nil, cacheName: nil
             )
             super.init()
@@ -55,7 +55,7 @@ extension HomeView.ViewModel {
     var moreToExplore: ArraySlice<Item> { items.dropFirst(3) }
     
     func selectItem(with id: String) {
-        selectedItem = state.qaController.item(with: id)
+        selectedItem = state.item(with: id)
     }
     
 }
@@ -80,25 +80,8 @@ extension HomeView.ViewModel {
         return request
     }()
     
-    fileprivate static let itemsRequest: NSFetchRequest<Item.CD> = {
-        let request: NSFetchRequest<Item.CD> = Item.CD.fetchRequest()
-        
-        let completedPredicate = NSPredicate(format: "completed = false"),
-            openPredicate = NSPredicate(format: "project.closed = false")
-        request.predicate = NSCompoundPredicate(type: .and, subpredicates: [completedPredicate, openPredicate])
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \Item.CD.priority, ascending: false)]
-        request.fetchLimit = 10
-        
-        return request
-    }()
-    
-    #if DEBUG
     func createSampleData() {
-        state.objectWillChange.send()
-        
-        try? state.dataController.deleteAll()
-        try? state.dataController.createSampleData()
+        state.createSampleData()
     }
-    #endif
     
 }

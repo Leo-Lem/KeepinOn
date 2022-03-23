@@ -17,11 +17,19 @@ struct Award: Decodable {
         value: Int,
         image: String
     
+}
+
+extension Award: Identifiable { var id: String { name } }
+
+extension Award {
+    static let allAwards: [Award] = Bundle.main.load(optional: "Awards.json") ?? []
+}
+
+extension Award {
     enum Criterion {
         case items, complete, chat, unlock
         case unknown(_ value: String)
     }
-    
 }
 
 extension Award.Criterion: Decodable {
@@ -56,10 +64,4 @@ extension Award.Criterion: Equatable {
         }
     }
     
-}
-
-extension Award: Identifiable { var id: String { name } }
-
-extension Award {
-    static let allAwards: [Award] = Bundle.main.load(optional: "Awards.json") ?? []
 }

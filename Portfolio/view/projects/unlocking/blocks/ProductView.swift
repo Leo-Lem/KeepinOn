@@ -27,13 +27,13 @@ struct ProductView: View {
                 Button(~.iap(.buy(product.localizedPrice)), action: unlock)
                     .buttonStyle(.purchase)
                 
-                Button(~.iap(.restore), action: state.iapController.restore)
+                Button(~.iap(.restore), action: state.restore)
                     .buttonStyle(.purchase)
             }
         }
     }
     
-    func unlock() { state.iapController.buy(product: product) }
+    func unlock() { state.buy(product) }
     
 }
 

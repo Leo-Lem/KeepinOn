@@ -11,7 +11,6 @@ import SwiftUI
 struct PortfolioApp: App {
     
     @StateObject private var state = AppState()
-    private var dc: DataController { state.dataController }
     
     @Environment(\.scenePhase) private var scenePhase
     
@@ -24,7 +23,7 @@ struct PortfolioApp: App {
                 // where scene phase won't detect our app losing focus.
                 .onReceive(
                     NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)
-                ) { _ in dc.save() }
+                ) { _ in state.save() }
                 // Checks if any shortcut items have been triggered before scene activation.
                 .onChange(of: scenePhase) { phase in
                     if case .active = phase { state.triggerQA() }
