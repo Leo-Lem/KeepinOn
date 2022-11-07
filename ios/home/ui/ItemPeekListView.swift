@@ -46,8 +46,9 @@ extension HomeView {
   }
 }
 
-// MARK: - (Previews)
+// MARK: - (PREVIEWS)
 
+#if DEBUG
 struct ItemPeekListView_Previews: PreviewProvider {
   static var previews: some View {
     ScrollView {
@@ -68,3 +69,4 @@ struct ItemPeekListView_Previews: PreviewProvider {
     .previewDisplayName("No Items")
   }
 }
+#endif

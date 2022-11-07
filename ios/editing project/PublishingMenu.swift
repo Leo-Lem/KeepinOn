@@ -30,6 +30,7 @@ struct PublishingMenu: ToolbarContent {
 
 // MARK: - (PREVIEWS)
 
+#if DEBUG
 struct PublishingMenu_Previews: PreviewProvider {
   static var previews: some View {
     NavigationStack {
@@ -45,3 +46,4 @@ struct PublishingMenu_Previews: PreviewProvider {
     .previewDisplayName("Published")
   }
 }
+#endif

@@ -31,6 +31,7 @@ extension BannerView {
 
 // MARK: - (PREVIEWS)
 
+#if DEBUG
 struct BannerViewPreview_Previews: PreviewProvider {
   static var previews: some View {
     BannerView.Preview {
@@ -39,3 +40,4 @@ struct BannerViewPreview_Previews: PreviewProvider {
     }
   }
 }
+#endif

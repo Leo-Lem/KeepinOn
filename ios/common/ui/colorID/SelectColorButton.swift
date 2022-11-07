@@ -31,8 +31,10 @@ struct SelectColorButton: View {
 
 // MARK: - (PREVIEWS)
 
+#if DEBUG
 struct SelectColorButton_Previews: PreviewProvider {
   static var previews: some View {
     SelectColorButton(.darkBlue, isSelected: false) { _ in }
   }
 }
+#endif

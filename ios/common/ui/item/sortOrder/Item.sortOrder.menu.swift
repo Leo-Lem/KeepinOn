@@ -23,6 +23,7 @@ struct SortOrderMenu: ToolbarContent {
 
 // MARK: - (PREVIEWS)
 
+#if DEBUG
 struct SortOrderMenu_Previews: PreviewProvider {
   static var previews: some View {
     NavigationStack {
@@ -31,3 +32,4 @@ struct SortOrderMenu_Previews: PreviewProvider {
     }
   }
 }
+#endif

@@ -52,8 +52,10 @@ struct TextFieldWithSend: View {
 
 // MARK: - (PREVIEWS)
 
+#if DEBUG
 struct TextFieldWithSend_Previews: PreviewProvider {
     static var previews: some View {
       TextFieldWithSend {_ in}
     }
 }
+#endif

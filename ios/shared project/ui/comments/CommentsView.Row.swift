@@ -69,6 +69,7 @@ extension CommentsView {
 
 // MARK: - (PREVIEWS)
 
+#if DEBUG
 struct CommentsViewRow_Previews: PreviewProvider {
   static var previews: some View {
     List {
@@ -85,3 +86,4 @@ struct CommentsViewRow_Previews: PreviewProvider {
     .configureForPreviews()
   }
 }
+#endif

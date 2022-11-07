@@ -83,6 +83,7 @@ struct AuthenticationView: View {
 
 // MARK: - (PREVIEWS)
 
+#if DEBUG
 struct AuthenticationView_Previews: PreviewProvider {
   static var previews: some View {
     Group {
@@ -97,3 +98,4 @@ struct AuthenticationView_Previews: PreviewProvider {
     .configureForPreviews()
   }
 }
+#endif

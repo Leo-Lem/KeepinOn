@@ -44,6 +44,7 @@ struct SharedProjectsList: View {
 
 // MARK: - (PREVIEWS)
 
+#if DEBUG
 struct SharedProjectsList_Previews: PreviewProvider {
   static var previews: some View {
     SharedProjectsList([.example], user: .example)
@@ -53,3 +54,4 @@ struct SharedProjectsList_Previews: PreviewProvider {
       .previewDisplayName("Without User")
   }
 }
+#endif

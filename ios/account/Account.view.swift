@@ -32,6 +32,7 @@ struct AccountView: View {
 
 // MARK: - (PREVIEWS)
 
+#if DEBUG
 struct AccountView_Previews: PreviewProvider {
   static var previews: some View {
     Group {
@@ -44,3 +45,4 @@ struct AccountView_Previews: PreviewProvider {
     .configureForPreviews()
   }
 }
+#endif

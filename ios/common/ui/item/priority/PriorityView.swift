@@ -22,6 +22,7 @@ struct PriorityView: View {
 
 // MARK: - (PREVIEWS)
 
+#if DEBUG
 struct PriorityView_Previews: PreviewProvider {
   static var previews: some View {
     PriorityView(.low).previewDisplayName("low")
@@ -29,3 +30,4 @@ struct PriorityView_Previews: PreviewProvider {
     PriorityView(.high).previewDisplayName("high")
   }
 }
+#endif

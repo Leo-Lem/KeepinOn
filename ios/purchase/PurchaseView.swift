@@ -25,8 +25,10 @@ extension PurchasingView {
 
 // MARK: - (PREVIEWS)
 
+#if DEBUG
 struct ProductView_Previews: PreviewProvider {
   static var previews: some View {
     PurchasingView.PurchaseView(purchase: .example, makePurchase: {_ in})
   }
 }
+#endif

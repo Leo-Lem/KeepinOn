@@ -48,6 +48,9 @@ struct PostCommentView: View {
   }
 }
 
+// MARK: - (PREVIEWS)
+
+#if DEBUG
 struct PostCommentView_Previews: PreviewProvider {
   static var previews: some View {
     Group {
@@ -61,3 +64,4 @@ struct PostCommentView_Previews: PreviewProvider {
     .configureForPreviews()
   }
 }
+#endif

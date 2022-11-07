@@ -39,6 +39,7 @@ struct CommentsView: View {
 
 // MARK: - (PREVIEWS)
 
+#if DEBUG
 struct CommentsView_Previews: PreviewProvider {
   static var previews: some View {
     Group {
@@ -68,3 +69,4 @@ struct CommentsView_Previews: PreviewProvider {
     .configureForPreviews()
   }
 }
+#endif

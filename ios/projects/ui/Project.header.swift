@@ -74,8 +74,9 @@ struct ProjectHeader: View {
   }
 }
 
-// MARK: - (Previews)
+// MARK: - (PREVIEWS)
 
+#if DEBUG
 struct ProjectHeader_Previews: PreviewProvider {
   static var previews: some View {
     NavigationStack {
@@ -105,3 +106,4 @@ struct ProjectHeader_Previews: PreviewProvider {
     .configureForPreviews()
   }
 }
+#endif

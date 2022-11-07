@@ -69,6 +69,7 @@ struct SheetView<Content: View>: View {
 
 // MARK: - (PREVIEWS)
 
+#if DEBUG
 struct SheetView_Previews: PreviewProvider {
   static var previews: some View {
     Group {
@@ -112,3 +113,4 @@ struct SheetView_Previews: PreviewProvider {
     }
   }
 }
+#endif

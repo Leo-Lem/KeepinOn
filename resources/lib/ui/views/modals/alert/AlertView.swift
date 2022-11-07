@@ -60,6 +60,7 @@ struct AlertView<Content: View, Actions: View>: View {
 
 // MARK: - (PREVIEWS)
 
+#if DEBUG
 struct AlertView_Previews: PreviewProvider {
   static var previews: some View {
     Binding.PreviewView(false) { binding in
@@ -79,3 +80,4 @@ struct AlertView_Previews: PreviewProvider {
     }
   }
 }
+#endif

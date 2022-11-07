@@ -46,6 +46,7 @@ struct SharedProjectView: View {
 
 // MARK: - (PREVIEWS)
 
+#if DEBUG
 struct SharedProjectView_Previews: PreviewProvider {
   static var previews: some View {
     Group {
@@ -60,3 +61,4 @@ struct SharedProjectView_Previews: PreviewProvider {
     .configureForPreviews()
   }
 }
+#endif

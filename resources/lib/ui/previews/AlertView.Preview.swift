@@ -20,6 +20,7 @@ extension AlertView {
 
 // MARK: - (PREVIEWS)
 
+#if DEBUG
 struct AlertViewPreview_Previews: PreviewProvider {
   static var previews: some View {
     AlertView.Preview {
@@ -29,3 +30,4 @@ struct AlertViewPreview_Previews: PreviewProvider {
     }
   }
 }
+#endif
