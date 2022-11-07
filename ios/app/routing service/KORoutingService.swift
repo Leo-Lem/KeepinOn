@@ -8,6 +8,8 @@ final class KORoutingService: RoutingService {
 
   private(set) var page: Page = .home
   private(set) var sheet: Sheet?
+  private(set) var alert: Alert?
+  private(set) var banner: Banner?
 
   private let keyValueService: KeyValueService
   private let tasks = Tasks()
@@ -38,6 +40,12 @@ final class KORoutingService: RoutingService {
     case let .sheet(sheet):
       self.sheet = sheet
       didChange.send(.routedTo(.sheet(sheet)))
+    case let .alert(alert):
+      self.alert = alert
+      didChange.send(.routedTo(.alert(alert)))
+    case let .banner(banner):
+      self.banner = banner
+      didChange.send(.routedTo(.banner(banner)))
     }
   }
 }

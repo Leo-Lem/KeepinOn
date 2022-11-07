@@ -20,6 +20,10 @@ extension View {
         PurchasingView(appState: appState)
       case .account:
         AccountView(appState: appState)
+      case let .project(project):
+        ProjectDetails(project)
+      case let .item(item):
+        ItemDetails(item)
       default: EmptyView()
       }
     }

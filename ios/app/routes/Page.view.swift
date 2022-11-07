@@ -24,4 +24,14 @@ extension Page {
     case .community: return "person.3"
     }
   }
+
+  var label: LocalizedStringKey {
+    switch self {
+    case .home: return "HOME_TITLE"
+    case .open: return "OPEN_TITLE"
+    case .closed: return "CLOSED_TITLE"
+    case .awards: return "AWARDS_TITLE"
+    case .community: return "COMMUNITY_TITLE"
+    }
+  }
 }
