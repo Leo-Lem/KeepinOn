@@ -49,8 +49,9 @@ struct HomeView: View {
   }
 }
 
-// MARK: - (PREVIEWS)
+// MARK: - (PREVIEWS) 
 
+#if DEBUG
 struct HomeView_Previews: PreviewProvider {
   static var previews: some View {
     Group {
@@ -63,3 +64,4 @@ struct HomeView_Previews: PreviewProvider {
     .configureForPreviews()
   }
 }
+#endif

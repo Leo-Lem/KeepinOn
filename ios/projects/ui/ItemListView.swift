@@ -28,6 +28,7 @@ struct ItemListView: View {
 
 // MARK: - (PREVIEWS)
 
+#if DEBUG
 struct ItemListView_Previews: PreviewProvider {
   static var previews: some View {
     Form {
@@ -43,3 +44,4 @@ struct ItemListView_Previews: PreviewProvider {
     .configureForPreviews()
   }
 }
+#endif

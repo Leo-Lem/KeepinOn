@@ -66,6 +66,7 @@ struct BannerView<Content: View>: View {
 
 // MARK: - (PREVIEWS)
 
+#if DEBUG
 struct BannerView_Previews: PreviewProvider {
   static var previews: some View {
     BannerView.Preview {
@@ -81,3 +82,4 @@ struct BannerView_Previews: PreviewProvider {
     .previewDisplayName("Dismiss after 3 seconds")
   }
 }
+#endif

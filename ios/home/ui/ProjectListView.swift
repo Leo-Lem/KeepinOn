@@ -43,8 +43,9 @@ extension HomeView {
   }
 }
 
-// MARK: - (Previews)
+// MARK: - (PREVIEWS)
 
+#if DEBUG
 struct ProjectListView_Previews: PreviewProvider {
   static var previews: some View {
     Form {
@@ -65,3 +66,4 @@ struct ProjectListView_Previews: PreviewProvider {
     .configureForPreviews()
   }
 }
+#endif

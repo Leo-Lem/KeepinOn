@@ -19,8 +19,10 @@ struct SelectColorGrid: View {
 
 // MARK: - (PREVIEWS)
 
+#if DEBUG
 struct SelectColorGrid_Previews: PreviewProvider {
   static var previews: some View {
     SelectColorGrid(colorID: .constant(.darkBlue))
   }
 }
+#endif

@@ -19,6 +19,7 @@ extension SheetView {
 
 // MARK: - (PREVIEWS)
 
+#if DEBUG
 struct SheetViewPreview_Previews: PreviewProvider {
   static var previews: some View {
     SheetView.Preview {
@@ -26,3 +27,4 @@ struct SheetViewPreview_Previews: PreviewProvider {
     }
   }
 }
+#endif

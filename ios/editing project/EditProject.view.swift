@@ -59,8 +59,9 @@ struct EditProjectView: View {
   }
 }
 
-// MARK: - (Previews)
+// MARK: - (PREVIEWS)
 
+#if DEBUG
 struct EditProjectView_Previews: PreviewProvider {
   static var previews: some View {
     Group {
@@ -75,3 +76,4 @@ struct EditProjectView_Previews: PreviewProvider {
     .configureForPreviews()
   }
 }
+#endif

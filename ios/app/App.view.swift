@@ -32,6 +32,7 @@ struct AppView: View {
 
 // MARK: - (PREVIEWS)
 
+#if DEBUG
 struct AppView_Previews: PreviewProvider {
   static var previews: some View {
     AppView(appState: .example)
@@ -39,3 +40,4 @@ struct AppView_Previews: PreviewProvider {
       .configureForPreviews()
   }
 }
+#endif

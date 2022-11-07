@@ -27,6 +27,7 @@ struct AwardsView: View {
 
 // MARK: - (PREVIEWS)
 
+#if DEBUG
 struct AwardsView_Previews: PreviewProvider {
   static var previews: some View {
     Group {
@@ -39,3 +40,4 @@ struct AwardsView_Previews: PreviewProvider {
     .configureForPreviews()
   }
 }
+#endif

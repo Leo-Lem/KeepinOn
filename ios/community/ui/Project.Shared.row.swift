@@ -23,9 +23,11 @@ struct SharedProjectRow: View {
 
 // MARK: - (PREVIEWS)
 
+#if DEBUG
 struct SharedProjectRow_Previews: PreviewProvider {
   static var previews: some View {
     SharedProjectRow(.example)
       .environmentObject(AppState.example)
   }
 }
+#endif
