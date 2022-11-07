@@ -566,8 +566,6 @@
 			children = (
 				6E0107902908256E005ACBC1 /* SharedProject.vm.swift */,
 				6E072FA92906DA6200DF1A87 /* SharedProject.view.swift */,
-				6EE2F89D29082BB9000A5351 /* SharedItemsView.swift */,
-				6E92E84A291975D400FBC9D2 /* comments */,
 				6E072FAF2906DBCA00DF1A87 /* ui */,
 				6E15AFB929114BC6006C27C9 /* models */,
 			);
@@ -639,6 +637,8 @@
 		6E072FAF2906DBCA00DF1A87 /* ui */ = {
 			isa = PBXGroup;
 			children = (
+				6EE2F89D29082BB9000A5351 /* SharedItemsView.swift */,
+				6E92E84A291975D400FBC9D2 /* comments */,
 				6E072FB22906DC0300DF1A87 /* Item.Shared.ui.swift */,
 				6EE2F8DC290B1C9E000A5351 /* UserRelevanyReason.localizedError.swift */,
 			);
@@ -668,6 +668,8 @@
 		6E08EFB12916B74A003A3E97 /* ui */ = {
 			isa = PBXGroup;
 			children = (
+				6EE2F8EC290B2BA0000A5351 /* AuthenticationView.swift */,
+				6EE2F8EF290B2D5F000A5351 /* EditAccountView.swift */,
 				6EC173A729187418005F6CFC /* SiwAButton.swift */,
 				6E08EFB22916B75C003A3E97 /* AuthError.desc.swift */,
 			);
@@ -943,6 +945,7 @@
 		6E15AFCA291173CA006C27C9 /* ui */ = {
 			isa = PBXGroup;
 			children = (
+				6E15AF82290EEE72006C27C9 /* SharedProjectsList.swift */,
 				6E072FB02906DBE400DF1A87 /* Project.Shared.ui.swift */,
 				6E15AF84290EEEF1006C27C9 /* Project.Shared.row.swift */,
 			);
@@ -987,7 +990,6 @@
 			children = (
 				6E40641F290294F200383A70 /* Community.vm.swift */,
 				6E406420290294F200383A70 /* Community.view.swift */,
-				6E15AF82290EEE72006C27C9 /* SharedProjectsList.swift */,
 				6E15AFCA291173CA006C27C9 /* ui */,
 				6E072F9B2906C16200DF1A87 /* Project.Shared.swift */,
 			);
@@ -999,8 +1001,6 @@
 			children = (
 				6E40642E29029C2500383A70 /* Account.vm.swift */,
 				6E40642D29029C2500383A70 /* Account.view.swift */,
-				6EE2F8EC290B2BA0000A5351 /* AuthenticationView.swift */,
-				6EE2F8EF290B2D5F000A5351 /* EditAccountView.swift */,
 				6E08EFB12916B74A003A3E97 /* ui */,
 				6E15AFBB29114D16006C27C9 /* authentication service */,
 				6E15AF8A290EF7D4006C27C9 /* models */,
