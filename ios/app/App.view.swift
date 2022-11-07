@@ -1,10 +1,28 @@
 import SwiftUI
 
+// TODO: Add more accessibility features
+
 struct AppView: View {
   @EnvironmentObject var appState: AppState
 
   var body: some View {
-    Text("App view")
+    Group {
+      TabView(selection: $vm.page) {
+        ForEach(Page.tabs, id: \.self) { tab in
+          NavigationStack {
+            tab.getView(appState: appState)
+          }
+          .tag(tab)
+          .tabItem { Label(tab.label, systemImage: tab.icon) }
+        }
+      }
+      // routing to views when the user clicks on element from spotlight search
+      .onContinueUserActivity(CSService.activityType) { vm.routeToSpotlightModel($0) }
+      .sheet($vm.sheet, appState: vm.appState)
+      .alert($vm.alert, routingService: vm.routingService)
+      .banner($vm.banner, routingService: vm.routingService)
+    }
+    .font(.default())
   }
 
   @StateObject private var vm: ViewModel
@@ -22,4 +40,4 @@ struct AppView_Previews: PreviewProvider {
       .previewDisplayName("Loading")
       .configureForPreviews()
   }
-  }
+}

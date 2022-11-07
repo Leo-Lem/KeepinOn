@@ -4,6 +4,7 @@ import SwiftUI
 
 extension View {
   func configureForPreviews() -> some View {
-      environmentObject(AppState.example)
+    font(.default())
+      .environmentObject(AppState.example)
   }
 }
