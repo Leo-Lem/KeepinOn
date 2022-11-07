@@ -4,7 +4,23 @@ import SwiftUI
 
 struct AccountView: View {
   var body: some View {
-    Text("Account View")
+    Group {
+      switch vm.authenticationStatus {
+      case let .authenticated(user):
+        EditAccountView(user: user) {
+          vm.logout()
+        } update: {
+          try await vm.update($0)
+        }
+      case .notAuthenticated:
+        AuthenticationView {
+          try await vm.register(id: $0, pin: $1, name: $2)
+        } login: {
+          try await vm.login(id: $0, pin: $1)
+        }
+        .preferred(style: SheetViewStyle(size: .half, dismissButtonStyle: .bottom))
+      }
+    }
   }
 
   @StateObject private var vm: ViewModel
