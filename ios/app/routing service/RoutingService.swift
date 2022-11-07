@@ -7,6 +7,8 @@ protocol RoutingService {
 
   var page: Page { get }
   var sheet: Sheet? { get }
+  var alert: Alert? { get }
+  var banner: Banner? { get }
 
   func route(to view: Route)
 }
@@ -24,6 +26,14 @@ extension RoutingService {
     switch route {
     case .sheet:
       self.route(to: .sheet(nil))
+    case .alert:
+      self.route(to: .alert(nil))
+    case .banner:
+      self.route(to: .banner(nil))
+    case .none:
+      self.route(to: .sheet(nil))
+      self.route(to: .alert(nil))
+      self.route(to: .banner(nil))
     default: break
     }
   }
@@ -34,6 +44,10 @@ extension RoutingService {
     switch view {
     case .sheet:
       while sheet != nil {}
+    case .alert:
+      while alert != nil {}
+    case .banner:
+      while banner != nil {}
     default: return
     }
   }
