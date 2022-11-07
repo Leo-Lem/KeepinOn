@@ -18,7 +18,7 @@ final class CKServiceTests: XCTestCase {
     await service.deleteAll()
 
     // leaving a little time for the serverside actions
-    try await Task.sleep(nanoseconds: 1 * NSEC_PER_SEC)
+    await sleep(for: .seconds(1))
   }
 
   func testPublishing() async throws {
@@ -63,7 +63,7 @@ final class CKServiceTests: XCTestCase {
     )
     try await service.publish(item)
 
-    try await Task.sleep(nanoseconds: 1 * NSEC_PER_SEC)
+    await sleep(for: .seconds(1))
 
     let result: [Item.Shared] = try await service.fetchReferencesToModel(project)
     XCTAssertTrue(result.contains { $0.id == item.id }, "The Item is not found via reference to project.")

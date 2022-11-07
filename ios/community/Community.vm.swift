@@ -16,7 +16,7 @@ extension CommunityView {
 
       tasks.add(
         publicDatabaseService.didChange.getTask(with: updateLoadState),
-        authenticationService.didChange.getTask(with: updateUser)
+        authService.didChange.getTask(with: updateUser)
       )
     }
   }
@@ -53,7 +53,7 @@ private extension CommunityView.ViewModel {
   }
 
   func updateUser() {
-    if case let .authenticated(user) = authenticationService.status {
+    if case let .authenticated(user) = authService.status {
       self.user = user
     } else {
       user = nil

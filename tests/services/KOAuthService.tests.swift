@@ -3,8 +3,8 @@
 @testable import KeepinOn
 import XCTest
 
-final class KOAServiceTests: XCTestCase {
-  private var service: KOAService!
+final class KOAuthServiceTests: XCTestCase {
+  private var service: KOAuthService!
 
   override func setUp() async throws {
     let ckService = await CKService()
@@ -17,7 +17,7 @@ final class KOAServiceTests: XCTestCase {
     // cleans up leftover data in the database
     await ckService.deleteAll()
 
-    service = await KOAService(
+    service = await KOAuthService(
       keyValueService: UDService(),
       publicDatabaseService: ckService
     )
@@ -67,7 +67,13 @@ final class KOAServiceTests: XCTestCase {
 
   func testUpdatingUser() async throws {
     let credential = Credential.example
-    var user = try await service.register(credential)
+
+    var user: User
+    do {
+      user = try await service.register(credential)
+    } catch {
+      user = try await service.login(credential)
+    }
 
     user.colorID = .green
 
@@ -114,7 +120,7 @@ final class KOAServiceTests: XCTestCase {
   }
 }
 
-private extension KOAServiceTests {
+private extension KOAuthServiceTests {
   @discardableResult
   func registerExampleUser() async throws -> Credential {
     let credential = Credential.example

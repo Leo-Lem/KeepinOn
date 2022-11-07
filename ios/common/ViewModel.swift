@@ -12,7 +12,7 @@ class ViewModel: ObservableObject {
   var keyValuePersistenceService: KeyValueService { appState.keyValueService }
   var indexingService: IndexingService { appState.indexingService }
   var notificationService: NotificationService { appState.notificationService }
-  var authenticationService: AuthenticationService { appState.authenticationService }
+  var authService: AuthService { appState.authService }
   var purchaseService: PurchaseService { appState.purchaseService }
   var awardService: AwardsService { appState.awardService }
   var hapticsService: HapticsService? { appState.hapticsService }

@@ -2,7 +2,7 @@
 
 import Combine
 
-final class MockAuthenticationService: AuthenticationService {
+final class MockAuthService: AuthService {
   let didChange = PassthroughSubject<Void, Never>()
 
   var status: AuthStatus = .notAuthenticated

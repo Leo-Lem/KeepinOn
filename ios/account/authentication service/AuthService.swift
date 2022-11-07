@@ -1,6 +1,6 @@
 //	Created by Leopold Lemmermann on 21.10.22.
 
-protocol AuthenticationService: ObservableService {
+protocol AuthService: ObservableService {
   var status: AuthStatus { get }
 
   @discardableResult

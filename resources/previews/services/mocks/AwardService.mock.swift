@@ -11,19 +11,7 @@ final class MockAwardsService: AwardsService {
     return .random()
   }
 
-  func itemsAdded(_ number: Int) async throws {
-    print("\(number) Items added!")
-  }
-
-  func itemsCompleted(_ number: Int) async throws {
-    print("\(number) Items completed!")
-  }
-
-  func commentsPosted(_ number: Int) async throws {
-    print("\(number) Comments posted!")
-  }
-
-  func unlockedFullVersion() async throws {
-    print("Full version was unlocked!")
+  func notify(of progress: AwardsChange.Progress) async throws {
+    print("Progress received: \(progress)")
   }
 }

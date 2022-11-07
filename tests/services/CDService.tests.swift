@@ -44,7 +44,7 @@ final class CDServiceTests: XCTestCase {
   }
 
   func testCounting() throws {
-    for _ in 0..<5 {
+    for _ in 0 ..< 5 {
       try service.insert(Project.example)
     }
 

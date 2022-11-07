@@ -35,7 +35,7 @@ extension EditProjectView {
 
       tasks.add(
         notificationService.didChange.getTask(with: updateCanSendReminders),
-        authenticationService.didChange.getTask(with: updateUser),
+        authService.didChange.getTask(with: updateUser),
         publicDatabaseService.didChange.getTask(with: updateIsPublished)
       )
     }
@@ -131,7 +131,7 @@ private extension EditProjectView.ViewModel {
   }
 
   func updateUser() {
-    if case let .authenticated(user) = authenticationService.status {
+    if case let .authenticated(user) = authService.status {
       self.user = user
     } else {
       user = nil

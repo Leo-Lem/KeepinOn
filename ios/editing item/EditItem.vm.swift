@@ -31,7 +31,7 @@ extension EditItemView.ViewModel {
     Task(priority: .userInitiated) {
       if new {
         await printError {
-          try await awardService.itemsCompleted(1)
+          try await awardService.completedItem()
         }
       }
     }

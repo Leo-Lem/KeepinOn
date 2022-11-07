@@ -56,7 +56,7 @@ extension ProjectsView.ViewModel {
       try privateDatabaseService.insert(item)
       Task(priority: .userInitiated) {
         await printError {
-          try await awardService.itemsAdded(1)
+          try await awardService.addedItem()
         }
       }
     }
@@ -92,7 +92,7 @@ extension ProjectsView.ViewModel {
       Task(priority: .userInitiated) {
         if item.isDone {
           await printError {
-            try await awardService.itemsCompleted(1)
+            try await awardService.completedItem()
           }
         }
       }
