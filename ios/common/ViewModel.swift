@@ -6,6 +6,17 @@ import Combine
 class ViewModel: ObservableObject {
   let appState: AppState
 
+  var routingService: RoutingService { appState.routingService }
+  var privateDatabaseService: PrivateDatabaseService { appState.privateDatabaseService }
+  var publicDatabaseService: PublicDatabaseService { appState.publicDatabaseService }
+  var keyValuePersistenceService: KeyValueService { appState.keyValueService }
+  var indexingService: IndexingService { appState.indexingService }
+  var notificationService: NotificationService { appState.notificationService }
+  var authenticationService: AuthenticationService { appState.authenticationService }
+  var purchaseService: PurchaseService { appState.purchaseService }
+  var awardService: AwardsService { appState.awardService }
+  var hapticsService: HapticsService? { appState.hapticsService }
+
   private(set) var tasks = Tasks()
 
   init(appState: AppState) {
