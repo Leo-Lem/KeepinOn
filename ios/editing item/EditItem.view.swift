@@ -4,7 +4,33 @@ import SwiftUI
 
 struct EditItemView: View {
   var body: some View {
-    Text("Edit Item View")
+    NavigationStack {
+      Form {
+        Section("GENERIC_SETTINGS") {
+          TextField("ITEM_NAME_PLACEHOLDER", text: $vm.title)
+          TextField("ITEM_DESCRIPTION_PLACEHOLDER", text: $vm.details)
+        }
+
+        Section("PRIORITY") {
+          Picker("PRIORITY", selection: $vm.priority, items: Item.Priority.allCases, id: \.self) { priority in
+            Text(priority.label)
+              .tag(priority)
+          }
+          .pickerStyle(.segmented)
+        }
+        Section {
+          Toggle("MARK_COMPLETED", isOn: Binding<Bool>(get: { vm.isDone }, set: { vm.setIsDone($0) }))
+        }
+      }
+      .styledNavigationTitle("EDIT_ITEM")
+      .toolbar {
+        ToolbarItem(placement: .confirmationAction) {
+          Button("GENERIC_SAVE") { vm.updateItem() }
+            .buttonStyle(.borderedProminent)
+        }
+      }
+      .preferred(style: SheetViewStyle(size: .fraction(0.7)))
+    }
   }
 
   @StateObject private var vm: ViewModel
@@ -16,7 +42,7 @@ struct EditItemView: View {
 
 // MARK: - (Previews)
 
-struct EditItemView_Previews: PreviewProvider {  
+struct EditItemView_Previews: PreviewProvider {
   static var previews: some View {
     Group {
       EditItemView(.example, appState: .example)
