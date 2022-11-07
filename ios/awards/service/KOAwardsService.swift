@@ -23,13 +23,13 @@ final class KOAwardsService: AwardsService {
     }
   }
 
-  private let authenticationService: AuthenticationService,
+  private let authService: AuthService,
               keyValueService: KeyValueService
   init(
-    authenticationService: AuthenticationService,
+    authService: AuthService,
     keyValueService: KeyValueService
   ) {
-    self.authenticationService = authenticationService
+    self.authService = authService
     self.keyValueService = keyValueService
 
     allAwards = Self.loadAllAwards()
@@ -41,28 +41,20 @@ final class KOAwardsService: AwardsService {
     isUnlocked(award, progress: progress)
   }
 
-  func itemsAdded(_ number: Int = 1) async throws {
-    progress?.itemsAdded += number
-    try await saveProgress()
-    didChange.send(.progress(.itemsAdded(number)))
-  }
+  func notify(of progress: AwardsChange.Progress) async throws {
+    switch progress {
+    case let .itemsAdded(count):
+      self.progress?.itemsAdded += count
+    case let .itemsCompleted(count):
+      self.progress?.itemsCompleted += count
+    case let .commentsPosted(count):
+      self.progress?.commentsPosted += count
+    case .unlockedFullVersion:
+      self.progress?.fullVersionIsUnlocked = true
+    }
 
-  func itemsCompleted(_ number: Int = 1) async throws {
-    progress?.itemsCompleted += number
     try await saveProgress()
-    didChange.send(.progress(.itemsCompleted(number)))
-  }
-
-  func commentsPosted(_ number: Int = 1) async throws {
-    progress?.commentsPosted += number
-    try await saveProgress()
-    didChange.send(.progress(.commentsPosted(number)))
-  }
-
-  func unlockedFullVersion() async throws {
-    progress?.fullVersionIsUnlocked = true
-    try await saveProgress()
-    didChange.send(.progress(.unlockedFullVersion))
+    didChange.send(.progress(progress))
   }
 }
 
@@ -85,13 +77,15 @@ private extension KOAwardsService {
     }
   }
 
+  static let progressKey = "award.progress"
+
   func loadProgress() -> Award.Progress {
-    if case let .authenticated(user) = authenticationService.status {
+    if case let .authenticated(user) = authService.status {
       return user.progress
     } else {
       var progress: Award.Progress?
       printError {
-        progress = try keyValueService.fetchObject(for: "award.progress")
+        progress = try keyValueService.fetchObject(for: Self.progressKey)
       }
       return progress ?? Award.Progress()
     }
@@ -100,13 +94,13 @@ private extension KOAwardsService {
   func saveProgress() async throws {
     guard let progress = progress else { return }
 
-    if case let .authenticated(user) = authenticationService.status {
+    if case let .authenticated(user) = authService.status {
       var user = user
       user.progress = progress
-      try await authenticationService.update(user)
+      try await authService.update(user)
     }
 
-    try keyValueService.insert(object: progress, for: "award.progress")
+    try keyValueService.insert(object: progress, for: Self.progressKey)
   }
 
   static func loadAllAwards() -> [Award] {

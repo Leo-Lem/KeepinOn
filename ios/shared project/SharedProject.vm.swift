@@ -37,7 +37,7 @@ extension SharedProjectView.ViewModel {
 
     try await appState.showErrorAlert {
       try await publicDatabaseService.publish(comment)
-      try await awardService.commentsPosted(1)
+      try await awardService.postedComment()
     }
   }
 
@@ -51,7 +51,7 @@ extension SharedProjectView.ViewModel {
   }
 
   var user: User? {
-    if case let .authenticated(user) = authenticationService.status {
+    if case let .authenticated(user) = authService.status {
       return user
     } else {
       return nil

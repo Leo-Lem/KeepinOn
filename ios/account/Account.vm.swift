@@ -11,7 +11,7 @@ extension AccountView {
 
       updateStatus()
 
-      tasks.add(authenticationService.didChange.getTask(with: updateStatus))
+      tasks.add(authService.didChange.getTask(with: updateStatus))
     }
   }
 }
@@ -24,16 +24,16 @@ extension AccountView.ViewModel {
   func register(id: String, pin: String, name: String) async throws {
     try await appState.showErrorAlert {
       let credential = Credential(userID: id, pin: pin)
-      var user = try await authenticationService.register(credential)
+      var user = try await authService.register(credential)
       user.name = name
-      try await authenticationService.update(user)
+      try await authService.update(user)
     }
   }
 
   func login(id: String, pin: String) async throws {
     try await appState.showErrorAlert {
       let credential = Credential(userID: id, pin: pin)
-      try await authenticationService.login(credential)
+      try await authService.login(credential)
     }
   }
 
@@ -41,7 +41,7 @@ extension AccountView.ViewModel {
     try await appState.showErrorAlert {
       guard case .authenticated = authenticationStatus else { return }
 
-      try await authenticationService.update(user)
+      try await authService.update(user)
     }
   }
 
@@ -50,25 +50,25 @@ extension AccountView.ViewModel {
       guard case let .authenticated(user) = authenticationStatus else { return }
 
       let credential = Credential(userID: user.id, pin: pin)
-      try await authenticationService.update(credential)
+      try await authService.update(credential)
     }
   }
 
   func logout() {
-    authenticationService.logout()
+    authService.logout()
   }
 
   func deleteAccount() async throws {
     try await appState.showErrorAlert {
       guard case .authenticated = authenticationStatus else { return }
 
-      try await authenticationService.deleteAccount()
+      try await authService.deleteAccount()
     }
   }
 }
 
 private extension AccountView.ViewModel {
   func updateStatus() {
-    authenticationStatus = authenticationService.status
+    authenticationStatus = authService.status
   }
 }

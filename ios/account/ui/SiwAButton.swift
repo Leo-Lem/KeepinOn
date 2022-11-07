@@ -1,7 +1,7 @@
 //	Created by Leopold Lemmermann on 31.10.22.
 
-import SwiftUI
 import AuthenticationServices
+import SwiftUI
 
 struct SiwAButton: View {
   @EnvironmentObject var appState: AppState
@@ -12,8 +12,8 @@ struct SiwAButton: View {
 }
 
 extension SiwAButton {
-  private var authService: AuthenticationService {
-    appState.authenticationService
+  private var authService: AuthService {
+    appState.authService
   }
 
   private func handleRequest(_ request: ASAuthorizationAppleIDRequest) {
@@ -31,7 +31,7 @@ extension SiwAButton {
             do {
               try await authService.login(credential)
             } catch let error as AuthError {
-              if case .login(.unknownID) = error  {
+              if case .login(.unknownID) = error {
                 var user = try await authService.register(credential)
                 user.name ?= appleID.fullName?.formatted()
                 try await authService.update(user)
@@ -40,15 +40,15 @@ extension SiwAButton {
           }
         }
       }
-    case .failure:
-      return
-      //      if
-      //        let error = error as? ASAuthorizationError,
-      //        1000 ... 1001 ~= error.errorCode
-      //      {
-      //        status = .canceled
-      //      } else {
-      //      }
+    case let .failure(error):
+      if
+        let error = error as? ASAuthorizationError,
+        1000 ... 1001 ~= error.errorCode
+      {
+        appState.routingService.dismiss(.sheet())
+      } else {
+        print(error.localizedDescription)
+      }
     }
   }
 }

@@ -12,7 +12,7 @@ final class AppState: ObservableObject {
       keyValueService: KeyValueService,
       indexingService: IndexingService,
       notificationService: NotificationService,
-      authenticationService: AuthenticationService,
+      authService: AuthService,
       purchaseService: PurchaseService,
       awardService: AwardsService,
       hapticsService: HapticsService?
@@ -26,7 +26,7 @@ final class AppState: ObservableObject {
     keyValueService: KeyValueService? = nil,
     indexingService: IndexingService? = nil,
     notificationService: NotificationService? = nil,
-    authenticationService: AuthenticationService? = nil,
+    authService: AuthService? = nil,
     purchaseService: PurchaseService? = nil,
     awardService: AwardsService? = nil,
     hapticsService: HapticsService? = nil
@@ -56,17 +56,17 @@ final class AppState: ObservableObject {
       self.purchaseService = await SKService()
     }
 
-    if let service = authenticationService {
-      self.authenticationService = service
+    if let service = authService {
+      self.authService = service
     } else {
-      self.authenticationService = await KOAService(
+      self.authService = await KOAuthService(
         keyValueService: self.keyValueService,
         publicDatabaseService: self.publicDatabaseService
       )
     }
 
     self.awardService = awardService ?? KOAwardsService(
-      authenticationService: self.authenticationService,
+      authService: self.authService,
       keyValueService: self.keyValueService
     )
 
@@ -82,7 +82,7 @@ final class AppState: ObservableObject {
       keyValueService = MockKeyValueService()
       indexingService = MockIndexingService()
       notificationService = MockNotificationService()
-      authenticationService = MockAuthenticationService()
+      authService = MockAuthService()
       purchaseService = MockPurchaseService()
       awardService = MockAwardsService()
       hapticsService = nil

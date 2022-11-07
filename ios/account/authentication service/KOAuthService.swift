@@ -2,7 +2,7 @@
 
 import Combine
 
-final class KOAService: AuthenticationService {
+final class KOAuthService: AuthService {
   let didChange = PassthroughSubject<Void, Never>()
   private(set) var status: AuthStatus = .notAuthenticated {
     didSet { didChange.send() }
@@ -88,7 +88,7 @@ final class KOAService: AuthenticationService {
   }
 }
 
-private extension KOAService {
+private extension KOAuthService {
   func loginWithLocalCredential() async throws {
     if let credential = readCredential() {
       let user = try await login(credential)
@@ -157,7 +157,7 @@ private extension KOAService {
 
 // MARK: persisting credentials
 
-private extension KOAService {
+private extension KOAuthService {
   static let userIDKey = "user.id"
   static let userPinKey = "user.pin"
   static let pinlessKey = "user.pinless"
@@ -197,7 +197,7 @@ private extension KOAService {
 
 // MARK: Error Handling
 
-private extension KOAService {
+private extension KOAuthService {
   func executeIfAuthenticated<T>(_ action: (User) async throws -> T) async throws -> T {
     guard case let .authenticated(user) = status else { throw AuthError.notAuthenticated }
 
