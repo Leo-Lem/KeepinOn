@@ -1,7 +1,5 @@
 import SwiftUI
 
-// TODO: Add more accessibility features
-
 struct AppView: View {
   @EnvironmentObject var appState: AppState
 

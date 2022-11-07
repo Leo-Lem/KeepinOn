@@ -178,7 +178,6 @@ private extension KOAService {
       if let id: String = try keyValueService.load(for: Self.userIDKey) {
         if let pinless: Bool = try keyValueService.load(for: Self.pinlessKey), pinless {
           return Credential(id: id, pin: nil)
-          // TODO: save the pin in the keychain
         } else if let pin: String = try keyValueService.load(for: Self.userPinKey) {
           return Credential(id: id, pin: pin)
         }
