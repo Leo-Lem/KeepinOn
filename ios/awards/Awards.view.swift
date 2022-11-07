@@ -4,7 +4,16 @@ import SwiftUI
 
 struct AwardsView: View {
   var body: some View {
-    Text("Awards View")
+    ScrollView {
+      LazyVGrid(columns: cols) {
+        ForEach(vm.allAwards) { award in
+          AwardsView.AwardView(award: award, unlocked: vm.isUnlocked(award))
+            .onTapGesture { vm.showAlert(for: award) }
+        }
+      }
+    }
+    .background(config.style.background)
+    .styledNavigationTitle("AWARDS_TITLE")
   }
 
   @StateObject private var vm: ViewModel
