@@ -1,12 +1,11 @@
-//	Created by Leopold Lemmermann on 27.10.22.
+//	Created by Leopold Lemmermann on 24.10.22.
 
-extension Project: Queryable {
+extension Project.Shared: KeyPathQueryable {
   static let keyPathDictionary: [PartialKeyPath<Self>: String] = [
     \.id: "id",
     \.title: "title",
     \.details: "details",
     \.isClosed: "isClosed",
-    \.colorID: "colorID",
-    \.reminder: "reminder"
+    \.owner: "owner"
   ]
 }
