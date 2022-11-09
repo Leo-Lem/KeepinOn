@@ -1,6 +1,6 @@
 //	Created by Leopold Lemmermann on 20.10.22.
 
-extension Purchase {
+extension Purchase: HasExample {
   static let example = Purchase(
     id: .fullVersion,
     name: "Purchase Full Version",

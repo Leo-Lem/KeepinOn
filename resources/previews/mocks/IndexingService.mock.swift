@@ -7,7 +7,7 @@ final class MockIndexingService: IndexingService {
     print("Created reference to \(indexable.title)!")
   }
 
-  func removeReference(with id: UUID) {
+  func removeReference(with id: String) {
     print("Removed reference to \(id)!")
   }
 }

@@ -1,8 +1,6 @@
 //	Created by Leopold Lemmermann on 19.10.22.
 
-import Foundation
-
-extension Award {
+extension Award: HasExample {
   static let example = Award(
     name: "First Steps",
     description: "Add your first item.",
