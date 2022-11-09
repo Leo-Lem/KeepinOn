@@ -57,7 +57,7 @@ extension CKService {
       throw PublicDatabaseError.mappingToPublicModel(from: T.self)
     }
 
-    return CKQuery(recordType: identifier, predicate: NSPredicate(query: query))
+    return CKQuery(recordType: identifier, predicate: query.getNSPredicate())
   }
 }
 

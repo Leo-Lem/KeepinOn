@@ -1,6 +1,10 @@
 //	Created by Leopold Lemmermann on 20.10.22.
 
-protocol NotificationService: ObservableService {
+import Combine
+
+protocol NotificationService {
+  var didChange: PassthroughSubject<Void, Never> { get }
+
   var isAuthorized: Bool { get }
 
   func schedule(_ notification: Notification)
