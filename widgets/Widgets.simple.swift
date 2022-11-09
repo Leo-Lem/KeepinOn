@@ -25,7 +25,9 @@ extension SimpleWidget {
         Text("WIDGET_TITLE")
           .font(.default(.title1))
 
-        Text(LocalizedStringKey(entry.items.first?.title ?? "WIDGET_PLACEHOLDER"))
+        Text(
+          LocalizedStringKey(entry.itemsWithProject.first?.item.label ?? "WIDGET_PLACEHOLDER")
+        )
       }
     }
   }
@@ -35,7 +37,7 @@ extension SimpleWidget {
 
 struct SimpleWidgetEntryView_Previews: PreviewProvider {
   static var previews: some View {
-    SimpleWidget.EntryView(entry: .init(date: .now, items: [.example]))
+    SimpleWidget.EntryView(entry: .init(date: .now, itemsWithProject: [.example]))
       .previewContext(WidgetPreviewContext(family: .systemSmall))
       .previewDisplayName("Small")
   }

@@ -20,7 +20,7 @@ final class AppState: ObservableObject {
       purchaseService: PurchaseService,
       awardService: AwardsService,
       hapticsService: HapticsService?,
-      hapticsService: HapticsService?
+      widgetService: WidgetService
 
   @Published var settings = Settings()
 
@@ -37,13 +37,13 @@ final class AppState: ObservableObject {
     purchaseService: PurchaseService? = nil,
     awardService: AwardsService? = nil,
     hapticsService: HapticsService? = (try? CHService()),
-    hapticsService: HapticsService? = nil
+    widgetService: WidgetService = KOWidgetService()
   ) async {
     self.keyValueService = keyValueService
     self.indexingService = indexingService
     self.hapticsService = hapticsService
     self.privDBService = privDBService
-    self.privateDatabaseService = privateDatabaseService ?? CDService(indexingService: self.indexingService)
+    self.widgetService = widgetService
     self.routingService = routingService
 
     if let service = publicDatabaseService {
@@ -84,6 +84,7 @@ final class AppState: ObservableObject {
 
     tasks.add(
       self.privDBService.didChange.getTask(with: updateIndices),
+      self.privDBService.didChange.getTask(with: updateWidgets)
     )
   }
 
@@ -135,5 +136,13 @@ private extension AppState {
     }
   }
 
+  func updateWidgets(on change: PrivDBChange) {
+    printError {
+      widgetService.provide(
+        try privDBService
+          .fetch(Query<Item>(\.isDone, .equal, false))
+          .compactMap { item in item.attachProject(privDBService) }
+      )
+    }
   }
 }
