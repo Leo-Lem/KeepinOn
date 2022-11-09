@@ -14,5 +14,5 @@ extension Project: Indexable {
 }
 
 extension Item: Indexable {
-  var domainID: UUID? { project?.id }
+  var domainID: UUID? { project }
 }

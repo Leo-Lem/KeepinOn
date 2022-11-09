@@ -3,7 +3,7 @@
 import SwiftUI
 
 extension Page {
-  static var tabs: [Page] = [.home, .open, .closed, .awards, .community]
+  static var all: [Page] = [.home, .open, .closed, .awards, .community]
 
   @ViewBuilder func getView(appState: AppState) -> some View {
     switch self {

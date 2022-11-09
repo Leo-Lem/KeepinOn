@@ -5,7 +5,7 @@ import SwiftUI
 extension View {
   func banner(
     _ banner: Binding<Banner?>,
-    routingService: RoutingService
+    routingService: any RoutingService
   ) -> some View {
     self.banner(Binding(optional: banner), dismissAfter: .seconds(3)) {
       switch banner.wrappedValue {

@@ -9,7 +9,7 @@ struct Item: Identifiable, Hashable, Codable {
       details: String,
       isDone: Bool,
       priority: Priority,
-      project: Project?
+      project: UUID
 
   init(
     id: UUID = UUID(),
@@ -18,7 +18,7 @@ struct Item: Identifiable, Hashable, Codable {
     details: String = "",
     isDone: Bool = false,
     priority: Priority = .low,
-    project: Project? = nil
+    project: UUID
   ) {
     self.id = id
     self.timestamp = timestamp

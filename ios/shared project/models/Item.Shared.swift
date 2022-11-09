@@ -5,7 +5,7 @@ import Foundation
 extension Item {
   struct Shared: Identifiable, Hashable {
     let id: UUID
-    var project: Project.Shared?,
+    var project: UUID?,
         title: String,
         details: String,
         isDone: Bool
@@ -13,9 +13,9 @@ extension Item {
 }
 
 extension Item.Shared {
-  init(_ item: Item, owner: User?) {
+  init(_ item: Item) {
     id = item.id
-    project = item.project.flatMap { Project.Shared($0, owner: owner) }
+    project = item.project
     title = item.title
     details = item.details
     isDone = item.isDone

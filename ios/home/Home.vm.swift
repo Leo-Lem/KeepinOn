@@ -4,74 +4,64 @@ import Foundation
 
 extension HomeView {
   final class ViewModel: KeepinOn.ViewModel {
-    @Published private(set) var projects = [Project]()
-    @Published private(set) var items = [Item]()
+    @Published private(set) var projectsWithItems = [Project.WithItems]()
+    @Published private(set) var itemsWithProject = [Item.WithProject]()
 
     override init(appState: AppState) {
       super.init(appState: appState)
 
-      updateProjectsAndItems()
+      loadProjectsAndItems()
 
-      tasks.add(
-        privateDatabaseService.didChange.getTask(with: updateProjectsAndItems)
-      )
+      tasks.add(privDBService.didChange.getTask(with: updateProjectsAndItems))
     }
   }
 }
 
 extension HomeView.ViewModel {
-  var upNext: [Item] {
-    [Item](items.prefix(3))
+  var upNext: [Item.WithProject] {
+    [Item.WithProject](itemsWithProject.prefix(3))
   }
 
-  var moreItems: [Item] {
-    [Item](items.dropFirst(3))
+  var moreItems: [Item.WithProject] {
+    [Item.WithProject](itemsWithProject.dropFirst(3))
   }
 
   func startEditing(_ project: Project) {
     routingService.route(to: .sheet(.editProject(project)))
   }
 
-  func showInfo(for project: Project) {
-    routingService.route(to: .sheet(.project(project)))
+  func showInfo(for projectWithItems: Project.WithItems) {
+    routingService.route(to: .sheet(.project(projectWithItems)))
   }
 
   func startEditing(_ item: Item) {
     routingService.route(to: .sheet(.editItem(item)))
   }
 
-  func showInfo(for item: Item) {
-    routingService.route(to: .sheet(.item(item)))
+  func showInfo(for itemWithProject: Item.WithProject) {
+    let item = itemWithProject.item
+    let projectWithItems = Project.WithItems(itemWithProject.project, service: privDBService)
+    
+    routingService.route(
+      to: .sheet(.item(item, projectWithItems: projectWithItems))
+    )
   }
 }
 
 private extension HomeView.ViewModel {
-  func updateProjectsAndItems() {
-    let openProjectsQuery = Query<Project>(\.isClosed, .eq, false)
-    let featuredItemsQuery = Query<Item>([
-      .init(\.isDone, .eq, false)!,
-      .init(\.project?.isClosed, .eq, false)!
-    ], compound: .and)
+  func loadProjectsAndItems() {
+    printError {
+      projectsWithItems = try privDBService
+        .fetch(Query<Project>(\.isClosed, .equal, false))
+        .map { project in Project.WithItems(project, service: privDBService) }
 
-    do {
-      projects = try privateDatabaseService.fetch(openProjectsQuery)
-      items = try privateDatabaseService.fetch(featuredItemsQuery)
-    } catch { print(error) }
+      itemsWithProject = try privDBService
+        .fetch(Query<Item>(\.isDone, .equal, false))
+        .compactMap { item in Item.WithProject(item, service: privDBService) }
+    }
+  }
+
+  func updateProjectsAndItems(on change: PrivDBChange) {
+    loadProjectsAndItems()
   }
 }
-
-#if DEBUG
-  extension HomeView.ViewModel {
-    func createSampleData() {
-      if let service = privateDatabaseService as? CDService {
-        service.createSampleData()
-      }
-    }
-
-    func deleteAll() {
-      if let service = privateDatabaseService as? CDService {
-        service.deleteAll()
-      }
-    }
-  }
-#endif

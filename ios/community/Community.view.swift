@@ -32,8 +32,16 @@ struct CommunityView: View {
       #if DEBUG
         ToolbarItem(placement: .automatic) {
           HStack {
-            Button("Add data") { vm.createSampleData() }
-            Button("Delete All") { vm.deleteAll() }
+            Button("Add data") {
+              Task(priority: .userInitiated) {
+                await vm.publicDatabaseService.createSampleData()
+              }
+            }
+            Button("Delete All") {
+              Task(priority: .userInitiated) {
+                await vm.publicDatabaseService.deleteAll()
+              }
+            }
           }
         }
       #endif

@@ -4,7 +4,7 @@ import Combine
 import UIKit
 import UserNotifications
 
-final class UNService: ObservableService, NotificationService {
+final class UNService: NotificationService {
   let didChange = PassthroughSubject<Void, Never>()
   private(set) var isAuthorized: Bool = false
 

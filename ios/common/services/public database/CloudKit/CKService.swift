@@ -75,13 +75,13 @@ final class CKService: PublicDatabaseService {
 
     switch T.self {
     case is Project.Shared.Type:
-      query = Query<U>(propertyName: Project.Shared.ckIdentifier.lowercased(), .eq, ref)
+      query = Query<U>(Project.Shared.ckIdentifier.lowercased(), .equal, ref)
     case is Item.Shared.Type:
-      query = Query<U>(propertyName: Item.Shared.ckIdentifier.lowercased(), .eq, ref)
+      query = Query<U>(Item.Shared.ckIdentifier.lowercased(), .equal, ref)
     case is Comment.Type:
-      query = Query<U>(propertyName: Comment.ckIdentifier.lowercased(), .eq, ref)
+      query = Query<U>(Comment.ckIdentifier.lowercased(), .equal, ref)
     case is User.Type:
-      query = Query<U>(propertyName: User.ckIdentifier.lowercased(), .eq, ref)
+      query = Query<U>(User.ckIdentifier.lowercased(), .equal, ref)
     default:
       throw PublicDatabaseError.mappingToPublicModel(from: type)
     }
@@ -176,3 +176,29 @@ private extension CKService {
     }
   }
 }
+
+#if DEBUG
+extension CKService {
+  func deleteAll() async {
+    await printError {
+      let queries: [CKQuery] = [
+        CKQuery(recordType: Project.Shared.ckIdentifier, predicate: .init(value: true)),
+        CKQuery(recordType: Item.Shared.ckIdentifier, predicate: .init(value: true)),
+        CKQuery(recordType: Comment.ckIdentifier, predicate: .init(value: true)),
+        CKQuery(recordType: User.ckIdentifier, predicate: .init(value: true)),
+        CKQuery(recordType: Credential.ckIdentifier, predicate: .init(value: true))
+      ]
+
+      var ids = [CKRecord.ID]()
+
+      for query in queries {
+        ids += try await publicDatabase.records(matching: query).matchResults.map(\.0)
+      }
+
+      _ = try await publicDatabase.modifyRecords(saving: [], deleting: ids)
+
+      didChange.send()
+    }
+  }
+}
+#endif

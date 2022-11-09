@@ -5,26 +5,26 @@ import SwiftUI
 extension HomeView {
   struct ItemPeekListView: View {
     let title: LocalizedStringKey,
-        items: [Item],
+        itemsWithProject: [Item.WithProject],
         edit: (Item) -> Void,
-        show: (Item) -> Void
+        show: (Item.WithProject) -> Void
 
     var body: some View {
-      if !items.isEmpty {
+      if !itemsWithProject.isEmpty {
         Text(title)
           .foregroundColor(.secondary)
           .padding(.top)
 
-        ForEach(items) { item in
-          ItemCard(item)
+        ForEach(itemsWithProject) { itemWithProject in
+          ItemCard(itemWithProject)
             .contextMenu {
               Button(
-                action: { edit(item) },
+                action: { edit(itemWithProject.item) },
                 label: { Label("EDIT_ITEM", systemImage: "square.and.pencil") }
               )
 
               Button(
-                action: { show(item) },
+                action: { show(itemWithProject) },
                 label: { Label("SHOW_ITEM_DETAILS", systemImage: "info.bubble") }
               )
             }
@@ -34,12 +34,12 @@ extension HomeView {
 
     init(
       _ title: LocalizedStringKey,
-      items: [Item],
+      itemsWithProject: [Item.WithProject],
       edit: @escaping (Item) -> Void,
-      show: @escaping (Item) -> Void
+      show: @escaping (Item.WithProject) -> Void
     ) {
       self.title = title
-      self.items = items
+      self.itemsWithProject = itemsWithProject
       self.edit = edit
       self.show = show
     }
@@ -49,24 +49,23 @@ extension HomeView {
 // MARK: - (PREVIEWS)
 
 #if DEBUG
-struct ItemPeekListView_Previews: PreviewProvider {
-  static var previews: some View {
-    ScrollView {
-      HomeView.ItemPeekListView("My Item", items: [.example]) { _ in } show: { _ in }
-        .environmentObject(AppState.example)
+  struct ItemPeekListView_Previews: PreviewProvider {
+    static var previews: some View {
+      ScrollView {
+        HomeView.ItemPeekListView(
+          "My Item",
+          itemsWithProject: [.example]
+        ) { _ in } show: { _ in }
+        HomeView.ItemPeekListView(
+          "My Items",
+          itemsWithProject: [.example, .example, .example]
+        ) { _ in } show: { _ in }
+        HomeView.ItemPeekListView(
+          "No Items :(",
+          itemsWithProject: []
+        ) { _ in } show: { _ in }
+      }
+      .configureForPreviews()
     }
-    .previewDisplayName("1 Item")
-
-    ScrollView {
-      HomeView.ItemPeekListView("My Items", items: Project.example.items) { _ in } show: { _ in }
-        .environmentObject(AppState.example)
-    }
-    .previewDisplayName("3 Items")
-
-    ScrollView {
-      HomeView.ItemPeekListView("No Items :(", items: []) { _ in } show: { _ in }
-    }
-    .previewDisplayName("No Items")
   }
-}
 #endif

@@ -4,23 +4,23 @@ import SwiftUI
 
 extension HomeView {
   struct ProjectListView: View {
-    let projects: [Project],
+    let projectsWithItems: [Project.WithItems],
         edit: (Project) -> Void,
-        show: (Project) -> Void
+        show: (Project.WithItems) -> Void
 
     var body: some View {
       ScrollView(.horizontal, showsIndicators: false) {
         LazyHGrid(rows: [GridItem(.fixed(100))]) {
-          ForEach(projects) { project in
-            ProjectCard(project)
+          ForEach(projectsWithItems) { projectWithItems in
+            ProjectCard(projectWithItems)
               .contextMenu {
                 Button(
-                  action: { edit(project) },
+                  action: { edit(projectWithItems.project) },
                   label: { Label("EDIT_PROJECT", systemImage: "square.and.pencil") }
                 )
 
                 Button(
-                  action: { show(project) },
+                  action: { show(projectWithItems) },
                   label: { Label("SHOW_PROJECT_DETAILS", systemImage: "info.bubble") }
                 )
               }
@@ -32,11 +32,11 @@ extension HomeView {
     }
 
     init(
-      _ projects: [Project],
+      _ projectsWithItems: [Project.WithItems],
       edit: @escaping (Project) -> Void,
-      show: @escaping (Project) -> Void
+      show: @escaping (Project.WithItems) -> Void
     ) {
-      self.projects = projects
+      self.projectsWithItems = projectsWithItems
       self.edit = edit
       self.show = show
     }
@@ -46,24 +46,28 @@ extension HomeView {
 // MARK: - (PREVIEWS)
 
 #if DEBUG
-struct ProjectListView_Previews: PreviewProvider {
-  static var previews: some View {
-    Form {
-      Section("1 Project") {
-        HomeView.ProjectListView([.example]) { _ in } show: { _ in }
-      }
+  struct ProjectListView_Previews: PreviewProvider {
+    static var previews: some View {
+      Form {
+        Section("1 Project") {
+          HomeView.ProjectListView(
+            [.example]
+          ) { _ in } show: { _ in }
+        }
 
-      Section("3 Projects") {
-        HomeView.ProjectListView([.example, .example, .example]) { _ in } show: { _ in }
-      }
+        Section("3 Projects") {
+          HomeView.ProjectListView(
+            [.example, .example, .example]
+          ) { _ in } show: { _ in }
+        }
 
-      Section("No Projects") {
-        HomeView.ProjectListView([]) { _ in } show: { _ in }
+        Section("No Projects") {
+          HomeView.ProjectListView([]) { _ in } show: { _ in }
+        }
       }
+      .formStyle(.columns)
+      .padding()
+      .configureForPreviews()
     }
-    .formStyle(.columns)
-    .padding()
-    .configureForPreviews()
   }
-}
 #endif

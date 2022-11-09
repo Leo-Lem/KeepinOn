@@ -21,12 +21,15 @@ extension ComplexWidget {
 
     var body: some View {
       VStack(spacing: 5) {
-        if items.isEmpty {
+        if itemsWithProject.isEmpty {
           Text("WIDGET_PLACEHOLDER")
         } else {
-          ForEach(items) { item in
+          ForEach(itemsWithProject) { itemWithProject in
+            let item = itemWithProject.item,
+                project = itemWithProject.project
+            
             HStack {
-              item.project?.colorID.color
+              project.color
                 .frame(width: 5)
                 .clipShape(Capsule())
 
@@ -35,10 +38,8 @@ extension ComplexWidget {
                   .font(.default(.headline))
                   .layoutPriority(1)
 
-                if let projectTitle = item.project?.label {
-                  Text(projectTitle)
-                    .foregroundColor(.secondary)
-                }
+                Text(project.label)
+                  .foregroundColor(.secondary)
               }
 
               Spacer()
@@ -52,8 +53,8 @@ extension ComplexWidget {
     @Environment(\.widgetFamily) var widgetFamily
     @Environment(\.sizeCategory) var sizeCategory
 
-    private var items: ArraySlice<Item> {
-      entry.items.prefix({
+    private var itemsWithProject: ArraySlice<Item.WithProject> {
+      entry.itemsWithProject.prefix({
         switch widgetFamily {
         case .systemSmall: return 1
         case .systemMedium where sizeCategory < .extraLarge: return 3
@@ -72,19 +73,19 @@ extension ComplexWidget {
 struct ComplexWidgetEntryView_Previews: PreviewProvider {
   static var previews: some View {
     ComplexWidget.EntryView(
-      entry: .init(date: .now, items: [.example, .example, .example])
+      entry: .init(date: .now, itemsWithProject: [.example, .example, .example])
     )
     .previewContext(WidgetPreviewContext(family: .systemSmall))
     .previewDisplayName("Small")
 
     ComplexWidget.EntryView(
-      entry: .init(date: .now, items: [.example, .example, .example])
+      entry: .init(date: .now, itemsWithProject: [.example, .example, .example])
     )
     .previewContext(WidgetPreviewContext(family: .systemMedium))
     .previewDisplayName("Medium")
 
     ComplexWidget.EntryView(
-      entry: .init(date: .now, items: [.example, .example, .example])
+      entry: .init(date: .now, itemsWithProject: [.example, .example, .example])
     )
     .previewContext(WidgetPreviewContext(family: .systemLarge))
     .previewDisplayName("Large")

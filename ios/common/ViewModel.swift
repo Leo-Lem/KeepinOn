@@ -6,8 +6,8 @@ import Combine
 class ViewModel: ObservableObject {
   let appState: AppState
 
-  var routingService: RoutingService { appState.routingService }
-  var privateDatabaseService: PrivateDatabaseService { appState.privateDatabaseService }
+  var routingService: KORoutingService { appState.routingService }
+  var privDBService: PrivDBService { appState.privDBService }
   var publicDatabaseService: PublicDatabaseService { appState.publicDatabaseService }
   var keyValuePersistenceService: KeyValueService { appState.keyValueService }
   var indexingService: IndexingService { appState.indexingService }

@@ -3,7 +3,7 @@
 import SwiftUI
 
 struct ProjectCard: View {
-  let project: Project
+  let projectWithItems: Project.WithItems
 
   var body: some View {
     VStack(alignment: .leading) {
@@ -13,20 +13,22 @@ struct ProjectCard: View {
       Text(project.label)
         .font(.default(.title2))
 
-      ProgressView(value: project.progress)
+      ProgressView(value: progress)
         .tint(project.color)
     }
     .padding()
-    .background(Color(.secondarySystemGroupedBackground))
+    .background(config.style.background)
     .cornerRadius(10)
     .shadow(color: .primary.opacity(0.2), radius: 5)
     .accessibilityElement(children: .ignore)
-    .accessibilityLabel(project.a11y)
+    .accessibilityLabel("A11Y_COMPLETE_DESCRIPTION \(project.label) \(itemsCount) \(progress)")
   }
 
-  init(_ project: Project) {
-    self.project = project
-  }
+  private var project: Project { projectWithItems.project }
+  private var progress: Double { projectWithItems.progress }
+  private var itemsCount: Int { projectWithItems.items.count }
+
+  init(_ projectWithItems: Project.WithItems) { self.projectWithItems = projectWithItems }
 }
 
 // MARK: - (Previews)

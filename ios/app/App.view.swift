@@ -6,7 +6,7 @@ struct AppView: View {
   var body: some View {
     Group {
       TabView(selection: $vm.page) {
-        ForEach(Page.tabs, id: \.self) { tab in
+        ForEach(Page.all, id: \.self) { tab in
           NavigationStack {
             tab.getView(appState: appState)
           }
