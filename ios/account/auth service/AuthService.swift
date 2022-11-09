@@ -1,6 +1,10 @@
 //	Created by Leopold Lemmermann on 21.10.22.
 
-protocol AuthService: ObservableService {
+import Combine
+
+protocol AuthService {
+  var didChange: PassthroughSubject<Void, Never> { get }
+  
   var status: AuthStatus { get }
 
   @discardableResult
