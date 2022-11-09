@@ -56,7 +56,7 @@ final class CKServiceTests: XCTestCase {
 
     let item = Item.Shared(
       id: UUID(),
-      project: project,
+      project: project.id,
       title: "Some Item",
       details: "Some Details",
       isDone: false
