@@ -4,7 +4,7 @@ import SwiftUI
 
 struct DismissCustomKey: EnvironmentKey {
   static let defaultValue = {
-    print("Cannot dismiss this view.")
+    debugPrint("Cannot dismiss this view.")
   }
 }
 
