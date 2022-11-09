@@ -1,19 +1,19 @@
-//	Created by Leopold Lemmermann on 28.10.22.
+//  Created by Leopold Lemmermann on 28.10.22.
 
-import Foundation
-
-protocol StringIdentifiable {
+public protocol StringIdentifiable {
   var stringID: String { get }
 }
 
-extension StringIdentifiable where Self: Identifiable, ID == UUID {
+public extension StringIdentifiable where Self: Identifiable, ID == String {
   var stringID: String {
-    id.uuidString
+    id
   }
 }
 
-extension StringIdentifiable where Self: Identifiable, ID == String {
+import Foundation
+
+public extension StringIdentifiable where Self: Identifiable, ID == UUID {
   var stringID: String {
-    id
+    id.uuidString
   }
 }

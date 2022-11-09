@@ -8,7 +8,7 @@ struct SheetViewStyle: Style {
 
   init(
     size: Size = .full,
-    dismissButtonStyle: DismissButtonStyle = .top
+    dismissButtonStyle: DismissButtonStyle = .hidden
   ) {
     self.size = size
     self.dismissButtonStyle = dismissButtonStyle
