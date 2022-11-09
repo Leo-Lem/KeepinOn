@@ -10,7 +10,7 @@ struct Project: Identifiable, Hashable, Codable {
       isClosed: Bool,
       colorID: ColorID,
       reminder: Date?,
-      items: [Item]
+      items: [UUID]
 
   init(
     id: UUID = UUID(),
@@ -20,7 +20,7 @@ struct Project: Identifiable, Hashable, Codable {
     isClosed: Bool = false,
     colorID: ColorID = .darkBlue,
     reminder: Date? = nil,
-    items: [Item] = []
+    items: [UUID] = []
   ) {
     self.id = id
     self.timestamp = timestamp
@@ -31,4 +31,8 @@ struct Project: Identifiable, Hashable, Codable {
     self.reminder = reminder
     self.items = items
   }
+}
+
+extension Project {
+  mutating func addItem(_ item: Item) { self.items.append(item.id) }
 }

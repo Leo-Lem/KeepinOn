@@ -4,30 +4,23 @@ import WidgetKit
 
 struct Provider: TimelineProvider {
   struct Entry: TimelineEntry {
-    let date: Date, items: [Item]
+    let date: Date, itemsWithProject: [Item.WithProject]
   }
 
   nonisolated func placeholder(in context: Context) -> Entry {
-    Entry(date: .now, items: [.example])
+    Entry(date: .now, itemsWithProject: [.example])
   }
 
   nonisolated func getSnapshot(in context: Context, completion: @escaping (Entry) -> Void) {
-    let entry = Entry(date: .now, items: [.example])
+    let entry = Entry(date: .now, itemsWithProject: [.example])
     completion(entry)
   }
 
   nonisolated func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> Void) {
-      let entry = Entry(date: .now, items: loadItems())
-      let timeline = Timeline(entries: [entry], policy: .never)
-      completion(timeline)
+    let entry = Entry(date: .now, itemsWithProject: service.receive())
+    let timeline = Timeline(entries: [entry], policy: .never)
+    completion(timeline)
   }
-
-  private let service = CDService()
-  private func loadItems() -> [Item] {
-    let query = Query<Item>([
-      .init(\.isDone, .eq, false)!,
-      .init(\.project?.isClosed, .eq, false)!
-    ], compound: .and)
-    return (try? service.fetch(query)) ?? []
-  }
+  
+  private let service = KOWidgetService()
 }

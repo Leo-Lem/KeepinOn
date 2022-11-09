@@ -3,14 +3,14 @@
 import SwiftUI
 
 struct ItemCard: View {
-  let item: Item
+  let itemWithProject: Item.WithProject
 
   var body: some View {
     HStack(spacing: 20) {
       Image(systemName: item.icon)
         .font(.default(.title1))
         .imageScale(.large)
-        .foregroundColor(item.color)
+        .foregroundColor(color)
         .accessibilityLabel(item.a11y)
 
       VStack(alignment: .leading) {
@@ -26,14 +26,15 @@ struct ItemCard: View {
     }
     .frame(maxWidth: .infinity, alignment: .leading)
     .padding()
-    .background(Color(.secondarySystemGroupedBackground))
+    .background(config.style.background)
     .cornerRadius(10)
     .shadow(color: .primary.opacity(0.2), radius: 5)
   }
+  
+  private var item: Item { itemWithProject.item }
+  private var color: Color { itemWithProject.project.color }
 
-  init(_ item: Item) {
-    self.item = item
-  }
+  init(_ itemWithProject: Item.WithProject) { self.itemWithProject = itemWithProject }
 }
 
 // MARK: - (Previews)

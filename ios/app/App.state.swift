@@ -3,11 +3,15 @@
 import Combine
 import Foundation
 
+struct Settings: Codable {
+  var itemSortOrder: Item.SortOrder = .optimized
+}
+
 final class AppState: ObservableObject {
   let didChange = ObservableObjectPublisher()
 
-  let routingService: RoutingService,
-      privateDatabaseService: PrivateDatabaseService,
+  let routingService: KORoutingService,
+      privDBService: PrivDBService,
       publicDatabaseService: PublicDatabaseService,
       keyValueService: KeyValueService,
       indexingService: IndexingService,
@@ -15,28 +19,32 @@ final class AppState: ObservableObject {
       authService: AuthService,
       purchaseService: PurchaseService,
       awardService: AwardsService,
-      hapticsService: HapticsService?
+      hapticsService: HapticsService?,
+      widgetService: WidgetService
 
   @Published var settings = Settings()
 
+  private var tasks = Tasks()
+
   init(
-    routingService: RoutingService? = nil,
-    privateDatabaseService: PrivateDatabaseService? = nil,
+    routingService: KORoutingService = KORoutingService(),
+    privDBService: PrivDBService = CDService(),
     publicDatabaseService: PublicDatabaseService? = nil,
-    keyValueService: KeyValueService? = nil,
-    indexingService: IndexingService? = nil,
+    keyValueService: KeyValueService = UDService(),
+    indexingService: IndexingService = CSService(),
     notificationService: NotificationService? = nil,
     authService: AuthService? = nil,
     purchaseService: PurchaseService? = nil,
     awardService: AwardsService? = nil,
-    hapticsService: HapticsService? = nil
+    hapticsService: HapticsService? = (try? CHService()),
+    widgetService: WidgetService = KOWidgetService()
   ) async {
-    self.keyValueService = keyValueService ?? UDService()
-    self.indexingService = indexingService ?? CSService()
-    self.hapticsService = hapticsService ?? (try? CHService())
-
-    self.privateDatabaseService = privateDatabaseService ?? CDService(indexingService: self.indexingService)
-    self.routingService = routingService ?? KORoutingService(keyValueService: self.keyValueService)
+    self.keyValueService = keyValueService
+    self.indexingService = indexingService
+    self.hapticsService = hapticsService
+    self.privDBService = privDBService
+    self.widgetService = widgetService
+    self.routingService = routingService
 
     if let service = publicDatabaseService {
       self.publicDatabaseService = service
@@ -73,11 +81,16 @@ final class AppState: ObservableObject {
     printError {
       settings ?= try self.keyValueService.fetchObject(for: "settings")
     }
+
+    tasks.add(
+      self.privDBService.didChange.getTask(with: updateIndices),
+      self.privDBService.didChange.getTask(with: updateWidgets)
+    )
   }
 
   #if DEBUG
     init(mocked: Void) {
-      privateDatabaseService = MockPrivateDatabaseService()
+      privDBService = MockPrivDBService()
       publicDatabaseService = MockPublicDatabaseService()
       keyValueService = MockKeyValueService()
       indexingService = MockIndexingService()
@@ -86,7 +99,8 @@ final class AppState: ObservableObject {
       purchaseService = MockPurchaseService()
       awardService = MockAwardsService()
       hapticsService = nil
-      routingService = MockRoutingService(keyValueService: keyValueService)
+      routingService = KORoutingService()
+      widgetService = KOWidgetService()
     }
   #endif
 }
@@ -109,6 +123,26 @@ extension AppState {
   }
 }
 
-struct Settings: Codable {
-  var itemSortOrder: Item.SortOrder = .optimized
+private extension AppState {
+  func updateIndices(on change: PrivDBChange) {
+    switch change {
+    case let .inserted(convertible):
+      if let indexable = convertible as? Indexable {
+        indexingService.updateReference(to: indexable)
+      }
+    case let .deleted(id, _):
+      indexingService.removeReference(with: id)
+    default: break
+    }
+  }
+
+  func updateWidgets(on change: PrivDBChange) {
+    printError {
+      widgetService.provide(
+        try privDBService
+          .fetch(Query<Item>(\.isDone, .equal, false))
+          .compactMap { item in item.attachProject(privDBService) }
+      )
+    }
+  }
 }

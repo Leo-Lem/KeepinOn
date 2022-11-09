@@ -2,7 +2,9 @@
 
 import Combine
 
-protocol PublicDatabaseService: ObservableService {
+protocol PublicDatabaseService {
+  var didChange: PassthroughSubject<Void, Never> { get }
+
   var status: PublicDatabaseStatus { get }
 
   @discardableResult
@@ -22,6 +24,31 @@ protocol PublicDatabaseService: ObservableService {
 import Foundation
 
 extension PublicDatabaseService {
+  // batch operations
+  @_disfavoredOverload
+  @discardableResult
+  func publish(_ models: any PublicModelConvertible...) async throws -> [any PublicModelConvertible] {
+    try await publish(models)
+  }
+  
+  @discardableResult
+  func publish(_ models: [any PublicModelConvertible]) async throws -> [any PublicModelConvertible] {
+    for model in models { try await publish(model) }
+    return models
+  }
+
+  @_disfavoredOverload
+  @discardableResult
+  func unpublish(_ models: any PublicModelConvertible...) async throws -> [any PublicModelConvertible] {
+    try await unpublish(models)
+  }
+
+  @discardableResult
+  func unpublish(_ models: [any PublicModelConvertible]) async throws -> [any PublicModelConvertible] {
+    for model in models { try await unpublish(model) }
+    return models
+  }
+
   // model variants for id fetching
   func unpublish<T: PublicModelConvertible>(_ model: T) async throws {
     try await unpublish(with: model.stringID)

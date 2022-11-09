@@ -4,19 +4,19 @@ import SwiftUI
 
 struct ProjectsView: View {
   var body: some View {
-    List(vm.projects) { project in
+    List(vm.projectsWithItems) { projectWithItems in
       Section {
         ItemListView(
-          items: project.items.sorted(using: vm.sortOrder),
+          projectWithItems,
           editingEnabled: !vm.closed,
-          add: { vm.addItem(to: project) },
+          add: { vm.addItem(to: projectWithItems.project) },
           toggleIsDone: { item in vm.toggleIsDone(for: item) },
           edit: { item in vm.startEditing(item: item) },
           delete: { item in vm.delete(item: item) }
         )
       } header: {
         ProjectHeader(
-          project,
+          projectWithItems,
           editingEnabled: !vm.closed,
           toggleIsClosed: { project in vm.toggleIsClosed(for: project) },
           delete: { project in await vm.delete(project: project) }
@@ -24,7 +24,7 @@ struct ProjectsView: View {
       }
     }
     // styling
-    .replace(if: vm.projects.count < 1) {
+    .replace(if: vm.projectsWithItems.count <= 0) {
       Text("NO_PROJECTS_PLACEHOLDER")
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
@@ -35,7 +35,7 @@ struct ProjectsView: View {
       if !vm.closed { addProjectButton }
       SortOrderMenu(sortOrder: $vm.sortOrder)
     }
-    .animation(.default, value: vm.projects)
+    .animation(.default, value: vm.projectsWithItems)
   }
 
   @StateObject private var vm: ViewModel

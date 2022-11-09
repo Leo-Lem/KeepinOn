@@ -8,8 +8,8 @@ final class CSService: IndexingService {
     index.indexSearchableItems([indexable.csSearchableItem])
   }
 
-  func removeReference(with id: UUID) {
-    index.deleteSearchableItems(withIdentifiers: [id.uuidString])
+  func removeReference(with id: String) {
+    index.deleteSearchableItems(withIdentifiers: [id])
   }
 
   static let activityType = CSSearchableItemActionType,

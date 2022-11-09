@@ -44,9 +44,9 @@ extension EditItemView.ViewModel {
     item.isDone = isDone
     item.priority = priority
 
-    do {
-      try privateDatabaseService.insert(item)
-    } catch { print(error.localizedDescription) }
+    printError {
+      try privDBService.insert(item)
+    }
 
     routingService.dismiss()
   }
