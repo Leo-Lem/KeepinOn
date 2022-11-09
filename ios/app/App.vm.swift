@@ -8,14 +8,14 @@ extension AppView {
       super.init(appState: appState)
 
       tasks.add(
-        routingService.didChange.getTask { [weak self] change in
+        routingService.didRouteTo.getTask { [weak self] change in
           if
-            case let .routedTo(route) = change,
-            case let .banner(banner) = route,
+            case let .banner(banner) = change,
             case .awardEarned = banner
           {
             self?.hapticsService?.play()
           }
+
           self?.update()
         },
         awardService.didChange.getTask { [weak self] change in
@@ -50,17 +50,21 @@ extension AppView.ViewModel {
   }
 
   func routeToSpotlightModel(_ activity: NSUserActivity) {
-    if
-      let string = activity.userInfo?[CSService.activityID] as? String,
-      let id = UUID(uuidString: string)
-    {
-      do {
-        if let item: Item = try privateDatabaseService.fetch(with: id) {
-          routingService.route(to: Sheet.item(item))
-        } else if let project: Project = try privateDatabaseService.fetch(with: id) {
-          routingService.route(to: Sheet.project(project))
-        }
-      } catch { print(error.localizedDescription) }
+    guard let stringID = activity.userInfo?[CSService.activityID] as? String else { return }
+
+    printError {
+      if
+        let item: Item = try privDBService.fetch(with: stringID),
+        let project = item.fetchProject(privDBService)
+      {
+        routingService.route(
+          to: Sheet.item(item, projectWithItems: project.attachItems(privDBService))
+        )
+      } else if let project: Project = try privDBService.fetch(with: stringID) {
+        routingService.route(
+          to: Sheet.project(project.attachItems(privDBService))
+        )
+      }
     }
   }
 }

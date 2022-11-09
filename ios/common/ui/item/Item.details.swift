@@ -3,7 +3,8 @@
 import SwiftUI
 
 struct ItemDetails: View {
-  let item: Item
+  let item: Item,
+      projectWithItems: Project.WithItems
 
   var body: some View {
     VStack {
@@ -20,15 +21,13 @@ struct ItemDetails: View {
       }
       .padding()
       .frame(maxWidth: .infinity)
-      .foregroundColor(item.color)
+      .foregroundColor(project.color)
 
       Text("\"\(item.detailsLabel)\"")
         .font(.default(.title2))
         .fontWeight(.medium)
 
-      if let project = item.project {
-        ProjectCard(project)
-      }
+      ProjectCard(projectWithItems)
 
       Spacer()
 
@@ -39,21 +38,29 @@ struct ItemDetails: View {
     .preferred(style: SheetViewStyle(size: .half, dismissButtonStyle: .hidden))
   }
 
-  init(_ item: Item) {
+  private var project: Project { projectWithItems.project }
+  
+  init(
+    _ item: Item,
+    projectWithItems: Project.WithItems
+  ) {
     self.item = item
+    self.projectWithItems = projectWithItems
   }
 }
 
-// MARK: - (Previews)
+// MARK: - (PREVIEWS)
 
+#if DEBUG
 struct ItemDetails_Previews: PreviewProvider {
   static var previews: some View {
-    ItemDetails(.example)
+    ItemDetails(.example, projectWithItems: .example)
       .previewDisplayName("Bare")
 
     SheetView.Preview {
-      ItemDetails(.example)
+      ItemDetails(.example, projectWithItems: .example)
     }
     .previewDisplayName("Sheet")
   }
 }
+#endif

@@ -16,10 +16,6 @@ extension Item {
         a11y: LocalizedStringKey
   }
 
-  var color: Color {
-    project?.color ?? ColorID.darkBlue.color
-  }
-
   var icon: String {
     if isDone {
       return "checkmark.circle"

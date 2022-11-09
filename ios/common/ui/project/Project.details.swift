@@ -3,7 +3,7 @@
 import SwiftUI
 
 struct ProjectDetails: View {
-  let project: Project
+  let projectWithItems: Project.WithItems
 
   var body: some View {
     VStack {
@@ -11,6 +11,7 @@ struct ProjectDetails: View {
         Text(project.label)
           .font(.default(.largeTitle))
           .fontWeight(.heavy)
+
         Image(systemName: project.isClosed ? "checkmark.diamond" : "diamond")
           .font(.default(.title1))
           .fontWeight(.bold)
@@ -23,12 +24,12 @@ struct ProjectDetails: View {
         .font(.default(.title2))
         .fontWeight(.medium)
 
-      ProgressView(value: project.progress)
+      ProgressView(value: progress)
         .tint(project.color)
         .padding()
 
       ScrollView {
-        ForEach(project.items, content: ItemCard.init)
+        ForEach(projectWithItems.revertRelationship(), content: ItemCard.init)
           .padding()
       }
 
@@ -38,17 +39,20 @@ struct ProjectDetails: View {
         .padding()
         .font(.default(.subheadline))
     }
-    .accessibilityLabel(project.a11y)
+    .accessibilityLabel("A11Y_COMPLETE_DESCRIPTION \(project.label) \(itemsCount) \(progress)")
     .preferred(style: SheetViewStyle(dismissButtonStyle: .hidden))
   }
 
-  init(_ project: Project) {
-    self.project = project
-  }
+  private var project: Project { projectWithItems.project }
+  private var progress: Double { projectWithItems.progress }
+  private var itemsCount: Int { projectWithItems.items.count }
+  
+  init(_ projectWithItems: Project.WithItems) { self.projectWithItems = projectWithItems }
 }
 
-// MARK: - (Previews)
+// MARK: - (PREVIEWS)
 
+#if DEBUG
 struct ProjectDetails_Previews: PreviewProvider {
   static var previews: some View {
     ProjectDetails(.example)
@@ -60,3 +64,4 @@ struct ProjectDetails_Previews: PreviewProvider {
     .previewDisplayName("Sheet")
   }
 }
+#endif

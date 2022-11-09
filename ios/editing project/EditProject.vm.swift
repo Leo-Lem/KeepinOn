@@ -58,7 +58,7 @@ extension EditProjectView.ViewModel {
     }
 
     printError {
-      try privateDatabaseService.insert(getUpdatedProject())
+      try privDBService.insert(getUpdatedProject())
     }
 
     routingService.dismiss()
@@ -90,10 +90,14 @@ extension EditProjectView.ViewModel {
 
         hapticsService?.play()
 
-        for item in project.items {
-          let sharedItem = Item.Shared(item, owner: user)
-          try await publicDatabaseService.publish(sharedItem)
+        let sharedItems = project.items.compactMap { id in
+          printError {
+            let item: Item? = try privDBService.fetch(with: id.uuidString)
+            return item.flatMap(Item.Shared.init)
+          }
         }
+
+        try await publicDatabaseService.publish(sharedItems)
       }
     }
   }
@@ -120,7 +124,7 @@ private extension EditProjectView.ViewModel {
         }
       }
 
-      try privateDatabaseService.delete(with: project.id)
+      try privDBService.delete(project)
 
       routingService.dismiss()
     }

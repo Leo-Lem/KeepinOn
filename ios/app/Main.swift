@@ -2,8 +2,7 @@
 
 import SwiftUI
 
-@main
-struct AppEntry: App {
+@main struct Main: App {
   @State private var appState: AppState?
 
   var body: some Scene {

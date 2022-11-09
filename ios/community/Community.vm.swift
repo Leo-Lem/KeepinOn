@@ -60,19 +60,3 @@ private extension CommunityView.ViewModel {
     }
   }
 }
-
-#if DEBUG
-  extension CommunityView.ViewModel {
-    func createSampleData() {
-      if let service = publicDatabaseService as? CKService {
-        Task { await service.createSampleData() }
-      }
-    }
-
-    func deleteAll() {
-      if let service = publicDatabaseService as? CKService {
-        Task { await service.deleteAll() }
-      }
-    }
-  }
-#endif

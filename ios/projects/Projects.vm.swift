@@ -6,7 +6,7 @@ extension ProjectsView {
   @MainActor final class ViewModel: KeepinOn.ViewModel {
     let closed: Bool
 
-    @Published private(set) var projects: [Project] = []
+    @Published private(set) var projectsWithItems = [Project.WithItems]()
     @Published private var isPremium: Bool = false
 
     init(closed: Bool, appState: AppState) {
@@ -14,12 +14,12 @@ extension ProjectsView {
 
       super.init(appState: appState)
 
-      updateProjects()
-      updateIsPremium()
+      loadProjects()
+      loadIsPremium()
 
       tasks.add(
-        privateDatabaseService.didChange.getTask(with: updateProjects),
-        purchaseService.didChange.getTask(with: updateIsPremium)
+        privDBService.didChange.getTask(with: updateProjects),
+        purchaseService.didChange.getTask(with: loadIsPremium)
       )
     }
   }
@@ -30,41 +30,21 @@ extension ProjectsView.ViewModel {
     get { appState.settings.itemSortOrder }
     set { appState.settings.itemSortOrder = newValue }
   }
-}
 
-extension ProjectsView.ViewModel {
+  // pruchasing
   func startPurchase() {
     routingService.route(to: Sheet.purchase)
   }
 
+  // projects
+
   func addProject() {
-    if isPremium || projects.count < config.freeProjectsLimit {
+    if isPremium || projectsWithItems.count < config.freeLimits.projects {
       printError {
-        let project = Project()
-        projects.append(project)
-        try privateDatabaseService.insert(project)
+        try privDBService.insert(Project())
       }
     } else {
       startPurchase()
-    }
-  }
-
-  func addItem(to project: Project) {
-    let item = Item(project: project)
-
-    printError {
-      try privateDatabaseService.insert(item)
-      Task(priority: .userInitiated) {
-        await printError {
-          try await awardService.addedItem()
-        }
-      }
-    }
-  }
-
-  func delete(item: Item) {
-    Task(priority: .userInitiated) { [weak self] in
-      await self?.delete(with: item.id)
     }
   }
 
@@ -75,7 +55,7 @@ extension ProjectsView.ViewModel {
           project: project,
           fulfill: { [weak self] project in
             Task(priority: .userInitiated) {
-              await self?.delete(with: project.id)
+              await self?.delete(project)
             }
           }
         )
@@ -83,11 +63,47 @@ extension ProjectsView.ViewModel {
     )
   }
 
+  func toggleIsClosed(for project: Project) {
+    printError {
+      var project = project
+      project.isClosed.toggle()
+      try privDBService.insert(project)
+    }
+  }
+
+  func addItem(to project: Project) {
+    if isPremium || project.items.count < config.freeLimits.items {
+      printError {
+        let item = Item(project: project.id)
+        var project = project
+        project.addItem(item)
+
+        try privDBService.insert(item)
+        try privDBService.insert(project)
+        Task(priority: .userInitiated) {
+          await printError {
+            try await awardService.addedItem()
+          }
+        }
+      }
+    }
+  }
+
+  func delete(item: Item) {
+    Task(priority: .userInitiated) { [weak self] in
+      await self?.delete(item)
+    }
+  }
+
+  func startEditing(item: Item) {
+    routingService.route(to: .sheet(.editItem(item)))
+  }
+
   func toggleIsDone(for item: Item) {
     printError {
       var item = item
       item.isDone.toggle()
-      try privateDatabaseService.insert(item)
+      try privDBService.insert(item)
 
       Task(priority: .userInitiated) {
         if item.isDone {
@@ -98,41 +114,39 @@ extension ProjectsView.ViewModel {
       }
     }
   }
-
-  func toggleIsClosed(for project: Project) {
-    printError {
-      var project = project
-      project.isClosed.toggle()
-      try privateDatabaseService.insert(project)
-    }
-  }
-
-  func startEditing(item: Item) {
-    routingService.route(to: .sheet(.editItem(item)))
-  }
 }
 
 private extension ProjectsView.ViewModel {
-  func delete(with id: UUID) async {
+  func delete<T: PrivConvertible>(_ model: T) async {
     await printError {
-      if try await publicDatabaseService.exists(with: id.uuidString) {
+      if try await publicDatabaseService.exists(with: model.stringID) {
         try await appState.showErrorAlert {
-          try await publicDatabaseService.unpublish(with: id.uuidString)
+          try await publicDatabaseService.unpublish(with: model.stringID)
         }
       }
 
-      try privateDatabaseService.delete(with: id)
+      try privDBService.delete(model)
     }
   }
 
-  func updateProjects() {
-    let projectsQuery = Query<Project>(\.isClosed, .eq, closed)
+  func loadProjects() {
     printError {
-      projects = try privateDatabaseService.fetch(projectsQuery)
+      projectsWithItems = try privDBService
+        .fetch(Query<Project>(\.isClosed, .equal, closed))
+        .map { project in
+          Project.WithItems(
+            project,
+            items: project.attachItems(privDBService).items.sorted(using: sortOrder)
+          )
+        }
     }
   }
 
-  func updateIsPremium() {
+  func loadIsPremium() {
     isPremium = purchaseService.isPurchased(id: .fullVersion)
+  }
+
+  func updateProjects(on change: PrivDBChange) {
+    loadProjects()
   }
 }

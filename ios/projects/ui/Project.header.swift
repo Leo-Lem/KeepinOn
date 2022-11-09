@@ -3,7 +3,7 @@
 import SwiftUI
 
 struct ProjectHeader: View {
-  let project: Project,
+  let projectWithItems: Project.WithItems,
       editingEnabled: Bool,
       toggleIsClosed: (Project) -> Void,
       delete: (Project) async -> Void
@@ -13,12 +13,12 @@ struct ProjectHeader: View {
       VStack(alignment: .leading) {
         HStack {
           Text(project.label)
-          SheetLink(.project(project)) {
+          SheetLink(.project(projectWithItems)) {
             Label("VIEW_PROJECT_DETAILS", systemImage: "info.bubble")
           }
         }
 
-        ProgressView(value: project.progress)
+        ProgressView(value: projectWithItems.progress)
       }
 
       Spacer()
@@ -60,14 +60,16 @@ struct ProjectHeader: View {
   }
 
   @State private var isDeleting = false
+  
+  private var project: Project { projectWithItems.project }
 
   init(
-    _ project: Project,
+    _ projectWithItems: Project.WithItems,
     editingEnabled: Bool,
     toggleIsClosed: @escaping (Project) -> Void,
     delete: @escaping (Project) async -> Void
   ) {
-    self.project = project
+    self.projectWithItems = projectWithItems
     self.editingEnabled = editingEnabled
     self.toggleIsClosed = toggleIsClosed
     self.delete = delete
@@ -77,33 +79,18 @@ struct ProjectHeader: View {
 // MARK: - (PREVIEWS)
 
 #if DEBUG
-struct ProjectHeader_Previews: PreviewProvider {
-  static var previews: some View {
-    NavigationStack {
-      Form {
-        Section {
-          Text("some content")
-        } header: {
-          ProjectHeader(.init(
-            title: "Open Project",
-            isClosed: false,
-            colorID: .gold
-          ), editingEnabled: true) { _ in } delete: {_ in}
-        }
-
-        Section {
-          Text("some content")
-        } header: {
-          ProjectHeader(.init(
-            title: "Closed Project",
-            isClosed: true,
-            colorID: .green,
-            items: [.init(isDone: true)]
-          ), editingEnabled: false) { _ in } delete: {_ in}
+  struct ProjectHeader_Previews: PreviewProvider {
+    static var previews: some View {
+      NavigationStack {
+        Form {
+          Section {
+            Text("some content")
+          } header: {
+            ProjectHeader(.example, editingEnabled: true) { _ in } delete: { _ in }
+          }
         }
       }
+      .configureForPreviews()
     }
-    .configureForPreviews()
   }
-}
 #endif

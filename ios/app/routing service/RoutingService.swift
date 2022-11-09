@@ -3,7 +3,12 @@
 import Combine
 
 protocol RoutingService {
-  var didChange: PassthroughSubject<RoutingChange, Never> { get }
+  associatedtype Page
+  associatedtype Sheet
+  associatedtype Alert
+  associatedtype Banner
+  
+  var didRouteTo: PassthroughSubject<Route, Never> { get }
 
   var page: Page { get }
   var sheet: Sheet? { get }
