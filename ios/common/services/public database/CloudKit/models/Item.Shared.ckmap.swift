@@ -14,7 +14,7 @@ extension Item.Shared: CKConvertible {
     let project: Project.Shared? = Self.getSimpleRef(from: refs)
 
     self.init(
-      id: id, project: project, title: title, details: details, isDone: isDone
+      id: id, project: project?.id, title: title, details: details, isDone: isDone
     )
   }
 
@@ -31,8 +31,8 @@ extension Item.Shared: CKConvertible {
     ])
 
     if let project = project {
-      record[type(of: project).referenceID] = CKRecord.Reference(
-        recordID: .init(recordName: project.id.uuidString), action: .deleteSelf
+      record[Project.Shared.referenceID] = CKRecord.Reference(
+        recordID: .init(recordName: project.uuidString), action: .deleteSelf
       )
     }
 
