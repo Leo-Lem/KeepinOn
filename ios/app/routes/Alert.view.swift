@@ -5,7 +5,7 @@ import SwiftUI
 extension View {
   func alert(
     _ alert: Binding<Alert?>,
-    routingService: RoutingService
+    routingService: any RoutingService
   ) -> some View {
     let binding = Binding(optional: alert)
 

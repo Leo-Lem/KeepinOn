@@ -7,8 +7,7 @@ extension View {
     _ sheet: Binding<Sheet?>,
     appState: AppState
   ) -> some View {
-    let binding = Binding(optional: sheet)
-    return self.sheet(binding) {
+    self.sheet(Binding(optional: sheet)) {
       switch sheet.wrappedValue {
       case let .editProject(project):
         EditProjectView(project, appState: appState)
@@ -20,10 +19,10 @@ extension View {
         PurchasingView(appState: appState)
       case .account:
         AccountView(appState: appState)
-      case let .project(project):
-        ProjectDetails(project)
-      case let .item(item):
-        ItemDetails(item)
+      case let .project(projectWithItems):
+        ProjectDetails(projectWithItems)
+      case let .item(item, projectWithItems):
+        ItemDetails(item, projectWithItems: projectWithItems)
       default: EmptyView()
       }
     }

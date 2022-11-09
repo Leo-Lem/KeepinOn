@@ -38,8 +38,12 @@ enum Sheet: Hashable, Codable {
        sharedProject(Project.Shared),
        purchase,
        account,
-       project(Project),
-       item(Item)
+       project(Project.WithItems),
+       item(Item, projectWithItems: Project.WithItems)
+}
+
+enum Banner: Hashable, Codable {
+  case awardEarned(Award)
 }
 
 enum Alert: Equatable {
@@ -62,8 +66,4 @@ enum Alert: Equatable {
       return false
     }
   }
-}
-
-enum Banner: Hashable, Codable {
-  case awardEarned(Award)
 }

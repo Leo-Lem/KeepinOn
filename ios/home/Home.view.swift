@@ -6,24 +6,24 @@ struct HomeView: View {
   var body: some View {
     ScrollView {
       HomeView.ProjectListView(
-        vm.projects,
+        vm.projectsWithItems,
         edit: { project in vm.startEditing(project) },
-        show: { project in vm.showInfo(for: project) }
+        show: { projectWithItems in vm.showInfo(for: projectWithItems) }
       )
 
       VStack(alignment: .leading) {
         HomeView.ItemPeekListView(
           "NEXT_ITEMS",
-          items: vm.upNext,
+          itemsWithProject: vm.upNext,
           edit: { item in vm.startEditing(item) },
-          show: { item in vm.showInfo(for: item) }
+          show: { itemWithProject in vm.showInfo(for: itemWithProject) }
         )
 
         HomeView.ItemPeekListView(
           "MORE_ITEMS",
-          items: vm.moreItems,
+          itemsWithProject: vm.moreItems,
           edit: { item in vm.startEditing(item) },
-          show: { item in vm.showInfo(for: item) }
+          show: { itemWithProject in vm.showInfo(for: itemWithProject) }
         )
       }
       .padding(.horizontal)
@@ -34,8 +34,8 @@ struct HomeView: View {
       .toolbar {
         ToolbarItem(placement: .automatic) {
           HStack {
-            Button("Add data") { vm.createSampleData() }
-            Button("Delete All") { vm.deleteAll() }
+            Button("Add data") { vm.privDBService.createSampleData() }
+            Button("Delete All") { vm.privDBService.deleteAll() }
           }
         }
       }

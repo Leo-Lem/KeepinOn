@@ -3,31 +3,33 @@
 import SwiftUI
 
 struct ItemRow: View {
-  let item: Item
+  let itemWithProject: Item.WithProject
 
   var body: some View {
     Label(title: Text(item.label).fixedSize) {
       Image(systemName: item.icon)
-        .foregroundColor(item.color)
+        .foregroundColor(itemWithProject.project.color)
         .accessibilityLabel(item.a11y)
     }
   }
-
-  init(_ item: Item) {
-    self.item = item
-  }
+  
+  private var item: Item { itemWithProject.item }
+  
+  init(_ itemWithProject: Item.WithProject) { self.itemWithProject = itemWithProject }
 }
 
 // MARK: - (Previews)
 
+#if DEBUG
 struct ItemRow_Previews: PreviewProvider {
   static var previews: some View {
     ItemRow(.example)
       .previewDisplayName("Simple")
 
     List {
-      ForEach([Item.example, .example, .example], content: ItemRow.init)
+      ForEach([Item.WithProject.example, .example, .example], content: ItemRow.init)
     }
     .previewDisplayName("List")
   }
 }
+#endif

@@ -4,28 +4,26 @@ import Combine
 import UIKit
 
 final class KORoutingService: RoutingService {
-  let didChange = PassthroughSubject<RoutingChange, Never>()
+  let didRouteTo = PassthroughSubject<Route, Never>()
 
   private(set) var page: Page = .home
   private(set) var sheet: Sheet?
   private(set) var alert: Alert?
   private(set) var banner: Banner?
 
-  private let keyValueService: KeyValueService
+  private let keyValueService = UDService()
   private let tasks = Tasks()
 
-  init(keyValueService: KeyValueService) {
-    self.keyValueService = keyValueService
-
+  init() {
     printError {
       if let page: Page = try keyValueService.fetchObject(for: Self.key.page) {
         self.page = page
-        didChange.send(.routedTo(.page(page)))
+        didRouteTo.send(.page(page))
       }
 
       if let sheet: Sheet = try keyValueService.fetchObject(for: Self.key.sheet) {
         self.sheet = sheet
-        didChange.send(.routedTo(.sheet(sheet)))
+        didRouteTo.send(.sheet(sheet))
       }
     }
 
@@ -36,16 +34,16 @@ final class KORoutingService: RoutingService {
     switch route {
     case let .page(page):
       self.page = page
-      didChange.send(.routedTo(.page(page)))
+      didRouteTo.send(.page(page))
     case let .sheet(sheet):
       self.sheet = sheet
-      didChange.send(.routedTo(.sheet(sheet)))
+      didRouteTo.send(.sheet(sheet))
     case let .alert(alert):
       self.alert = alert
-      didChange.send(.routedTo(.alert(alert)))
+      didRouteTo.send(.alert(alert))
     case let .banner(banner):
       self.banner = banner
-      didChange.send(.routedTo(.banner(banner)))
+      didRouteTo.send(.banner(banner))
     }
   }
 }

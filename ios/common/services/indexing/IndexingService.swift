@@ -4,5 +4,5 @@ import Foundation
 
 protocol IndexingService {
   func updateReference<T: Indexable>(to indexable: T)
-  func removeReference(with id: UUID)
+  func removeReference(with id: String)
 }
