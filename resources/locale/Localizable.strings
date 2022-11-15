@@ -84,7 +84,6 @@
 /* Shared Project Categories */
 "OWN_USERS_PROJECTS" = "Your Projects";
 "OTHER_USERS_PROJECTS" = "Other people's projects";
-"SHARED_PROJECTS" = "Shared Projects";
 
 
 
@@ -128,8 +127,8 @@
 
 // MARK: - (IN-APP PURCHASES)
 "UNLOCK_FULL_VERSION" = "Unlock"; /* shown on an alert button */
-"IAP_HEADLINE" = "Unlimited Projects!";
-"IAP_DESCRIPTION %@" = "(You can have three open projects for free.)";
+"IAP_HEADLINE" = "Unlimited Projects and Items!";
+"IAP_DESCRIPTION %@" = "Or you can have three open projects with five items each for free.";
 
 "IAP_BUY_BUTTON %@" = "Buy for %@";
 "IAP_RESTORE_BUTTON" = "Restore Purchases";

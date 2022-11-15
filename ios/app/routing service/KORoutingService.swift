@@ -2,6 +2,8 @@
 
 import Combine
 import UIKit
+import Errors
+import Concurrency
 
 final class KORoutingService: RoutingService {
   let didRouteTo = PassthroughSubject<Route, Never>()
@@ -56,11 +58,11 @@ private extension KORoutingService {
       .publisher(for: UIApplication.willResignActiveNotification)
       .getTask { [weak self] _ in
         printError {
-          try self?.keyValueService.insert(object: self?.page, for: Self.key.page)
+          try self?.keyValueService.store(object: self?.page, for: Self.key.page)
           
-          try self?.keyValueService.delete(for: Self.key.sheet)
+          self?.keyValueService.delete(for: Self.key.sheet)
           if let sheet = self?.sheet {
-            try self?.keyValueService.insert(object: sheet, for: Self.key.sheet)
+            try self?.keyValueService.store(object: sheet, for: Self.key.sheet)
           }
         }
       }

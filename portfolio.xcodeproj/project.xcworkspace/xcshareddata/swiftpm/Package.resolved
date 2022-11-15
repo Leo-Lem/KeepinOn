@@ -1,12 +1,39 @@
 {
   "pins" : [
     {
-      "identity" : "privatedatabaseservice",
+      "identity" : "concurrency",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Leo-Lem/PrivateDatabaseService",
+      "location" : "https://github.com/Leo-Lem/Concurrency",
       "state" : {
         "branch" : "main",
-        "revision" : "08e05ca174395e2199a1acf063ecde59732b73b0"
+        "revision" : "670900625751e22be26d941cedbfe75a9266759a"
+      }
+    },
+    {
+      "identity" : "errors",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Leo-Lem/Errors",
+      "state" : {
+        "branch" : "main",
+        "revision" : "9ea746700ce34f73671f2a4e864a2dac101450ab"
+      }
+    },
+    {
+      "identity" : "keyvaluestorageservice",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Leo-Lem/KeyValueStorageService",
+      "state" : {
+        "branch" : "main",
+        "revision" : "85a93394cc199a03e76a55e6cd4500405406cb7b"
+      }
+    },
+    {
+      "identity" : "localdatabaseservice",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Leo-Lem/LocalDatabaseService",
+      "state" : {
+        "branch" : "main",
+        "revision" : "966286648b959c017e2e6941a426ed6220433234"
       }
     },
     {
@@ -15,7 +42,16 @@
       "location" : "https://github.com/Leo-Lem/Queries",
       "state" : {
         "branch" : "main",
-        "revision" : "58b6da26764e72a2438ac465da4bbd1938d5e194"
+        "revision" : "fdad8c90cf5122b430537a4ab7b1179eb4b6d26e"
+      }
+    },
+    {
+      "identity" : "remotedatabaseservice",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Leo-Lem/RemoteDatabaseService",
+      "state" : {
+        "branch" : "main",
+        "revision" : "b9ce616aec582658017ad97831c98db9859285ff"
       }
     }
   ],
