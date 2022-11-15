@@ -20,9 +20,9 @@ extension View {
       case .account:
         AccountView(appState: appState)
       case let .project(projectWithItems):
-        ProjectDetails(projectWithItems)
+        Project.Details(projectWithItems)
       case let .item(item, projectWithItems):
-        ItemDetails(item, projectWithItems: projectWithItems)
+        Item.Details(item, projectWithItems: projectWithItems)
       default: EmptyView()
       }
     }

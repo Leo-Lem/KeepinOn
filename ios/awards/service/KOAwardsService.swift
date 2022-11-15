@@ -1,6 +1,7 @@
 //	Created by Leopold Lemmermann on 01.11.22.
 
 import Combine
+import Errors
 import Foundation
 
 final class KOAwardsService: AwardsService {
@@ -24,10 +25,10 @@ final class KOAwardsService: AwardsService {
   }
 
   private let authService: AuthService,
-              keyValueService: KeyValueService
+              keyValueService: KVSService
   init(
     authService: AuthService,
-    keyValueService: KeyValueService
+    keyValueService: KVSService
   ) {
     self.authService = authService
     self.keyValueService = keyValueService
@@ -100,7 +101,7 @@ private extension KOAwardsService {
       try await authService.update(user)
     }
 
-    try keyValueService.insert(object: progress, for: Self.progressKey)
+    try keyValueService.store(object: progress, for: Self.progressKey)
   }
 
   static func loadAllAwards() -> [Award] {

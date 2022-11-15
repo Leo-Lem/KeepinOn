@@ -7,7 +7,8 @@ struct AwardsView: View {
     ScrollView {
       LazyVGrid(columns: cols) {
         ForEach(vm.allAwards) { award in
-          AwardsView.AwardView(award: award, unlocked: vm.isUnlocked(award))
+          award.icon(isUnlocked: vm.isUnlocked(award))
+            .frame(width: 100, height: 100)
             .onTapGesture { vm.showAlert(for: award) }
         }
       }
@@ -28,16 +29,16 @@ struct AwardsView: View {
 // MARK: - (PREVIEWS)
 
 #if DEBUG
-struct AwardsView_Previews: PreviewProvider {
-  static var previews: some View {
-    Group {
-      AwardsView(appState: .example)
-        .previewDisplayName("Regular")
+  struct AwardsView_Previews: PreviewProvider {
+    static var previews: some View {
+      Group {
+        AwardsView(appState: .example)
+          .previewDisplayName("Regular")
 
-      NavigationStack { AwardsView(appState: .example) }
-        .previewDisplayName("Navigation")
+        NavigationStack { AwardsView(appState: .example) }
+          .previewDisplayName("Navigation")
+      }
+      .configureForPreviews()
     }
-    .configureForPreviews()
   }
-}
 #endif

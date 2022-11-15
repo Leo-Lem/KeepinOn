@@ -1,6 +1,7 @@
 //	Created by Leopold Lemmermann on 29.10.22.
 
 import Foundation
+import Errors
 
 extension AppView {
   final class ViewModel: KeepinOn.ViewModel {
@@ -50,17 +51,17 @@ extension AppView.ViewModel {
   }
 
   func routeToSpotlightModel(_ activity: NSUserActivity) {
-    guard let stringID = activity.userInfo?[CSService.activityID] as? String else { return }
+    guard let id = (activity.userInfo?[CSService.activityID] as? String).flatMap(UUID.init) else { return }
 
     printError {
       if
-        let item: Item = try privDBService.fetch(with: stringID),
+        let item: Item = try privDBService.fetch(with: id),
         let project = item.fetchProject(privDBService)
       {
         routingService.route(
           to: Sheet.item(item, projectWithItems: project.attachItems(privDBService))
         )
-      } else if let project: Project = try privDBService.fetch(with: stringID) {
+      } else if let project: Project = try privDBService.fetch(with: id) {
         routingService.route(
           to: Sheet.project(project.attachItems(privDBService))
         )

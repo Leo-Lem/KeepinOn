@@ -8,11 +8,11 @@ struct Provider: TimelineProvider {
   }
 
   nonisolated func placeholder(in context: Context) -> Entry {
-    Entry(date: .now, itemsWithProject: [.example])
+    Entry(date: .now, itemsWithProject: [Item.WithProject.example])
   }
 
   nonisolated func getSnapshot(in context: Context, completion: @escaping (Entry) -> Void) {
-    let entry = Entry(date: .now, itemsWithProject: [.example])
+    let entry = Entry(date: .now, itemsWithProject: [Item.WithProject.example])
     completion(entry)
   }
 

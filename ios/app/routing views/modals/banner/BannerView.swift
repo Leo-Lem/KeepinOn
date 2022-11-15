@@ -1,6 +1,7 @@
 //	Created by Leopold Lemmermann on 06.11.22.
 
 import SwiftUI
+import Concurrency
 
 struct BannerView<Content: View>: View {
   @Binding var isPresented: Bool
@@ -40,7 +41,7 @@ struct BannerView<Content: View>: View {
     .animation(.default, value: isPresented)
     .task {
       if let dismissAfter = dismissAfter {
-        await sleep(for: dismissAfter)
+        await sleep(for: Double(dismissAfter.components.seconds))
         dismiss()
       }
     }

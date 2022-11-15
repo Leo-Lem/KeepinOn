@@ -1,8 +1,8 @@
 //	Created by Leopold Lemmermann on 05.10.22.
 
-import Foundation
+import Errors
 
-extension PrivDBService {
+extension LocalDBService {
   func createSampleData() {
     printError {
       for project in [Project.example, .example, .example] {

@@ -1,6 +1,8 @@
 //  Created by Leopold Lemmermann on 24.10.22.
 
 import Combine
+import Concurrency
+import Errors
 import Foundation
 
 struct Settings: Codable {
@@ -11,9 +13,9 @@ final class AppState: ObservableObject {
   let didChange = ObservableObjectPublisher()
 
   let routingService: KORoutingService,
-      privDBService: PrivDBService,
-      publicDatabaseService: PublicDatabaseService,
-      keyValueService: KeyValueService,
+      privDBService: LocalDBService,
+      remoteDBService: RemoteDBService,
+      keyValueService: KVSService,
       indexingService: IndexingService,
       notificationService: NotificationService,
       authService: AuthService,
@@ -28,9 +30,9 @@ final class AppState: ObservableObject {
 
   init(
     routingService: KORoutingService = KORoutingService(),
-    privDBService: PrivDBService = CDService(),
-    publicDatabaseService: PublicDatabaseService? = nil,
-    keyValueService: KeyValueService = UDService(),
+    privDBService: LocalDBService = CDService(),
+    remoteDBService: RemoteDBService? = nil,
+    keyValueService: KVSService = UDService(),
     indexingService: IndexingService = CSService(),
     notificationService: NotificationService? = nil,
     authService: AuthService? = nil,
@@ -46,10 +48,10 @@ final class AppState: ObservableObject {
     self.widgetService = widgetService
     self.routingService = routingService
 
-    if let service = publicDatabaseService {
-      self.publicDatabaseService = service
+    if let service = remoteDBService {
+      self.remoteDBService = service
     } else {
-      self.publicDatabaseService = await CKService()
+      self.remoteDBService = await CKService()
     }
 
     if let service = notificationService {
@@ -69,7 +71,7 @@ final class AppState: ObservableObject {
     } else {
       self.authService = await KOAuthService(
         keyValueService: self.keyValueService,
-        publicDatabaseService: self.publicDatabaseService
+        remoteDBService: self.remoteDBService
       )
     }
 
@@ -83,16 +85,16 @@ final class AppState: ObservableObject {
     }
 
     tasks.add(
-      self.privDBService.didChange.getTask(with: updateIndices),
-      self.privDBService.didChange.getTask(with: updateWidgets)
+      self.privDBService.didChange.getTask(operation: updateIndices),
+      self.privDBService.didChange.getTask(operation: updateWidgets)
     )
   }
 
   #if DEBUG
     init(mocked: Void) {
-      privDBService = MockPrivDBService()
-      publicDatabaseService = MockPublicDatabaseService()
-      keyValueService = MockKeyValueService()
+      privDBService = MockLocalDBService()
+      remoteDBService = MockRemoteDBService()
+      keyValueService = MockKVSService()
       indexingService = MockIndexingService()
       notificationService = MockNotificationService()
       authService = MockAuthService()
@@ -109,9 +111,13 @@ extension AppState {
   func showErrorAlert(_ action: () async throws -> Void) async rethrows {
     do {
       try await action()
-    } catch let error as PublicDatabaseError {
-      if case let .userRelevant(reason) = error {
+    } catch let error as CKServiceError {
+      switch error {
+      case let .fetching(reason, type: _),
+           let .publishing(reason, type: _),
+           let .unpublishing(reason, type: _):
         routingService.route(to: .alert(Alert.error(reason.localizedDescription)))
+      default: break
       }
 
       throw error
@@ -124,19 +130,19 @@ extension AppState {
 }
 
 private extension AppState {
-  func updateIndices(on change: PrivDBChange) {
+  func updateIndices(on change: LocalDBChange) {
     switch change {
     case let .inserted(convertible):
-      if let indexable = convertible as? Indexable {
+      if let indexable = convertible as? any Indexable {
         indexingService.updateReference(to: indexable)
       }
     case let .deleted(id, _):
-      indexingService.removeReference(with: id)
+      indexingService.removeReference(with: id.description)
     default: break
     }
   }
 
-  func updateWidgets(on change: PrivDBChange) {
+  func updateWidgets(on change: LocalDBChange) {
     printError {
       widgetService.provide(
         try privDBService
