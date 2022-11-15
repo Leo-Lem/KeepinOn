@@ -63,7 +63,7 @@ struct AlertView<Content: View, Actions: View>: View {
 #if DEBUG
 struct AlertView_Previews: PreviewProvider {
   static var previews: some View {
-    Binding.PreviewView(false) { binding in
+    Binding.Preview(false) { binding in
       Button("Click me show the alert", action: { binding.wrappedValue = true })
         .alert(binding) {
           Text("This is an alert!")
