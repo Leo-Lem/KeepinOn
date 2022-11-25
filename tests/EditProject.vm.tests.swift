@@ -10,6 +10,4 @@ class EditProjectVMTests: XCTestCase {
   override func setUp() async throws {
     vm = await Project.EditingView.ViewModel(.example, dismiss: {}, mainState: .mock)
   }
-  
-  
 }

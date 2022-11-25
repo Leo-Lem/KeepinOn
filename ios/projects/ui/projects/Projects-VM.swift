@@ -56,7 +56,7 @@ extension ProjectsView.ViewModel {
     printError {
       let item = Item(project: project.id)
       var project = project
-      project.addItem(item)
+      project.items.append(item.id)
 
       try localDBService.insert(item)
       try localDBService.insert(project)

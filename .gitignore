@@ -1,7 +1,7 @@
 .DS_STORE
 
 ## User settings
-xcuserdata/
+*/**/xcuserdata/*
 
 ## App packaging
 *.ipa
