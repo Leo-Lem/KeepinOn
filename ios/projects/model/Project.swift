@@ -32,21 +32,3 @@ struct Project: Identifiable, Hashable, Codable {
     self.items = items
   }
 }
-
-extension Project {
-  mutating func addItem(_ item: Item) { self.items.append(item.id) }
-}
-
-extension Project {
-  struct WithItems: Identifiable, Hashable, Codable {
-    let project: Project,
-        items: [Item]
-    
-    var id: Project.ID { project.id }
-    
-    init(_ project: Project, items: [Item]) {
-      self.project = project
-      self.items = items
-    }
-  }
-}

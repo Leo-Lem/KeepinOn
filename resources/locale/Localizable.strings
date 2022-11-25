@@ -61,13 +61,19 @@
 // MARK: - (AWARDS)
 "AWARDS_TITLE" = "Awards";
 "LOCKED" = "Locked"; /* award has not been earned */
-"UNLOCKED %@" = "Unlocked: %@"; /* award has been earned, displaying the award */
+"UNLOCKED" = "Unlocked"; /* award has been earned, displaying the award */
+"UNLOCK_FULL_VERSION" = "Unlock Now!";
+"UNLOCKED %@" = "You unlocked %@!"; /* banner headline */
 
 
 
 // MARK: - (COMMUNITY)
 "COMMUNITY_TITLE" = "Community";
 "FETCHING_DATA_FAILED %@" = "Failed to fetch data: %@";
+"CANT_CONNECT_TO_ICLOUD_TITLE" = "Oops, can't connect to iCloud...";
+"CANT_CONNECT_TO_ICLOUD_MESSAGE" = "Please check your internet connection and log into your iCloud account.";
+
+"NO_SHAREDITEMS_PLACEHOLDER" = "No items in this project...";
 
 /* comments */
 "COMMENTS_HEADER" = "Chat about this project…";
@@ -75,11 +81,6 @@
 "ENTER_COMMENT_PROMPT" = "Enter your comment here";
 "SIGN_IN_TO_COMMENT" = "Sign in to comment";
 "POSTED_BY %@" = "Posted by %@";
-
-/* CloudKit errors */
-"CKERROR_CONNECTION" = "There was a problem communicating with iCloud; please check your network connection and try again.";
-"CKERROR_AUTH" = "There was a problem with your iCloud account; please check that you're logged in to iCloud.";
-"CKERORR_RATE" = "You've hit iCloud's rate limit; please wait a moment then try again.";
 
 /* Shared Project Categories */
 "OWN_USERS_PROJECTS" = "Your Projects";
@@ -125,21 +126,6 @@
 
 
 
-// MARK: - (IN-APP PURCHASES)
-"UNLOCK_FULL_VERSION" = "Unlock"; /* shown on an alert button */
-"IAP_HEADLINE" = "Unlimited Projects and Items!";
-"IAP_DESCRIPTION %@" = "Or you can have three open projects with five items each for free.";
-
-"IAP_BUY_BUTTON %@" = "Buy for %@";
-"IAP_RESTORE_BUTTON" = "Restore Purchases";
-
-"IAP_ERROR" = "Oops, something went wrong. Please try again later.";
-"IAP_LOADING" = "Loading…";
-"IAP_SUCCESSFUL" = "Thank you!";
-"IAP_PENDING" = "Thank you! Your request is pending approval, but you can carry on using the app in the meantime.";
-
-
-
 // MARK: - (ACCESSIBILITY)
 "VIEW_PROJECT_DETAILS" = "View project details";
 
@@ -167,37 +153,10 @@
 
 
 // MARK: - (AUTH)
-"AUTH_TITLE" = "Please sign in...";
 "AUTH_INFO" = "In order to keep our community safe, we ask that you sign in before sharing anything or commenting on a project.\n\nWe don't track your personal information; your name is used only for display purposes.";
 "AUTH_SUCCESS %@" = "You're all set!\nYour username is '%@'.";
 "AUTH_FAILURE %@" = "Oops, something went wrong: %@";
 "AUTH_FAILURE" = "Oops, something went wrong...";
-
-"AUTH_LOGIN_INSTEAD" = "Login instead"; /* Button to switch to login */
-"AUTH_REGISTER" = "Register"; /* Button to switch to register */
-"AUTH_LOGIN" = "Login";
-"AUTH_USERID" = "User ID";
-"AUTH_PIN" = "Password";
-"AUTH_NAME" = "Display name";
-
-"AUTH_ERROR_NOTAUTH" = "Error: Not authenticated.";
-
-"AUTH_ERROR_NOCLOUDKIT" = "Can't connect to CloudKit.";
-"AUTH_ERROR_NOICLOUDACCOUNT" = "Can't connect to CloudKit.\nMake sure you're logged into your iCloud account.";
-
-"AUTH_ERROR_REG %@" = "Something went wrong with the registration: %@";
-/* describes why the user ID is invalid*/
-"AUTH_ERROR_REG_USERID %@" = "Invalid User ID: %@";
-"AUTH_ERROR_REG_USERID_ISTAKEN" = "Is already taken...";
-"AUTH_ERROR_REG_USERID_TOOSHORT" = "Is too short... (at least 3 chars)";
-"AUTH_ERROR_REG_USERID_UNSUPPORTEDCHARS" = "It contains unsupported characters...";
-/* describes why the pin is invalid*/
-"AUTH_ERROR_REG_PIN %@" = "Invalid Pin: %@";
-"AUTH_ERROR_REG_PIN_TOOSHORT" = "Is too short (at least 4 chars).";
-
-"AUTH_ERROR_LOGIN %@" = "Something went wrong with the login: %@";
-"AUTH_ERROR_LOGIN_USERID %@" = "Unknown User ID (%@)";
-"AUTH_ERROR_LOGIN_PIN" = "Wrong Pin.";
 
 
 
@@ -210,6 +169,8 @@
 
 
 // MARK: - (ACCOUNT)
+"ACCOUNT_TITLE" = "Your Account";
+"ACCOUNT_EDIT" = "Customize";
 "ACCOUNT_LOGOUT" = "Logout";
 "ACCOUNT_SELECT_COLOR" = "Pick your color";
 "ACCOUNT_CHANGE_DISPLAYNAME" = "Choose a new display name";

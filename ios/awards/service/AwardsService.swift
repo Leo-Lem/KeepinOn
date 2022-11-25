@@ -6,8 +6,7 @@ protocol AwardsService {
   var didChange: PassthroughSubject<AwardsChange, Never> { get }
   
   var allAwards: [Award] { get }
-
-  func isUnlocked(_ award: Award) -> Bool
+  var unlockedAwards: Set<Award> { get }
 
   func notify(of progress: AwardsChange.Progress) async throws
 }

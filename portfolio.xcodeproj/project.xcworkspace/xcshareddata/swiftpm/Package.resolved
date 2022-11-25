@@ -1,12 +1,21 @@
 {
   "pins" : [
     {
+      "identity" : "authenticationservice",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Leo-Lem/AuthenticationService",
+      "state" : {
+        "branch" : "main",
+        "revision" : "2b41254d0c4551a76115855a2d91dc338a5faa8e"
+      }
+    },
+    {
       "identity" : "concurrency",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Leo-Lem/Concurrency",
       "state" : {
         "branch" : "main",
-        "revision" : "670900625751e22be26d941cedbfe75a9266759a"
+        "revision" : "685c45f630bce78066ca63b442748e8a5b73c46e"
       }
     },
     {
@@ -15,7 +24,34 @@
       "location" : "https://github.com/Leo-Lem/Errors",
       "state" : {
         "branch" : "main",
-        "revision" : "9ea746700ce34f73671f2a4e864a2dac101450ab"
+        "revision" : "82f5e6e983288ee88d95a89e44ec33b08509a6aa"
+      }
+    },
+    {
+      "identity" : "hapticsservice",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Leo-Lem/HapticsService",
+      "state" : {
+        "branch" : "main",
+        "revision" : "a1ffc8871dc9eaff2e835396b89ba6fe83929083"
+      }
+    },
+    {
+      "identity" : "inapppurchaseservice",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Leo-Lem/InAppPurchaseService",
+      "state" : {
+        "branch" : "main",
+        "revision" : "11e06f2d443c2ce2811c37bc10449466c3564682"
+      }
+    },
+    {
+      "identity" : "indexingservice",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Leo-Lem/IndexingService",
+      "state" : {
+        "branch" : "main",
+        "revision" : "afb77b0961a39723d633464ccd27027c87041686"
       }
     },
     {
@@ -24,7 +60,16 @@
       "location" : "https://github.com/Leo-Lem/KeyValueStorageService",
       "state" : {
         "branch" : "main",
-        "revision" : "85a93394cc199a03e76a55e6cd4500405406cb7b"
+        "revision" : "3266f9ddd8af0a37f401516c5b4a160bdb9a10ba"
+      }
+    },
+    {
+      "identity" : "leosmisc",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Leo-Lem/LeosMisc",
+      "state" : {
+        "branch" : "main",
+        "revision" : "d8b30a637ca3684d1040c94481e87773aee4189a"
       }
     },
     {
@@ -33,7 +78,25 @@
       "location" : "https://github.com/Leo-Lem/LocalDatabaseService",
       "state" : {
         "branch" : "main",
-        "revision" : "966286648b959c017e2e6941a426ed6220433234"
+        "revision" : "3eea1cee7f0003de06c33609c780d984ac6feb9a"
+      }
+    },
+    {
+      "identity" : "previews",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Leo-Lem/Previews",
+      "state" : {
+        "branch" : "main",
+        "revision" : "c4141d31e662ac40a6bdb78bb882f5d5da7acc0e"
+      }
+    },
+    {
+      "identity" : "pushnotificationservice",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Leo-Lem/PushNotificationService",
+      "state" : {
+        "branch" : "main",
+        "revision" : "be528a2cda486313f1b84eb4504b3487f4084c89"
       }
     },
     {
@@ -42,7 +105,7 @@
       "location" : "https://github.com/Leo-Lem/Queries",
       "state" : {
         "branch" : "main",
-        "revision" : "fdad8c90cf5122b430537a4ab7b1179eb4b6d26e"
+        "revision" : "3e6281efcf3f8f855a394aee781c03bd72a872b6"
       }
     },
     {
@@ -51,7 +114,7 @@
       "location" : "https://github.com/Leo-Lem/RemoteDatabaseService",
       "state" : {
         "branch" : "main",
-        "revision" : "b9ce616aec582658017ad97831c98db9859285ff"
+        "revision" : "3553f422bb05d0ce6ef70e46dbf087e6985b60c9"
       }
     }
   ],

@@ -39,17 +39,3 @@ extension Item {
 extension Item.Priority: Comparable {
   static func < (lhs: Self, rhs: Self) -> Bool { lhs.rawValue < rhs.rawValue }
 }
-
-extension Item {
-  struct WithProject: Identifiable, Hashable, Codable {
-    let item: Item,
-        project: Project
-    
-    var id: Item.ID { item.id }
-    
-    init(_ item: Item, project: Project) {
-      self.item = item
-      self.project = project
-    }
-  }
-}
