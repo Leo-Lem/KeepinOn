@@ -3,7 +3,5 @@
 import SwiftUI
 
 extension Award {
-  var color: Color {
-    colorID.color
-  }
+  var color: Color { colorID.color }
 }
