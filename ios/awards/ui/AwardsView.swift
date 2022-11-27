@@ -44,15 +44,14 @@ struct AwardsView: View {
 
             HStack {
               if award.criterion == .unlock && !isUnlocked {
-                Button { isPurchasing = true } label: {
-                  Label("UNLOCK_FULL_VERSION", systemImage: "cart")
-                }
+                Button { isPurchasing = true } label: { Label("UNLOCK_FULL_VERSION", systemImage: "cart") }
               }
             }
           }
           #endif
         }
       }
+      .accessibilityLabel("AWARDS_TITLE")
     }
     .background(Config.style.background)
     .sheet(isPresented: $isPurchasing) {

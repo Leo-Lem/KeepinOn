@@ -24,7 +24,7 @@ struct ProjectsView: View {
 
           if canEdit {
             Button { vm.addItem(to: project) } label: { Label("ADD_ITEM", systemImage: "plus") }
-            .buttonStyle(.borderless)
+              .buttonStyle(.borderless)
           }
         } header: {
           Project.HeaderView(project, canEdit: canEdit)

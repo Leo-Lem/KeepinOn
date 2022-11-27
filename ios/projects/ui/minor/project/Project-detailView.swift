@@ -44,11 +44,20 @@ extension Project {
           .padding()
           .font(.default(.subheadline))
       }
+      .overlay(alignment: .topTrailing) {
+        if vSize == .compact {
+          Button("GENERIC_DISMISS") { dismiss() }
+            .buttonStyle(.borderedProminent)
+            .padding()
+        }
+      }
       .accessibilityLabel(project.a11y(items))
       .accessibilityElement(children: .combine)
     }
 
     @EnvironmentObject private var mainState: MainState
+    @Environment(\.dismiss) private var dismiss
+    @Environment(\.verticalSizeClass) var vSize
 
     init(_ project: Project) { self.project = project }
 
@@ -63,12 +72,15 @@ extension Project {
 #if DEBUG
   struct ProjectDetails_Previews: PreviewProvider {
     static var previews: some View {
-      Project.DetailView(.example)
-        .previewDisplayName("Bare")
-
-      Project.example.detailView()
-        .previewInSheet()
-        .previewDisplayName("Sheet")
+      Group {
+        Project.DetailView(.example)
+          .previewDisplayName("Bare")
+        
+        Project.example.detailView()
+          .previewInSheet()
+          .previewDisplayName("Sheet")
+      }
+      .configureForPreviews()
     }
   }
 #endif

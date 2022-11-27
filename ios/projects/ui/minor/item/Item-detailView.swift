@@ -42,10 +42,19 @@ extension Item {
           .padding()
           .font(.default(.subheadline))
       }
+      .overlay(alignment: .topTrailing) {
+        if vSize == .compact {
+          Button("GENERIC_DISMISS") { dismiss() }
+            .buttonStyle(.borderedProminent)
+            .padding()
+        }
+      }
       .presentationDetents([.medium])
     }
 
     @EnvironmentObject private var mainState: MainState
+    @Environment(\.dismiss) var dismiss
+    @Environment(\.verticalSizeClass) var vSize
 
     init(_ item: Item) { self.item = item }
 
@@ -60,12 +69,15 @@ extension Item {
 #if DEBUG
   struct ItemDetails_Previews: PreviewProvider {
     static var previews: some View {
-      Item.DetailView(.example)
-        .previewDisplayName("Bare")
-
-      Item.example.detailView()
-        .previewInSheet()
-        .previewDisplayName("Sheet")
+      Group {
+        Item.DetailView(.example)
+          .previewDisplayName("Bare")
+        
+        Item.example.detailView()
+          .previewInSheet()
+          .previewDisplayName("Sheet")
+      }
+      .configureForPreviews()
     }
   }
 #endif

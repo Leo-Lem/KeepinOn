@@ -26,13 +26,17 @@ extension Project {
               .accessibilityLabel("PROJECT_SELECT_COLOR")
           }
 
-          if !project.isClosed && canSendReminders {
+          if !project.isClosed {
             Section("PROJECT_REMINDERS") {
               OptionalPicker($project.reminder.animation(), default: .now + 60) {
                 Toggle("PROJECT_SHOW_REMINDERS", isOn: $0)
               } picker: {
                 DatePicker("PROJECT_REMINDER_TIME", selection: $0, in: $1..., displayedComponents: .hourAndMinute)
                   .accessibilityElement(children: .combine)
+              }
+              .disabled(!canSendReminders, message: "ALLOW_NOTIFICATIONS") {
+                URL(string: UIApplication.openNotificationSettingsURLString)
+                  .flatMap { UIApplication.shared.open($0) }
               }
             }
           }
@@ -46,6 +50,13 @@ extension Project {
         .toolbar {
           project.publishingMenu()
           saveButton()
+          
+          if vSize == .compact {
+            ToolbarItem(placement: .cancellationAction) {
+              Button("GENERIC_CANCEL") { dismiss() }
+                .buttonStyle(.borderedProminent)
+            }
+          }
         }
         .navigationTitle("EDIT_PROJECT")
         .task {
@@ -58,6 +69,7 @@ extension Project {
 
     @EnvironmentObject private var mainState: MainState
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.verticalSizeClass) var vSize
 
     @State private var project: Project
     @State private var isDeleting = false
@@ -87,7 +99,7 @@ private extension Project.EditingView {
 
   func updateProject() {
     printError { try mainState.localDBService.insert(project) }
-    
+
     if project.reminder != nil {
       Task(priority: .userInitiated) {
         await mainState.notificationService.schedule(KeepinOnNotification.reminder(project))

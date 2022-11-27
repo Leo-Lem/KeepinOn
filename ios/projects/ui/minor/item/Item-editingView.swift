@@ -35,13 +35,21 @@ extension Item {
             Button("GENERIC_SAVE") { updateItem() }
               .buttonStyle(.borderedProminent)
           }
+          
+          if vSize == .compact {
+            ToolbarItem(placement: .cancellationAction) {
+              Button("GENERIC_CANCEL") { dismiss() }
+                .buttonStyle(.borderedProminent)
+            }
+          }
         }
-        .presentationDetents([.fraction(0.7)])
       }
+      .presentationDetents([.fraction(0.7)])
     }
 
     @EnvironmentObject private var mainState: MainState
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.verticalSizeClass) var vSize
 
     @State private var title: String
     @State private var details: String
