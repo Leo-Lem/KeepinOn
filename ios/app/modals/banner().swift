@@ -1,5 +1,6 @@
 //	Created by Leopold Lemmermann on 06.11.22.
 
+import AwardsService
 import LeosMisc
 import SwiftUI
 
@@ -15,14 +16,14 @@ extension View {
         HStack {
           Image(systemName: award.image)
             .imageScale(.large)
-          
+
           Spacer()
-          
+
           VStack {
             Text("UNLOCKED \(award.name)").bold()
             Text(award.description)
           }
-          
+
           Spacer()
         }
       }

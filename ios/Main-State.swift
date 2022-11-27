@@ -1,6 +1,8 @@
 //  Created by Leopold Lemmermann on 24.10.22.
 
 import AuthenticationService
+import AwardsService
+import AwardsServiceImpl
 import CloudKit
 import CloudKitService
 import Combine
@@ -18,8 +20,8 @@ import MyAuthenticationService
 import PushNotificationService
 import RemoteDatabaseService
 import StoreKitService
-import UserNotificationsService
 import UserDefaultsService
+import UserNotificationsService
 
 final class MainState: ObservableObject {
   let didChange = PassthroughSubject<Change, Never>()
@@ -78,7 +80,7 @@ final class MainState: ObservableObject {
     localDBService = CDService()
     remoteDBService = await CloudKitService(CKContainer(identifier: Config.id.cloudKit))
     indexingService = CoreSpotlightService(appname: Config.appname)
-    awardsService = AwardsServiceImplementation()
+    awardsService = AwardsServiceImpl()
     purchaseService = await .storekit()
     notificationService = await UserNotificationsService()
     authService = await MyAuthenticationService(url: URL(string: "https://github-repo-j3opzjp32q-lz.a.run.app")!)
@@ -109,7 +111,7 @@ final class MainState: ObservableObject {
       notificationService = .mock
       authService = .mock
       purchaseService = .mock
-      awardsService = AwardsServiceImplementation()
+      awardsService = AwardsServiceImpl()
       widgetService = WidgetServiceImplementation()
       hapticsService = nil
     }
@@ -176,7 +178,6 @@ private extension MainState {
             printError {
               (try localDBService.fetch(with: item.project) as Project?)
                 .flatMap { Item.WithProject(item, project: $0) }
-              
             }
           }
       )
@@ -225,7 +226,7 @@ private extension MainState {
         isPremium = true
         Task { try await awardsService.notify(of: .unlockedFullVersion) }
       }
-      
+
     default:
       isPremium = purchaseService.isPurchased(id: .fullVersion)
     }

@@ -1,6 +1,7 @@
 //  Created by Leopold Lemmermann on 04.03.22.
 
 import SwiftUI
+import AwardsService
 
 extension Award {
   func icon(isUnlocked: Bool) -> some View {
