@@ -38,13 +38,13 @@ extension Item {
 
         Spacer()
 
-        Text("created on \(item.timestamp.formatted())")
+        Text("CREATED_ON \(item.timestamp.formatted())")
           .padding()
           .font(.default(.subheadline))
       }
       .overlay(alignment: .topTrailing) {
         if vSize == .compact {
-          Button("GENERIC_DISMISS") { dismiss() }
+          Button("DISMISS") { dismiss() }
             .buttonStyle(.borderedProminent)
             .padding()
         }

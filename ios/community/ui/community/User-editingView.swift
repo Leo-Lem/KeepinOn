@@ -39,7 +39,7 @@ extension User {
                 .accessibilityLabel("ACCOUNT_CHANGE_DISPLAYNAME")
 
               Button(action: updateUser) {
-                Text("GENERIC_CONFIRM")
+                Text("CONFIRM")
                   .frame(maxWidth: .infinity, minHeight: 44)
                   .background(name.count < 3 ? Color.gray : Color.accentColor)
                   .foregroundColor(.white)
@@ -66,7 +66,7 @@ extension User {
       }
       .overlay(alignment: .topTrailing) {
         if vSize == .compact {
-          Button("GENERIC_DISMISS") { dismiss() }
+          Button("DISMISS") { dismiss() }
             .buttonStyle(.borderedProminent)
             .padding()
         }

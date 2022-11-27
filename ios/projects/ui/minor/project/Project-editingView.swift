@@ -53,7 +53,7 @@ extension Project {
           
           if vSize == .compact {
             ToolbarItem(placement: .cancellationAction) {
-              Button("GENERIC_CANCEL") { dismiss() }
+              Button("CANCEL") { dismiss() }
                 .buttonStyle(.borderedProminent)
             }
           }
@@ -84,7 +84,7 @@ extension Project {
 private extension Project.EditingView {
   func saveButton() -> some ToolbarContent {
     ToolbarItem(placement: .confirmationAction) {
-      Button("GENERIC_SAVE") { updateProject() }
+      Button("SAVE") { updateProject() }
         .buttonStyle(.borderedProminent)
     }
   }

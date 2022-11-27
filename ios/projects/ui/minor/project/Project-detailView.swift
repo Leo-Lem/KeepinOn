@@ -40,13 +40,13 @@ extension Project {
 
         Spacer()
 
-        Text("created on \(project.timestamp.formatted())")
+        Text("CREATED_ON \(project.timestamp.formatted(date: .abbreviated, time: .shortened))")
           .padding()
           .font(.default(.subheadline))
       }
       .overlay(alignment: .topTrailing) {
         if vSize == .compact {
-          Button("GENERIC_DISMISS") { dismiss() }
+          Button("DISMISS") { dismiss() }
             .buttonStyle(.borderedProminent)
             .padding()
         }

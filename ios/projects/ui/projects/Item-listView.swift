@@ -29,12 +29,12 @@ extension Array where Element == Item {
           }
           .swipeActions(edge: .trailing) {
             Button { delete(item) } label: {
-              Label("GENERIC_DELETE", systemImage: "trash")
+              Label("DELETE", systemImage: "trash")
             }
             .tint(.red)
 
             Button { startEditing(item) } label: {
-              Label("GENERIC_EDIT", systemImage: "square.and.pencil")
+              Label("EDIT", systemImage: "square.and.pencil")
             }
             .tint(.yellow)
           }

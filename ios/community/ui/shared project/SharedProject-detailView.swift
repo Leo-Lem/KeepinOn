@@ -24,7 +24,7 @@ extension SharedProject {
           
           if vSize == .compact {
             ToolbarItem {
-              Button("GENERIC_DISMISS") { dismiss() }
+              Button("DISMISS") { dismiss() }
                 .buttonStyle(.borderedProminent)
             }
           }

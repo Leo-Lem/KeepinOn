@@ -47,7 +47,7 @@ struct CommunityView: View {
 
   @EnvironmentObject private var mainState: MainState
   @SceneStorage("editingIsUnlocked") private var editingIsUnlocked: Bool = false
-  
+
   @State private var isAuthenticating = false
   @State private var isEditing = false
   @State private var projects: LoadingState<SharedProject> = .idle
@@ -58,26 +58,24 @@ struct CommunityView: View {
 private extension CommunityView {
   func accountMenu() -> some ToolbarContent {
     ToolbarItem(placement: .navigationBarLeading) {
-      if mainState.user == nil {
-        Button { isAuthenticating = true } label: {
-          Label("ACCOUNT_TITLE", systemImage: "person.crop.circle")
-            .labelStyle(.iconOnly)
-        }
-      } else {
-        Menu {
-          Button { unlockEditing() } label: {
+      Button {
+        if mainState.user == nil { isAuthenticating = true } else { unlockEditing() }
+      } label: {
+        Label("ACCOUNT_TITLE", systemImage: "person.crop.circle")
+          .labelStyle(.iconOnly)
+      }
+      .if(mainState.user != nil) { $0
+        .disabled(mainState.remoteDBService.status == .unavailable)
+        .contextMenu {
+          Button(action: unlockEditing) {
             Label("ACCOUNT_EDIT", systemImage: "person.text.rectangle")
           }
-          .disabled(mainState.remoteDBService.status == .unavailable)
 
           Button(action: logout) {
             Label("ACCOUNT_LOGOUT", systemImage: "person.fill.xmark")
               .labelStyle(.titleAndIcon)
           }
           .disabled(mainState.remoteDBService.status == .unavailable)
-        } label: {
-          Label("ACCOUNT_TITLE", systemImage: "person.crop.circle")
-            .labelStyle(.iconOnly)
         }
       }
     }
@@ -106,7 +104,7 @@ private extension CommunityView {
 private extension CommunityView {
   func unlockEditing() {
     guard !editingIsUnlocked else { return isEditing = true }
-    
+
     Task(priority: .userInitiated) {
       await printError {
         editingIsUnlocked = try await LAContext().evaluatePolicy(
@@ -114,7 +112,7 @@ private extension CommunityView {
           localizedReason: String(localized: "AUTHENTICATE_TO_EDIT_ACCOUNT")
         )
       }
-      
+
       if editingIsUnlocked { isEditing = true }
     }
   }

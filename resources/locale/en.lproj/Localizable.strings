@@ -1,21 +1,18 @@
 // MARK: - (GENERAL)
-"CHECK_SETTINGS" = "Check Settings";
-"EMPTY_TAB_PLACEHOLDER" = "Please select something from the menu to begin."; /* Shown by default when the user hasn't select a project or item */
-"UNKNOWN_TAB" = "?";
-"ERROR_TITLE" = "Oops...";
+"EMPTY_TAB_PLACEHOLDER" = "Please select something from the menu to begin.";
 
 /* generic */
-"GENERIC_OK" = "OK";
-"GENERIC_DELETE" = "Delete";
-"GENERIC_SETTINGS" = "Settings";
-"GENERIC_DISMISS" = "Dismiss";
-"GENERIC_CANCEL" = "Cancel";
-"GENERIC_SEND" = "Send";
-"GENERIC_CONFIRM" = "Confirm";
-"GENERIC_SAVE" = "Save";
-"GENERIC_SUBMIT" = "Submit";
-"GENERIC_EDIT" = "Edit";
-"GENERIC_DISABLED" = "Disabled";
+"OK" = "OK";
+"DELETE" = "Delete";
+"SETTINGS" = "Settings";
+"DISMISS" = "Dismiss";
+"CANCEL" = "Cancel";
+"SEND" = "Send";
+"CONFIRM" = "Confirm";
+"SAVE" = "Save";
+"SUBMIT" = "Submit";
+"EDIT" = "Edit";
+"DISABLED" = "Disabled";
 
 
 
@@ -27,6 +24,7 @@
 "MORE_ITEMS" = "More to explore";
 "SHOW_PROJECT_DETAILS" = "Show Details";
 "SHOW_ITEM_DETAILS" = "Show Details";
+"CREATED_ON %@" = "created on %@";
 
 /* projects */
 "OPEN_TITLE" = "Open";
@@ -34,7 +32,7 @@
 "ADD_PROJECT" = "Add Project";
 "ADD_ITEM" = "Add New Item";
 "NO_PROJECTS_PLACEHOLDER" = "No Projects to see here.";
-"PROJECT_DEFAULTNAME" = "New Project"; /* default for new projects */
+"PROJECT_DEFAULTNAME" = "New Project";
 "PROJECT_DETAILS_PLACEHOLDER" = "No description";
 
 "EDIT_PROJECT" = "Edit Project";
@@ -60,16 +58,16 @@
 "UNPUBLISH_PROJECT" = "Unpublish project.";
 "REPUBLISH_PROJECT" = "Re-Publish updated project.";
 
-/* a11y */
 "A11Y_PROJECT %@ %@" = "%@, %@ complete."; /* parameters: completed items count, progress percentage string */
 "A11Y_EDIT_PROJECT_NAME" = "Project name.";
 "A11Y_EDIT_PROJECT_DESCRIPTION" = "Project description.";
 
+/* item */
 "COMPLETE_ITEM" = "Complete";
 "UNCOMPLETE_ITEM" = "Incomplete";
 
 "NO_ITEMS_PLACEHOLDER" = "No Items to see here.";
-"ITEM_DEFAULTNAME" = "New Item"; /* default for new items */
+"ITEM_DEFAULTNAME" = "New Item";
 "ITEM_DETAILS_PLACEHOLDER" = "No description";
 
 "SORT_LABEL" = "Sort items"; /* The title of the sort menu */
@@ -88,7 +86,6 @@
 "PRIORITY_MID" = "Mid";
 "PRIORITY_HIGH" = "High";
 
-/* a11y */
 "A11Y_ITEM_COMPLETED" = "completed";
 "A11Y_ITEM_PRIORITY" = "high priority";
 "A11Y_ITEM_SORTORDER" = "Item sort order.";
@@ -131,8 +128,8 @@
 "POSTED_BY %@" = "Posted by %@";
 
 /* a11y */
-"A11Y_SHAREDPROJECT" = "Shared Project"; /* parameters: project label, owner label */
-"A11Y_SHAREDPROJECT_VALUE %@ %@" = "%@ by %@.";
+"A11Y_SHAREDPROJECT" = "Shared Project";
+"A11Y_SHAREDPROJECT_VALUE %@ %@" = "%@ by %@."; /* parameters: project label, owner label */
 "A11Y_SHAREDITEM" = "Shared item";
 "A11Y_SHAREDITEM_NOTCOMPLETED %@" = "%@, not completed";
 "A11Y_SHAREDITEM_COMPLETED %@" = "%@, completed";

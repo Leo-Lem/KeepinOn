@@ -16,7 +16,7 @@ extension Comment {
             .textCase(nil)
 
           Button { postComment() } label: {
-            Text("GENERIC_SEND")
+            Text("SEND")
               .frame(maxWidth: .infinity, minHeight: 44)
               .background(sendIsDisabled ? Color.gray : .accentColor)
               .foregroundColor(.white)

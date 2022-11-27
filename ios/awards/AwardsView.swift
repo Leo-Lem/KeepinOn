@@ -27,7 +27,7 @@ struct AwardsView: View {
                 Label("UNLOCK_FULL_VERSION", systemImage: "cart")
               }
 
-              Button("GENERIC_OK") {}
+              Button("OK") {}
             }
           } message: { award in
             Text("\(award.description)")

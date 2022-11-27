@@ -33,16 +33,16 @@ extension Comment {
       .accessibilityValue(comment.a11y(posterLabel: poster?.label))
       .if(canDelete) { $0
         .overlay(alignment: .topTrailing) {
-          Button(action: delete) { Label("GENERIC_DELETE", systemImage: "xmark.octagon") }
+          Button(action: delete) { Label("DELETE", systemImage: "xmark.octagon") }
             .imageScale(.large)
             .foregroundColor(.red)
             .labelStyle(.iconOnly)
             .buttonStyle(.borderless)
             .disabled(mainState.remoteDBService.status != .available, message: nil)
-            .accessibilityLabel("GENERIC_DELETE")
+            .accessibilityLabel("DELETE")
         }
         .swipeActions(edge: .trailing) {
-          Button(action: delete) { Label("GENERIC_DELETE", systemImage: "trash") }
+          Button(action: delete) { Label("DELETE", systemImage: "trash") }
             .disabled(mainState.remoteDBService.status != .available, message: nil)
             .tint(.red)
         }
