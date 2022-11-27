@@ -90,8 +90,9 @@
 
 // MARK: - (EDITING PROJECTS)
 "EDIT_PROJECT" = "Edit Project";
-"PROJECT_NAME_PLACEHOLDER" = "Project name"; /* placeholder for a project name */
-"PROJECT_DESCRIPTION_PLACEHOLDER" = "Description of this project";
+"PROJECT_SETTINGS" = "Project Settings";
+"PROJECT_NAME_PLACEHOLDER" = "Project name";
+"PROJECT_DESCRIPTION_PLACEHOLDER" = "Project description";
 "PROJECT_SELECT_COLOR" = "Select a project color";
 
 "PROJECT_REMINDERS" = "Project Reminders";
@@ -104,10 +105,13 @@
 "DELETE_PROJECT" = "Delete this project";
 
 /* Warnings about closing and deleting projects*/
-"CLOSE_PROJECT_WARNING" = "Closing a project moves it from the Open to Closed tab.";
-"DELETE_PROJECT_WARNING" = "Deleting it removes the project entirely.";
+"DELETE_PROJECT_WARNING" = "Deleting removes the project and all its items.";
 "DELETE_PROJECT_ALERT_TITLE" = "Delete project?";
 "DELETE_PROJECT_ALERT_MESSAGE" = "Are you sure you want to delete this project? You will also delete all the items it contains and unshare it (if it is shared).";
+
+"PUBLISH_PROJECT" = "Publish project.";
+"UNPUBLISH_PROJECT" = "Unpublish project.";
+"REPUBLISH_PROJECT" = "Re-Publish updated project.";
 
 
 
@@ -123,32 +127,6 @@
 "PRIORITY_LOW" = "Low";
 "PRIORITY_MID" = "Mid";
 "PRIORITY_HIGH" = "High";
-
-
-
-// MARK: - (ACCESSIBILITY)
-"VIEW_PROJECT_DETAILS" = "View project details";
-
-/* describes elements on the home screen */
-"A11Y_COMPLETE_DESCRIPTION %@ %lld %g%%" = "%@, %lld items, %g%% complete.";
-/* asserts that a given project is completed */
-"A11Y_COMPLETED %@" = "%@, completed.";
-/* asserts that a given project has a high priority */
-"A11Y_PRIORITY %@" = "%@, high priority.";
-
-/* Different colors */
-"PINK" = "Pink";
-"PURPLE" = "Purple";
-"RED" = "Red";
-"ORANGE" = "Orange";
-"GOLD" = "Gold";
-"GREEN" = "Green";
-"TEAL" = "Teal";
-"LIGHT_BLUE" = "Light Blue";
-"DARK_BLUE" = "Dark Blue";
-"MIDNIGHT" = "Midnight";
-"DARK_GRAY" = "Dark Gray";
-"GRAY" = "Gray";
 
 
 
@@ -175,3 +153,31 @@
 "ACCOUNT_SELECT_COLOR" = "Pick your color";
 "ACCOUNT_CHANGE_DISPLAYNAME" = "Choose a new display name";
 "ANONYMOUS_USER" = "<Anonymous>";
+
+
+
+// MARK: - (A11Y)
+/* projects */
+/* parameters: completed items count, progress percentage string */
+"A11Y_PROJECT %@ %@" = "%@, %@ complete.";
+"A11Y_EDIT_PROJECT_NAME" = "Project name.";
+"A11Y_EDIT_PROJECT_DESCRIPTION" = "Project description.";
+
+/* items */
+"A11Y_ITEM_COMPLETED" = "completed";
+"A11Y_ITEM_PRIORITY" = "high priority";
+"A11Y_ITEM_SORTORDER" = "Item sort order.";
+
+/* Colors */
+"PINK" = "Pink";
+"PURPLE" = "Purple";
+"RED" = "Red";
+"ORANGE" = "Orange";
+"GOLD" = "Gold";
+"GREEN" = "Green";
+"TEAL" = "Teal";
+"LIGHT_BLUE" = "Light Blue";
+"DARK_BLUE" = "Dark Blue";
+"MIDNIGHT" = "Midnight";
+"DARK_GRAY" = "Dark Gray";
+"GRAY" = "Gray";

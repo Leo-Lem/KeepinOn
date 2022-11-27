@@ -25,7 +25,8 @@ extension Project {
       .cornerRadius(10)
       .shadow(color: .primary.opacity(0.2), radius: 5)
       .accessibilityElement(children: .ignore)
-      .accessibilityLabel("A11Y_COMPLETE_DESCRIPTION \(project.label) \(items.count) \(items.progress)")
+      .accessibilityLabel(project.a11y(items))
+      .accessibilityValue(project.label)
     }
     
     @EnvironmentObject private var mainState: MainState

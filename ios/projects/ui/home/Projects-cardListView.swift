@@ -13,7 +13,7 @@ extension Array where Element == Project {
       ScrollView(.horizontal, showsIndicators: false) {
         LazyHGrid(rows: [GridItem(.fixed(100))]) {
           ForEach(projects) { project in
-            Menu {
+            Menu(content: {
               Button { startEditing(project) } label: {
                 Label("EDIT_PROJECT", systemImage: "square.and.pencil")
               }
@@ -21,9 +21,7 @@ extension Array where Element == Project {
               Button { showInfo(for: project) } label: {
                 Label("SHOW_PROJECT_DETAILS", systemImage: "info.bubble")
               }
-            } label: {
-              project.cardView()
-            }
+            }, label: project.cardView)
           }
           .padding()
         }

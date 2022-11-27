@@ -3,11 +3,11 @@
 extension Page {
   var label: String {
     switch self {
-    case .home: return "HOME_TITLE"
-    case .open: return "OPEN_TITLE"
-    case .closed: return "CLOSED_TITLE"
-    case .awards: return "AWARDS_TITLE"
-    case .community: return "COMMUNITY_TITLE"
+    case .home: return String(localized: "HOME_TITLE")
+    case .open: return String(localized: "OPEN_TITLE")
+    case .closed: return String(localized: "CLOSED_TITLE")
+    case .awards: return String(localized: "AWARDS_TITLE")
+    case .community: return String(localized: "COMMUNITY_TITLE")
     }
   }
 

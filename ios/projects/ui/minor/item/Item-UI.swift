@@ -5,11 +5,11 @@ import LeosMisc
 
 extension Item {
   var label: String {
-    String(localized: .init(title ??? "ITEM_DEFAULTNAME"))
+    title ??? String(localized: "ITEM_DEFAULTNAME")
   }
 
   var detailsLabel: String {
-    String(localized: .init(details ??? "ITEM_DETAILS_PLACEHOLDER"))
+    details ??? String(localized: "ITEM_DETAILS_PLACEHOLDER")
   }
 
   struct Icon {
@@ -18,31 +18,26 @@ extension Item {
   }
 
   var icon: String {
-    if isDone {
-      return "checkmark.circle"
-    } else if priority == .high {
-      return "exclamationmark.triangle"
-    } else {
-      return "circle"
+    switch self {
+    case _ where isDone: return "checkmark.circle"
+    case _ where priority == .high: return "exclamationmark.triangle"
+    default: return "circle"
     }
   }
-
+  
   var a11y: LocalizedStringKey {
-    if isDone {
-      return "A11Y_COMPLETED \(label)"
-    } else if priority == .high {
-      return "A11Y_PRIORITY \(label)"
-    } else {
-      return "\(label)"
+    switch self {
+    case _ where isDone: return "A11Y_ITEM_COMPLETED"
+    case _ where priority == .high: return "A11Y_ITEM_PRIORITY"
+    default: return ""
     }
   }
 }
 
 extension Array where Element == Item {
-  var progress: Double {
-    guard !isEmpty else { return 0 }
-
-    let completed = filter(\.isDone)
-    return Double(completed.count) / Double(count)
+  var progress: Double { Double(isEmpty ? 0 : filter(\.isDone).count / count) }
+  
+  var progressLabel: String {
+    Decimal(progress).formatted(.percent)
   }
 }

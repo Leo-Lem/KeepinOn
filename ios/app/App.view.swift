@@ -10,10 +10,15 @@ struct AppView: View {
   var body: some View {
     Group {
       TabView(selection: $page) {
-        ForEach(Page.allCases, id: \.self) { tab in
-          NavigationStack(root: tab.view)
-            .tag(tab)
-            .tabItem { Label(LocalizedStringKey(tab.label), systemImage: tab.icon) }
+        ForEach(Page.allCases, id: \.self) { page in
+          NavigationStack {
+            page.view()
+              .navigationTitle(page.label)
+          }
+          .accessibilityElement(children: .contain)
+          .accessibilityLabel(page.label)
+          .tag(page)
+          .tabItem { Label(LocalizedStringKey(page.label), systemImage: page.icon) }
         }
       }
       .onContinueUserActivity(CoreSpotlightService.activityType, perform: showSpotlightModel)

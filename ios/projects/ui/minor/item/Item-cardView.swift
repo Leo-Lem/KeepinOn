@@ -33,6 +33,9 @@ extension Item {
       .background(Config.style.background)
       .cornerRadius(10)
       .shadow(color: .primary.opacity(0.2), radius: 5)
+      .accessibilityElement(children: .ignore)
+      .accessibilityLabel(item.a11y)
+      .accessibilityValue(item.label)
     }
 
     @EnvironmentObject private var mainState: MainState

@@ -16,7 +16,7 @@ extension SharedProject {
         project.itemsSectionView()
         project.commentsSectionView()
       }
-      .title(project.label)
+      .navigationTitle(project.label)
       .toolbar {
         ToolbarItem(placement: .bottomBar) { Text("POSTED_BY \(project.owner)") }
       }

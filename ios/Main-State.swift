@@ -127,12 +127,6 @@ extension MainState {
       } else { print(error) }
 
       throw error
-    } catch let error as AuthenticationError {
-      if let display = error.display {
-        didChange.send(.alert(.authError(display)))
-      } else { print(error) }
-
-      throw error
     }
   }
 
@@ -143,12 +137,6 @@ extension MainState {
     } catch let error as RemoteDatabaseError {
       if let display = error.display {
         didChange.send(.alert(.remoteDBError(display)))
-      } else { print(error) }
-
-      throw error
-    } catch let error as AuthenticationError {
-      if let display = error.display {
-        didChange.send(.alert(.authError(display)))
       } else { print(error) }
 
       throw error

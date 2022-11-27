@@ -29,7 +29,7 @@ extension Item {
             Toggle("MARK_COMPLETED", isOn: Binding<Bool>(get: { isDone }, set: setIsDone))
           }
         }
-        .title("EDIT_ITEM")
+        .navigationTitle("EDIT_ITEM")
         .toolbar {
           ToolbarItem(placement: .confirmationAction) {
             Button("GENERIC_SAVE") { updateItem() }

@@ -4,15 +4,11 @@ import SwiftUI
 import LeosMisc
 
 extension Project {
-  var label: String {
-    String(localized: .init(title ??? "PROJECT_DEFAULTNAME"))
-  }
-
-  var detailsLabel: String {
-    String(localized: .init(details ??? "PROJECT_DETAILS_PLACEHOLDER"))
-  }
-
-  var color: Color {
-    colorID.color
+  var label: String { title ??? String(localized: "PROJECT_DEFAULTNAME") }
+  var detailsLabel: String { details ??? String(localized: "PROJECT_DETAILS_PLACEHOLDER") }
+  var color: Color { colorID.color }
+  
+  func a11y(_ items: [Item]) -> LocalizedStringKey {
+    "A11Y_PROJECT \(Text("ITEMS \(items.count)")) \(items.progressLabel)"
   }
 }

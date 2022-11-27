@@ -20,7 +20,7 @@ extension Project {
               .lineLimit(1)
 
             Button { showInfo() } label: {
-              Label("VIEW_PROJECT_DETAILS", systemImage: "info.bubble")
+              Label("SHOW_PROJECT_DETAILS", systemImage: "info.bubble")
             }
           }
 
@@ -57,8 +57,9 @@ extension Project {
       .labelStyle(.iconOnly)
       .tint(project.color)
       .padding(.bottom, 10)
-      .accessibilityElement(children: .combine)
       .animation(.default, value: isDeleting)
+      .accessibilityElement(children: .contain)
+      .accessibilityLabel(project.a11y(items))
     }
 
     @EnvironmentObject private var mainState: MainState

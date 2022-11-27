@@ -23,8 +23,8 @@ extension ColorID {
             .aspectRatio(1, contentMode: .fit)
             .cornerRadius(10)
         }
-        .if(isSelected) { $0.accessibilityAddTraits(.isSelected) }
         .accessibilityLabel(colorID.a11y)
+        .if(isSelected) { $0.accessibilityAddTraits(.isSelected) }
     }
 
     init(_ colorID: ColorID, isSelected: Bool, select: @escaping () -> Void) {

@@ -25,7 +25,6 @@ extension ColorID {
   }
 
   var a11y: String {
-    let key = asset.uppercased().replacingOccurrences(of: " ", with: "_")
-    return String(localized: .init(key))
+    String(localized: .init(asset.uppercased().replacingOccurrences(of: " ", with: "_")))
   }
 }

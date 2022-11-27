@@ -3,11 +3,19 @@
 import SwiftUI
 
 extension Item.SortOrder {
-  var label: LocalizedStringKey {
+  var label: String {
     switch self {
-    case .optimized: return "OPTIMIZED_SORT"
-    case .title: return "CREATIONDATE_SORT"
-    case .timestamp: return "TITLE_SORT"
+    case .optimized: return String(localized: "OPTIMIZED_SORT")
+    case .title: return String(localized: "CREATIONDATE_SORT")
+    case .timestamp: return String(localized: "TITLE_SORT")
+    }
+  }
+  
+  mutating func next() {
+    switch self {
+    case .optimized: self = .title
+    case .title: self = .timestamp
+    case .timestamp: self = .optimized
     }
   }
 }

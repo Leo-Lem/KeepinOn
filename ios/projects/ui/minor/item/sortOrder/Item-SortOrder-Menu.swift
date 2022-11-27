@@ -14,14 +14,15 @@ extension Item.SortOrder {
       ToolbarItem(placement: .navigationBarLeading) {
         Menu {
           ForEach(Item.SortOrder.allCases, id: \.self) { order in
-            Button(order.label) {
-              selection = order
-            }
+            Button(order.label) { selection = order }
           }
         } label: {
           Label(selection.label, systemImage: "arrow.up.arrow.down")
         }
         .labelStyle(.titleAndIcon)
+        // a11y
+        .accessibilityLabel("A11Y_ITEM_SORTORDER")
+        .accessibilityValue(selection.label)
       }
     }
     

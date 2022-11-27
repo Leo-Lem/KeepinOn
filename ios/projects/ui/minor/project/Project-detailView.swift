@@ -34,7 +34,7 @@ extension Project {
           .padding()
 
         ScrollView {
-          ForEach(items, content: Item.DetailView.init)
+          ForEach(items, content: Item.CardView.init)
             .padding()
         }
 
@@ -44,7 +44,8 @@ extension Project {
           .padding()
           .font(.default(.subheadline))
       }
-      .accessibilityLabel("A11Y_COMPLETE_DESCRIPTION \(project.label) \(items.count) \(items.progress)")
+      .accessibilityLabel(project.a11y(items))
+      .accessibilityElement(children: .combine)
     }
 
     @EnvironmentObject private var mainState: MainState
