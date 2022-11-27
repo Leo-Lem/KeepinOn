@@ -4,6 +4,7 @@ import AuthenticationService
 import Concurrency
 import Errors
 import LeosMisc
+import LocalAuthentication
 import RemoteDatabaseService
 import SwiftUI
 
@@ -34,7 +35,7 @@ struct CommunityView: View {
         testDataToolbar()
       #endif
     }
-    .sheet(isPresented: $editingAccount) { mainState.user?.editingView() }
+    .sheet(isPresented: $isEditing) { mainState.user?.editingView() }
     .sheet(isPresented: $isAuthenticating) { AuthenticationView(service: mainState.authService) }
     .animation(.default, value: projects)
     .accessibilityLabel("COMMUNITY_TITLE")
@@ -45,8 +46,10 @@ struct CommunityView: View {
   }
 
   @EnvironmentObject private var mainState: MainState
+  @SceneStorage("editingIsUnlocked") private var editingIsUnlocked: Bool = false
+  
   @State private var isAuthenticating = false
-  @State private var editingAccount = false
+  @State private var isEditing = false
   @State private var projects: LoadingState<SharedProject> = .idle
 
   private let tasks = Tasks()
@@ -62,7 +65,7 @@ private extension CommunityView {
         }
       } else {
         Menu {
-          Button { editingAccount = true } label: {
+          Button { unlockEditing() } label: {
             Label("ACCOUNT_EDIT", systemImage: "person.text.rectangle")
           }
           .disabled(mainState.remoteDBService.status == .unavailable)
@@ -101,6 +104,21 @@ private extension CommunityView {
 }
 
 private extension CommunityView {
+  func unlockEditing() {
+    guard !editingIsUnlocked else { return isEditing = true }
+    
+    Task(priority: .userInitiated) {
+      await printError {
+        editingIsUnlocked = try await LAContext().evaluatePolicy(
+          .deviceOwnerAuthentication,
+          localizedReason: String(localized: "AUTHENTICATE_TO_EDIT_ACCOUNT")
+        )
+      }
+      
+      if editingIsUnlocked { isEditing = true }
+    }
+  }
+
   func logout() { printError(mainState.authService.logout) }
 
   func loadProjects() {

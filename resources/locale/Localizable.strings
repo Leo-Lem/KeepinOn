@@ -158,6 +158,7 @@
 
 "ANONYMOUS_USER" = "<Anonymous>";
 "SIGN_INTO_ICLOUD" = "Please sign into iCloud.";
+"AUTHENTICATE_TO_EDIT_ACCOUNT" = "To customize your account.";
 
 "A11Y_CUSTOMIZE_ACCOUNT" = "Customize your account.";
 "A11Y_USER %@ %@" = "%@ (User ID: %@)";
