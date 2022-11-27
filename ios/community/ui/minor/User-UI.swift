@@ -4,15 +4,7 @@ import SwiftUI
 import LeosMisc
 
 extension User {
-  var label: String {
-    name ??? String(localized: .init("ANONYMOUS_USER"))
-  }
-
-  var idLabel: String {
-    "@\(id)"
-  }
-
-  var color: Color {
-    colorID.color
-  }
+  var label: String { name ??? String(localized: "ANONYMOUS_USER") }
+  var idLabel: String { "@\(id)" }
+  var color: Color { colorID.color }
 }

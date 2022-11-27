@@ -136,6 +136,8 @@
 		6E6FFECE292CF98900D9E383 /* Page-UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6FFECD292CF98900D9E383 /* Page-UI.swift */; };
 		6E6FFEDB292D0B5200D9E383 /* AuthenticationService in Frameworks */ = {isa = PBXBuildFile; productRef = 6E6FFEDA292D0B5200D9E383 /* AuthenticationService */; };
 		6E6FFEDD292D5D0300D9E383 /* SharedItem-rowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6FFEDC292D5D0300D9E383 /* SharedItem-rowView.swift */; };
+		6E75240829339C3F00043646 /* disabled(message).swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E75240729339C3F00043646 /* disabled(message).swift */; };
+		6E75240A2933AB7B00043646 /* Comment-UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7524092933AB7B00043646 /* Comment-UI.swift */; };
 		6E76AAC9292FC67B00966E0A /* Item.Shared-mapValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E76AAC8292FC67B00966E0A /* Item.Shared-mapValue.swift */; };
 		6E76AACB292FC68E00966E0A /* Comment-mapValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E76AACA292FC68E00966E0A /* Comment-mapValue.swift */; };
 		6E76AACD292FC69700966E0A /* Project.Shared-mapValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E76AACC292FC69700966E0A /* Project.Shared-mapValue.swift */; };
@@ -170,8 +172,6 @@
 		6EEA626029324E0700C76FDC /* KeepinOnUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEA625F29324E0700C76FDC /* KeepinOnUITests.swift */; };
 		6EEA626229324E0700C76FDC /* KeepinOnUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEA626129324E0700C76FDC /* KeepinOnUITestsLaunchTests.swift */; };
 		6EF4BCF9292D7C44003256D8 /* User-editingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF4BCF8292D7C44003256D8 /* User-editingView.swift */; };
-		6EFFABF8292FD67600A85FAC /* EditProject.vm.tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFFABF3292FD67600A85FAC /* EditProject.vm.tests.swift */; };
-		6EFFABFC292FD67600A85FAC /* Projects.vm.tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFFABF7292FD67600A85FAC /* Projects.vm.tests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -330,6 +330,8 @@
 		6E678B5C292E2891000AB035 /* Project-deleteAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project-deleteAlert.swift"; sourceTree = "<group>"; };
 		6E6FFECD292CF98900D9E383 /* Page-UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Page-UI.swift"; sourceTree = "<group>"; };
 		6E6FFEDC292D5D0300D9E383 /* SharedItem-rowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SharedItem-rowView.swift"; sourceTree = "<group>"; };
+		6E75240729339C3F00043646 /* disabled(message).swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "disabled(message).swift"; sourceTree = "<group>"; };
+		6E7524092933AB7B00043646 /* Comment-UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Comment-UI.swift"; sourceTree = "<group>"; };
 		6E76AAC8292FC67B00966E0A /* Item.Shared-mapValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item.Shared-mapValue.swift"; sourceTree = "<group>"; };
 		6E76AACA292FC68E00966E0A /* Comment-mapValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Comment-mapValue.swift"; sourceTree = "<group>"; };
 		6E76AACC292FC69700966E0A /* Project.Shared-mapValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project.Shared-mapValue.swift"; sourceTree = "<group>"; };
@@ -348,8 +350,6 @@
 		6EEA625F29324E0700C76FDC /* KeepinOnUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepinOnUITests.swift; sourceTree = "<group>"; };
 		6EEA626129324E0700C76FDC /* KeepinOnUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepinOnUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		6EF4BCF8292D7C44003256D8 /* User-editingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User-editingView.swift"; sourceTree = "<group>"; };
-		6EFFABF3292FD67600A85FAC /* EditProject.vm.tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProject.vm.tests.swift; sourceTree = "<group>"; };
-		6EFFABF7292FD67600A85FAC /* Projects.vm.tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Projects.vm.tests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -676,6 +676,7 @@
 			children = (
 				6E2FB8EF291BD68200D780C3 /* Comment-rowView.swift */,
 				6E2FB8F1291BD68200D780C3 /* Comment-postView.swift */,
+				6E7524092933AB7B00043646 /* Comment-UI.swift */,
 			);
 			path = comments;
 			sourceTree = "<group>";
@@ -790,6 +791,7 @@
 		6E81FCE22926C14C005FAA4E /* relocate */ = {
 			isa = PBXGroup;
 			children = (
+				6E75240729339C3F00043646 /* disabled(message).swift */,
 			);
 			path = relocate;
 			sourceTree = "<group>";
@@ -931,8 +933,6 @@
 			children = (
 				6E76AAD1292FCA1700966E0A /* MainState.tests.swift */,
 				6E2FB7FD291BD67400D780C3 /* KeepinOnAwardsService.tests.swift */,
-				6EFFABF7292FD67600A85FAC /* Projects.vm.tests.swift */,
-				6EFFABF3292FD67600A85FAC /* EditProject.vm.tests.swift */,
 			);
 			path = unit;
 			sourceTree = "<group>";
@@ -1200,9 +1200,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6EFFABF8292FD67600A85FAC /* EditProject.vm.tests.swift in Sources */,
 				6E24AA52291BF54500394E46 /* KeepinOnAwardsService.tests.swift in Sources */,
-				6EFFABFC292FD67600A85FAC /* Projects.vm.tests.swift in Sources */,
 				6E76AAD3292FCA3700966E0A /* MainState.tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1215,6 +1213,7 @@
 				6EDBDD3529304239008FF945 /* Item.WithProject.swift in Sources */,
 				6E2FB9A6291BD68300D780C3 /* SharedItem.swift in Sources */,
 				6E2FB847291BD67500D780C3 /* SharedItem-HasExample.swift in Sources */,
+				6E75240829339C3F00043646 /* disabled(message).swift in Sources */,
 				6E2FB957291BD68300D780C3 /* Main-ViewModel.swift in Sources */,
 				6E76AACB292FC68E00966E0A /* Comment-mapValue.swift in Sources */,
 				6E2FB82A291BD67500D780C3 /* Queries-imports.swift in Sources */,
@@ -1285,6 +1284,7 @@
 				6E2FB82B291BD67500D780C3 /* Foundation-imports.swift in Sources */,
 				6E2FB94A291BD68300D780C3 /* Award-UI.swift in Sources */,
 				6E2FB96A291BD68300D780C3 /* Project-LocalConvertible.swift in Sources */,
+				6E75240A2933AB7B00043646 /* Comment-UI.swift in Sources */,
 				6E81FD1229292183005FAA4E /* Page.swift in Sources */,
 				6E2FB844291BD67500D780C3 /* SharedProject-HasExample.swift in Sources */,
 				6E81FD0729279897005FAA4E /* PurchaseID.swift in Sources */,

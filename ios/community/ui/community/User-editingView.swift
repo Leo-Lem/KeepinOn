@@ -27,34 +27,56 @@ extension User {
         .foregroundColor(user.color)
         .padding()
         .frame(maxWidth: .infinity)
+        .accessibilityElement(children: .ignore)
+        .accessibilityValue("A11Y_USER \(user.label) \(String(user.idLabel.prefix(10)))")
 
         Form {
           Section("ACCOUNT_CHANGE_DISPLAYNAME") {
-            TextField(user.name ??? String(localized: .init("ACCOUNT_CHANGE_DISPLAYNAME")), text: $name)
-              .textFieldStyle(.roundedBorder)
-              .textCase(nil)
+            VStack {
+              TextField(user.name ??? String(localized: "ACCOUNT_CHANGE_DISPLAYNAME"), text: $name)
+                .textFieldStyle(.roundedBorder)
+                .textCase(nil)
+                .accessibilityLabel("ACCOUNT_CHANGE_DISPLAYNAME")
 
-            Button(action: updateUser) {
-              Text("GENERIC_CONFIRM")
-                .frame(maxWidth: .infinity, minHeight: 44)
-                .background(name.count < 3 ? Color.gray : Color.accentColor)
-                .foregroundColor(.white)
-                .clipShape(Capsule())
-                .contentShape(Capsule())
+              Button(action: updateUser) {
+                Text("GENERIC_CONFIRM")
+                  .frame(maxWidth: .infinity, minHeight: 44)
+                  .background(name.count < 3 ? Color.gray : Color.accentColor)
+                  .foregroundColor(.white)
+                  .clipShape(Capsule())
+                  .contentShape(Capsule())
+              }
+              .disabled(name.count < 3)
             }
-            .disabled(name.count < 3)
+            .disabled(editingDisabled, message: "SIGN_INTO_ICLOUD")
           }
 
           Section("ACCOUNT_SELECT_COLOR") {
             $user.colorID.selectionGrid
               .onChange(of: user.colorID) { _ in updateUser() }
+              .accessibilityElement(children: .ignore)
+              .accessibilityLabel("ACCOUNT_SELECT_COLOR")
+              .accessibilityValue(user.colorID.a11y)
+              .disabled(editingDisabled, message: "SIGN_INTO_ICLOUD")
           }
         }
         .scrollContentBackground(.hidden)
+        .animation(.default, value: editingDisabled)
+        .accessibilityLabel("A11Y_CUSTOMIZE_ACCOUNT")
+      }
+      .overlay(alignment: .topTrailing) {
+        if vSize == .compact {
+          Button("GENERIC_DISMISS") { dismiss() }
+            .buttonStyle(.borderedProminent)
+            .padding()
+        }
       }
     }
 
     @EnvironmentObject private var mainState: MainState
+    @Environment(\.dismiss) var dismiss
+    @Environment(\.verticalSizeClass) var vSize
+    
     @State private var user: User
     @State private var name = ""
 
@@ -63,6 +85,8 @@ extension User {
 }
 
 private extension User.EditingView {
+  var editingDisabled: Bool { mainState.remoteDBService.status == .readOnly }
+
   func updateUser() {
     guard mainState.user != nil else { return }
 

@@ -37,6 +37,7 @@ struct CommunityView: View {
     .sheet(isPresented: $editingAccount) { mainState.user?.editingView() }
     .sheet(isPresented: $isAuthenticating) { AuthenticationView(service: mainState.authService) }
     .animation(.default, value: projects)
+    .accessibilityLabel("COMMUNITY_TITLE")
     .task {
       loadProjects()
       tasks.add(mainState.remoteDBService.didChange.getTask(operation: updateProjects))
@@ -54,27 +55,26 @@ struct CommunityView: View {
 private extension CommunityView {
   func accountMenu() -> some ToolbarContent {
     ToolbarItem(placement: .navigationBarLeading) {
-      Group {
-        if mainState.user == nil {
-          Button { isAuthenticating = true } label: {
-            Label("ACCOUNT_TITLE", systemImage: "person.crop.circle")
-              .labelStyle(.iconOnly)
+      if mainState.user == nil {
+        Button { isAuthenticating = true } label: {
+          Label("ACCOUNT_TITLE", systemImage: "person.crop.circle")
+            .labelStyle(.iconOnly)
+        }
+      } else {
+        Menu {
+          Button { editingAccount = true } label: {
+            Label("ACCOUNT_EDIT", systemImage: "person.text.rectangle")
           }
-        } else {
-          Menu {
-            Button { editingAccount = true } label: {
-              Label("ACCOUNT_EDIT", systemImage: "person.text.rectangle")
-            }
-            
-            Button(action: logout) {
-              Label("ACCOUNT_LOGOUT", systemImage: "person.fill.xmark")
-                .labelStyle(.titleAndIcon)
-            }
-            .buttonStyle(.borderedProminent)
-          } label: {
-            Label("ACCOUNT_TITLE", systemImage: "person.crop.circle")
-              .labelStyle(.iconOnly)
+          .disabled(mainState.remoteDBService.status == .unavailable)
+
+          Button(action: logout) {
+            Label("ACCOUNT_LOGOUT", systemImage: "person.fill.xmark")
+              .labelStyle(.titleAndIcon)
           }
+          .disabled(mainState.remoteDBService.status == .unavailable)
+        } label: {
+          Label("ACCOUNT_TITLE", systemImage: "person.crop.circle")
+            .labelStyle(.iconOnly)
         }
       }
     }
@@ -102,7 +102,7 @@ private extension CommunityView {
 
 private extension CommunityView {
   func logout() { printError(mainState.authService.logout) }
-  
+
   func loadProjects() {
     tasks["loadingProjects"] = Task(priority: .userInitiated) {
       do {
