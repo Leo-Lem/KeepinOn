@@ -54,28 +54,6 @@ final class MainState: ObservableObject {
 
   private let tasks = Tasks()
 
-  init(
-    localDBService: LocalDatabaseService,
-    remoteDBService: RemoteDatabaseService,
-    indexingService: IndexingService,
-    awardsService: AwardsService,
-    purchaseService: AnyInAppPurchaseService<PurchaseID>,
-    notificationService: PushNotificationService,
-    authService: AuthenticationService,
-    hapticsService: HapticsService?,
-    widgetService: WidgetService
-  ) {
-    self.localDBService = localDBService
-    self.remoteDBService = remoteDBService
-    self.indexingService = indexingService
-    self.awardsService = awardsService
-    self.purchaseService = purchaseService
-    self.notificationService = notificationService
-    self.authService = authService
-    self.hapticsService = hapticsService
-    self.widgetService = widgetService
-  }
-
   init() async {
     localDBService = CDService()
     remoteDBService = await CloudKitService(CKContainer(identifier: Config.id.cloudKit))
@@ -100,6 +78,15 @@ final class MainState: ObservableObject {
       purchaseService.didChange.getTask(.high, operation: updateIsPremium),
       awardsService.didChange.getTask(.high, operation: showBanner)
     )
+    
+    #if DEBUG
+    if CommandLine.arguments.contains("under-test") {
+      localDBService.deleteAll()
+      await remoteDBService.unpublishAll()
+      awardsService.resetProgress()
+      printError(authService.logout)
+    }
+    #endif
   }
 
   #if DEBUG

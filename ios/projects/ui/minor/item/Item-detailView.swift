@@ -38,7 +38,7 @@ extension Item {
 
         Spacer()
 
-        Text("CREATED_ON \(item.timestamp.formatted())")
+        Text("CREATED_ON \(item.timestamp.formatted(date: .abbreviated, time: .shortened))")
           .padding()
           .font(.default(.subheadline))
       }

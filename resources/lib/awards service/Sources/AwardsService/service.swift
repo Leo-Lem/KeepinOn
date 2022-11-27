@@ -7,4 +7,8 @@ public protocol AwardsService {
   var unlockedAwards: Set<Award> { get }
 
   func notify(of progress: AwardsChange.Progress) async throws
+  
+  #if DEBUG
+  func resetProgress()
+  #endif
 }

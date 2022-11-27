@@ -121,6 +121,9 @@
 		6E34A14C2933E1BD007F1150 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6E34A14E2933E1BD007F1150 /* Localizable.strings */; };
 		6E34A1502933E1C6007F1150 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 6E34A1532933E1C6007F1150 /* Localizable.stringsdict */; };
 		6E34A1512933E1C6007F1150 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 6E34A1532933E1C6007F1150 /* Localizable.stringsdict */; };
+		6E34A1592933F4B9007F1150 /* full.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = 6E34A1582933F4B9007F1150 /* full.xctestplan */; };
+		6E34A15E2933FB8B007F1150 /* ui-tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEA625F29324E0700C76FDC /* ui-tests.swift */; };
+		6E34A1602933FBFC007F1150 /* Concurrency in Frameworks */ = {isa = PBXBuildFile; productRef = 6E34A15F2933FBFC007F1150 /* Concurrency */; };
 		6E59D855292EB11200AC2078 /* alert().swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E59D854292EB11200AC2078 /* alert().swift */; };
 		6E678B5D292E2892000AB035 /* Project-deleteAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E678B5C292E2891000AB035 /* Project-deleteAlert.swift */; };
 		6E6FFE90292C2E1B00D9E383 /* Previews in Frameworks */ = {isa = PBXBuildFile; productRef = 6E6FFE8F292C2E1B00D9E383 /* Previews */; };
@@ -134,7 +137,7 @@
 		6E76AACB292FC68E00966E0A /* Comment-mapValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E76AACA292FC68E00966E0A /* Comment-mapValue.swift */; };
 		6E76AACD292FC69700966E0A /* Project.Shared-mapValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E76AACC292FC69700966E0A /* Project.Shared-mapValue.swift */; };
 		6E76AACF292FC6A100966E0A /* User-mapValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E76AACE292FC6A100966E0A /* User-mapValue.swift */; };
-		6E76AAD3292FCA3700966E0A /* MainState.tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E76AAD1292FCA1700966E0A /* MainState.tests.swift */; };
+		6E76AAD3292FCA3700966E0A /* MainState-tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E76AAD1292FCA1700966E0A /* MainState-tests.swift */; };
 		6E81FCE42926C4D9005FAA4E /* Font.default.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E81FCE32926C4D9005FAA4E /* Font.default.swift */; };
 		6E81FCE72926C512005FAA4E /* Font.default.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E81FCE32926C4D9005FAA4E /* Font.default.swift */; };
 		6E81FCEA2926C8CD005FAA4E /* LeosMisc in Frameworks */ = {isa = PBXBuildFile; productRef = 6E81FCE92926C8CD005FAA4E /* LeosMisc */; };
@@ -162,8 +165,6 @@
 		6ED6E211291C38A8000811F4 /* AppState-HasExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED6E210291C38A8000811F4 /* AppState-HasExample.swift */; };
 		6EDBDD3529304239008FF945 /* Item.WithProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDBDD3429304239008FF945 /* Item.WithProject.swift */; };
 		6EDBDD3629304245008FF945 /* Item.WithProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDBDD3429304239008FF945 /* Item.WithProject.swift */; };
-		6EEA626029324E0700C76FDC /* KeepinOnUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEA625F29324E0700C76FDC /* KeepinOnUITests.swift */; };
-		6EEA626229324E0700C76FDC /* KeepinOnUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEA626129324E0700C76FDC /* KeepinOnUITestsLaunchTests.swift */; };
 		6EF4BCF9292D7C44003256D8 /* User-editingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF4BCF8292D7C44003256D8 /* User-editingView.swift */; };
 /* End PBXBuildFile section */
 
@@ -313,6 +314,8 @@
 		6E34A1522933E1C6007F1150 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		6E34A1542933E1C8007F1150 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		6E34A1552933E261007F1150 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6E34A1582933F4B9007F1150 /* full.xctestplan */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = full.xctestplan; sourceTree = "<group>"; };
+		6E34A15A2933F4DB007F1150 /* unit.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = unit.xctestplan; sourceTree = "<group>"; };
 		6E48374528EC991100B67CA4 /* KeepinOn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeepinOn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E59D854292EB11200AC2078 /* alert().swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "alert().swift"; sourceTree = "<group>"; };
 		6E678B5C292E2891000AB035 /* Project-deleteAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project-deleteAlert.swift"; sourceTree = "<group>"; };
@@ -324,7 +327,7 @@
 		6E76AACA292FC68E00966E0A /* Comment-mapValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Comment-mapValue.swift"; sourceTree = "<group>"; };
 		6E76AACC292FC69700966E0A /* Project.Shared-mapValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project.Shared-mapValue.swift"; sourceTree = "<group>"; };
 		6E76AACE292FC6A100966E0A /* User-mapValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User-mapValue.swift"; sourceTree = "<group>"; };
-		6E76AAD1292FCA1700966E0A /* MainState.tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainState.tests.swift; sourceTree = "<group>"; };
+		6E76AAD1292FCA1700966E0A /* MainState-tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainState-tests.swift"; sourceTree = "<group>"; };
 		6E81FCE32926C4D9005FAA4E /* Font.default.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.default.swift; sourceTree = "<group>"; };
 		6E81FD002926CD26005FAA4E /* Previews-imports.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Previews-imports.swift"; sourceTree = "<group>"; };
 		6E81FD0629279897005FAA4E /* PurchaseID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseID.swift; sourceTree = "<group>"; };
@@ -335,8 +338,7 @@
 		6ED6E210291C38A8000811F4 /* AppState-HasExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppState-HasExample.swift"; sourceTree = "<group>"; };
 		6EDBDD3429304239008FF945 /* Item.WithProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.WithProject.swift; sourceTree = "<group>"; };
 		6EEA625D29324E0700C76FDC /* KeepinOnUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KeepinOnUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6EEA625F29324E0700C76FDC /* KeepinOnUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepinOnUITests.swift; sourceTree = "<group>"; };
-		6EEA626129324E0700C76FDC /* KeepinOnUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepinOnUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		6EEA625F29324E0700C76FDC /* ui-tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ui-tests.swift"; sourceTree = "<group>"; };
 		6EF4BCF8292D7C44003256D8 /* User-editingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User-editingView.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -386,6 +388,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E34A1602933FBFC007F1150 /* Concurrency in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -494,8 +497,9 @@
 		6E2FB7F8291BD67400D780C3 /* tests */ = {
 			isa = PBXGroup;
 			children = (
-				6EEA625729324C0700C76FDC /* unit */,
-				6EEA625829324C0F00C76FDC /* ui */,
+				6E76AAD1292FCA1700966E0A /* MainState-tests.swift */,
+				6EEA625F29324E0700C76FDC /* ui-tests.swift */,
+				6E34A1572933F48F007F1150 /* plans */,
 			);
 			path = tests;
 			sourceTree = "<group>";
@@ -700,6 +704,15 @@
 			path = widgets;
 			sourceTree = "<group>";
 		};
+		6E34A1572933F48F007F1150 /* plans */ = {
+			isa = PBXGroup;
+			children = (
+				6E34A15A2933F4DB007F1150 /* unit.xctestplan */,
+				6E34A1582933F4B9007F1150 /* full.xctestplan */,
+			);
+			path = plans;
+			sourceTree = "<group>";
+		};
 		6E48373C28EC991100B67CA4 = {
 			isa = PBXGroup;
 			children = (
@@ -895,23 +908,6 @@
 			path = minor;
 			sourceTree = "<group>";
 		};
-		6EEA625729324C0700C76FDC /* unit */ = {
-			isa = PBXGroup;
-			children = (
-				6E76AAD1292FCA1700966E0A /* MainState.tests.swift */,
-			);
-			path = unit;
-			sourceTree = "<group>";
-		};
-		6EEA625829324C0F00C76FDC /* ui */ = {
-			isa = PBXGroup;
-			children = (
-				6EEA625F29324E0700C76FDC /* KeepinOnUITests.swift */,
-				6EEA626129324E0700C76FDC /* KeepinOnUITestsLaunchTests.swift */,
-			);
-			path = ui;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1006,6 +1002,9 @@
 				6EEA626429324E0700C76FDC /* PBXTargetDependency */,
 			);
 			name = KeepinOnUITests;
+			packageProductDependencies = (
+				6E34A15F2933FBFC007F1150 /* Concurrency */,
+			);
 			productName = KeepinOnUITests;
 			productReference = 6EEA625D29324E0700C76FDC /* KeepinOnUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -1066,8 +1065,8 @@
 			projectRoot = "";
 			targets = (
 				6E48374428EC991100B67CA4 /* KeepinOn */,
-				6E05A4F428F18E7700CA0287 /* KeepinOnTests */,
 				6E01ED4A291BD92000B73AB0 /* KeepinOnWidgetsExtension */,
+				6E05A4F428F18E7700CA0287 /* KeepinOnTests */,
 				6EEA625C29324E0700C76FDC /* KeepinOnUITests */,
 			);
 		};
@@ -1094,6 +1093,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E34A1592933F4B9007F1150 /* full.xctestplan in Resources */,
 				6E01ED66291BDD0000B73AB0 /* .gitignore in Resources */,
 				6E2FB84B291BD67500D780C3 /* Colors.xcassets in Resources */,
 				6E34A14B2933E1BD007F1150 /* Localizable.strings in Resources */,
@@ -1167,7 +1167,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E76AAD3292FCA3700966E0A /* MainState.tests.swift in Sources */,
+				6E76AAD3292FCA3700966E0A /* MainState-tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1286,8 +1286,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6EEA626229324E0700C76FDC /* KeepinOnUITestsLaunchTests.swift in Sources */,
-				6EEA626029324E0700C76FDC /* KeepinOnUITests.swift in Sources */,
+				6E34A15E2933FB8B007F1150 /* ui-tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1616,7 +1615,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4UUEFBYP76;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = LeoLem.KeepinOnUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1634,7 +1633,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4UUEFBYP76;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = LeoLem.KeepinOnUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1807,6 +1806,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6E2E55CB291C9240000F2AF7 /* XCRemoteSwiftPackageReference "RemoteDatabaseService" */;
 			productName = RemoteDatabaseService;
+		};
+		6E34A15F2933FBFC007F1150 /* Concurrency */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6E8E4692292446700080EE63 /* XCRemoteSwiftPackageReference "Concurrency" */;
+			productName = Concurrency;
 		};
 		6E6FFE8F292C2E1B00D9E383 /* Previews */ = {
 			isa = XCSwiftPackageProductDependency;

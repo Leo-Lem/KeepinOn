@@ -36,7 +36,6 @@ struct CommunityView: View {
       #endif
     }
     .sheet(isPresented: $isEditing) { mainState.user?.editingView() }
-    .sheet(isPresented: $isAuthenticating) { AuthenticationView(service: mainState.authService) }
     .animation(.default, value: projects)
     .accessibilityLabel("COMMUNITY_TITLE")
     .task {
@@ -56,15 +55,21 @@ struct CommunityView: View {
 }
 
 private extension CommunityView {
+  var isAuthenticated: Bool {
+    if case .authenticated = mainState.authService.status { return true } else { return false }
+  }
+
+  var hasUser: Bool { mainState.user != nil }
+
   func accountMenu() -> some ToolbarContent {
     ToolbarItem(placement: .navigationBarLeading) {
       Button {
-        if mainState.user == nil { isAuthenticating = true } else { unlockEditing() }
+        if isAuthenticated, hasUser { unlockEditing() } else { isAuthenticating = true }
       } label: {
         Label("ACCOUNT_TITLE", systemImage: "person.crop.circle")
           .labelStyle(.iconOnly)
       }
-      .if(mainState.user != nil) { $0
+      .if(isAuthenticated) { $0
         .disabled(mainState.remoteDBService.status == .unavailable)
         .contextMenu {
           Button(action: unlockEditing) {
@@ -76,6 +81,13 @@ private extension CommunityView {
               .labelStyle(.titleAndIcon)
           }
           .disabled(mainState.remoteDBService.status == .unavailable)
+        }
+        .if(!hasUser) { $0
+          .alert("CANT_CONNECT_TO_ICLOUD_TITLE", isPresented: $isAuthenticating) {} message: {
+            Text("CANT_CONNECT_TO_ICLOUD_MESSAGE")
+          }
+        } else: { $0
+          .sheet(isPresented: $isAuthenticating) { AuthenticationView(service: mainState.authService) }
         }
       }
     }

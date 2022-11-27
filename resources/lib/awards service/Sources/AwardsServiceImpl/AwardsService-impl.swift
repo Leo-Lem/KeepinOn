@@ -1,11 +1,11 @@
 //	Created by Leopold Lemmermann on 01.11.22.
 
+import AwardsService
 import Combine
 import Errors
 import Foundation
 import KeyValueStorageService
 import UserDefaultsService
-import AwardsService
 
 open class AwardsServiceImpl: AwardsService {
   public let didChange = PassthroughSubject<AwardsChange, Never>()
@@ -28,7 +28,7 @@ open class AwardsServiceImpl: AwardsService {
     progress = printError {
       try keyValueStorageService.load(objectFor: Self.progressKey)
     } ?? Award.Progress()
-    
+
     unlockAwards()
   }
 
@@ -43,16 +43,14 @@ open class AwardsServiceImpl: AwardsService {
     case .unlockedFullVersion:
       self.progress.fullVersionIsUnlocked = true
     }
-    
+
     unlockAwards()
 
     try keyValueStorageService.store(object: self.progress, for: Self.progressKey)
     didChange.send(.progress(progress))
   }
-}
 
-#if DEBUG
-  extension AwardsServiceImpl {
-    func resetProgress() { progress = .init() }
-  }
-#endif
+  #if DEBUG
+    public func resetProgress() { progress = .init() }
+  #endif
+}
