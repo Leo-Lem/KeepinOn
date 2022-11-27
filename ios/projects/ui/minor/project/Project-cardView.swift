@@ -13,9 +13,11 @@ extension Project {
       VStack(alignment: .leading) {
         Text("ITEMS \(project.items.count)")
           .font(.default(.caption1))
+          .foregroundColor(.secondary)
         
         Text(project.label)
           .font(.default(.title2))
+          .foregroundColor(project.color)
         
         ProgressView(value: items.progress)
           .tint(project.color)
@@ -23,7 +25,8 @@ extension Project {
       .padding()
       .background(Config.style.background)
       .cornerRadius(10)
-      .shadow(color: .primary.opacity(0.2), radius: 5)
+      .shadow(color: project.color, radius: 10)
+      // a11y
       .accessibilityElement(children: .ignore)
       .accessibilityLabel(project.a11y(items))
       .accessibilityValue(project.label)
