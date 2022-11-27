@@ -17,8 +17,8 @@ extension Award {
         .scaledToFit()
         .padding()
         .foregroundColor(isUnlocked ? award.color : .secondary.opacity(0.5))
-        .accessibilityLabel(isUnlocked ? "UNLOCKED \(award.name)" : "LOCKED \(award.name)")
-        .accessibilityHint(award.description)
+        .accessibilityLabel(isUnlocked ? "A11Y_AWARD_UNLOCKED" : "A11Y_AWARD_LOCKED")
+        .accessibilityValue(award.name)
     }
     
     init(_ award: Award, isUnlocked: Bool) {

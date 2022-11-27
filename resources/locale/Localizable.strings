@@ -60,10 +60,10 @@
 
 // MARK: - (AWARDS)
 "AWARDS_TITLE" = "Awards";
-"LOCKED" = "Locked"; /* award has not been earned */
-"UNLOCKED" = "Unlocked"; /* award has been earned, displaying the award */
 "UNLOCK_FULL_VERSION" = "Unlock Now!";
-"UNLOCKED %@" = "You unlocked %@!"; /* banner headline */
+"AWARD_LOCKED" = "Locked";
+"AWARD_UNLOCKED" = "Unlocked";
+"AWARD_UNLOCKED %@" = "You unlocked %@!";
 
 
 
@@ -181,3 +181,8 @@
 "MIDNIGHT" = "Midnight";
 "DARK_GRAY" = "Dark Gray";
 "GRAY" = "Gray";
+
+/* awards */
+"A11Y_SHOWING_AWARD" = "Showing award.";
+"A11Y_AWARD_LOCKED" = "Locked award";
+"A11Y_AWARD_UNLOCKED" = "Unlocked award";

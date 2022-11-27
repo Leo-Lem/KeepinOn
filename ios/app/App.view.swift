@@ -14,6 +14,7 @@ struct AppView: View {
           NavigationStack {
             page.view()
               .navigationTitle(page.label)
+              .toolbar(.visible, for: .navigationBar)
           }
           .accessibilityElement(children: .contain)
           .accessibilityLabel(page.label)
