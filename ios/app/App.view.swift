@@ -8,25 +8,23 @@ struct AppView: View {
   @EnvironmentObject private var mainState: MainState
 
   var body: some View {
-    Group {
-      TabView(selection: $page) {
-        ForEach(Page.allCases, id: \.self) { page in
-          NavigationStack {
-            page.view()
-              .navigationTitle(page.label)
-              .toolbar(.visible, for: .navigationBar)
-          }
-          .accessibilityElement(children: .contain)
-          .accessibilityLabel(page.label)
-          .tag(page)
-          .tabItem { Label(LocalizedStringKey(page.label), systemImage: page.icon) }
+    TabView(selection: $page) {
+      ForEach(Page.allCases, id: \.self) { page in
+        NavigationStack {
+          page.view()
+            .navigationTitle(page.label)
+            .toolbar(.visible, for: .navigationBar)
         }
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel(page.label)
+        .tag(page)
+        .tabItem { Label(LocalizedStringKey(page.label), systemImage: page.icon) }
       }
-      .onContinueUserActivity(CoreSpotlightService.activityType, perform: showSpotlightModel)
-      .sheet($sheet)
     }
+    .onContinueUserActivity(CoreSpotlightService.activityType, perform: showSpotlightModel)
+    .if(sheet == nil) { $0.alert($alert) }
+    .sheet($sheet, alert: $alert)
     .banner($banner)
-    .alert($alert)
     .font(.default())
     .task {
       tasks.add(mainState.didChange.getTask(.userInitiated, operation: updateView))

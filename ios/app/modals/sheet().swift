@@ -27,19 +27,22 @@ enum Sheet: Hashable, Codable, Identifiable {
 }
 
 extension View {
-  func sheet(_ sheet: Binding<Sheet?>) -> some View {
-    self.sheet(item: sheet) { $0.view() }
+  func sheet(_ sheet: Binding<Sheet?>, alert: Binding<Alert?>) -> some View {
+    self.sheet(item: sheet) {
+      $0.view()
+        .alert(alert)
+    }
   }
 }
 
 extension Sheet {
   @ViewBuilder func view() -> some View {
     switch self {
-    case .editProject(let project):
+    case let .editProject(project):
       project.editingView()
-    case .editItem(let item):
+    case let .editItem(item):
       item.editingView()
-    case .sharedProject(let shared):
+    case let .sharedProject(shared):
       shared.detailView()
     case let .project(project):
       project.detailView()
