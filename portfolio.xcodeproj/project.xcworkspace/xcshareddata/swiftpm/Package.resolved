@@ -6,7 +6,7 @@
       "location" : "https://github.com/Leo-Lem/AuthenticationService",
       "state" : {
         "branch" : "main",
-        "revision" : "2b41254d0c4551a76115855a2d91dc338a5faa8e"
+        "revision" : "7a9d0be705bd6aaeb5991fa6250fbfe58dc13de4"
       }
     },
     {
@@ -114,7 +114,7 @@
       "location" : "https://github.com/Leo-Lem/RemoteDatabaseService",
       "state" : {
         "branch" : "main",
-        "revision" : "3553f422bb05d0ce6ef70e46dbf087e6985b60c9"
+        "revision" : "597cdd6e3032b79ef3b9be61bff03b95efc26bf1"
       }
     }
   ],

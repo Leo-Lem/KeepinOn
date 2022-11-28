@@ -8,7 +8,7 @@ extension View {
     delete: @escaping () async -> Void
   ) -> some View {
     alert("DELETE_PROJECT_ALERT_TITLE", isPresented: isDeleting) {
-      Button("GENERIC_DELETE", role: .destructive) {
+      Button("DELETE", role: .destructive) {
         Task { await delete() }
       }
     } message: {

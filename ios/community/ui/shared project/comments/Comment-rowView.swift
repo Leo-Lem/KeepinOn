@@ -1,13 +1,13 @@
 //	Created by Leopold Lemmermann on 07.11.22.
 
-import SwiftUI
-import Errors
 import Concurrency
+import Errors
 import RemoteDatabaseService
+import SwiftUI
 
 extension Comment {
   func rowView() -> some View { RowView(self) }
-  
+
   struct RowView: View {
     let comment: Comment
 
@@ -27,26 +27,26 @@ extension Comment {
           .frame(maxWidth: .infinity, alignment: .trailing)
           .foregroundColor(.gray)
       }
+      .animation(.default, value: poster)
+      .accessibilityElement(children: .ignore)
+      .accessibilityLabel("A11Y_COMMENT")
+      .accessibilityValue(comment.a11y(posterLabel: poster?.label))
       .if(canDelete) { $0
         .overlay(alignment: .topTrailing) {
-          Button(
-            action: { delete() },
-            label: { Label("GENERIC_DELETE", systemImage: "xmark.octagon") }
-          )
-          .imageScale(.large)
-          .foregroundColor(.red)
-          .labelStyle(.iconOnly)
-          .buttonStyle(.borderless)
+          Button(action: delete) { Label("DELETE", systemImage: "xmark.octagon") }
+            .imageScale(.large)
+            .foregroundColor(.red)
+            .labelStyle(.iconOnly)
+            .buttonStyle(.borderless)
+            .disabled(mainState.remoteDBService.status != .available, message: nil)
+            .accessibilityLabel("DELETE")
         }
         .swipeActions(edge: .trailing) {
-          Button { delete() } label: {
-            Label("GENERIC_DELETE", systemImage: "trash")
-            
-          }
-          .tint(.red)
+          Button(action: delete) { Label("DELETE", systemImage: "trash") }
+            .disabled(mainState.remoteDBService.status != .available, message: nil)
+            .tint(.red)
         }
       }
-      .animation(.default, value: poster)
       .task {
         await loadPoster()
         tasks.add(mainState.remoteDBService.didChange.getTask(.high, operation: updatePoster))
@@ -56,7 +56,7 @@ extension Comment {
     @EnvironmentObject private var mainState: MainState
     @State private var isDeleting = false
     @State private var poster: User?
-    
+
     private let tasks = Tasks()
 
     init(_ comment: Comment) { self.comment = comment }
@@ -65,10 +65,10 @@ extension Comment {
 
 private extension Comment.RowView {
   var canDelete: Bool { mainState.user != nil && mainState.user?.id == comment.poster }
-  
+
   func delete() {
     guard let user = mainState.user, user.id == comment.poster else { return }
-    
+
     Task(priority: .userInitiated) {
       isDeleting = true
       await printError {
@@ -79,7 +79,7 @@ private extension Comment.RowView {
       isDeleting = false
     }
   }
-  
+
   func updatePoster(_ change: RemoteDatabaseChange) async {
     switch change {
     case let .published(convertible):
@@ -93,7 +93,7 @@ private extension Comment.RowView {
     default: break
     }
   }
-  
+
   func loadPoster() async {
     do {
       poster = try await mainState.remoteDBService.fetch(with: comment.poster)
@@ -104,14 +104,14 @@ private extension Comment.RowView {
 // MARK: - (PREVIEWS)
 
 #if DEBUG
-struct CommentsViewRow_Previews: PreviewProvider {
-  static var previews: some View {
-    List {
-      Comment.RowView(.example)
+  struct CommentsViewRow_Previews: PreviewProvider {
+    static var previews: some View {
+      List {
+        Comment.RowView(.example)
+      }
+      .listStyle(.plain)
+      .padding()
+      .configureForPreviews()
     }
-    .listStyle(.plain)
-    .padding()
-    .configureForPreviews()
   }
-}
 #endif

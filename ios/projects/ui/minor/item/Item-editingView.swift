@@ -13,7 +13,7 @@ extension Item {
     var body: some View {
       NavigationStack {
         Form {
-          Section("GENERIC_SETTINGS") {
+          Section("SETTINGS") {
             TextField("ITEM_NAME_PLACEHOLDER", text: $title)
             TextField("ITEM_DESCRIPTION_PLACEHOLDER", text: $details)
           }
@@ -29,19 +29,27 @@ extension Item {
             Toggle("MARK_COMPLETED", isOn: Binding<Bool>(get: { isDone }, set: setIsDone))
           }
         }
-        .title("EDIT_ITEM")
+        .navigationTitle("EDIT_ITEM")
         .toolbar {
           ToolbarItem(placement: .confirmationAction) {
-            Button("GENERIC_SAVE") { updateItem() }
+            Button("SAVE") { updateItem() }
               .buttonStyle(.borderedProminent)
           }
+          
+          if vSize == .compact {
+            ToolbarItem(placement: .cancellationAction) {
+              Button("CANCEL") { dismiss() }
+                .buttonStyle(.borderedProminent)
+            }
+          }
         }
-        .presentationDetents([.fraction(0.7)])
       }
+      .presentationDetents([.fraction(0.7)])
     }
 
     @EnvironmentObject private var mainState: MainState
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.verticalSizeClass) var vSize
 
     @State private var title: String
     @State private var details: String

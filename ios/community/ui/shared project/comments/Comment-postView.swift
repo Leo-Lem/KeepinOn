@@ -7,63 +7,52 @@ import SwiftUI
 extension Comment {
   struct PostView: View {
     let projectID: Project.ID
-    
+
     var body: some View {
-      Group {
-        if canPostComments {
-          VStack {
-            TextField("ENTER_COMMENT_PROMPT", text: $text)
-              .textFieldStyle(.roundedBorder)
-              .textCase(nil)
-            
-            Button { postComment() } label: {
-              Text("GENERIC_SEND")
-                .frame(maxWidth: .infinity, minHeight: 44)
-                .background(sendIsDisabled ? Color.gray : .accentColor)
-                .foregroundColor(.white)
-                .clipShape(Capsule())
-                .contentShape(Capsule())
-            }
-            .disabled(sendIsDisabled)
+      if mainState.user != nil {
+        VStack {
+          TextField("ENTER_COMMENT_PROMPT", text: $text)
+            .textFieldStyle(.roundedBorder)
+            .textCase(nil)
+
+          Button { postComment() } label: {
+            Text("SEND")
+              .frame(maxWidth: .infinity, minHeight: 44)
+              .background(sendIsDisabled ? Color.gray : .accentColor)
+              .foregroundColor(.white)
+              .clipShape(Capsule())
+              .contentShape(Capsule())
           }
-        } else {
-          Button("SIGN_IN_TO_COMMENT") { isAuthenticating = true }
-            .frame(maxWidth: .infinity, minHeight: 44)
-            .background(Color.blue)
-            .foregroundColor(.white)
-            .clipShape(Capsule())
-            .contentShape(Capsule())
+          .disabled(sendIsDisabled)
         }
-      }
-      .if(mainState.remoteDBService.status == .available) { $0
-        .sheet(isPresented: $isAuthenticating) { AuthenticationView(service: mainState.authService) }
-      } else: { $0
-        .alert("CANT_CONNECT_TO_ICLOUD_TITLE", isPresented: $isAuthenticating) {} message: {
-          Text("CANT_CONNECT_TO_ICLOUD_MESSAGE")
-        }
+        .disabled(mainState.remoteDBService.status == .readOnly, message: "SIGN_INTO_ICLOUD")
+      } else {
+        Button("SIGN_IN_TO_COMMENT") { isAuthenticating = true }
+          .frame(maxWidth: .infinity, minHeight: 44)
+          .background(Color.blue)
+          .foregroundColor(.white)
+          .clipShape(Capsule())
+          .contentShape(Capsule())
+          .sheet(isPresented: $isAuthenticating) { AuthenticationView(service: mainState.authService) }
       }
     }
-    
+
     @EnvironmentObject private var mainState: MainState
     @State private var isAuthenticating = false
     @State private var text = ""
-    
+
     init(projectID: Project.ID) { self.projectID = projectID }
   }
 }
 
 private extension Comment.PostView {
   var sendIsDisabled: Bool { text.count < 2 }
-  
-  var canPostComments: Bool {
-    mainState.user != nil && mainState.remoteDBService.status == .available
-  }
-  
+
   func postComment() {
     Task(priority: .userInitiated) {
       await printError {
         guard let user = mainState.user else { return }
-        
+
         let text = self.text.trimmingCharacters(in: .whitespacesAndNewlines)
         let comment = Comment(content: text, project: projectID, poster: user.id)
 
@@ -73,7 +62,7 @@ private extension Comment.PostView {
             try await mainState.awardsService.postedComment()
           }
         }
-        
+
         self.text = ""
       }
     }

@@ -23,6 +23,8 @@ extension SharedProject {
         }
       }
       .task { await loadUser() }
+      .accessibilityLabel("A11Y_SHAREDPROJECT")
+      .accessibilityValue(project.a11y(owner?.label))
     }
 
     @EnvironmentObject private var mainState: MainState

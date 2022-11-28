@@ -32,7 +32,11 @@ extension Item {
       .padding()
       .background(Config.style.background)
       .cornerRadius(10)
-      .shadow(color: .primary.opacity(0.2), radius: 5)
+      .shadow(color: project?.color ?? .primary, radius: 5)
+      // a11y
+      .accessibilityElement(children: .ignore)
+      .accessibilityLabel(item.a11y)
+      .accessibilityValue(item.label)
     }
 
     @EnvironmentObject private var mainState: MainState

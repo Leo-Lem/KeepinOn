@@ -11,7 +11,6 @@ extension SharedItem {
     var body: some View {
       HStack {
         Image(systemName: item.isDone ? "checkmark.circle" : "circle")
-          .if(!item.isDone) { $0.foregroundColor(.clear) }
 
         VStack(alignment: .leading) {
           Text(item.label)
@@ -22,6 +21,9 @@ extension SharedItem {
           }
         }
       }
+      .accessibilityElement(children: .ignore)
+      .accessibilityLabel("A11Y_SHAREDITEM")
+      .accessibilityValue(item.a11y)
     }
     
     init(_ item: SharedItem) { self.item = item }

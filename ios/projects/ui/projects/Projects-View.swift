@@ -24,7 +24,7 @@ struct ProjectsView: View {
 
           if canEdit {
             Button { vm.addItem(to: project) } label: { Label("ADD_ITEM", systemImage: "plus") }
-            .buttonStyle(.borderless)
+              .buttonStyle(.borderless)
           }
         } header: {
           Project.HeaderView(project, canEdit: canEdit)
@@ -34,7 +34,10 @@ struct ProjectsView: View {
       .frame(maxWidth: .infinity, maxHeight: .infinity)
       .background(Config.style.background)
       .scrollContentBackground(.hidden)
-      .toolbar(content: toolbar)
+      .toolbar {
+        if !vm.closed { addProjectButton }
+        $vm.itemSortOrder.selectionMenu
+      }
       .sheet(isPresented: $vm.isPurchasing) { PurchaseID.fullVersion.view(service: vm.purchaseService) }
       .animation(.default, value: vm.projects)
       .animation(.default, value: vm.items)
@@ -43,18 +46,12 @@ struct ProjectsView: View {
 }
 
 private extension ProjectsView.Content {
-  @ToolbarContentBuilder func toolbar() -> some ToolbarContent {
-    if !vm.closed {
-      ToolbarItem(placement: .navigationBarTrailing) {
-        Button {
-          vm.addProject()
-        } label: {
-          Label("ADD_PROJECT", systemImage: "plus")
-        }
+  var addProjectButton: some ToolbarContent {
+    ToolbarItem(placement: .navigationBarTrailing) {
+      Button { vm.addProject() } label: {
+        Label("ADD_PROJECT", systemImage: "plus")
       }
     }
-
-    $vm.itemSortOrder.selectionMenu
   }
 }
 

@@ -1,0 +1,50 @@
+{
+  "configurations" : [
+    {
+      "id" : "6B998B9A-647C-44DC-8E8E-8B20F62311CA",
+      "name" : "ASAN",
+      "options" : {
+        "addressSanitizer" : {
+          "enabled" : true
+        }
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : {
+      "targets" : [
+        {
+          "containerPath" : "container:portfolio.xcodeproj",
+          "identifier" : "6E48374428EC991100B67CA4",
+          "name" : "KeepinOn"
+        },
+        {
+          "containerPath" : "container:portfolio.xcodeproj",
+          "identifier" : "6E01ED4A291BD92000B73AB0",
+          "name" : "KeepinOnWidgetsExtension"
+        }
+      ]
+    },
+    "testExecutionOrdering" : "random",
+    "undefinedBehaviorSanitizerEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:portfolio.xcodeproj",
+        "identifier" : "6E05A4F428F18E7700CA0287",
+        "name" : "KeepinOnTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:resources\/lib\/awards service",
+        "identifier" : "AwardsServiceImplTests",
+        "name" : "AwardsServiceImplTests"
+      }
+    }
+  ],
+  "version" : 1
+}

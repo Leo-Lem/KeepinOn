@@ -4,6 +4,7 @@ import AuthenticationService
 import Concurrency
 import Errors
 import LeosMisc
+import LocalAuthentication
 import RemoteDatabaseService
 import SwiftUI
 
@@ -34,9 +35,9 @@ struct CommunityView: View {
         testDataToolbar()
       #endif
     }
-    .sheet(isPresented: $editingAccount) { mainState.user?.editingView() }
-    .sheet(isPresented: $isAuthenticating) { AuthenticationView(service: mainState.authService) }
+    .sheet(isPresented: $isEditing) { mainState.user?.editingView() }
     .animation(.default, value: projects)
+    .accessibilityLabel("COMMUNITY_TITLE")
     .task {
       loadProjects()
       tasks.add(mainState.remoteDBService.didChange.getTask(operation: updateProjects))
@@ -44,37 +45,49 @@ struct CommunityView: View {
   }
 
   @EnvironmentObject private var mainState: MainState
+  @SceneStorage("editingIsUnlocked") private var editingIsUnlocked: Bool = false
+
   @State private var isAuthenticating = false
-  @State private var editingAccount = false
+  @State private var isEditing = false
   @State private var projects: LoadingState<SharedProject> = .idle
 
   private let tasks = Tasks()
 }
 
 private extension CommunityView {
+  var isAuthenticated: Bool {
+    if case .authenticated = mainState.authService.status { return true } else { return false }
+  }
+
+  var hasUser: Bool { mainState.user != nil }
+
   func accountMenu() -> some ToolbarContent {
     ToolbarItem(placement: .navigationBarLeading) {
-      Group {
-        if mainState.user == nil {
-          Button { isAuthenticating = true } label: {
-            Label("ACCOUNT_TITLE", systemImage: "person.crop.circle")
-              .labelStyle(.iconOnly)
+      Button {
+        if isAuthenticated, hasUser { unlockEditing() } else { isAuthenticating = true }
+      } label: {
+        Label("ACCOUNT_TITLE", systemImage: "person.crop.circle")
+          .labelStyle(.iconOnly)
+      }
+      .if(isAuthenticated) { $0
+        .disabled(mainState.remoteDBService.status == .unavailable)
+        .contextMenu {
+          Button(action: unlockEditing) {
+            Label("ACCOUNT_EDIT", systemImage: "person.text.rectangle")
           }
-        } else {
-          Menu {
-            Button { editingAccount = true } label: {
-              Label("ACCOUNT_EDIT", systemImage: "person.text.rectangle")
-            }
-            
-            Button(action: logout) {
-              Label("ACCOUNT_LOGOUT", systemImage: "person.fill.xmark")
-                .labelStyle(.titleAndIcon)
-            }
-            .buttonStyle(.borderedProminent)
-          } label: {
-            Label("ACCOUNT_TITLE", systemImage: "person.crop.circle")
-              .labelStyle(.iconOnly)
+
+          Button(action: logout) {
+            Label("ACCOUNT_LOGOUT", systemImage: "person.fill.xmark")
+              .labelStyle(.titleAndIcon)
           }
+          .disabled(mainState.remoteDBService.status == .unavailable)
+        }
+        .if(!hasUser) { $0
+          .alert("CANT_CONNECT_TO_ICLOUD_TITLE", isPresented: $isAuthenticating) {} message: {
+            Text("CANT_CONNECT_TO_ICLOUD_MESSAGE")
+          }
+        } else: { $0
+          .sheet(isPresented: $isAuthenticating) { AuthenticationView(service: mainState.authService) }
         }
       }
     }
@@ -101,8 +114,23 @@ private extension CommunityView {
 }
 
 private extension CommunityView {
+  func unlockEditing() {
+    guard !editingIsUnlocked else { return isEditing = true }
+
+    Task(priority: .userInitiated) {
+      await printError {
+        editingIsUnlocked = try await LAContext().evaluatePolicy(
+          .deviceOwnerAuthentication,
+          localizedReason: String(localized: "AUTHENTICATE_TO_EDIT_ACCOUNT")
+        )
+      }
+
+      if editingIsUnlocked { isEditing = true }
+    }
+  }
+
   func logout() { printError(mainState.authService.logout) }
-  
+
   func loadProjects() {
     tasks["loadingProjects"] = Task(priority: .userInitiated) {
       do {

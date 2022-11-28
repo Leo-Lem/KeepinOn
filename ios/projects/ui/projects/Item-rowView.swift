@@ -13,8 +13,9 @@ extension Item {
       Label(title: Text(item.label).fixedSize) {
         Image(systemName: item.icon)
           .foregroundColor(project?.color)
-          .accessibilityLabel(item.a11y)
       }
+      .accessibilityLabel(item.a11y)
+      .accessibilityValue(item.label)
     }
 
     @EnvironmentObject private var mainState: MainState

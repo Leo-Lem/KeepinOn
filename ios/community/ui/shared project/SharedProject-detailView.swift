@@ -12,18 +12,33 @@ extension SharedProject {
     let project: SharedProject
 
     var body: some View {
-      List {
-        project.itemsSectionView()
-        project.commentsSectionView()
+      NavigationStack {
+        List {
+          project.itemsSectionView()
+          project.commentsSectionView()
+        }
+        .scrollContentBackground(.hidden)
+        .navigationTitle(project.label)
+        .toolbar {
+          ToolbarItem(placement: .bottomBar) { Text("POSTED_BY \(project.owner)") }
+          
+          if vSize == .compact {
+            ToolbarItem {
+              Button("DISMISS") { dismiss() }
+                .buttonStyle(.borderedProminent)
+            }
+          }
+        }
+        .toolbar(.visible, for: .navigationBar)
+        .accessibilityLabel("SHARED_PROJECT_TITLE")
+        .accessibilityValue(project.label)
       }
-      .title(project.label)
-      .toolbar {
-        ToolbarItem(placement: .bottomBar) { Text("POSTED_BY \(project.owner)") }
-      }
-      .toolbar(.visible, for: .navigationBar)
     }
 
     @EnvironmentObject private var mainState: MainState
+    @Environment(\.dismiss) private var dismiss
+    @Environment(\.verticalSizeClass) var vSize
+    
     @State private var user: User?
 
     init(_ project: SharedProject) { self.project = project }

@@ -10,6 +10,7 @@ import AuthenticationService
 import StoreKitService
 import LocalDatabaseService
 import RemoteDatabaseService
+import AwardsService
 
 @MainActor
 class ViewModel: ObservableObject {

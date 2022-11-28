@@ -1,0 +1,174 @@
+// MARK: - (GENERAL)
+"EMPTY_TAB_PLACEHOLDER" = "Bitte wähle etwas aus dem Menü aus.";
+
+/* generic */
+"OK" = "Ok";
+"DELETE" = "Entfernen";
+"SETTINGS" = "Einstellungen";
+"DISMISS" = "Zurück";
+"CANCEL" = "Abbrechen";
+"SEND" = "Senden";
+"CONFIRM" = "Bestätigen";
+"SAVE" = "Speichern";
+"SUBMIT" = "Abschicken";
+"EDIT" = "Bearbeiten";
+"DISABLED" = "Deaktiviert";
+
+
+
+// MARK: - (PROJECTS)
+
+/* home */
+"HOME_TITLE" = "Übersicht";
+"NEXT_ITEMS" = "Als nächstes";
+"MORE_ITEMS" = "Noch mehr";
+"SHOW_PROJECT_DETAILS" = "Zeige Details";
+"SHOW_ITEM_DETAILS" = "Zeige Details";
+"CREATED_ON %@" = "erstellt am %@";
+
+/* projects */
+"OPEN_TITLE" = "Offen";
+"CLOSED_TITLE" = "Abgeschlossen";
+"ADD_PROJECT" = "Projekt hinzufügen";
+"ADD_ITEM" = "Eintrag hinzufügen";
+"NO_PROJECTS_PLACEHOLDER" = "Hier gibt's nichts zu sehen.";
+"PROJECT_DEFAULTNAME" = "Neues Projekt";
+"PROJECT_DETAILS_PLACEHOLDER" = "Keine Beschreibung";
+
+"EDIT_PROJECT" = "Projekt bearbeiten";
+"PROJECT_SETTINGS" = "Basiseinstellungen";
+"PROJECT_NAME_PLACEHOLDER" = "Bezeichnung";
+"PROJECT_DESCRIPTION_PLACEHOLDER" = "Beschreibung";
+"PROJECT_SELECT_COLOR" = "Wähle eine Farbe aus";
+
+"PROJECT_REMINDERS" = "Erinnerungen";
+"PROJECT_SHOW_REMINDERS" = "Erinnerungen aktivieren";
+"PROJECT_REMINDER_TIME" = "Zeitpunkt";
+"ALLOW_NOTIFICATIONS" = "Bitte aktiviere Push-Nachrichten.";
+
+"CLOSE_PROJECT" = "Schließe dieses Projekt ab"; /* Mark project as finished */
+"REOPEN_PROJECT" = "Eröffne dies Projekt wieder"; /* Mark project as unfinished */
+"DELETE_PROJECT" = "Entferne dieses Projekt";
+
+"DELETE_PROJECT_WARNING" = "Nach dem entfernen sind auch alle Einträge gelöscht.";
+"DELETE_PROJECT_ALERT_TITLE" = "Projekt entfernen?";
+"DELETE_PROJECT_ALERT_MESSAGE" = "Bist du sicher? Alle Einträge werden entfernt und es wird nicht mehr mit anderen geteilt.";
+
+"PUBLISH_PROJECT" = "Projekt teilen.";
+"UNPUBLISH_PROJECT" = "Projekt privat stellen.";
+"REPUBLISH_PROJECT" = "Neue Werte veröffentlichen.";
+
+"A11Y_PROJECT %@ %@" = "%@, %@ abgeschlossen."; /* parameters: completed items, progress percentage string */
+"A11Y_EDIT_PROJECT_NAME" = "Bezeichnung des Projekts";
+"A11Y_EDIT_PROJECT_DESCRIPTION" = "Beschreibung des Projekts";
+
+/* item */
+"COMPLETE_ITEM" = "Abschließen";
+"UNCOMPLETE_ITEM" = "Wiedereröffnen";
+
+"NO_ITEMS_PLACEHOLDER" = "Hier gibt's nichts zu sehen.";
+"ITEM_DEFAULTNAME" = "Neuer Eintrag";
+"ITEM_DETAILS_PLACEHOLDER" = "Keine Beschreibung";
+
+"SORT_LABEL" = "Einträge sortieren"; /* The title of the sort menu */
+"OPTIMIZED_SORT" = "Optimiert"; /* Sort using an optimized algorithm */
+"CREATIONDATE_SORT" = "Erstellungsdatum"; /* Sort by the date items were created */
+"TITLE_SORT" = "Alphabetisch"; /* Sort by item title */
+
+"EDIT_ITEM" = "Eintrag bearbeiten";
+"ITEM_NAME_PLACEHOLDER" = "Bezeichnung";
+"ITEM_DESCRIPTION_PLACEHOLDER" = "Beschreibung";
+
+"MARK_COMPLETED" = "Abschließen"; /* Mark this item as being completed */
+
+"PRIORITY" = "Wichtigkeit";
+"PRIORITY_LOW" = "Gering";
+"PRIORITY_MID" = "Normal";
+"PRIORITY_HIGH" = "Hoch";
+
+"A11Y_ITEM_COMPLETED" = "abgeschlossen";
+"A11Y_ITEM_PRIORITY" = "sehr wichtig";
+"A11Y_ITEM_SORTORDER" = "Einträge sortieren";
+
+
+
+// MARK: - (AWARDS)
+"AWARDS_TITLE" = "Auszeichnungen";
+"UNLOCK_FULL_VERSION" = "Jetzt freischalten!";
+"AWARD_LOCKED" = "Noch nicht freigeschaltet";
+"AWARD_UNLOCKED" = "Freigeschaltet";
+"AWARD_UNLOCKED %@" = "Du hast %@ freigeschaltet!";
+
+/* a11y */
+"A11Y_SHOWING_AWARD" = "Auszeichnung anzeigen";
+"A11Y_AWARD_LOCKED" = "Auszeichnung noch nicht freigeschaltet";
+"A11Y_AWARD_UNLOCKED" = "Auszeichnung freigeschaltet";
+
+
+
+// MARK: - (COMMUNITY)
+"COMMUNITY_TITLE" = "Community";
+"CANT_CONNECT_TO_ICLOUD_TITLE" = "Oh nein, die Verbindung zu iCloud konnte nicht hergestellt werden...";
+"CANT_CONNECT_TO_ICLOUD_MESSAGE" = "Bitte überprüfe deine Internetverbindung und logge dich in iCloud ein.";
+
+/* projects */
+"SHARED_PROJECT_TITLE" = "Geteilte Projekte";
+"OWN_USERS_PROJECTS" = "Deine Projekte";
+"OTHER_USERS_PROJECTS" = "Weitere Projekte";
+
+/* items */
+"NO_SHAREDITEMS_PLACEHOLDER" = "Dieses Projekt hat keine Einträge…";
+
+/* comments */
+"NO_COMMENTS_PLACEHOLDER" = "Diese Projekt hat noch keine Kommentare… Schreib du doch den ersten :)";
+"COMMENTS_HEADER" = "Kommentare…";
+"ENTER_COMMENT_PROMPT" = "Gib deinen Kommentar ein";
+"SIGN_IN_TO_COMMENT" = "Du musst dich anmelden um zu kommentieren";
+"POSTED_BY %@" = "Geteilt von %@";
+
+/* a11y */
+"A11Y_SHAREDPROJECT" = "Geteiltes Projekt";
+"A11Y_SHAREDPROJECT_VALUE %@ %@" = "%@ von %@."; /* parameters: project label, owner label */
+"A11Y_SHAREDITEM" = "Geteilter Eintrag";
+"A11Y_SHAREDITEM_NOTCOMPLETED %@" = "%@, nicht abgeschlossen";
+"A11Y_SHAREDITEM_COMPLETED %@" = "%@, abgeschlossen";
+"A11Y_COMMENT" = "Kommentar";
+"A11Y_COMMENT_VALUE %@ %@" = "%@ kommentierte '%@'."; /* parameters: poster, comment text */
+
+
+
+// MARK: - (MINOR)
+
+/* widgets */
+"WIDGET_TITLE" = "Als nächstes…";
+"WIDGET_PLACEHOLDER" = "Nichts!";
+"WIDGET_SIMPLE_DESCRIPTION" = "Dein wichtigster Eintrag.";
+"WIDGET_COMPLEX_DESCRIPTION" = "Deine wichtigsten Einträge.";
+
+/* account */
+"ACCOUNT_TITLE" = "Dein Account";
+"ACCOUNT_EDIT" = "Anpassen";
+"ACCOUNT_LOGOUT" = "Ausloggen";
+"ACCOUNT_CHANGE_DISPLAYNAME" = "Wähle einen neuen Alias.";
+"ACCOUNT_SELECT_COLOR" = "Wähle deine Farbe";
+
+"ANONYMOUS_USER" = "<Unbekannt>";
+"SIGN_INTO_ICLOUD" = "Bitte logge dich in iCloud ein.";
+"AUTHENTICATE_TO_EDIT_ACCOUNT" = "Um deinen Account anzupassen.";
+
+"A11Y_CUSTOMIZE_ACCOUNT" = "Passe deinen Account an.";
+"A11Y_USER %@ %@" = "%@ (Nutzer-ID: %@)";
+
+/* colors */
+"PINK" = "Rosa";
+"PURPLE" = "Lila";
+"RED" = "Rot";
+"ORANGE" = "Orange";
+"GOLD" = "Gold";
+"GREEN" = "Grün";
+"TEAL" = "Aquamarin";
+"LIGHT_BLUE" = "Hellblau";
+"DARK_BLUE" = "Dunkelblau";
+"MIDNIGHT" = "Mitternacht";
+"DARK_GRAY" = "Dunkelgrau";
+"GRAY" = "Grau";

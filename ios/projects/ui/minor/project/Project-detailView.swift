@@ -34,20 +34,28 @@ extension Project {
           .padding()
 
         ScrollView {
-          ForEach(items, content: Item.DetailView.init)
+          ForEach(items, content: Item.CardView.init)
             .padding()
         }
 
         Spacer()
 
-        Text("created on \(project.timestamp.formatted())")
+        Text("CREATED_ON \(project.timestamp.formatted(date: .abbreviated, time: .shortened))")
           .padding()
           .font(.default(.subheadline))
       }
-      .accessibilityLabel("A11Y_COMPLETE_DESCRIPTION \(project.label) \(items.count) \(items.progress)")
+      .overlay(alignment: .topTrailing) {
+        if vSize == .compact {
+          Button("DISMISS") { dismiss() }
+            .buttonStyle(.borderedProminent)
+            .padding()
+        }
+      }
     }
 
     @EnvironmentObject private var mainState: MainState
+    @Environment(\.dismiss) private var dismiss
+    @Environment(\.verticalSizeClass) var vSize
 
     init(_ project: Project) { self.project = project }
 
@@ -62,12 +70,15 @@ extension Project {
 #if DEBUG
   struct ProjectDetails_Previews: PreviewProvider {
     static var previews: some View {
-      Project.DetailView(.example)
-        .previewDisplayName("Bare")
-
-      Project.example.detailView()
-        .previewInSheet()
-        .previewDisplayName("Sheet")
+      Group {
+        Project.DetailView(.example)
+          .previewDisplayName("Bare")
+        
+        Project.example.detailView()
+          .previewInSheet()
+          .previewDisplayName("Sheet")
+      }
+      .configureForPreviews()
     }
   }
 #endif

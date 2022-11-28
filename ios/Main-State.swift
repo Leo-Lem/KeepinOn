@@ -1,6 +1,8 @@
 //  Created by Leopold Lemmermann on 24.10.22.
 
 import AuthenticationService
+import AwardsService
+import AwardsServiceImpl
 import CloudKit
 import CloudKitService
 import Combine
@@ -18,9 +20,8 @@ import MyAuthenticationService
 import PushNotificationService
 import RemoteDatabaseService
 import StoreKitService
-import UserNotificationsService
-
 import UserDefaultsService
+import UserNotificationsService
 
 final class MainState: ObservableObject {
   let didChange = PassthroughSubject<Change, Never>()
@@ -53,33 +54,11 @@ final class MainState: ObservableObject {
 
   private let tasks = Tasks()
 
-  init(
-    localDBService: LocalDatabaseService,
-    remoteDBService: RemoteDatabaseService,
-    indexingService: IndexingService,
-    awardsService: AwardsService,
-    purchaseService: AnyInAppPurchaseService<PurchaseID>,
-    notificationService: PushNotificationService,
-    authService: AuthenticationService,
-    hapticsService: HapticsService?,
-    widgetService: WidgetService
-  ) {
-    self.localDBService = localDBService
-    self.remoteDBService = remoteDBService
-    self.indexingService = indexingService
-    self.awardsService = awardsService
-    self.purchaseService = purchaseService
-    self.notificationService = notificationService
-    self.authService = authService
-    self.hapticsService = hapticsService
-    self.widgetService = widgetService
-  }
-
   init() async {
     localDBService = CDService()
     remoteDBService = await CloudKitService(CKContainer(identifier: Config.id.cloudKit))
     indexingService = CoreSpotlightService(appname: Config.appname)
-    awardsService = AwardsServiceImplementation()
+    awardsService = AwardsServiceImpl()
     purchaseService = await .storekit()
     notificationService = await UserNotificationsService()
     authService = await MyAuthenticationService(url: URL(string: "https://github-repo-j3opzjp32q-lz.a.run.app")!)
@@ -99,6 +78,15 @@ final class MainState: ObservableObject {
       purchaseService.didChange.getTask(.high, operation: updateIsPremium),
       awardsService.didChange.getTask(.high, operation: showBanner)
     )
+    
+    #if DEBUG
+    if CommandLine.arguments.contains("under-test") {
+      localDBService.deleteAll()
+      await remoteDBService.unpublishAll()
+      awardsService.resetProgress()
+      printError(authService.logout)
+    }
+    #endif
   }
 
   #if DEBUG
@@ -110,7 +98,7 @@ final class MainState: ObservableObject {
       notificationService = .mock
       authService = .mock
       purchaseService = .mock
-      awardsService = AwardsServiceImplementation()
+      awardsService = AwardsServiceImpl()
       widgetService = WidgetServiceImplementation()
       hapticsService = nil
     }
@@ -127,12 +115,6 @@ extension MainState {
       } else { print(error) }
 
       throw error
-    } catch let error as AuthenticationError {
-      if let display = error.display {
-        didChange.send(.alert(.authError(display)))
-      } else { print(error) }
-
-      throw error
     }
   }
 
@@ -143,12 +125,6 @@ extension MainState {
     } catch let error as RemoteDatabaseError {
       if let display = error.display {
         didChange.send(.alert(.remoteDBError(display)))
-      } else { print(error) }
-
-      throw error
-    } catch let error as AuthenticationError {
-      if let display = error.display {
-        didChange.send(.alert(.authError(display)))
       } else { print(error) }
 
       throw error
@@ -189,7 +165,6 @@ private extension MainState {
             printError {
               (try localDBService.fetch(with: item.project) as Project?)
                 .flatMap { Item.WithProject(item, project: $0) }
-              
             }
           }
       )
@@ -238,7 +213,7 @@ private extension MainState {
         isPremium = true
         Task { try await awardsService.notify(of: .unlockedFullVersion) }
       }
-      
+
     default:
       isPremium = purchaseService.isPurchased(id: .fullVersion)
     }
