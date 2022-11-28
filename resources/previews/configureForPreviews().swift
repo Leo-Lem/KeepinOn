@@ -1,5 +1,6 @@
 //	Created by Leopold Lemmermann on 07.11.22.
 
+#if DEBUG
 import SwiftUI
 
 extension View {
@@ -8,3 +9,4 @@ extension View {
       .environmentObject(MainState.example)
   }
 }
+#endif

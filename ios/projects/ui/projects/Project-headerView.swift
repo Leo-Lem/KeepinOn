@@ -29,14 +29,14 @@ extension Project {
 
         Spacer()
 
-        Button { toggleIsClosed() } label: {
+        Button(action: toggleIsClosed) {
           project.isClosed ?
             Label("REOPEN_PROJECT", systemImage: "lock.open") :
             Label("CLOSE_PROJECT", systemImage: "lock")
         }
 
         if canEdit {
-          Button { showEdit() } label: {
+          Button(action: showEdit) {
             Label("EDIT_PROJECT", systemImage: "square.and.pencil")
           }
 

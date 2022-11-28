@@ -20,7 +20,7 @@ extension View {
           Spacer()
 
           VStack {
-            Text("UNLOCKED \(award.name)").bold()
+            Text("AWARD_UNLOCKED \(award.name)").bold()
             Text(award.description)
           }
 

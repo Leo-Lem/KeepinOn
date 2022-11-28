@@ -51,8 +51,6 @@ extension Project {
             .padding()
         }
       }
-      .accessibilityLabel(project.a11y(items))
-      .accessibilityElement(children: .combine)
     }
 
     @EnvironmentObject private var mainState: MainState

@@ -11,6 +11,20 @@
     }
   ],
   "defaultOptions" : {
+    "codeCoverage" : {
+      "targets" : [
+        {
+          "containerPath" : "container:portfolio.xcodeproj",
+          "identifier" : "6E48374428EC991100B67CA4",
+          "name" : "KeepinOn"
+        },
+        {
+          "containerPath" : "container:portfolio.xcodeproj",
+          "identifier" : "6E01ED4A291BD92000B73AB0",
+          "name" : "KeepinOnWidgetsExtension"
+        }
+      ]
+    },
     "testExecutionOrdering" : "random",
     "undefinedBehaviorSanitizerEnabled" : true
   },

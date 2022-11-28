@@ -32,6 +32,9 @@
         }
       ]
     },
+    "commandLineArgumentEntries" : [
+
+    ],
     "targetForVariableExpansion" : {
       "containerPath" : "container:portfolio.xcodeproj",
       "identifier" : "6E48374428EC991100B67CA4",

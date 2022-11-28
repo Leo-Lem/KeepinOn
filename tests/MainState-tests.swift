@@ -6,9 +6,7 @@ import XCTest
 class MainStateTests: XCTestCase {
   var mainState: MainState!
 
-  override func setUp() async throws {
-    mainState = MainState.mock
-  }
+  override func setUp() async throws { mainState = MainState.mock }
 
   func testDidChange() {
     for change in [
