@@ -4,7 +4,6 @@ import Foundation
 import Concurrency
 import HapticsService
 import IndexingService
-import KeyValueStorageService
 import PushNotificationService
 import AuthenticationService
 import StoreKitService
