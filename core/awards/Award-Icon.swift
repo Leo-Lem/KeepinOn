@@ -20,7 +20,7 @@ extension Award {
         .foregroundColor(isUnlocked ? award.color : .secondary.opacity(0.5))
         .accessibilityLabel(isUnlocked ? "A11Y_AWARD_UNLOCKED" : "A11Y_AWARD_LOCKED")
         .accessibilityValue(award.name)
-        .if(isUnlocked) { $0.shadow(color: award.color, radius: 15) }
+        .if(isUnlocked) { $0.shadow(color: award.color.opacity(0.8), radius: 10) }
     }
     
     init(_ award: Award, isUnlocked: Bool) {

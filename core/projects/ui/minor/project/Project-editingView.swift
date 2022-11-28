@@ -34,10 +34,7 @@ extension Project {
                 DatePicker("PROJECT_REMINDER_TIME", selection: $0, in: $1..., displayedComponents: .hourAndMinute)
                   .accessibilityElement(children: .combine)
               }
-              .disabled(!canSendReminders, message: "ALLOW_NOTIFICATIONS") {
-                URL(string: UIApplication.openNotificationSettingsURLString)
-                  .flatMap { UIApplication.shared.open($0) }
-              }
+              .disabled(!canSendReminders, message: "ALLOW_NOTIFICATIONS") { openSettings() }
             }
           }
 
@@ -51,12 +48,14 @@ extension Project {
           project.publishingMenu()
           saveButton()
           
+          #if os(iOS)
           if vSize == .compact {
             ToolbarItem(placement: .cancellationAction) {
               Button("CANCEL") { dismiss() }
                 .buttonStyle(.borderedProminent)
             }
           }
+          #endif
         }
         .navigationTitle("EDIT_PROJECT")
         .task {
@@ -69,8 +68,11 @@ extension Project {
 
     @EnvironmentObject private var mainState: MainState
     @Environment(\.dismiss) private var dismiss
+    
+    #if os(iOS)
     @Environment(\.verticalSizeClass) var vSize
-
+    #endif
+    
     @State private var project: Project
     @State private var isDeleting = false
     @State private var canSendReminders = false

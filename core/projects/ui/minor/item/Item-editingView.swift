@@ -36,12 +36,14 @@ extension Item {
               .buttonStyle(.borderedProminent)
           }
           
-          if vSize == .compact {
-            ToolbarItem(placement: .cancellationAction) {
-              Button("CANCEL") { dismiss() }
-                .buttonStyle(.borderedProminent)
+          #if os(iOS)
+            if vSize == .compact {
+              ToolbarItem(placement: .cancellationAction) {
+                Button("CANCEL") { dismiss() }
+                  .buttonStyle(.borderedProminent)
+              }
             }
-          }
+          #endif
         }
       }
       .presentationDetents([.fraction(0.7)])
@@ -49,7 +51,10 @@ extension Item {
 
     @EnvironmentObject private var mainState: MainState
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.verticalSizeClass) var vSize
+    
+    #if os(iOS)
+      @Environment(\.verticalSizeClass) var vSize
+    #endif
 
     @State private var title: String
     @State private var details: String

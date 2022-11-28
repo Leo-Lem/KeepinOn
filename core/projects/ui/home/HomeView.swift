@@ -18,7 +18,6 @@ struct HomeView: View {
       }
       .padding(.horizontal)
     }
-    .background(Config.style.background)
     .task {
       loadProjectsAndItems()
       tasks["ProjectAndItemsState"] = mainState.localDBService.didChange.getTask(operation: updateProjectsAndItems)

@@ -64,6 +64,7 @@ extension User {
         .animation(.default, value: editingDisabled)
         .accessibilityLabel("A11Y_CUSTOMIZE_ACCOUNT")
       }
+      #if os(iOS)
       .overlay(alignment: .topTrailing) {
         if vSize == .compact {
           Button("DISMISS") { dismiss() }
@@ -71,12 +72,15 @@ extension User {
             .padding()
         }
       }
+      #endif
     }
 
     @EnvironmentObject private var mainState: MainState
     @Environment(\.dismiss) var dismiss
-    @Environment(\.verticalSizeClass) var vSize
-    
+    #if os(iOS)
+      @Environment(\.verticalSizeClass) var vSize
+    #endif
+
     @State private var user: User
     @State private var name = ""
 

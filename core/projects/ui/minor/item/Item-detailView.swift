@@ -42,6 +42,8 @@ extension Item {
           .padding()
           .font(.default(.subheadline))
       }
+      .presentationDetents([.medium])
+      #if os(iOS)
       .overlay(alignment: .topTrailing) {
         if vSize == .compact {
           Button("DISMISS") { dismiss() }
@@ -49,13 +51,16 @@ extension Item {
             .padding()
         }
       }
-      .presentationDetents([.medium])
+      #endif
     }
 
     @EnvironmentObject private var mainState: MainState
     @Environment(\.dismiss) var dismiss
+    
+    #if os(iOS)
     @Environment(\.verticalSizeClass) var vSize
-
+    #endif
+    
     init(_ item: Item) { self.item = item }
 
     private var project: Project? {

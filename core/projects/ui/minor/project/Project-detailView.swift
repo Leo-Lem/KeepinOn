@@ -44,6 +44,7 @@ extension Project {
           .padding()
           .font(.default(.subheadline))
       }
+      #if os(iOS)
       .overlay(alignment: .topTrailing) {
         if vSize == .compact {
           Button("DISMISS") { dismiss() }
@@ -51,11 +52,15 @@ extension Project {
             .padding()
         }
       }
+      #endif
     }
 
     @EnvironmentObject private var mainState: MainState
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.verticalSizeClass) var vSize
+    
+    #if os(iOS)
+      @Environment(\.verticalSizeClass) var vSize
+    #endif
 
     init(_ project: Project) { self.project = project }
 
@@ -73,7 +78,7 @@ extension Project {
       Group {
         Project.DetailView(.example)
           .previewDisplayName("Bare")
-        
+
         Project.example.detailView()
           .previewInSheet()
           .previewDisplayName("Sheet")

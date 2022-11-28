@@ -12,8 +12,12 @@ struct AppView: View {
       ForEach(Page.allCases, id: \.self) { page in
         NavigationStack {
           page.view()
-            .navigationTitle(page.label)
+              .scrollContentBackground(.hidden)
+              .background(Config.style.background)
+              .navigationTitle(page.label)
+          #if os(iOS)
             .toolbar(.visible, for: .navigationBar)
+          #endif
         }
         .accessibilityElement(children: .contain)
         .accessibilityLabel(page.label)

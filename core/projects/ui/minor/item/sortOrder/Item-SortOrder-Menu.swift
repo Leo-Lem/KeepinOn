@@ -11,7 +11,7 @@ extension Item.SortOrder {
     @Binding var selection: Item.SortOrder
     
     var body: some ToolbarContent {
-      ToolbarItem(placement: .navigationBarLeading) {
+      ToolbarItem(placement: .primaryAction) {
         Menu {
           ForEach(Item.SortOrder.allCases, id: \.self) { order in
             Button(order.label) { selection = order }

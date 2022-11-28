@@ -32,8 +32,6 @@ struct ProjectsView: View {
       }
       .replace(if: vm.projects.count <= 0, placeholder: "NO_PROJECTS_PLACEHOLDER")
       .frame(maxWidth: .infinity, maxHeight: .infinity)
-      .background(Config.style.background)
-      .scrollContentBackground(.hidden)
       .toolbar {
         if !vm.closed { addProjectButton }
         $vm.itemSortOrder.selectionMenu
@@ -47,7 +45,7 @@ struct ProjectsView: View {
 
 private extension ProjectsView.Content {
   var addProjectButton: some ToolbarContent {
-    ToolbarItem(placement: .navigationBarTrailing) {
+    ToolbarItem(placement: .primaryAction) {
       Button { vm.addProject() } label: {
         Label("ADD_PROJECT", systemImage: "plus")
       }

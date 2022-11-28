@@ -11,7 +11,7 @@ enum Config {
              ),
              style = (
                fontName: "American Typewriter",
-               background: Color(.systemGroupedBackground)
+               background: Color.background
              )
 
   static var containerURL: URL {

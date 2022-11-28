@@ -29,7 +29,7 @@ struct CommunityView: View {
     .toolbar {
       accountMenu()
 
-      if case .loading = projects { ToolbarItem(placement: .navigationBarTrailing) { ProgressView() } }
+      if case .loading = projects { ToolbarItem(placement: .navigation) { ProgressView() } }
 
       #if DEBUG
         testDataToolbar()
@@ -62,7 +62,7 @@ private extension CommunityView {
   var hasUser: Bool { mainState.user != nil }
 
   func accountMenu() -> some ToolbarContent {
-    ToolbarItem(placement: .navigationBarLeading) {
+    ToolbarItem(placement: .cancellationAction) {
       Button {
         if isAuthenticated, hasUser { unlockEditing() } else { isAuthenticating = true }
       } label: {

@@ -13,7 +13,7 @@ extension Project {
     let project: Project
 
     var body: some ToolbarContent {
-      ToolbarItemGroup(placement: .navigationBarLeading) {
+      ToolbarItemGroup(placement: .primaryAction) {
         Group {
           if let isPublished = self.isPublished {
             Button(action: publish) {

@@ -8,7 +8,7 @@ import LocalDatabaseService
 import RemoteDatabaseService
 
 extension ProjectsView {
-  @MainActor final class ViewModel: KeepinOn.ViewModel {
+  @MainActor final class ViewModel: BaseViewModel {
     let closed: Bool
 
     // view state

@@ -12,7 +12,7 @@ import RemoteDatabaseService
 import AwardsService
 
 @MainActor
-class ViewModel: ObservableObject {
+class BaseViewModel: ObservableObject {
   let mainState: MainState
 
   var localDBService: LocalDatabaseService { mainState.localDBService }

@@ -16,47 +16,10 @@ struct AwardsView: View {
               .icon(isUnlocked: isUnlocked(award))
               .aspectRatio(1, contentMode: .fit)
           }
-          #if os(iOS)
-          .alert(
-            "\(displayedAward?.name ?? "???") (\(Text(isUnlocked(award) ? "AWARD_UNLOCKED" : "AWARD_LOCKED")))",
-            isPresented: Binding(optional: $displayedAward),
-            presenting: displayedAward
-          ) { award in
-            if award.criterion == .unlock && !isUnlocked(award) {
-              Button { isPurchasing = true } label: {
-                Label("UNLOCK_FULL_VERSION", systemImage: "cart")
-              }
-
-              Button("OK") {}
-            }
-          } message: { award in
-            Text("\(award.description)")
-          }
-          #elseif os(macOS)
-          .popover(item: $displayedAward) { award in
-            let isUnlocked = isUnlocked(award)
-
-            HStack {
-              VStack {
-                Text(isUnlocked ? "AWARD_UNLOCKED \(award.name)" : "AWARD_LOCKED").bold()
-                Text(award.description)
-              }
-            }
-
-            HStack {
-              if award.criterion == .unlock && !isUnlocked {
-                Button { isPurchasing = true } label: { Label("UNLOCK_FULL_VERSION", systemImage: "cart") }
-              }
-            }
-          }
-          #endif
+          .presentAward(award, current: $displayedAward)
         }
       }
       .accessibilityLabel("AWARDS_TITLE")
-    }
-    .background(Config.style.background)
-    .sheet(isPresented: $isPurchasing) {
-      PurchaseID.fullVersion.view(service: mainState.purchaseService)
     }
     .task {
       unlockedAwards = service.unlockedAwards
@@ -68,8 +31,8 @@ struct AwardsView: View {
   }
 
   @EnvironmentObject private var mainState: MainState
+  
   @State private var displayedAward: Award?
-  @State private var isPurchasing = false
   @State private var unlockedAwards = Set<Award>()
 
   private let tasks = Tasks()

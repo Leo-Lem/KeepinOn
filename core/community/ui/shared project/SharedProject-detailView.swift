@@ -19,9 +19,10 @@ extension SharedProject {
         }
         .scrollContentBackground(.hidden)
         .navigationTitle(project.label)
+        
+        #if os(iOS)
         .toolbar {
           ToolbarItem(placement: .bottomBar) { Text("POSTED_BY \(project.owner)") }
-          
           if vSize == .compact {
             ToolbarItem {
               Button("DISMISS") { dismiss() }
@@ -30,6 +31,7 @@ extension SharedProject {
           }
         }
         .toolbar(.visible, for: .navigationBar)
+        #endif
         .accessibilityLabel("SHARED_PROJECT_TITLE")
         .accessibilityValue(project.label)
       }
@@ -37,7 +39,9 @@ extension SharedProject {
 
     @EnvironmentObject private var mainState: MainState
     @Environment(\.dismiss) private var dismiss
+    #if os(iOS)
     @Environment(\.verticalSizeClass) var vSize
+    #endif
     
     @State private var user: User?
 
