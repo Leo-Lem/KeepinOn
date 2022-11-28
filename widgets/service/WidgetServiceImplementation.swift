@@ -3,7 +3,6 @@
 import Combine
 import Concurrency
 import Errors
-import UIKit
 import WidgetKit
 
 class WidgetServiceImplementation: WidgetService {
@@ -34,10 +33,8 @@ class WidgetServiceImplementation: WidgetService {
 
 private extension WidgetServiceImplementation {
   static let filename = "WidgetData.json"
-
+  
   func updateWidgetsOnResignActive() -> Task<Void, Never> {
-    NotificationCenter.default
-      .publisher(for: UIApplication.willResignActiveNotification)
-      .getTask { _ in WidgetCenter.shared.reloadAllTimelines() }
+    resignActivePublisher().getTask { _ in WidgetCenter.shared.reloadAllTimelines() }
   }
 }
