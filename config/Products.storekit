@@ -11,8 +11,13 @@
       "localizations" : [
         {
           "description" : "Unlimited Projects with Unlimited Items!",
-          "displayName" : "Unlock Full Version",
+          "displayName" : "Unlock Premium",
           "locale" : "en_US"
+        },
+        {
+          "description" : "Unbegrenzt Projekte und Einträge hinzufügen!",
+          "displayName" : "Hol dir Premium",
+          "locale" : "de"
         }
       ],
       "productID" : "LeoLem.KeepinOn.fullVersion",

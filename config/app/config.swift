@@ -11,7 +11,7 @@ enum Config {
              ),
              style = (
                fontName: "American Typewriter",
-               background: Color.background
+               background: Color.defaultBackgroundColor
              )
 
   static var containerURL: URL {
@@ -20,5 +20,12 @@ enum Config {
   
   static var appname: String {
     (Bundle.main.infoDictionary?[kCFBundleNameKey as String] as? String)!
+  }
+}
+
+@available(iOS 14, macOS 11, *)
+extension Font {
+  static func `default`(_ style: XKitFont.TextStyle = .body) -> Font {
+    .custom(Config.style.fontName, size: XKitFont.preferredFont(forTextStyle: style).pointSize)
   }
 }

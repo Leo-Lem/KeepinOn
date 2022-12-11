@@ -2,7 +2,7 @@
 
 import Foundation
 
-struct Comment: Identifiable, Hashable {
+struct Comment: Identifiable, Hashable, Codable {
   let id: UUID,
       timestamp: Date
   

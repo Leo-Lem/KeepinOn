@@ -1,12 +1,12 @@
 //  Created by Leopold Lemmermann on 24.10.22.
 
-import SwiftUI
 import LeosMisc
+import SwiftUI
 
 @main struct Main: App {
   var body: some Scene {
     WindowGroup {
-      AppView()
+      EntryView()
         .awaitSetup { await MainState() } placeholder: {
           ProgressView()
         }

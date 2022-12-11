@@ -1,57 +1,18 @@
-//	Created by Leopold Lemmermann on 07.10.22.
+//	Created by Leopold Lemmermann on 29.11.22.
 
-import AwardsService
-import Concurrency
-import InAppPurchaseService
-import LeosMisc
-import SwiftUI
+import AwardsUI
 
 struct AwardsView: View {
   var body: some View {
-    ScrollView {
-      LazyVGrid(columns: [GridItem(.adaptive(minimum: 100, maximum: 100))]) {
-        ForEach(allAwards) { award in
-          Button { displayedAward = award } label: {
-            award
-              .icon(isUnlocked: isUnlocked(award))
-              .aspectRatio(1, contentMode: .fit)
-          }
-          .presentAward(award, current: $displayedAward)
-        }
-      }
+    AwardsUI.AwardsView(service: mainState.awardsService, isPurchasing: $isPurchasing)
+      .buttonStyle(.borderless)
+      .popover(isPresented: $isPurchasing) { InAppPurchaseView(.fullVersion) }
+      .navigationTitle("AWARDS_TITLE")
+      .accessibilityElement(children: .contain)
       .accessibilityLabel("AWARDS_TITLE")
-    }
-    .task {
-      unlockedAwards = service.unlockedAwards
-
-      tasks.add(service.didChange.getTask(.high) { change in
-        if case let .unlocked(award) = change { unlockedAwards.insert(award) }
-      })
-    }
   }
-
-  @EnvironmentObject private var mainState: MainState
   
-  @State private var displayedAward: Award?
-  @State private var unlockedAwards = Set<Award>()
-
-  private let tasks = Tasks()
+  @State private var isPurchasing = false
+  
+  @EnvironmentObject private var mainState: MainState
 }
-
-private extension AwardsView {
-  var service: AwardsService { mainState.awardsService }
-  var allAwards: [Award] { service.allAwards }
-
-  func isUnlocked(_ award: Award) -> Bool { unlockedAwards.contains(award) }
-}
-
-// MARK: - (PREVIEWS)
-
-#if DEBUG
-  struct AwardsView_Previews: PreviewProvider {
-    static var previews: some View {
-      AwardsView()
-        .configureForPreviews()
-    }
-  }
-#endif

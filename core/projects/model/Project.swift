@@ -1,8 +1,9 @@
 //	Created by Leopold Lemmermann on 07.10.22.
 
 import Foundation
+import Colors
 
-struct Project: Identifiable, Hashable, Codable {
+struct Project: Identifiable, Equatable, Hashable, Codable {
   let id: UUID, timestamp: Date
 
   var title: String,

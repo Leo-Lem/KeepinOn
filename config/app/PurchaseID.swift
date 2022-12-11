@@ -2,6 +2,6 @@
 
 import InAppPurchaseService
 
-enum PurchaseID: String, PurchaseIdentifiable {
+enum PurchaseID: String, PurchaseIdentifiable, Codable {
   case fullVersion = "LeoLem.KeepinOn.fullVersion"
 }

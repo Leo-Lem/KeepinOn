@@ -2,7 +2,7 @@
 
 import Foundation
 
-struct Item: Identifiable, Hashable, Codable {
+struct Item: Identifiable, Equatable, Hashable, Codable {
   let id: UUID, timestamp: Date
 
   var title: String,
@@ -31,11 +31,9 @@ struct Item: Identifiable, Hashable, Codable {
 }
 
 extension Item {
-  enum Priority: Int, CaseIterable, Equatable, Codable {
+  enum Priority: Int, CaseIterable, Equatable, Codable, Comparable {
     case low = 1, mid, high
+    
+    static func < (lhs: Self, rhs: Self) -> Bool { lhs.rawValue < rhs.rawValue }
   }
-}
-
-extension Item.Priority: Comparable {
-  static func < (lhs: Self, rhs: Self) -> Bool { lhs.rawValue < rhs.rawValue }
 }

@@ -14,6 +14,13 @@
 "EDIT" = "Bearbeiten";
 "DISABLED" = "Deaktiviert";
 
+/* tabs */
+"AWARDS_TAB" = "Auszeichnungen";
+"HOME_TAB" = "Übersicht";
+"OPEN_TAB" = "Offen";
+"CLOSED_TAB" = "Abgeschlossen";
+"COMMUNITY_TAB" = "Community";
+
 
 
 // MARK: - (PROJECTS)
@@ -25,10 +32,14 @@
 "SHOW_PROJECT_DETAILS" = "Zeige Details";
 "SHOW_ITEM_DETAILS" = "Zeige Details";
 "CREATED_ON %@" = "erstellt am %@";
+"CLICK_TO_ADD_FIRST_PROJECT" = "Drücke hier, um dein erstes Projekt hinzuzufügen!";
 
 /* projects */
-"OPEN_TITLE" = "Offen";
-"CLOSED_TITLE" = "Abgeschlossen";
+"CLOSED" = "Abgeschlossen";
+"OPEN" = "Offen";
+
+"OPEN_TITLE" = "Offene Projekte";
+"CLOSED_TITLE" = "Abgeschlossene Projekte";
 "ADD_PROJECT" = "Projekt hinzufügen";
 "ADD_ITEM" = "Eintrag hinzufügen";
 "NO_PROJECTS_PLACEHOLDER" = "Hier gibt's nichts zu sehen.";
@@ -92,23 +103,11 @@
 
 
 
-// MARK: - (AWARDS)
-"AWARDS_TITLE" = "Auszeichnungen";
-"UNLOCK_FULL_VERSION" = "Jetzt freischalten!";
-"AWARD_LOCKED" = "Noch nicht freigeschaltet";
-"AWARD_UNLOCKED" = "Freigeschaltet";
-"AWARD_UNLOCKED %@" = "Du hast %@ freigeschaltet!";
-
-/* a11y */
-"A11Y_SHOWING_AWARD" = "Auszeichnung anzeigen";
-"A11Y_AWARD_LOCKED" = "Auszeichnung noch nicht freigeschaltet";
-"A11Y_AWARD_UNLOCKED" = "Auszeichnung freigeschaltet";
-
-
-
 // MARK: - (COMMUNITY)
 "COMMUNITY_TITLE" = "Community";
-"CANT_CONNECT_TO_ICLOUD_TITLE" = "Oh nein, die Verbindung zu iCloud konnte nicht hergestellt werden...";
+
+/* iCloud */
+"CANT_CONNECT_TO_ICLOUD_TITLE" = "Oh nein, keine Verbindung zu iCloud...";
 "CANT_CONNECT_TO_ICLOUD_MESSAGE" = "Bitte überprüfe deine Internetverbindung und logge dich in iCloud ein.";
 
 /* projects */
@@ -120,7 +119,7 @@
 "NO_SHAREDITEMS_PLACEHOLDER" = "Dieses Projekt hat keine Einträge…";
 
 /* comments */
-"NO_COMMENTS_PLACEHOLDER" = "Diese Projekt hat noch keine Kommentare… Schreib du doch den ersten :)";
+"NO_COMMENTS_PLACEHOLDER" = "Dieses Projekt hat noch keine Kommentare… Schreib doch den ersten :)";
 "COMMENTS_HEADER" = "Kommentare…";
 "ENTER_COMMENT_PROMPT" = "Gib deinen Kommentar ein";
 "SIGN_IN_TO_COMMENT" = "Du musst dich anmelden um zu kommentieren";
@@ -138,6 +137,8 @@
 
 
 // MARK: - (MINOR)
+
+"AWARDS_TITLE" = "Auszeichnungen";
 
 /* widgets */
 "WIDGET_TITLE" = "Als nächstes…";
@@ -158,17 +159,3 @@
 
 "A11Y_CUSTOMIZE_ACCOUNT" = "Passe deinen Account an.";
 "A11Y_USER %@ %@" = "%@ (Nutzer-ID: %@)";
-
-/* colors */
-"PINK" = "Rosa";
-"PURPLE" = "Lila";
-"RED" = "Rot";
-"ORANGE" = "Orange";
-"GOLD" = "Gold";
-"GREEN" = "Grün";
-"TEAL" = "Aquamarin";
-"LIGHT_BLUE" = "Hellblau";
-"DARK_BLUE" = "Dunkelblau";
-"MIDNIGHT" = "Mitternacht";
-"DARK_GRAY" = "Dunkelgrau";
-"GRAY" = "Grau";

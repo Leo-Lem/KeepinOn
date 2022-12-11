@@ -1,5 +1,5 @@
 // MARK: - (GENERAL)
-"EMPTY_TAB_PLACEHOLDER" = "Please select something from the menu to begin.";
+"EMPTY_TAB_PLACEHOLDER" = "Please select something from the menu.";
 
 /* generic */
 "OK" = "OK";
@@ -14,21 +14,31 @@
 "EDIT" = "Edit";
 "DISABLED" = "Disabled";
 
+/* tabs */
+"AWARDS_TAB" = "Awards";
+"HOME_TAB" = "Overview";
+"OPEN_TAB" = "Open";
+"CLOSED_TAB" = "Closed";
+"COMMUNITY_TAB" = "Community";
 
 
 // MARK: - (PROJECTS)
 
 /* home */
-"HOME_TITLE" = "Home";
+"HOME_TITLE" = "Overview";
 "NEXT_ITEMS" = "Up next";
 "MORE_ITEMS" = "More to explore";
 "SHOW_PROJECT_DETAILS" = "Show Details";
 "SHOW_ITEM_DETAILS" = "Show Details";
 "CREATED_ON %@" = "created on %@";
+"CLICK_TO_ADD_FIRST_PROJECT" = "Click to add your first Project!";
 
 /* projects */
-"OPEN_TITLE" = "Open";
-"CLOSED_TITLE" = "Closed";
+"CLOSED" = "Closed";
+"OPEN" = "Open";
+
+"OPEN_TITLE" = "Open Projects";
+"CLOSED_TITLE" = "Closed Projects";
 "ADD_PROJECT" = "Add Project";
 "ADD_ITEM" = "Add New Item";
 "NO_PROJECTS_PLACEHOLDER" = "No Projects to see here.";
@@ -92,20 +102,6 @@
 
 
 
-// MARK: - (AWARDS)
-"AWARDS_TITLE" = "Awards";
-"UNLOCK_FULL_VERSION" = "Unlock Now!";
-"AWARD_LOCKED" = "Locked";
-"AWARD_UNLOCKED" = "Unlocked";
-"AWARD_UNLOCKED %@" = "You unlocked %@!";
-
-/* a11y */
-"A11Y_SHOWING_AWARD" = "Showing award.";
-"A11Y_AWARD_LOCKED" = "Locked award";
-"A11Y_AWARD_UNLOCKED" = "Unlocked award";
-
-
-
 // MARK: - (COMMUNITY)
 "COMMUNITY_TITLE" = "Community";
 "FETCHING_DATA_FAILED %@" = "Failed to fetch data: %@";
@@ -140,6 +136,8 @@
 
 // MARK: - (MINOR)
 
+"AWARDS_TITLE" = "Awards";
+
 /* widgets */
 "WIDGET_TITLE" = "Up next…";
 "WIDGET_PLACEHOLDER" = "Nothing!";
@@ -159,17 +157,3 @@
 
 "A11Y_CUSTOMIZE_ACCOUNT" = "Customize your account.";
 "A11Y_USER %@ %@" = "%@ (User ID: %@)";
-
-/* colors */
-"PINK" = "Pink";
-"PURPLE" = "Purple";
-"RED" = "Red";
-"ORANGE" = "Orange";
-"GOLD" = "Gold";
-"GREEN" = "Green";
-"TEAL" = "Teal";
-"LIGHT_BLUE" = "Light Blue";
-"DARK_BLUE" = "Dark Blue";
-"MIDNIGHT" = "Midnight";
-"DARK_GRAY" = "Dark Gray";
-"GRAY" = "Gray";

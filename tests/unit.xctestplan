@@ -1,0 +1,56 @@
+{
+  "configurations" : [
+    {
+      "id" : "402D0684-0A96-4FF0-AF39-B3F02685E50A",
+      "name" : "Config",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : {
+      "targets" : [
+        {
+          "containerPath" : "container:portfolio.xcodeproj",
+          "identifier" : "6E48374428EC991100B67CA4",
+          "name" : "KeepinOn"
+        }
+      ]
+    },
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:portfolio.xcodeproj",
+      "identifier" : "6E48374428EC991100B67CA4",
+      "name" : "KeepinOn"
+    },
+    "testExecutionOrdering" : "random",
+    "undefinedBehaviorSanitizerEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:portfolio.xcodeproj",
+        "identifier" : "6E3DD8532934D962002F883F",
+        "name" : "KeepinOnTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:core\/awards\/awards",
+        "identifier" : "AwardsServiceTests",
+        "name" : "AwardsServiceTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:resources\/lib\/colors",
+        "identifier" : "ColorsTests",
+        "name" : "ColorsTests"
+      }
+    }
+  ],
+  "version" : 1
+}

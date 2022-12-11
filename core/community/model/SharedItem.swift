@@ -2,7 +2,7 @@
 
 import Foundation
 
-struct SharedItem: Identifiable, Hashable {
+struct SharedItem: Identifiable, Hashable, Codable {
   let id: Item.ID
 
   var title: String,
