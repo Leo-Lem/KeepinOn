@@ -13,7 +13,7 @@ import UserNotificationsService
 
 @MainActor final class MainState: ObservableObject {
   let tasks = Tasks()
-  
+
   @Published var authenticationState = AuthenticationState.notAuthenticated
   @Published var hasFullVersion = false
   @Published var sortOrder: Item.SortOrder = .optimized
@@ -46,12 +46,19 @@ import UserNotificationsService
         await self?.setWidgets(on: event)
       }
     #endif
+    
+    await setup()
 
-    // setup
+    #if DEBUG
+      await setupForDebug()
+    #endif
+  }
+  
+  func setup() async {
     hasFullVersion = purchaseService.isPurchased(with: .fullVersion)
     await setAuthenticationState(for: authService.status)
     await setProjectLimitReached(on: .remote)
-
+    
     tasks["handlePrivateDatabaseEvent"] = privateDBService.handleEventsTask { [weak self] event in
       await self?.setProjectLimitReached(on: event)
       await self?.setIndex(on: event)
@@ -68,27 +75,29 @@ import UserNotificationsService
     tasks["showBannerOnAwardsEvent"] = awardsService.handleEventsTask(.high) { [weak self] event in
       self?.showBanner(on: event)
     }
-
-    #if DEBUG
-      if CommandLine.arguments.contains("--under-test") {
-        await (privateDBService as? CoreDataService)!.deleteAll()
-        await (publicDBService as? CloudKitService)!.deleteAll()
-        awardsService.resetProgress()
-        printError(authService.logout)
-      }
-
-      tasks.add(
-        privateDBService.handleEventsTask { print("PrivateDBService: \($0)") },
-        publicDBService.handleEventsTask { print("PublicDBService: \($0)") },
-        purchaseService.handleEventsTask { print("PurchaseService: \($0)") },
-        notificationService.handleEventsTask { print("NotificationService: \($0)") },
-        authService.handleEventsTask { print("AuthService: \($0)") },
-        awardsService.handleEventsTask { print("AwardsService: \($0)") }
-      )
-    #endif
   }
 
   #if DEBUG
+  private func setupForDebug() async {
+    if CommandLine.arguments.contains("--test") {
+      print("!!! TEST SESSION !!!")
+      
+      await (privateDBService as? CoreDataService)!.deleteAll()
+      await (publicDBService as? CloudKitService)!.deleteAll()
+      awardsService.resetProgress()
+      printError(authService.logout)
+    }
+
+    tasks.add(
+      privateDBService.handleEventsTask { print("PrivateDBService: \($0)") },
+      publicDBService.handleEventsTask { print("PublicDBService: \($0)") },
+      purchaseService.handleEventsTask { print("PurchaseService: \($0)") },
+      notificationService.handleEventsTask { print("NotificationService: \($0)") },
+      authService.handleEventsTask { print("AuthService: \($0)") },
+      awardsService.handleEventsTask { print("AwardsService: \($0)") }
+    )
+  }
+  
     static let mock = MainState(mocked: ())
     private init(mocked: Void) {
       privateDBService = .mock

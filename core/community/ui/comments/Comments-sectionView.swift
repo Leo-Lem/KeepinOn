@@ -56,7 +56,7 @@ private extension CommentsSectionView {
       try await mainState.displayError {
         let query = Query<Comment>(\.project, .equal, self.project.id, options: .init(batchSize: 5))
         
-        for try await comments in await mainState.publicDBService.fetch(query) {
+        for try await comments in try await mainState.publicDBService.fetch(query) {
           self.comments.add(comments)
         }
 

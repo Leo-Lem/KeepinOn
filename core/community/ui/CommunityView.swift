@@ -86,7 +86,7 @@ private extension CommunityView {
     do {
       try await mainState.displayError {
         let query = Query<SharedProject>(true, options: .init(batchSize: 5))
-        for try await projects in await mainState.publicDBService.fetch(query) { self.projects.add(projects) }
+        for try await projects in try await mainState.publicDBService.fetch(query) { self.projects.add(projects) }
         projects.finish {}
       }
     } catch { projects.finish { throw error } }

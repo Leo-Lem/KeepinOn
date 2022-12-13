@@ -47,6 +47,7 @@ struct ItemContextActions: ViewModifier {
         Label("COMPLETE_ITEM", systemImage: "checkmark.circle")
     }
     .tint(.green)
+    .accessibilityIdentifier("toggle-item")
   }
   
   func editButton() -> some View {
@@ -54,6 +55,7 @@ struct ItemContextActions: ViewModifier {
       Label("EDIT", systemImage: "square.and.pencil")
     }
     .tint(.yellow)
+    .accessibilityIdentifier("edit-item")
   }
 
   func deleteButton() -> some View {
@@ -63,5 +65,6 @@ struct ItemContextActions: ViewModifier {
       Label("DELETE", systemImage: "trash")
     }
     .tint(.red)
+    .accessibilityIdentifier("delete-item")
   }
 }

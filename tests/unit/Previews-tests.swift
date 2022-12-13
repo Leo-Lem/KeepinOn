@@ -27,24 +27,4 @@ final class PreviewsTests: XCTestCase {
     condition = try await mainState.privateDBService.fetchAndCollect(Query<Item>(true)).count == 0
     XCTAssertTrue(condition, "Items still exist.")
   }
-
-  @MainActor func testRemoteDatabaseService() async throws {
-    guard case .available = await mainState.publicDBService.status else { throw XCTSkip("Can't access CloudKit.") }
-
-    await (mainState.publicDBService as? CloudKitService)!.createSampleData()
-
-    var project = try await mainState.publicDBService
-      .fetchAndCollect(Query<SharedProject>(true, options: .init(maxItems: 1))).first
-
-    XCTAssertNotNil(project, "No project was created.")
-
-    await (mainState.publicDBService as? CloudKitService)!.deleteAll()
-
-    try? await Task.sleep(for: .seconds(1))
-
-    project = try await mainState.publicDBService
-      .fetchAndCollect(Query<SharedProject>(true, options: .init(maxItems: 1))).first
-
-    XCTAssertNil(project, "Project still exists.")
-  }
 }

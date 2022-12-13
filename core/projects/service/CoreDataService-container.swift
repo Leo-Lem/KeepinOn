@@ -35,6 +35,6 @@ extension CoreDataService {
       }
     }
 
-    await self.init(container: container)
+    await self.init(context: container.viewContext)
   }
 }

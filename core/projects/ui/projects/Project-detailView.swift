@@ -29,6 +29,7 @@ extension Project {
         .frame(maxWidth: .infinity)
         .foregroundColor(project.color)
         .accessibilityAddTraits(.isHeader)
+        .accessibilityIdentifier("project-detail-page-header")
 
         Text("\"\(project.detailsLabel)\"")
           .font(.default(.title2))

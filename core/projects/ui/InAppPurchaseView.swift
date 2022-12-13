@@ -8,6 +8,7 @@ struct InAppPurchaseView: View {
   
   var body: some View {
     InAppPurchaseUI.InAppPurchaseView(id: id, service: mainState.purchaseService)
+      .accessibilityIdentifier("iap-popover")
   }
   
   @EnvironmentObject private var mainState: MainState

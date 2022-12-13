@@ -13,7 +13,10 @@ extension Item {
       Form {
         Section("SETTINGS") {
           TextField("ITEM_NAME_PLACEHOLDER", text: $item.title)
+            .accessibilityIdentifier("edit-item-name")
+          
           TextField("ITEM_DESCRIPTION_PLACEHOLDER", text: $item.details)
+            .accessibilityIdentifier("edit-item-description")
         }
 
         Section("PRIORITY") {
@@ -26,6 +29,7 @@ extension Item {
           .pickerStyle(.segmented)
           .labelsHidden()
         }
+        
         Section {
           Toggle("MARK_COMPLETED", isOn: Binding { item.isDone } set: { _ in
             Task(priority: .userInitiated) {
@@ -51,6 +55,7 @@ extension Item {
               Label("SAVE", systemImage: "tray.and.arrow.down")
             }
             .buttonStyle(.borderedProminent)
+            .accessibilityIdentifier("save-item")
           }
         }
         .compactDismissButtonToolbar()

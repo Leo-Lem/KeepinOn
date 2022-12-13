@@ -169,6 +169,10 @@
             argument = "-com.apple.CoreData.CloudKitDebug 0"
             isEnabled = "YES">
          </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--test"
+            isEnabled = "YES">
+         </CommandLineArgument>
       </CommandLineArguments>
       <StoreKitConfigurationFileReference
          identifier = "../../config/Products.storekit">

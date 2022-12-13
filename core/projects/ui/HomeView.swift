@@ -9,7 +9,10 @@ import SwiftUI
 struct HomeView: View {
   var body: some View {
     ScrollView {
-      projects.cardListView()
+      ScrollView(.horizontal, showsIndicators: false) {
+        projects.cardListView()
+      }
+      .accessibilityIdentifier("featured-projects-list")
 
       Group {
 #if os(iOS)
@@ -36,6 +39,7 @@ struct HomeView: View {
     .replace(if: projects.isEmpty && items.isEmpty) {
       Project.AddButton(label: Label("CLICK_TO_ADD_FIRST_PROJECT", systemImage: "rectangle.badge.plus").create)
         .buttonStyle(.borderedProminent)
+        .accessibilityIdentifier("add-first-project")
     }
     .navigationTitle("HOME_TITLE")
     .toolbar {

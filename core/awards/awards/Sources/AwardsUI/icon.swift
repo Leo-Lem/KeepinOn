@@ -20,6 +20,7 @@ extension Award {
           Text(isUnlocked ? "A11Y_AWARD_UNLOCKED" : "A11Y_AWARD_LOCKED", bundle: .module)
         )
         .accessibilityValue(award.name)
+        .accessibilityIdentifier(award.name)
         .if(isUnlocked) { $0.shadow(color: award.colorID.color.opacity(0.8), radius: 5) }
     }
 

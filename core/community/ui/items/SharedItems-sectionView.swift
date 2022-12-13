@@ -50,7 +50,7 @@ private extension SharedItemsSectionView {
     do {
       try await mainState.displayError {
         let query = Query<SharedItem>(\.project, .equal, self.project.id, options: .init(batchSize: 5))
-        for try await items in await mainState.publicDBService.fetch(query) { self.items.add(items) }
+        for try await items in try await mainState.publicDBService.fetch(query) { self.items.add(items) }
         items.finish {}
       }
     } catch { items.finish { throw error } }

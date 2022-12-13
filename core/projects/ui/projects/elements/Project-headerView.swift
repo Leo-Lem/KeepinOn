@@ -24,8 +24,10 @@ extension Project {
             Text(project.label).lineLimit(1)
             AsyncButton { selectedDetail = .project(project) } label: {
               Label("SHOW_PROJECT_DETAILS", systemImage: "info.bubble")
+                .accessibilityIdentifier("show-project-details")
             }
           }
+          
           ProgressView(value: items.progress)
         }
         #elseif os(macOS)
@@ -40,13 +42,17 @@ extension Project {
         Spacer()
 
         project.toggleButton()
+          .accessibilityIdentifier("toggle-project")
 
         if canEdit {
           AsyncButton { selectedDetail = .editProject(project) } label: {
             Label("EDIT_PROJECT", systemImage: "square.and.pencil")
+              .accessibilityIdentifier("edit-project")
           }
           .tint(.yellow)
+          
           project.deleteButton()
+            .accessibilityIdentifier("delete-project")
         }
       }
       .labelStyle(.iconOnly)

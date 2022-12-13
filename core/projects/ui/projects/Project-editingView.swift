@@ -18,9 +18,11 @@ extension Project {
         Section("PROJECT_SETTINGS") {
           TextField("PROJECT_NAME_PLACEHOLDER", text: $project.title)
             .accessibilityLabel("A11Y_EDIT_PROJECT_NAME")
+            .accessibilityIdentifier("edit-project-name")
 
           TextField("PROJECT_DESCRIPTION_PLACEHOLDER", text: $project.details)
             .accessibilityLabel("A11Y_EDIT_PROJECT_DESCRIPTION")
+            .accessibilityIdentifier("edit-project-description")
         }
 
         Section("PROJECT_SELECT_COLOR") {
@@ -78,6 +80,7 @@ extension Project {
           ToolbarItem(placement: .confirmationAction) {
             saveButton()
               .buttonStyle(.borderedProminent)
+              .accessibilityIdentifier("save-project")
           }
         }
         .compactDismissButtonToolbar()

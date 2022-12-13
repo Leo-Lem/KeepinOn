@@ -40,8 +40,6 @@ extension CoreDataService {
           await insert(item)
         }
       }
-
-      if container.viewContext.hasChanges { printError(container.viewContext.save) }
     }
   }
 
@@ -49,8 +47,6 @@ extension CoreDataService {
     await printError {
       try await deleteAll(Project.self)
       try await deleteAll(Item.self)
-
-      if container.viewContext.hasChanges { printError(container.viewContext.save) }
     }
   }
 }

@@ -1,6 +1,6 @@
 //	Created by Leopold Lemmermann on 29.11.22.
 
-@available(macOS 11, *)
+@available(iOS 14, macOS 11, *)
 extension Award {
   public func earnedBanner() -> some View { EarnedBanner(self) }
   
@@ -21,6 +21,7 @@ extension Award {
         
         Spacer()
       }
+      .accessibilityIdentifier("award-earned-banner")
     }
     
     init(_ award: Award) { self.award = award }
@@ -28,7 +29,7 @@ extension Award {
 }
 
 // MARK: - (PREVIEWS)
-@available(macOS 11, *)
+@available(iOS 14, macOS 11, *)
 struct EarnedBanner_Previews: PreviewProvider {
   static var previews: some View {
     Award.EarnedBanner(.example)

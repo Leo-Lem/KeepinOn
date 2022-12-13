@@ -45,6 +45,9 @@ open class AwardsServiceImpl: AwardsService {
   }
 
   #if DEBUG
-    public func resetProgress() { progress = .init() }
+    public func resetProgress() {
+      progress = .init()
+      unlockedAwards = []
+    }
   #endif
 }

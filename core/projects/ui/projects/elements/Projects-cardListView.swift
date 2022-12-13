@@ -10,26 +10,25 @@ struct ProjectsCardListView: View {
   let projects: [Project]
 
   var body: some View {
-    ScrollView(.horizontal, showsIndicators: false) {
-      LazyHGrid(rows: [GridItem(.fixed(100))]) {
-        ForEach(projects) { project in
-          project.cardView()
-            .platformAdjustedMenu { presentedProject = project } actions: {
-              #if os(iOS)
-              Button { mainState.showPresentation(detail: .editProject(project)) } label: {
-                Label("EDIT_PROJECT", systemImage: "square.and.pencil")
-              }
-              #endif
+    LazyHGrid(rows: [GridItem(.fixed(100))]) {
+      ForEach(projects) { project in
+        project.cardView()
+          .platformAdjustedMenu { presentedProject = project } actions: {
+            #if os(iOS)
+            Button { mainState.showPresentation(detail: .editProject(project)) } label: {
+              Label("EDIT_PROJECT", systemImage: "square.and.pencil")
+                .accessibilityIdentifier("edit-project")
             }
-            .popover(
-              isPresented: Binding { presentedProject == project } set: { presentedProject = $0 ? project : nil },
-              content: project.detailView
-            )
-        }
-        .padding()
+            #endif
+          }
+          .popover(
+            isPresented: Binding { presentedProject == project } set: { presentedProject = $0 ? project : nil },
+            content: project.detailView
+          )
       }
-      .fixedSize(horizontal: false, vertical: true)
+      .padding()
     }
+    .fixedSize(horizontal: false, vertical: true)
   }
 
   @State private var presentedProject: Project?
@@ -41,24 +40,24 @@ struct ProjectsCardListView: View {
 // MARK: - (PREVIEWS)
 
 #if DEBUG
-  struct ProjectListView_Previews: PreviewProvider {
-    static var previews: some View {
-      Form {
-        Section("1 Project") {
-          ProjectsCardListView([.example])
-        }
-
-        Section("3 Projects") {
-          [Project.example, .example, .example].cardListView()
-        }
-
-        Section("No Projects") {
-          [Project]().cardListView()
-        }
+struct ProjectListView_Previews: PreviewProvider {
+  static var previews: some View {
+    Form {
+      Section("1 Project") {
+        ProjectsCardListView([.example])
       }
-      .formStyle(.columns)
-      .padding()
-      .configureForPreviews()
+
+      Section("3 Projects") {
+        [Project.example, .example, .example].cardListView()
+      }
+
+      Section("No Projects") {
+        [Project]().cardListView()
+      }
     }
+    .formStyle(.columns)
+    .padding()
+    .configureForPreviews()
   }
+}
 #endif

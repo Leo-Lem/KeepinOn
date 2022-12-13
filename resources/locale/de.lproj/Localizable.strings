@@ -153,6 +153,10 @@
 "ACCOUNT_CHANGE_DISPLAYNAME" = "Wähle einen neuen Alias.";
 "ACCOUNT_SELECT_COLOR" = "Wähle deine Farbe";
 
+"DELETE_ACCOUNT" = "Account löschen";
+"DELETE_ACCOUNT_ALERT_TITLE" = "Bist du sicher?";
+"DELETE_ACCOUNT_ALERT_MESSAGE" = "Du bist im Begriff deinen Account und alle verbundenen Daten unwiderruflich zu löschen.";
+
 "ANONYMOUS_USER" = "<Unbekannt>";
 "SIGN_INTO_ICLOUD" = "Bitte logge dich in iCloud ein.";
 "AUTHENTICATE_TO_EDIT_ACCOUNT" = "Um deinen Account anzupassen.";

@@ -9,6 +9,7 @@ import SwiftUI
       EntryView()
         .awaitSetup { await MainState() } placeholder: {
           ProgressView()
+            .accessibilityIdentifier("app-is-loading-indicator")
         }
     }
   }

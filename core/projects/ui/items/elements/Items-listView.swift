@@ -28,6 +28,7 @@ extension Project {
           AsyncButton(indicatorStyle: .replace, taskPriority: .userInitiated) { await addItem() } label: {
             Label("ADD_ITEM", systemImage: "plus.circle")
           }
+          .accessibilityIdentifier("add-item")
           .popover(isPresented: $isPurchasing) { InAppPurchaseView(.fullVersion) }
         }
       }

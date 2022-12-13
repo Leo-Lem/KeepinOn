@@ -20,6 +20,7 @@ struct ProjectsView: View {
         }
       }
     }
+    .accessibilityIdentifier("projects-list")
     .listStyle(.inset)
     .presentDetail($selectedDetail) { detail in
       switch detail {
@@ -38,7 +39,10 @@ struct ProjectsView: View {
         }
 
         ToolbarItem(placement: .primaryAction) {
-          Project.AddButton { Label("ADD_PROJECT", systemImage: "rectangle.stack.badge.plus.fill") }
+          Project.AddButton {
+            Label("ADD_PROJECT", systemImage: "rectangle.stack.badge.plus.fill")
+              .accessibilityIdentifier("add-project")
+          }
         }
       }
     }

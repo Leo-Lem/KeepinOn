@@ -30,6 +30,8 @@ extension Item {
         .padding()
         .frame(maxWidth: .infinity)
         .foregroundColor(project?.color)
+        .accessibilityAddTraits(.isHeader)
+        .accessibilityIdentifier("item-detail-page-header")
 
         Text("\"\(item.detailsLabel)\"")
           .font(.default(.title2))

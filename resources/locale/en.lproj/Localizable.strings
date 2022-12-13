@@ -151,6 +151,10 @@
 "ACCOUNT_SELECT_COLOR" = "Pick your color";
 "ACCOUNT_CHANGE_DISPLAYNAME" = "Choose a new display name";
 
+"DELETE_ACCOUNT" = "Delete Account";
+"DELETE_ACCOUNT_ALERT_TITLE" = "Are you sure?";
+"DELETE_ACCOUNT_ALERT_MESSAGE" = "You are about to delete your account and everything associated with it (irrevocably).";
+
 "ANONYMOUS_USER" = "<Anonymous>";
 "SIGN_INTO_ICLOUD" = "Please sign into iCloud.";
 "AUTHENTICATE_TO_EDIT_ACCOUNT" = "To customize your account.";
