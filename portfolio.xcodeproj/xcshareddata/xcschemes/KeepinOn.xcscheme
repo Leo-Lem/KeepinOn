@@ -22,34 +22,6 @@
          </BuildActionEntry>
          <BuildActionEntry
             buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Awards"
-               BuildableName = "Awards"
-               BlueprintName = "Awards"
-               ReferencedContainer = "container:core/awards/awards">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Colors"
-               BuildableName = "Colors"
-               BlueprintName = "Colors"
-               ReferencedContainer = "container:resources/lib/colors">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
             buildForRunning = "NO"
             buildForProfiling = "NO"
             buildForArchiving = "NO"
@@ -74,34 +46,6 @@
                BuildableName = "KeepinOnUITests.xctest"
                BlueprintName = "KeepinOnUITests"
                ReferencedContainer = "container:portfolio.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "AwardsServiceTests"
-               BuildableName = "AwardsServiceTests"
-               BlueprintName = "AwardsServiceTests"
-               ReferencedContainer = "container:core/awards/awards">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "ColorsTests"
-               BuildableName = "ColorsTests"
-               BlueprintName = "ColorsTests"
-               ReferencedContainer = "container:resources/lib/colors">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

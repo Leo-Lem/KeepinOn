@@ -8,15 +8,6 @@ extension KeepinOnUITests {
     addProjectAndItem()
     XCTAssertTrue(firstItem.exists)
     
-    // showing details
-    if app.windows.firstMatch.horizontalSizeClass == .regular {
-      firstItem.tap()
-      XCTAssertTrue(app.staticTexts["item-detail-page-header"].exists)
-      dismissPopover()
-    } else {
-      #warning("popover cannot be dismissed in compact size layout.")
-    }
-    
     // completing item
     firstItem.swipeRight()
     projectsList.buttons["toggle-item"].tap()

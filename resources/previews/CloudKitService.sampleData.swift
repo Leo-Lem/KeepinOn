@@ -9,13 +9,13 @@ import SwiftUI
 extension CommunityView {
   @ViewBuilder func testDataButtons() -> some View {
     AsyncButton(indicatorStyle: .replace, taskPriority: .userInitiated) {
-      await (mainState.publicDBService as? CloudKitService)?.createSampleData()
+      await (communityController.databaseService as? CloudKitService)?.createSampleData()
     } label: {
       Label("Add data", systemImage: "text.badge.plus")
     }
 
     AsyncButton(indicatorStyle: .replace, taskPriority: .userInitiated) {
-      await (mainState.publicDBService as? CloudKitService)?.deleteAll()
+      await (communityController.databaseService as? CloudKitService)?.deleteAll()
     } label: {
       Label("Delete All", systemImage: "text.badge.xmark")
     }

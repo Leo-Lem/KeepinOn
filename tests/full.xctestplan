@@ -45,17 +45,17 @@
     {
       "parallelizable" : true,
       "target" : {
-        "containerPath" : "container:core\/awards\/awards",
-        "identifier" : "AwardsServiceTests",
-        "name" : "AwardsServiceTests"
+        "containerPath" : "container:resources\/lib\/colors",
+        "identifier" : "ColorsTests",
+        "name" : "ColorsTests"
       }
     },
     {
       "parallelizable" : true,
       "target" : {
-        "containerPath" : "container:resources\/lib\/colors",
-        "identifier" : "ColorsTests",
-        "name" : "ColorsTests"
+        "containerPath" : "container:core\/awards\/awards controller",
+        "identifier" : "AwardsControllerTests",
+        "name" : "AwardsControllerTests"
       }
     }
   ],

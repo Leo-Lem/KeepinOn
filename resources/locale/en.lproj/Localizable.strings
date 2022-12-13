@@ -134,22 +134,39 @@
 
 
 
-// MARK: - (MINOR)
-
+// MARK: - (AWARDS)
 "AWARDS_TITLE" = "Awards";
 
-/* widgets */
-"WIDGET_TITLE" = "Up next…";
-"WIDGET_PLACEHOLDER" = "Nothing!";
-"WIDGET_SIMPLE_DESCRIPTION" = "Your #1 top-priority item.";
-"WIDGET_COMPLEX_DESCRIPTION" = "Your most important items.";
+/* details */
+"AWARD_LOCKED" = "Locked";
+"AWARD_UNLOCKED" = "Unlocked";
+"UNLOCK_FULL_VERSION" = "Unlock Now!";
 
-/* account */
+/* banner */
+"AWARD_UNLOCKED %@" = "You unlocked %@!";
+
+/* a11y */
+"A11Y_SHOWING_AWARD" = "Showing award.";
+"A11Y_AWARD_LOCKED" = "Locked award";
+"A11Y_AWARD_UNLOCKED" = "Unlocked award";
+
+/* more */
+"OK" = "OK";
+
+
+
+// MARK: - (ACCOUNT)
+
 "ACCOUNT_TITLE" = "Your Account";
 "ACCOUNT_EDIT" = "Customize";
+"ACCOUNT_LOGIN" = "Login";
 "ACCOUNT_LOGOUT" = "Logout";
 "ACCOUNT_SELECT_COLOR" = "Pick your color";
 "ACCOUNT_CHANGE_DISPLAYNAME" = "Choose a new display name";
+
+"CHANGE_PIN" = "Change password";
+"CHANGE_PIN_PROMPT" = "Choose a new password";
+"NEW_PIN" = "Enter new password";
 
 "DELETE_ACCOUNT" = "Delete Account";
 "DELETE_ACCOUNT_ALERT_TITLE" = "Are you sure?";
@@ -161,3 +178,12 @@
 
 "A11Y_CUSTOMIZE_ACCOUNT" = "Customize your account.";
 "A11Y_USER %@ %@" = "%@ (User ID: %@)";
+
+
+
+// MARK: - (WIDGETS)
+
+"WIDGET_TITLE" = "Up next…";
+"WIDGET_PLACEHOLDER" = "Nothing!";
+"WIDGET_SIMPLE_DESCRIPTION" = "Your #1 top-priority item.";
+"WIDGET_COMPLEX_DESCRIPTION" = "Your most important items.";
