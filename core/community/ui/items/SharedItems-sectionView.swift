@@ -63,11 +63,10 @@ private extension SharedItemsSectionView {
         case let .inserted(type, id) where type == SharedItem.self:
           if
             let id = id as? SharedItem.ID,
-            project.items.contains(id),
-            let item: SharedItem = try await mainState.fetch(with: id, fromPrivate: false)
+            let item: SharedItem = try await mainState.fetch(with: id, fromPrivate: false),
+            item.project == project.id
           {
             mainState.insert(item, into: &items.wrapped)
-            items.finish {}
           }
         case let .deleted(type, id) where type == SharedItem.self:
           if let id = id as? SharedItem.ID { mainState.remove(with: id, from: &items.wrapped) }

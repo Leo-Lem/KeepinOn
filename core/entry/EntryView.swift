@@ -3,6 +3,7 @@ import CoreSpotlightService
 import Errors
 import LeosMisc
 import SwiftUI
+import AwardsUI
 
 struct EntryView: View {
   var body: some View {
@@ -37,7 +38,9 @@ struct EntryView: View {
 #if os(iOS)
   @Environment(\.horizontalSizeClass) var hSize
 #endif
-  
+}
+
+private extension EntryView {
   @MainActor func showSpotlightModel(for activity: NSUserActivity) async {
     guard let id = (activity.userInfo?[CoreSpotlightService.activityID] as? String).flatMap(UUID.init) else { return }
 

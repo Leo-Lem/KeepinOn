@@ -6,7 +6,7 @@ import IndexingService
 
 extension MainState {
   @MainActor func setIndex(on event: DatabaseEvent) async {
-    await printError { @MainActor in
+    await printError {
       switch event {
       case let .inserted(type, id):
         switch id {

@@ -33,6 +33,7 @@ struct AccountMenu: View {
         }
       }
       .popover(isPresented: $isAuthenticating, content: AuthenticationView.init)
+      .popover(isPresented: $isEditingUser) { mainState.authenticationState.user?.editingView() }
       .alert("DELETE_ACCOUNT_ALERT_TITLE", isPresented: $isDeletingAccount) {
         Button("DELETE_ACCOUNT", role: .destructive) {
           Task(priority: .userInitiated) {
@@ -52,6 +53,7 @@ struct AccountMenu: View {
 
   @State private var isAuthenticating = false
   @State private var isDeletingAccount = false
+  @State private var isEditingUser = false
   @State private var error: AuthenticationError?
   @SceneStorage("editingIsUnlocked") private var editingIsUnlocked = false
 
@@ -59,16 +61,16 @@ struct AccountMenu: View {
 
   @MainActor func unlockEditing() async {
     await printError {
-      guard case let .authenticated(user) = mainState.authenticationState else { return }
+      guard case .authenticated = mainState.authenticationState else { return }
 
-      if editingIsUnlocked { return mainState.showPresentation(detail: .editUser(user)) }
+      if editingIsUnlocked { return isEditingUser = true }
 
       editingIsUnlocked = try await LAContext().evaluatePolicy(
         .deviceOwnerAuthentication,
         localizedReason: String(localized: "AUTHENTICATE_TO_EDIT_ACCOUNT")
       )
 
-      if editingIsUnlocked { return mainState.showPresentation(detail: .editUser(user)) }
+      if editingIsUnlocked { isEditingUser = true }
     }
   }
 }

@@ -72,11 +72,10 @@ private extension CommentsSectionView {
         case let .inserted(type, id) where type == Comment.self:
           if
             let id = id as? Comment.ID,
-            project.comments.contains(id),
-            let comment: Comment = try await mainState.fetch(with: id, fromPrivate: false)
+            let comment: Comment = try await mainState.fetch(with: id, fromPrivate: false),
+            comment.project == project.id
           {
             mainState.insert(comment, into: &comments.wrapped)
-            comments.finish {}
           }
         case let .deleted(type, id) where type == Comment.self:
           if let id = id as? Comment.ID { mainState.remove(with: id, from: &comments.wrapped) }

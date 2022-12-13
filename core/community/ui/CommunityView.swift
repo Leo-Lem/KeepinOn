@@ -93,7 +93,7 @@ private extension CommunityView {
   }
 
   @MainActor func updateProjects() async {
-    await printError { @MainActor in
+    await printError {
       for await event in mainState.publicDBService.events {
         switch event {
         case let .inserted(type, id) where type == SharedProject.self:
