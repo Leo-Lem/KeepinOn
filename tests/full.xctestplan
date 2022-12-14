@@ -18,6 +18,14 @@
         }
       ]
     },
+    "commandLineArgumentEntries" : [
+      {
+        "argument" : "-com.apple.CoreData.Logging.stderr 0"
+      },
+      {
+        "argument" : "-com.apple.CoreData.CloudKitDebug 0"
+      }
+    ],
     "targetForVariableExpansion" : {
       "containerPath" : "container:portfolio.xcodeproj",
       "identifier" : "6E48374428EC991100B67CA4",
@@ -36,6 +44,10 @@
       }
     },
     {
+      "skippedTests" : [
+        "KeepinOnUITests\/testAuthentication()",
+        "KeepinOnUITests\/testAward()"
+      ],
       "target" : {
         "containerPath" : "container:portfolio.xcodeproj",
         "identifier" : "6EEA625C29324E0700C76FDC",
@@ -48,14 +60,6 @@
         "containerPath" : "container:resources\/lib\/colors",
         "identifier" : "ColorsTests",
         "name" : "ColorsTests"
-      }
-    },
-    {
-      "parallelizable" : true,
-      "target" : {
-        "containerPath" : "container:core\/awards\/awards controller",
-        "identifier" : "AwardsControllerTests",
-        "name" : "AwardsControllerTests"
       }
     }
   ],

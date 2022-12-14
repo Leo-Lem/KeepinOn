@@ -13,7 +13,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>lld</string>
 			<key>zero</key>
-			<string>No items</string>
+			<string>no items</string>
 			<key>one</key>
 			<string>%lld item</string>
 			<key>other</key>
@@ -31,11 +31,29 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>lld</string>
 			<key>zero</key>
-			<string>No projects</string>
+			<string>no projects</string>
 			<key>one</key>
 			<string>%lld project</string>
 			<key>other</key>
 			<string>%lld projects</string>
+		</dict>
+	</dict>
+	<key>COMMENTS %lld</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>zero</key>
+			<string>no comments</string>
+			<key>one</key>
+			<string>%lld comment</string>
+			<key>other</key>
+			<string>%lld comments</string>
 		</dict>
 	</dict>
 </dict>

@@ -15,11 +15,12 @@
 "DISABLED" = "Disabled";
 
 /* tabs */
-"AWARDS_TAB" = "Awards";
 "HOME_TAB" = "Overview";
 "OPEN_TAB" = "Open";
 "CLOSED_TAB" = "Closed";
-"COMMUNITY_TAB" = "Community";
+"FEED_TAB" = "Feed";
+"PROFILE_TAB" = "Profile";
+
 
 
 // MARK: - (PROJECTS)
@@ -31,7 +32,8 @@
 "SHOW_PROJECT_DETAILS" = "Show Details";
 "SHOW_ITEM_DETAILS" = "Show Details";
 "CREATED_ON %@" = "created on %@";
-"CLICK_TO_ADD_FIRST_PROJECT" = "Click to add your first Project!";
+"CLICK_TO_ADD_FIRST_PROJECT" = "Add a first project";
+"ITEMS_ALL_DONE" = "All done for now!";
 
 /* projects */
 "CLOSED" = "Closed";
@@ -102,22 +104,18 @@
 
 
 
-// MARK: - (COMMUNITY)
-"COMMUNITY_TITLE" = "Community";
-"FETCHING_DATA_FAILED %@" = "Failed to fetch data: %@";
+// MARK: - (FEED)
+
+"FEED_TITLE" = "Your Feed";
+
 "CANT_CONNECT_TO_ICLOUD_TITLE" = "Oops, can't connect to iCloud...";
 "CANT_CONNECT_TO_ICLOUD_MESSAGE" = "Please check your internet connection and log into your iCloud account.";
 
-/* projects */
 "SHARED_PROJECT_TITLE" = "Shared project";
 "OWN_USERS_PROJECTS" = "Your Projects";
 "OTHER_USERS_PROJECTS" = "Other people's projects";
-
-/* items */
 "NO_SHAREDITEMS_PLACEHOLDER" = "No items in this project...";
-
-/* comments */
-"NO_COMMENTS_PLACEHOLDER" = "No Comments…";
+"NO_COMMENTS_IN_PROJECT_PLACEHOLDER" = "No comments...";
 "COMMENTS_HEADER" = "Chat about this project…";
 "ENTER_COMMENT_PROMPT" = "Enter your comment here";
 "SIGN_IN_TO_COMMENT" = "Sign in to comment";
@@ -134,50 +132,80 @@
 
 
 
-// MARK: - (AWARDS)
+// MARK: - (PROFILE)
+
+"PROFILE_TITLE" = "Your Profile";
+
+"PLEASE_SIGN_IN" = "Please sign in";
+"AUTHENTICATE_TO_EDIT_ACCOUNT" = "Authenticate to customize your profile";
+
+/* pages */
+"FRIENDS_VIEW" = "Your Friends";
+"YOUR_SHAREDPROJECTS_VIEW" = "Your Shared Projects";
+"YOUR_COMMENTS_VIEW" = "Your Comments";
+
+"YOUR_SHAREDPROJECTS_TITLE" = "Your Projects";
+
+/* friends */
+"ACCEPT_REQUEST" = "Accept Request";
+"DENY_REQUEST" = "Deny request";
+"REVOKE_REQUEST" = "Revoke request";
+"ADD_FRIEND" = "Add friend";
+"REMOVE_FRIEND" = "Remove friend";
+"USER_PROJECTS" = "Projects";
+"USER_COMMENTS" = "Comments";
+"NEW_FRIEND_REQUESTS" = "New requests";
+"SENT_FRIEND_REQUESTS" = "Sent requests";
+
+/* customize */
+"CUSTOMIZE_PROFILE" = "Customize";
+"ACCOUNT_CHANGE_DISPLAYNAME" = "Choose a new display name";
+"ACCOUNT_SELECT_COLOR" = "Pick your color";
+"ACCOUNT_SELECT_AVATAR" = "Pick your avatar";
+"OTHER_SFSYMBOL_PROMPT" = "Use other SF Symbol";
+
+/* info */
+"YOUR_FRIENDS" = "Your friends";
+"YOUR_PROJECTS" = "Your shared projects";
+"YOUR_COMMENTS" = "Your comments";
+"NO_COMMENTS_PLACEHOLDER" = "No Comments…";
+
+/* awards*/
+"AWARDS_VIEW" = "Awards";
 "AWARDS_TITLE" = "Awards";
-
-/* details */
-"AWARD_LOCKED" = "Locked";
-"AWARD_UNLOCKED" = "Unlocked";
+"AWARD_LOCKED %@" = "%@ (Locked)";
+"AWARD_UNLOCKED %@" = "%@ (Unlocked)";
 "UNLOCK_FULL_VERSION" = "Unlock Now!";
-
-/* banner */
-"AWARD_UNLOCKED %@" = "You unlocked %@!";
+"AWARD_WAS_UNLOCKED %@" = "You unlocked %@!";
+"ITEMS_ADDED %@" = "You added %@.";
+"ITEMS_COMPLETED %@" = "You completed %@.";
+"COMMENTS_POSTED %@" = "You posted %@.";
 
 /* a11y */
+"A11Y_CUSTOMIZE_ACCOUNT" = "Customize your account.";
+"A11Y_USER %@ %@" = "%@ (User ID: %@)";
 "A11Y_SHOWING_AWARD" = "Showing award.";
 "A11Y_AWARD_LOCKED" = "Locked award";
 "A11Y_AWARD_UNLOCKED" = "Unlocked award";
-
-/* more */
-"OK" = "OK";
 
 
 
 // MARK: - (ACCOUNT)
 
-"ACCOUNT_TITLE" = "Your Account";
-"ACCOUNT_EDIT" = "Customize";
+/* authentication */
+"LOGGED_IN_AS %@" = "Logged in as '%@'";
 "ACCOUNT_LOGIN" = "Login";
 "ACCOUNT_LOGOUT" = "Logout";
-"ACCOUNT_SELECT_COLOR" = "Pick your color";
-"ACCOUNT_CHANGE_DISPLAYNAME" = "Choose a new display name";
-
 "CHANGE_PIN" = "Change password";
-"CHANGE_PIN_PROMPT" = "Choose a new password";
-"NEW_PIN" = "Enter new password";
-
 "DELETE_ACCOUNT" = "Delete Account";
 "DELETE_ACCOUNT_ALERT_TITLE" = "Are you sure?";
 "DELETE_ACCOUNT_ALERT_MESSAGE" = "You are about to delete your account and everything associated with it (irrevocably).";
+"DELETE_ACCOUNT_WITHOUT_ICLOUD_TITLE" = "Can't connect to iCloud";
+"DELETE_ACCOUNT_WITHOUT_ICLOUD_MESSAGE" = "Without signing into iCloud your data cannot be deleted...";
+"DELETE_ACCOUNT_ANYWAY" = "Delete anyway";
 
 "ANONYMOUS_USER" = "<Anonymous>";
 "SIGN_INTO_ICLOUD" = "Please sign into iCloud.";
-"AUTHENTICATE_TO_EDIT_ACCOUNT" = "To customize your account.";
-
-"A11Y_CUSTOMIZE_ACCOUNT" = "Customize your account.";
-"A11Y_USER %@ %@" = "%@ (User ID: %@)";
 
 
 

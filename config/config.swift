@@ -3,21 +3,22 @@
 import SwiftUI
 
 enum Config {
-  static let freeLimits = (projects: 3, items: 5),
-             quickActionPrefix = "portfolio://",
-             id = (
-               group: "group.LeoLem.KeepinOn",
-               cloudKit: "iCloud.LeoLem.KeepinOn"
-             ),
-             style = (
-               fontName: "American Typewriter",
-               background: Color.defaultBackgroundColor
-             )
+  static let freeLimits = (projects: 3, items: 5)
+  static let quickActionPrefix = "portfolio://"
+  static let id = (
+    group: "group.LeoLem.KeepinOn",
+    cloudKit: "iCloud.LeoLem.KeepinOn"
+  )
+  static let style = (
+    fontName: "American Typewriter",
+    background: Color.defaultBackgroundColor
+  )
+  static let apiURL = "https://auth.leolem.de"
 
   static var containerURL: URL {
     FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: Config.id.group)!
   }
-  
+
   static var appname: String {
     (Bundle.main.infoDictionary?[kCFBundleNameKey as String] as? String)!
   }
@@ -28,4 +29,8 @@ extension Font {
   static func `default`(_ style: XKitFont.TextStyle = .body) -> Font {
     .custom(Config.style.fontName, size: XKitFont.preferredFont(forTextStyle: style).pointSize)
   }
+}
+
+extension URL {
+  static var api: URL { URL(string: Config.apiURL)! }
 }
