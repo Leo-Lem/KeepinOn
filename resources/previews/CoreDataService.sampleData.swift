@@ -8,13 +8,13 @@ import SwiftUI
 extension HomeView {
   @ViewBuilder func testDataButtons() -> some View {
     AsyncButton(indicatorStyle: .replace, taskPriority: .userInitiated) {
-      await (mainState.privateDBService as? CoreDataService)?.createSampleData()
+      await (projectsController.databaseService as? CoreDataService)?.createSampleData()
     } label: {
       Label("Add data", systemImage: "text.badge.plus")
     }
 
     AsyncButton(indicatorStyle: .replace, taskPriority: .userInitiated) {
-      await (mainState.privateDBService as? CoreDataService)?.deleteAll()
+      await (projectsController.databaseService as? CoreDataService)?.deleteAll()
     } label: {
       Label("Delete All", systemImage: "text.badge.xmark")
     }

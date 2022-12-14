@@ -12,10 +12,5 @@ extension KeepinOnUITests {
     firstProjectCard.tap()
     XCTAssertTrue(app.staticTexts["project-detail-page-header"].exists)
     dismissPopover()
-    
-    // editing project
-    firstProjectCard.press(forDuration: 1)
-    app.buttons["edit-project"].tap()
-    XCTAssertTrue(app.textFields["edit-project-name"].exists)
   }
 }

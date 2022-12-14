@@ -136,22 +136,39 @@
 
 
 
-// MARK: - (MINOR)
-
+// MARK: - (AWARDS)
 "AWARDS_TITLE" = "Auszeichnungen";
 
-/* widgets */
-"WIDGET_TITLE" = "Als nächstes…";
-"WIDGET_PLACEHOLDER" = "Nichts!";
-"WIDGET_SIMPLE_DESCRIPTION" = "Dein wichtigster Eintrag.";
-"WIDGET_COMPLEX_DESCRIPTION" = "Deine wichtigsten Einträge.";
+/* details */
+"AWARD_LOCKED" = "Noch nicht freigeschaltet";
+"AWARD_UNLOCKED" = "Freigeschaltet";
+"UNLOCK_FULL_VERSION" = "Jetzt freischalten!";
 
-/* account */
+/* banner */
+"AWARD_UNLOCKED %@" = "Du hast %@ freigeschaltet!";
+
+/* a11y */
+"A11Y_SHOWING_AWARD" = "Auszeichnung anzeigen";
+"A11Y_AWARD_LOCKED" = "Auszeichnung noch nicht freigeschaltet";
+"A11Y_AWARD_UNLOCKED" = "Auszeichnung freigeschaltet";
+
+/* more */
+"OK" = "OK";
+
+
+
+// MARK: - (ACCOUNT)
+
 "ACCOUNT_TITLE" = "Dein Account";
 "ACCOUNT_EDIT" = "Anpassen";
+"ACCOUNT_LOGIN" = "Einloggen";
 "ACCOUNT_LOGOUT" = "Ausloggen";
 "ACCOUNT_CHANGE_DISPLAYNAME" = "Wähle einen neuen Alias.";
 "ACCOUNT_SELECT_COLOR" = "Wähle deine Farbe";
+
+"CHANGE_PIN" = "Passwort ändern";
+"CHANGE_PIN_PROMPT" = "Wähle ein neues Passwort";
+"NEW_PIN" = "Neues Passwort";
 
 "DELETE_ACCOUNT" = "Account löschen";
 "DELETE_ACCOUNT_ALERT_TITLE" = "Bist du sicher?";
@@ -163,3 +180,12 @@
 
 "A11Y_CUSTOMIZE_ACCOUNT" = "Passe deinen Account an.";
 "A11Y_USER %@ %@" = "%@ (Nutzer-ID: %@)";
+
+
+
+// MARK: - (WIDGETS)
+
+"WIDGET_TITLE" = "Als nächstes…";
+"WIDGET_PLACEHOLDER" = "Nichts!";
+"WIDGET_SIMPLE_DESCRIPTION" = "Dein wichtigster Eintrag.";
+"WIDGET_COMPLEX_DESCRIPTION" = "Deine wichtigsten Einträge.";

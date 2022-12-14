@@ -2,10 +2,6 @@
 
 import Previews
 
-extension MainState: HasExample {
-  static let example = MainState.mock
-}
-
 extension SharedProject: HasExample {
   static var example: SharedProject {
     SharedProject(
