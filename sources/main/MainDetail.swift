@@ -1,13 +1,13 @@
 // Created by Leopold Lemmermann on 18.12.22.
 
 enum MainDetail: Hashable {
-  case project(Project)
-  case editProject(Project)
-  case item(Item)
-  case editItem(Item)
-  case sharedProject(SharedProject)
-  case user(User)
-  case customize(User)
+  case project(id: Project.ID)
+  case editProject(id: Project.ID)
+  case item(id: Item.ID)
+  case editItem(id: Item.ID)
+  case sharedProject(id: SharedProject.ID)
+  case user(id: User.ID)
+  case customize(id: User.ID)
   case awards(id: User.ID)
   case friends(id: User.ID)
   case projects(id: User.ID)
@@ -18,13 +18,13 @@ enum MainDetail: Hashable {
 extension MainDetail: Identifiable {
   var id: String {
     switch self {
-    case let .project(project): return "project-\(project.id)"
-    case let .editProject(project): return "editProject-\(project.id)"
-    case let .item(item): return "item-\(item.id)"
-    case let .editItem(item): return "editItem-\(item.id)"
-    case let .sharedProject(shared): return "sharedProject-\(shared.id)"
-    case let .user(user): return "user-\(user.id)"
-    case let .customize(user): return "customize-\(user.id)"
+    case let .project(id): return "project-\(id)"
+    case let .editProject(id): return "editProject-\(id)"
+    case let .item(id): return "item-\(id)"
+    case let .editItem(id): return "editItem-\(id)"
+    case let .sharedProject(id): return "sharedProject-\(id)"
+    case let .user(id): return "user-\(id)"
+    case let .customize(id): return "customize-\(id)"
     case let .awards(id): return "awards-\(id)"
     case let .friends(id): return "friends-\(id)"
     case let .projects(id): return "projects-\(id)"
@@ -40,13 +40,13 @@ extension MainDetail {
   // swiftlint:disable:next cyclomatic_complexity
   @ViewBuilder func view(size: SizeClass) -> some View {
     switch self {
-    case let .project(project): project.detailView()
-    case let .editProject(project): project.editingView()
-    case let .item(item): item.detailView()
-    case let .editItem(item): item.editingView()
-    case let .sharedProject(project): project.detailView()
-    case let .user(user): user.detailView()
-    case let .customize(user): User.CustomizationView(user)
+    case let .project(id): Project.DetailView(id: id)
+    case let .editProject(id): Project.EditingView(id: id)
+    case let .item(id): Item.DetailView(id: id)
+    case let .editItem(id): Item.EditingView(id: id)
+    case let .sharedProject(id): SharedProject.DetailView(id: id)
+    case let .user(id): User.DetailView(id: id)
+    case let .customize(id): User.CustomizationView(id: id)
     case let .awards(id): User.AwardsView()
     case let .friends(id): User.FriendsView(currentUserID: id)
     case let .projects(id): User.SharedProjectsView(currentUserID: id)

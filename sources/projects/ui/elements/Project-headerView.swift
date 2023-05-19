@@ -3,28 +3,30 @@
 import SwiftUI
 
 extension Project {
-  func headerView(canEdit: Bool) -> some View { HeaderView(self, canEdit: canEdit) }
-
   struct HeaderView: View {
-    let project: Project
+    let id: Project.ID
     let canEdit: Bool
 
     var body: some View {
-      WithConvertiblesViewStore(
-        matching: .init(\.project, project.id),
-        from: \.privateDatabase.items,
-        loadWith: .init { MainReducer.Action.privateDatabase(.items($0)) }
-      ) { items in
-        Render(project, canEdit: canEdit, items: items)
+      WithConvertibleViewStore(
+        with: id, from: \.privateDatabase.projects, loadWith: .init { .privateDatabase(.projects($0)) }
+      ) { convertible in
+        Unwrap(convertible) { (project: Project) in
+          WithConvertiblesViewStore(
+            matching: .init(\.project, id),
+            from: \.privateDatabase.items, loadWith: .init { .privateDatabase(.items($0)) }
+          ) { items in
+            Render(project, canEdit: canEdit, items: items)
+          }
+        }
       }
     }
-
-    init(_ project: Project, canEdit: Bool) { (self.project, self.canEdit) = (project, canEdit) }
 
     struct Render: View {
       let project: Project
       let canEdit: Bool
       let items: [Item]
+      let present: (MainDetail) -> Void
 
       var body: some View {
         HStack {
@@ -33,7 +35,7 @@ extension Project {
               HStack {
                 Text(project.label).lineLimit(1)
 
-                Button { present(MainDetail.project(project)) } label: {
+                Button { present(.project(id: project.id)) } label: {
                   Label("SHOW_PROJECT_DETAILS", systemImage: "info.bubble")
                 }
                 .accessibilityIdentifier("show-project-details")
@@ -42,7 +44,7 @@ extension Project {
               ProgressView(value: items.progress)
             }
           #elseif os(macOS)
-            Button { present(MainDetail.project(project)) } label: {
+          Button { present(MainDetail.project(id: project.id)) } label: {
               Text(project.label).lineLimit(1)
               Spacer()
             }
@@ -52,17 +54,17 @@ extension Project {
 
           Spacer()
 
-          Project.ActionMenu.toggle(project)
+          Project.ToggleMenu(id: project.id, feedback: [])
             .accessibilityIdentifier("toggle-project")
 
           if canEdit {
-            Button { present(MainDetail.editProject(project)) } label: {
+            Button { present(.editProject(id: project.id)) } label: {
               Label("EDIT_PROJECT", systemImage: "square.and.pencil")
             }
             .accessibilityIdentifier("edit-project")
             .tint(.yellow)
 
-            Project.ActionMenu.delete(project)
+            Project.DeleteMenu(id: project.id)
               .accessibilityIdentifier("delete-project")
           }
         }
@@ -72,8 +74,6 @@ extension Project {
         .accessibilityElement(children: .contain)
         .accessibilityLabel(project.a11y(items))
       }
-
-      @Environment(\.present) var present
 
       init(_ project: Project, canEdit: Bool, items: [Item]) {
         (self.project, self.canEdit, self.items) = (project, canEdit, items)

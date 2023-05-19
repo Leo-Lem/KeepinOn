@@ -5,7 +5,10 @@ import ComposableArchitecture
 struct InAppPurchases: ReducerProtocol {
   @Dependency(\.inAppPurchaseService) private var service
   
-  struct State: Equatable { var hasFullVersion: Bool }
+  struct State: Equatable {
+    var hasFullVersion: Bool
+  }
+  
   enum Action {
     case setHasFullVersion(Bool)
     case enableUpdates

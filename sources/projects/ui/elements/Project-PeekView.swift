@@ -11,8 +11,7 @@ extension Project {
     var body: some View {
       WithConvertiblesViewStore(
         matching: .init(\.project, project.id),
-        from: \.privateDatabase.items,
-        loadWith: .init { MainReducer.Action.privateDatabase(.items($0)) }
+        from: \.privateDatabase.items, loadWith: .init { .privateDatabase(.items($0)) }
       ) { items in
         Render(project, items: items)
       }

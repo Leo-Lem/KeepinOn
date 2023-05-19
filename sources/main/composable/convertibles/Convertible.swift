@@ -26,6 +26,10 @@ struct Convertible<T: DatabaseObjectConvertible & Hashable>: ReducerProtocol {
     case loadFor(query: Query<T>)
     case reload
     case enableUpdates
+    
+    static func modifyWith<U>(id: T.ID, property: WritableKeyPath<T, U>, newValue: U) -> Self {
+      return .modifyWith(id: id) { $0[keyPath: property] = newValue }
+    }
   }
 
   // swiftlint:disable:next cyclomatic_complexity
@@ -41,10 +45,10 @@ struct Convertible<T: DatabaseObjectConvertible & Hashable>: ReducerProtocol {
     
     case let .add(convertible):
       return .task { .insert(try await service.insert(convertible)) }
-    
+      
     case let .modifyWith(id, modification):
       return .task { .insert(try await service.modify(T.self, with: id, modification: modification)) }
-    
+      
     case let .deleteWith(id):
       return .task {
         try await service.delete(T.self, with: id)

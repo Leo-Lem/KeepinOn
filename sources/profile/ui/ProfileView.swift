@@ -9,9 +9,10 @@ import SwiftUI
 
 struct ProfileView: View {
   var body: some View {
-    WithViewStore(store) { $0.account.id } send: { (_: ViewAction) in .account(.loadID) } content: { userID in
-      Render(currentUserID: userID.state)
-        .task { await userID.send(.load).finish() }
+    WithPresentationViewStore { _, detail in
+      WithAccountViewStore { currentUserID, _ in
+        Render(currentUserID: currentUserID, detail: detail)
+      }
     }
   }
   
@@ -21,20 +22,21 @@ struct ProfileView: View {
   
   struct Render: View {
     let currentUserID: User.ID?
+    @Binding var detail: MainDetail
     
     var body: some View {
       if let currentUserID {
         VStack {
           List {
-            Button { present(MainDetail.friends(id: currentUserID)) } label: {
+            Button { detail = .friends(id: currentUserID) } label: {
               Label("FRIENDS_VIEW", systemImage: "person.3")
             }
             
-            Button { present(MainDetail.projects(id: currentUserID)) } label: {
+            Button { detail = .projects(id: currentUserID) } label: {
               Label("YOUR_SHAREDPROJECTS_VIEW", systemImage: "square.and.arrow.up.on.square")
             }
             
-            Button { present(MainDetail.comments(id: currentUserID)) } label: {
+            Button { detail = .comments(id: currentUserID) } label: {
               Label("YOUR_COMMENTS_VIEW", systemImage: "text.bubble")
             }
           }
@@ -52,7 +54,6 @@ struct ProfileView: View {
     }
     
     @State private var isAuthenticating = false
-    @Environment(\.present) private var present
     @Dependency(\.authenticationService) private var authService
   }
 }
@@ -63,8 +64,9 @@ struct ProfileView: View {
 struct ProfileView_Previews: PreviewProvider {
   static var previews: some View {
     Group {
-      ProfileView.Render(currentUserID: User.example.id)
-      ProfileView.Render(currentUserID: nil).previewDisplayName("Not logged in")
+      ProfileView.Render(currentUserID: User.example.id, detail: .constant(.empty))
+      ProfileView.Render(currentUserID: nil, detail: .constant(.empty))
+        .previewDisplayName("Not logged in")
     }
     .presentPreview()
   }

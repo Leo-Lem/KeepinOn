@@ -35,7 +35,7 @@ extension Project {
           }
         }
         .replace(if: projects.isEmpty) {
-          Project.ActionMenu.add
+          Project.AddMenu()
             .buttonStyle(.presentBordered())
             .padding()
             .accessibilityIdentifier("add-first-project")
@@ -52,7 +52,7 @@ extension Project {
         ForEach(projects) { project in
           project.peekView()
             .onTapGesture { presentedProject = project }
-            .presentModal($presentedProject, presented: project) { $0.detailView() }
+            .presentModal($presentedProject, presented: project) { Project.DetailView(id: $0.id) }
         }
       }
     }

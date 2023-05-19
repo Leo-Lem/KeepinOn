@@ -3,22 +3,26 @@
 import SwiftUI
 
 extension Project {
-  func detailView() -> some View { Project.DetailView(self) }
-
   struct DetailView: View {
-    let project: Project
+    let id: Project.ID
 
     var body: some View {
-      WithConvertiblesViewStore(
-        matching: .init(\.project, project.id),
-        from: \.privateDatabase.items,
-        loadWith: .init { MainReducer.Action.privateDatabase(.items($0)) }
-      ) { items in
-        Render(project, items: items)
+      WithConvertibleViewStore(
+        with: id,
+        from: \.privateDatabase.projects,
+        loadWith: .init { MainReducer.Action.privateDatabase(.projects($0)) }
+      ) { project in
+        Unwrap(project) { project in
+          WithConvertiblesViewStore(
+            matching: .init(\.project, project.id),
+            from: \.privateDatabase.items,
+            loadWith: .init { MainReducer.Action.privateDatabase(.items($0)) }
+          ) { items in
+            Render(project, items: items)
+          }
+        }
       }
     }
-
-    init(_ project: Project) { self.project = project }
 
     struct Render: View {
       let project: Project

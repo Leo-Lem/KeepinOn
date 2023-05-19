@@ -2,19 +2,17 @@
 
 import ComposableArchitecture
 import DatabaseService
-import Queries
 import SwiftUI
 
 struct WithConvertiblesViewStore<T: DatabaseObjectConvertible & Hashable, Content: View>: View {
   let query: Query<T>
-  let statePath: StatePath
-  let actionPath: ActionPath
-  let content: ([T]) -> Content
+  let statePath: StatePath, actionPath: ActionPath
+  let content: CreateContent
 
   var body: some View {
-    WithViewStore<ViewState, ViewAction, _>(store) {
+    WithViewStore(store) {
       ViewState(convertibles: $0.convertibles(matching: query))
-    } send: { _ in
+    } send: { (_: ViewAction) in
       .loadFor(query: query)
     } content: { vm in
       content(vm.convertibles)
@@ -30,9 +28,8 @@ struct WithConvertiblesViewStore<T: DatabaseObjectConvertible & Hashable, Conten
 
   init(
     matching query: Query<T>,
-    from statePath: StatePath,
-    loadWith actionPath: ActionPath,
-    @ViewBuilder content: @escaping ([T]) -> Content
+    from statePath: StatePath, loadWith actionPath: ActionPath,
+    @ViewBuilder content: @escaping CreateContent
   ) {
     (self.query, self.statePath, self.actionPath, self.content) = (query, statePath, actionPath, content)
   }
@@ -41,4 +38,5 @@ struct WithConvertiblesViewStore<T: DatabaseObjectConvertible & Hashable, Conten
   enum ViewAction { case load }
   typealias StatePath = KeyPath<MainReducer.State, Convertible<T>.State>
   typealias ActionPath = CasePath<MainReducer.Action, Convertible<T>.Action>
+  typealias CreateContent = ([T]) -> Content
 }

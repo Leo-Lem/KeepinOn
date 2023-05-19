@@ -4,8 +4,8 @@ import LeosMisc
 import SwiftUI
 
 extension MainView {
-  @ViewBuilder func compactLayout() -> some View {
-    TabView(selection: $page) {
+  @ViewBuilder func compactLayout(page: Binding<MainPage>, detail: Binding<MainDetail>) -> some View {
+    TabView(selection: page) {
       ForEach([MainPage.feed, .open, .home, .closed, .profile]) { page in
         page.view(size: size)
           .accessibilityElement(children: .contain)
@@ -18,7 +18,11 @@ extension MainView {
           .tabItem(page.label)
       }
     }
-    .sheet(item: Binding { detail == .empty ? nil : detail } set: { detail = $0 ?? .empty }) { detail in
+    .sheet(item: Binding {
+      detail.wrappedValue == .empty ? nil : detail.wrappedValue
+    } set: {
+      detail.wrappedValue = $0 ?? .empty
+    }) { detail in
       detail.view(size: size)
       #if os(iOS)
       .compactDismissButton()

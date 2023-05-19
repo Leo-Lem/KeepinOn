@@ -3,35 +3,13 @@
 import ComposableArchitecture
 
 extension DependencyValues {
-  var privateDatabaseService: any DatabaseService {
-    get { self[PrivateDatabaseServiceKey.self] }
-    set { self[PrivateDatabaseServiceKey.self] = newValue }
-  }
-  
-  var indexingService: any IndexingService {
-    get { self[IndexingServiceKey.self] }
-    set { self[IndexingServiceKey.self] = newValue }
-  }
-  
-  var publicDatabaseService: any DatabaseService {
-    get { self[PublicDatabaseServiceKey.self] }
-    set { self[PublicDatabaseServiceKey.self] = newValue }
-  }
-  
-  var authenticationService: any AuthenticationService {
-    get { self[AuthenticationServiceKey.self] }
-    set { self[AuthenticationServiceKey.self] = newValue }
-  }
-
-  var pushNotificationService: any PushNotificationService {
-    get { self[NotificationServiceKey.self] }
-    set { self[NotificationServiceKey.self] = newValue }
-  }
-  
-  var inAppPurchaseService: AnyInAppPurchaseService<PurchaseID> {
-    get { self[InAppPurchaseServiceKey.self] }
-    set { self[InAppPurchaseServiceKey.self] = newValue }
-  }
+  var privateDatabaseService: any DatabaseService { self[PrivateDatabaseServiceKey.self] }
+  var indexingService: any IndexingService { self[IndexingServiceKey.self] }
+  var publicDatabaseService: any DatabaseService { self[PublicDatabaseServiceKey.self] }
+  var authenticationService: any AuthenticationService { self[AuthenticationServiceKey.self] }
+  var pushNotificationService: any PushNotificationService { self[NotificationServiceKey.self] }
+  var inAppPurchaseService: AnyInAppPurchaseService<PurchaseID> { self[InAppPurchaseServiceKey.self] }
+  var keyValueStorageService: AnyKeyValueStorageService<String> { self[KeyValueStorageServiceKey.self] }
 }
 
 import CoreDataService
@@ -74,4 +52,11 @@ private enum IndexingServiceKey: DependencyKey {
   static let liveValue: IndexingService = CoreSpotlightService(appname: Config.appname)
   static let testValue: IndexingService = .mock
   static let previewValue: IndexingService = .mock
+}
+
+import UserDefaultsService
+private enum KeyValueStorageServiceKey: DependencyKey {
+  static let liveValue: AnyKeyValueStorageService<String> = .userDefaults(cloudDefaults: .init())
+  static let testValue: AnyKeyValueStorageService<String> = .mock
+  static let previewValue: AnyKeyValueStorageService<String> = .mock
 }

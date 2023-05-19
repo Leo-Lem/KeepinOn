@@ -8,26 +8,19 @@ import SwiftUI
 
 extension Item {
   struct FeaturedView: View {
-    struct ViewState: Equatable { var items: [Item] }
-    enum ViewAction {
-      case loadItems
-      case loadProjects(items: [Item])
-    }
-
     var body: some View {
-      WithViewStore<ViewState, ViewAction, _>(store) { state in
-        let items = state.privateDatabase.items.convertibles(matching: query)
-          .filter { item in !(state.privateDatabase.projects.convertible(with: item.project)?.isClosed ?? true) }
-        return ViewState(items: items)
-      } send: { action in
-          .privateDatabase({
-            switch action {
-            case .loadItems:
-              return .items(.loadFor(query: query))
-            case let .loadProjects(items):
-              return .projects(.loadFor(query: projectsQuery(for: items.map(\.project))))
-            }
-          }())
+      WithViewStore(store) { state in
+        ViewState(
+          items: state.privateDatabase.items.convertibles(matching: query)
+            .filter { item in !(state.privateDatabase.projects.convertible(with: item.project)?.isClosed ?? true) }
+        )
+      } send: { (action: ViewAction) in
+        .privateDatabase({
+          switch action {
+          case .loadItems: return .items(.loadFor(query: query))
+          case let .loadProjects(items): return .projects(.loadFor(query: projectsQuery(for: items.map(\.project))))
+          }
+        }())
       } content: { vm in
         Render(vm.items.sorted(using: .optimized))
           .task {
@@ -42,6 +35,9 @@ extension Item {
     private func projectsQuery(for projectIDs: [Item.ID]) -> Query<Project> {
       Query(projectIDs.map { .init(\.id, $0) }, compound: .or)
     }
+
+    struct ViewState: Equatable { var items: [Item] }
+    enum ViewAction { case loadItems, loadProjects(items: [Item]) }
 
     struct Render: View {
       let items: (next: ArraySlice<Item>, more: ArraySlice<Item>)
@@ -80,7 +76,7 @@ extension Item {
         ForEach(items) { item in
           item.peekView()
             .onTapGesture { presentedItem = item }
-            .presentModal($presentedItem, presented: item) { $0.detailView() }
+            .presentModal($presentedItem, presented: item) { Item.DetailView(id: $0.id) }
         }
       }
     }

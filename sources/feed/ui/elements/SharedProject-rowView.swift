@@ -37,6 +37,7 @@ extension SharedProject {
       let project: SharedProject
       let owner: User?
       let currentUserID: User.ID?
+      let present: (MainDetail) -> Void
 
       var body: some View {
         HStack {
@@ -45,7 +46,7 @@ extension SharedProject {
           Spacer()
 
           if let owner, currentUserID != owner.id {
-            Button { present(MainDetail.user(owner)) } label: {
+            Button { present(.user(id: owner.id)) } label: {
               owner.avatarID.icon()
                 .frame(height: 50)
                 .foregroundColor(owner.color)
@@ -53,12 +54,10 @@ extension SharedProject {
           }
         }
         .buttonStyle(.borderless)
-        .onTapGesture { present(MainDetail.sharedProject(project)) }
+        .onTapGesture { present(.sharedProject(id: project.id)) }
         .accessibilityLabel("A11Y_SHAREDPROJECT")
         .accessibilityValue(project.a11y(owner?.label))
       }
-
-      @Environment(\.present) private var present
 
       init(_ project: SharedProject, owner: User?, currentUserID: User.ID?) {
         (self.project, self.owner, self.currentUserID) = (project, owner, currentUserID)

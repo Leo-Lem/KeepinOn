@@ -3,8 +3,13 @@
 import ComposableArchitecture
 
 struct Sorting: ReducerProtocol {
-  struct State: Equatable { var itemSortOrder: Item.SortOrder }
-  enum Action { case setItemSortOrder(Item.SortOrder) }
+  struct State: Equatable {
+    var itemSortOrder: Item.SortOrder
+  }
+  
+  enum Action {
+    case setItemSortOrder(Item.SortOrder)
+  }
   
   func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
     switch action {

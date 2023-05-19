@@ -3,9 +3,9 @@
 import SwiftUI
 
 extension MainView {
-  @ViewBuilder func regularLayout() -> some View {
+  @ViewBuilder func regularLayout(page: Binding<MainPage>, detail: Binding<MainDetail>) -> some View {
     NavigationSplitView(columnVisibility: $navCols) {
-      List(selection: Binding { page } set: { newValue in page = newValue ?? .home }) {
+      List(selection: Binding { page.wrappedValue } set: { page.wrappedValue = $0 ?? .home }) {
         ForEach([MainPage.home, .open, .closed, .feed, .profile]) { page in
           NavigationLink(value: page, label: page.label)
         }
@@ -20,15 +20,15 @@ extension MainView {
         .buttonStyle(.borderless)
         .padding()
     } content: {
-      page.view(size: size)
-        .navigationTitle(page.title)
+      page.wrappedValue.view(size: size)
+        .navigationTitle(page.wrappedValue.title)
         .accessibilityElement(children: .contain)
-        .accessibilityLabel(page.title)
+        .accessibilityLabel(page.wrappedValue.title)
     } detail: {
-      if page == .home {
+      if page.wrappedValue == .home {
         Item.FeaturedView()
       } else {
-        detail.view(size: size)
+        detail.wrappedValue.view(size: size)
       }
     }
   }

@@ -1,4 +1,5 @@
 import Concurrency
+import ComposableArchitecture
 import CoreSpotlightService
 import Errors
 import LeosMisc
@@ -6,46 +7,72 @@ import SwiftUI
 
 struct MainView: View {
   var body: some View {
-    Group {
-      switch size {
-      case .regular: regularLayout()
-      case .compact: compactLayout()
+    WithViewStore(store) { state in
+      ViewState(
+        spotlightProject: spotlight.flatMap(state.privateDatabase.projects.convertible),
+        spotlightItem: spotlight.flatMap(state.privateDatabase.items.convertible),
+        page: state.navigation.page,
+        detail: state.navigation.detail
+      )
+    } send: { (action: ViewAction) in
+      switch action {
+      case .loadPage: return .navigation(.loadPage)
+      case .loadDetail: return .navigation(.loadDetail)
+      case let .loadProject(id): return .privateDatabase(.projects(.loadWith(id: id)))
+      case let .loadItem(id): return .privateDatabase(.items(.loadWith(id: id)))
+      case let .setPage(page): return .navigation(.setPage(page))
+      case let .setDetail(detail): return .navigation(.setDetail(detail))
       }
-    }
-    .environment(\.present) { presented in
-      switch presented {
-      case let page as MainPage: self.page = page
-      case let detail as MainDetail: self.detail = detail
-      default: break
-      }
-    }
-//    .onContinueUserActivity(CoreSpotlightService.activityType) { activity in
-//      Task(priority: .userInitiated) { await showSpotlightModel(for: activity) }
-//    }
-    .banner(presenting: $banneredAward) { award in
-      award.earnedBanner()
-        .onTapGesture {
-          banneredAward = nil
-          page = .profile
-          // TODO: route to awards page
-//          detail = .awards(id: )
+    } content: { vm in
+      let page = vm.binding(get: \.page) { .setPage($0) }
+      let detail = vm.binding(get: \.detail) { .setDetail($0) }
+      
+      Group {
+        switch size {
+        case .regular: regularLayout(page: page, detail: detail)
+        case .compact: compactLayout(page: page, detail: detail)
         }
+      }
+      .task {
+        await vm.send(.loadPage).finish()
+        await vm.send(.loadDetail).finish()
+      }
+      .onChange(of: spotlight) { newSpotlightID in
+        if let newSpotlightID {
+          vm.send(.loadProject(newSpotlightID))
+          vm.send(.loadItem(newSpotlightID))
+        }
+      }
+      .onContinueUserActivity(CoreSpotlightService.activityType, perform: showSpotlight)
+//      .banner(presenting: $banneredAward) { award in
+//        award.earnedBanner()
+//          .onTapGesture {
+//            banneredAward = nil
+//            vm.send(.setPage(.profile))
+//            // TODO: route to awards page
+//            detail = .awards(id: )
+//          }
+//      }
+      .presentModal(Binding { spotlight != nil } set: { _ in spotlight = nil }) {
+        if let project = vm.spotlightProject {
+          Project.DetailView(id: project.id)
+        } else if let item = vm.spotlightItem {
+          Item.DetailView(id: item.id)
+        }
+      }
+      .font(.default())
+      .buttonStyle(.borderless)
+  #if os(macOS)
+        .listStyle(.inset)
+  #endif
+        .environment(\.size, size)
     }
-    .presentModal($spotlight.item, presented: spotlight.item ?? .example, content: Item.DetailView.init)
-    .presentModal($spotlight.project, presented: spotlight.project ?? .example, content: Project.DetailView.init)
-    .font(.default())
-    .buttonStyle(.borderless)
-#if os(macOS)
-      .listStyle(.inset)
-#endif
-      .environment(\.size, size)
   }
-
-  @AppStorage("currentPage") var page: MainPage = .home
-  @State var detail: MainDetail = .empty
+  
   @State var navCols: NavigationSplitViewVisibility = .all
   @State private var banneredAward: Award?
-  @State private var spotlight: (item: Item?, project: Project?)
+  @State private var spotlight: UUID?
+  @EnvironmentObject private var store: StoreOf<MainReducer>
 
 #if os(iOS)
   var size: SizeClass { hSize == .compact ? .compact : .regular }
@@ -53,18 +80,21 @@ struct MainView: View {
 #elseif os(macOS)
   let size = SizeClass.regular
 #endif
-
-//  @MainActor func showSpotlightModel(for activity: NSUserActivity) async {
-//    guard let id = (activity.userInfo?[CoreSpotlightService.activityID] as? String).flatMap(UUID.init) else { return }
-//
-//    await printError {
-//      if let item: Item = try await projectsController.databaseService.fetch(with: id) {
-//        spotlight.item = item
-//      } else if let project: Project = try await projectsController.databaseService.fetch(with: id) {
-//        spotlight.project = project
-//      }
-//    }
-//  }
+  
+  private func showSpotlight(for activity: NSUserActivity) {
+    spotlight = (activity.userInfo?[CoreSpotlightService.activityID] as? String).flatMap(UUID.init)
+  }
+  
+  struct ViewState: Equatable {
+    var spotlightProject: Project?, spotlightItem: Item?
+    var page: MainPage, detail: MainDetail
+  }
+  
+  enum ViewAction {
+    case loadPage, loadDetail
+    case loadProject(Project.ID), loadItem(Item.ID)
+    case setPage(MainPage), setDetail(MainDetail)
+  }
 }
 
 // MARK: - (PREVIEWS)

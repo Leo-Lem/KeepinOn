@@ -1,8 +1,7 @@
 // Created by Leopold Lemmermann on 18.12.22.
 
 import ComposableArchitecture
-import Errors
-import Queries
+import LeosMisc
 import SwiftUI
 
 extension Project {
@@ -10,58 +9,41 @@ extension Project {
     let closed: Bool
     
     var body: some View {
-      WithViewStore<ViewState, ViewAction, _>(store) { state in
-        let projects = state.privateDatabase.projects.convertibles(matching: query)
-        let items = state.privateDatabase.items.convertibles(matching: itemsQuery(for: projects.map(\.id)))
-        return ViewState(projects: projects, items: items, itemSortOrder: state.sorting.itemSortOrder)
-      } send: { action in
-        switch action {
-        case .load:
-          return .privateDatabase(.projects(.loadFor(query: query)))
-        case let .loadItems(projectIDs):
-          return .privateDatabase(.items(.loadFor(query: itemsQuery(for: projectIDs))))
-        case let .setSortOrder(sortOrder):
-          return .sorting(.setItemSortOrder(sortOrder))
-        }
-      } content: { vm in
-        Render(
-          vm.projects.sorted(by: \.timestamp, using: >), items: vm.items, closed: closed,
-          sortOrder: vm.binding(get: \.itemSortOrder, send: (/ViewAction.setSortOrder).embed)
-        )
-        .animation(.default, value: vm.projects.sorted(by: \.timestamp, using: >))
-        .animation(.default, value: vm.items)
-        .task {
-          await vm.send(.load, animation: .default).finish()
-          await vm.send(.loadItems(projectIDs: vm.projects.map(\.id)), animation: .default).finish()
+      WithConvertiblesViewStore(
+        matching: .init(\.isClosed, closed),
+        from: \.privateDatabase.projects, loadWith: .init { .privateDatabase(.projects($0)) }
+      ) { projects in
+        WithConvertiblesViewStore(
+          matching: .init(projects.map(\.id).map { .init(\.project, $0) }, compound: .or),
+          from: \.privateDatabase.items, loadWith: .init { .privateDatabase(.items($0)) }
+        ) { items in
+          WithViewStore(store) { $0.sorting.itemSortOrder } send: { (action: ViewAction) in
+            switch action {
+            case let .setSortOrder(sortOrder): return .sorting(.setItemSortOrder(sortOrder))
+            }
+          } content: { sortOrder in
+            WithPresentationViewStore { _, detail in
+              Render(
+                projects.sorted(by: \.timestamp, using: >), items: items, closed: closed,
+                sortOrder: .init { sortOrder.state } set: { sortOrder.send(.setSortOrder($0)) },
+                detail: detail
+              )
+            }
+          }
         }
       }
     }
     
     @EnvironmentObject private var store: StoreOf<MainReducer>
-    private var query: Query<Project> { Query<Project>(\.isClosed, closed) }
-    private func itemsQuery(for projectIDs: [Project.ID]) -> Query<Item> {
-      Query(projectIDs.map { .init(\.project, $0) }, compound: .or)
-    }
-    
     init(closed: Bool) { self.closed = closed }
-    
-    struct ViewState: Equatable {
-      var projects: [Project]
-      var items: [Item]
-      var itemSortOrder: Item.SortOrder
-    }
-      
-    enum ViewAction {
-      case load
-      case loadItems(projectIDs: [Project.ID])
-      case setSortOrder(Item.SortOrder)
-    }
+    enum ViewAction { case setSortOrder(Item.SortOrder) }
     
     struct Render: View {
       let projects: [Project]
       let items: [Item]
       let closed: Bool
       @Binding var sortOrder: Item.SortOrder
+      @Binding var detail: MainDetail
       
       var body: some View {
         List {
@@ -70,12 +52,12 @@ extension Project {
               ForEach(items(of: project.id).sorted(using: sortOrder)) { item in
                 item.rowView()
                   .if(canEdit) { $0.itemContextMenu(item) }
-                  .onTapGesture { present(MainDetail.item(item)) }
+                  .onTapGesture { detail = .item(id: item.id) }
               }
               
-              if canEdit { Item.ActionMenu.add(projectID: project.id) }
+              if canEdit { Item.AddMenu(projectID: project.id) }
             } header: {
-              project.headerView(canEdit: canEdit)
+              Project.HeaderView(id: project.id, canEdit: canEdit)
             }
           }
         }
@@ -83,12 +65,11 @@ extension Project {
         .accessibilityIdentifier("projects-list")
         .toolbar {
           if size == .regular { ToolbarItem { Item.SortOrder.SelectionMenu($sortOrder) } }
-          if !closed { ToolbarItem(placement: .primaryAction) { Project.ActionMenu.add } }
+          if !closed { ToolbarItem(placement: .primaryAction) { Project.AddMenu() } }
         }
       }
       
       @Environment(\.size) private var size
-      @Environment(\.present) private var present
       
       private var canEdit: Bool { !closed }
       private func items(of projectID: Project.ID) -> [Item] { items.filter { $0.project == projectID } }

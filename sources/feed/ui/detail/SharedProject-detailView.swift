@@ -7,34 +7,36 @@ import SwiftUI
 import ComposableArchitecture
 
 extension SharedProject {
-  func detailView() -> some View { DetailView(self) }
-
   struct DetailView: View {
-    let project: SharedProject
+    let id: SharedProject.ID
 
     var body: some View {
-      WithViewStore<ViewState, ViewAction, _>(store) { state in
-        ViewState(
-          currentUserID: state.account.id,
-          owner: state.publicDatabase.users.convertible(with: project.owner),
-          items: state.publicDatabase.items.convertibles(matching: itemsQuery),
-          comments: state.publicDatabase.comments.convertibles(matching: commentsQuery)
-        )
-      } send: { action in
-        switch action {
-        case .loadCurrentUserID: return .account(.loadID)
-        case .loadOwner: return .publicDatabase(.users(.loadWith(id: project.owner)))
-        case .loadItems: return .publicDatabase(.items(.loadFor(query: itemsQuery)))
-        case .loadComments: return .publicDatabase(.comments(.loadFor(query: commentsQuery)))
-        }
-      } content: { vm in
-        Render(project, owner: vm.owner, items: vm.items, comments: vm.comments, currentUserID: vm.currentUserID)
-          .task {
-            await vm.send(.loadCurrentUserID).finish()
-            await vm.send(.loadOwner).finish()
-            vm.send(.loadComments)
-            vm.send(.loadItems)
+      WithConvertibleViewStore(
+        with: id, from: \.publicDatabase.projects, loadWith: .init { .publicDatabase(.projects($0)) }
+      ) { project in
+        WithAccountViewStore { account in
+          WithViewStore<ViewState, ViewAction, _>(store) { state in
+            ViewState(
+              owner: state.publicDatabase.users.convertible(with: project.owner),
+              items: state.publicDatabase.items.convertibles(matching: itemsQuery),
+              comments: state.publicDatabase.comments.convertibles(matching: commentsQuery)
+            )
+          } send: { action in
+            switch action {
+            case .loadOwner: return .publicDatabase(.users(.loadWith(id: project.owner)))
+            case .loadItems: return .publicDatabase(.items(.loadFor(query: itemsQuery)))
+            case .loadComments: return .publicDatabase(.comments(.loadFor(query: commentsQuery)))
+            }
+          } content: { vm in
+            Render(project, owner: vm.owner, items: vm.items, comments: vm.comments, currentUserID: vm.currentUserID)
+              .task {
+                await vm.send(.loadCurrentUserID).finish()
+                await vm.send(.loadOwner).finish()
+                vm.send(.loadComments)
+                vm.send(.loadItems)
+              }
           }
+        }
       }
     }
     

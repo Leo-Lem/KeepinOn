@@ -13,33 +13,34 @@ extension Item {
     let item: Item
     
     @Environment(\.size) private var size
-    @Environment(\.present) private var present
     
     init(_ item: Item) { self.item = item }
     
     func body(content: Content) -> some View {
-      content
+      WithPresentationViewStore { _, detail in
+        content
 #if os(iOS)
-        .swipeActions(edge: .leading) { Item.ActionMenu.toggle(item) }
-        .swipeActions(edge: .trailing) {
-          if !item.isDone {
-            Item.ActionMenu.delete(item)
-            editButton()
+          .swipeActions(edge: .leading) { Item.ToggleMenu(id: item.id) }
+          .swipeActions(edge: .trailing) {
+            if !item.isDone {
+              Item.DeleteMenu(id: item.id)
+              editButton { detail.wrappedValue = .editItem(id: item.id) }
+            }
           }
-        }
 #elseif os(macOS)
-        .contextMenu {
-          Item.ActionMenu.toggle(item)
-          if !item.isDone {
-            editButton()
-            Item.ActionMenu.delete(item)
+          .contextMenu {
+            Item.ToggleMenu(id: item.id)
+            if !item.isDone {
+              editButton { detail.wrappedValue = .editItem(id: item.id) }
+              Item.DeleteMenu(id: item.id)
+            }
           }
-        }
 #endif
+      }
     }
     
-    func editButton() -> some View {
-      Button { present(MainDetail.editItem(item)) } label: { Label("EDIT", systemImage: "square.and.pencil") }
+    func editButton(_ present: @escaping () -> Void) -> some View {
+      Button(action: present) { Label("EDIT", systemImage: "square.and.pencil") }
         .tint(.yellow)
         .accessibilityIdentifier("edit-item")
     }

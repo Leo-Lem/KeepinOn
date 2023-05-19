@@ -4,7 +4,11 @@ import ComposableArchitecture
 
 struct PushNotifications: ReducerProtocol {
   @Dependency(\.pushNotificationService) private var service
-  struct State: Equatable { var remindersAreAuthorized: Bool? }
+  
+  struct State: Equatable {
+    var remindersAreAuthorized: Bool?
+  }
+  
   enum Action {
     case setRemindersAreAuthorized(Bool?)
     case authorizeReminders
