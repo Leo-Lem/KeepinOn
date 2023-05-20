@@ -23,13 +23,12 @@
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      buildConfiguration = "Debug"
-      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
-      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      buildConfiguration = "Test"
+      selectedDebuggerIdentifier = ""
+      selectedLauncherIdentifier = "Xcode.IDEFoundation.Launcher.PosixSpawn"
       shouldUseLaunchSchemeArgsEnv = "YES"
       codeCoverageEnabled = "YES"
-      onlyGenerateCoverageForSpecifiedTargets = "YES"
-      shouldAutocreateTestPlan = "YES">
+      onlyGenerateCoverageForSpecifiedTargets = "YES">
       <CodeCoverageTargets>
          <BuildableReference
             BuildableIdentifier = "primary"
@@ -46,6 +45,38 @@
             ReferencedContainer = "container:portfolio.xcodeproj">
          </BuildableReference>
       </CodeCoverageTargets>
+      <TestPlans>
+         <TestPlanReference
+            reference = "container:test/Unit.xctestplan">
+         </TestPlanReference>
+         <TestPlanReference
+            reference = "container:test/Full.xctestplan">
+         </TestPlanReference>
+      </TestPlans>
+      <Testables>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "6E90F3CA2A185C650051FFF7"
+               BuildableName = "KeepinOnUITests.xctest"
+               BlueprintName = "KeepinOnUITests"
+               ReferencedContainer = "container:app.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "6E90F3D92A185C6B0051FFF7"
+               BuildableName = "KeepinOnTests.xctest"
+               BlueprintName = "KeepinOnTests"
+               ReferencedContainer = "container:app.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"

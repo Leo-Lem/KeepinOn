@@ -11,6 +11,7 @@ struct AppView: View {
   }
 }
 
+#if DEBUG
 // MARK: - (PREVIEWS)
 
 struct AppView_Previews: PreviewProvider {
@@ -18,3 +19,4 @@ struct AppView_Previews: PreviewProvider {
     AppView()
   }
 }
+#endif
