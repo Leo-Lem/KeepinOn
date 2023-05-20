@@ -1,0 +1,9 @@
+
+disabled_rules:
+- type_name
+- trailing_whitespace
+- identifier_name
+- opening_brace
+- comment_spacing
+- nesting
+- switch_case_alignment
