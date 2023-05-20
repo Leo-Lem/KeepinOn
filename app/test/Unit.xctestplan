@@ -1,0 +1,34 @@
+{
+  "configurations" : [
+    {
+      "id" : "0415B9DC-416D-4ED4-BBD3-60FC1B772A10",
+      "name" : "Config",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : {
+      "targets" : [
+        {
+          "containerPath" : "container:app.xcodeproj",
+          "identifier" : "6E48374428EC991100B67CA4",
+          "name" : "KeepinOn"
+        }
+      ]
+    },
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:app.xcodeproj",
+        "identifier" : "6E90F3D92A185C6B0051FFF7",
+        "name" : "KeepinOnTests"
+      }
+    }
+  ],
+  "version" : 1
+}
