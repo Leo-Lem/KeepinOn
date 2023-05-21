@@ -13,6 +13,9 @@
    <FileRef
       location = "group:app/app.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:deps">
+   </FileRef>
    <Group
       location = "group:res"
       name = "res">

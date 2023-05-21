@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E2799ED2A19998C00E82EDB /* KeepinOnDependencies in Frameworks */ = {isa = PBXBuildFile; productRef = 6E2799EC2A19998C00E82EDB /* KeepinOnDependencies */; };
 		6E90F3C12A1852F70051FFF7 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E90F3C02A1852F70051FFF7 /* Colors.swift */; };
 		6E90F3C32A1854D70051FFF7 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E90F3C22A1854D70051FFF7 /* Colors.xcassets */; };
 		6E90F3CE2A185C650051FFF7 /* app-uitests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E90F3CD2A185C650051FFF7 /* app-uitests.swift */; };
@@ -49,6 +50,7 @@
 
 /* Begin PBXFileReference section */
 		6E01ED63291BDCF800B73AB0 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = SOURCE_ROOT; };
+		6E2799EB2A19997C00E82EDB /* deps */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = deps; path = ../deps; sourceTree = "<group>"; };
 		6E48374528EC991100B67CA4 /* KeepinOn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeepinOn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E90F3C02A1852F70051FFF7 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		6E90F3C22A1854D70051FFF7 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E2799ED2A19998C00E82EDB /* KeepinOnDependencies in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,6 +92,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6E2799EA2A19997C00E82EDB /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				6E2799EB2A19997C00E82EDB /* deps */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
 		6E2FB7FF291BD67400D780C3 /* config */ = {
 			isa = PBXGroup;
 			children = (
@@ -100,6 +111,7 @@
 		6E48373C28EC991100B67CA4 = {
 			isa = PBXGroup;
 			children = (
+				6E2799EA2A19997C00E82EDB /* Packages */,
 				6EC7C86E2A18437200C783F0 /* source */,
 				6EC7C86F2A18437300C783F0 /* test */,
 				6EC7C86B2A18437200C783F0 /* resource */,
@@ -240,6 +252,7 @@
 			);
 			name = KeepinOn;
 			packageProductDependencies = (
+				6E2799EC2A19998C00E82EDB /* KeepinOnDependencies */,
 			);
 			productName = KeepinOn;
 			productReference = 6E48374528EC991100B67CA4 /* KeepinOn.app */;
@@ -858,6 +871,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6E2799EC2A19998C00E82EDB /* KeepinOnDependencies */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = KeepinOnDependencies;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6E48373D28EC991100B67CA4 /* Project object */;
 }
