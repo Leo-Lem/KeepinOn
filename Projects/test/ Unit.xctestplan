@@ -1,0 +1,22 @@
+{
+  "configurations": [
+    {
+      "id": "5D4231B2-D99D-453F-B71E-302341297119",
+      "name": "Config",
+      "options": {}
+    }
+  ],
+  "defaultOptions": {
+    "codeCoverage": {
+      "targets": [
+        { "containerPath" : "container:", "identifier" : "Projects", "name" : "Projects" }
+        
+      ]
+    }
+  },
+  "testTargets": [
+    { "parallelizable": true, "target": { "containerPath": "container:", "identifier": "ProjectsTests", "name": "ProjectsTests" } }
+    
+  ],
+  "version": 1
+}
