@@ -1,0 +1,31 @@
+{
+  "configurations" : [
+    {
+      "id" : "0415B9DC-416D-4ED4-BBD3-60FC1B772A10",
+      "name" : "Config",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:features",
+        "identifier" : "FeaturesTest",
+        "name" : "FeaturesTest"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:library",
+        "identifier" : "LibraryTest",
+        "name" : "LibraryTest"
+      }
+    }
+  ],
+  "version" : 1
+}
