@@ -23,7 +23,21 @@
   "testTargets" : [
     {
       "target" : {
-        "containerPath" : "container:app.xcodeproj",
+        "containerPath" : "container:features",
+        "identifier" : "FeaturesTest",
+        "name" : "FeaturesTest"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:library",
+        "identifier" : "LibraryTest",
+        "name" : "LibraryTest"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:portfolio.xcodeproj",
         "identifier" : "6E90F3CA2A185C650051FFF7",
         "name" : "KeepinOnUITests"
       }

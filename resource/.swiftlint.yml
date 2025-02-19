@@ -1,0 +1,11 @@
+disabled_rules:
+- trailing_whitespace
+- identifier_name
+- opening_brace
+- nesting
+
+opt_in_rules:
+- sorted_imports
+
+analyzer_rules:
+- unused_import
