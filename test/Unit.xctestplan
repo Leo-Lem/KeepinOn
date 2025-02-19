@@ -21,14 +21,7 @@
     "testTimeoutsEnabled" : true
   },
   "testTargets" : [
-    {
-      "parallelizable" : true,
-      "target" : {
-        "containerPath" : "container:app.xcodeproj",
-        "identifier" : "6E90F3D92A185C6B0051FFF7",
-        "name" : "KeepinOnTests"
-      }
-    }
+
   ],
   "version" : 1
 }

@@ -24,13 +24,6 @@
     {
       "target" : {
         "containerPath" : "container:app.xcodeproj",
-        "identifier" : "6E90F3D92A185C6B0051FFF7",
-        "name" : "KeepinOnTests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:app.xcodeproj",
         "identifier" : "6E90F3CA2A185C650051FFF7",
         "name" : "KeepinOnUITests"
       }

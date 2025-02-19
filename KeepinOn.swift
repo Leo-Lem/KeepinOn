@@ -6,7 +6,7 @@ import SwiftUI
 struct App: SwiftUI.App {
   var body: some Scene {
     WindowGroup {
-      AppView()
+      Text("Hello, world!")
     }
   }
 }
