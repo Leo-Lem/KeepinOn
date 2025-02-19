@@ -21,27 +21,14 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		6E01ED5F291BD92100B73AB0 /* Embed Foundation Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-			);
-			name = "Embed Foundation Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		6E10D4E62D66446600EACE37 /* extensions */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = extensions; sourceTree = "<group>"; };
 		6E10D4E72D66447E00EACE37 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		6E10D4E82D66447E00EACE37 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		6E10D4E92D6644A700EACE37 /* features */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = features; sourceTree = "<group>"; };
 		6E10D4EA2D6644BD00EACE37 /* library */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = library; sourceTree = "<group>"; };
-		6E94ED732D6666C100F282B8 /* KeepinOn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = KeepinOn.app; path = "/Users/leolem/Library/Mobile Documents/com~apple~CloudDocs/Dev/portfolio/build/Debug-iphoneos/KeepinOn.app"; sourceTree = "<absolute>"; };
 		6E94ED742D6666C100F282B8 /* KeepinOnUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = KeepinOnUITests.xctest; path = "/Users/leolem/Library/Mobile Documents/com~apple~CloudDocs/Dev/portfolio/build/Debug-iphoneos/KeepinOnUITests-Runner.app/PlugIns/KeepinOnUITests.xctest"; sourceTree = "<absolute>"; };
+		6E94ED822D66760600F282B8 /* KeepinOn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeepinOn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EC7C8712A18439800C783F0 /* KeepinOn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepinOn.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -91,6 +78,7 @@
 				6E8937072D662B0B00379273 /* resource */,
 				6E8937042D662AF700379273 /* test */,
 				6E10D4E72D66447E00EACE37 /* LICENSE */,
+				6E94ED822D66760600F282B8 /* KeepinOn.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,11 +89,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6E48375328EC991200B67CA4 /* Build configuration list for PBXNativeTarget "KeepinOn" */;
 			buildPhases = (
-				6E48379228ECA83B00B67CA4 /* ShellScript */,
 				6E48374128EC991100B67CA4 /* Sources */,
 				6E48374228EC991100B67CA4 /* Frameworks */,
 				6E48374328EC991100B67CA4 /* Resources */,
-				6E01ED5F291BD92100B73AB0 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -117,7 +103,7 @@
 				6E10D4ED2D66517D00EACE37 /* App */,
 			);
 			productName = KeepinOn;
-			productReference = 6E94ED732D6666C100F282B8 /* KeepinOn.app */;
+			productReference = 6E94ED822D66760600F282B8 /* KeepinOn.app */;
 			productType = "com.apple.product-type.application";
 		};
 		6E90F3CA2A185C650051FFF7 /* KeepinOnUITests */ = {
@@ -197,27 +183,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		6E48379228ECA83B00B67CA4 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: Swiftlint not installed.\"\nfi\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		6E48374128EC991100B67CA4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -279,7 +244,7 @@
 				INFOPLIST_FILE = resource/info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = KeepinOn;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
@@ -307,7 +272,7 @@
 				INFOPLIST_FILE = resource/info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = KeepinOn;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
