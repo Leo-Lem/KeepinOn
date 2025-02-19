@@ -34,8 +34,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		6E8936FC2D662AF700379273 /* KeepinOn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = KeepinOn.app; path = "/Users/leolem/Library/Mobile Documents/com~apple~CloudDocs/Dev/portfolio/build/Debug-iphoneos/KeepinOn.app"; sourceTree = "<absolute>"; };
-		6E89370E2D662B7200379273 /* KeepinOnUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KeepinOnUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E10D4E42D66435600EACE37 /* KeepinOn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = KeepinOn.app; path = "/Users/leolem/Library/Mobile Documents/com~apple~CloudDocs/Dev/portfolio/build/Debug-iphoneos/KeepinOn.app"; sourceTree = "<absolute>"; };
+		6E89370E2D662B7200379273 /* KeepinOnUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = KeepinOnUITests.xctest; path = "/Users/leolem/Library/Mobile Documents/com~apple~CloudDocs/Dev/portfolio/build/Debug-iphoneos/KeepinOnUITests-Runner.app/PlugIns/KeepinOnUITests.xctest"; sourceTree = "<absolute>"; };
 		6EC7C8712A18439800C783F0 /* KeepinOn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepinOn.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -79,7 +79,6 @@
 				6EC7C8712A18439800C783F0 /* KeepinOn.swift */,
 				6E8937072D662B0B00379273 /* resource */,
 				6E8937042D662AF700379273 /* test */,
-				6E89370E2D662B7200379273 /* KeepinOnUITests.xctest */,
 			);
 			sourceTree = "<group>";
 		};
@@ -104,7 +103,7 @@
 			packageProductDependencies = (
 			);
 			productName = KeepinOn;
-			productReference = 6E8936FC2D662AF700379273 /* KeepinOn.app */;
+			productReference = 6E10D4E42D66435600EACE37 /* KeepinOn.app */;
 			productType = "com.apple.product-type.application";
 		};
 		6E90F3CA2A185C650051FFF7 /* KeepinOnUITests */ = {
@@ -145,7 +144,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6E48374028EC991100B67CA4 /* Build configuration list for PBXProject "app" */;
+			buildConfigurationList = 6E48374028EC991100B67CA4 /* Build configuration list for PBXProject "portfolio" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -363,6 +362,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_TESTING_SEARCH_PATHS = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = resource/info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = KeepinOn;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -400,6 +400,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_TESTING_SEARCH_PATHS = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = resource/info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = KeepinOn;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -534,6 +535,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_TESTING_SEARCH_PATHS = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = resource/info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = KeepinOn;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -578,7 +580,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6E48374028EC991100B67CA4 /* Build configuration list for PBXProject "app" */ = {
+		6E48374028EC991100B67CA4 /* Build configuration list for PBXProject "portfolio" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6E48375128EC991200B67CA4 /* Debug */,

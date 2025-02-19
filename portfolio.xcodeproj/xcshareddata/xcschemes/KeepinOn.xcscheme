@@ -17,7 +17,7 @@
                BlueprintIdentifier = "6E48374428EC991100B67CA4"
                BuildableName = "KeepinOn.app"
                BlueprintName = "KeepinOn"
-               ReferencedContainer = "container:app.xcodeproj">
+               ReferencedContainer = "container:portfolio.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -54,30 +54,6 @@
             reference = "container:test/Full.xctestplan">
          </TestPlanReference>
       </TestPlans>
-      <Testables>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6E90F3CA2A185C650051FFF7"
-               BuildableName = "KeepinOnUITests.xctest"
-               BlueprintName = "KeepinOnUITests"
-               ReferencedContainer = "container:app.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6E90F3D92A185C6B0051FFF7"
-               BuildableName = "KeepinOnTests.xctest"
-               BlueprintName = "KeepinOnTests"
-               ReferencedContainer = "container:app.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -90,16 +66,6 @@
       debugServiceExtension = "internal"
       enableGPUValidationMode = "1"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6E48374428EC991100B67CA4"
-            BuildableName = "KeepinOn.app"
-            BlueprintName = "KeepinOn"
-            ReferencedContainer = "container:app.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -113,7 +79,7 @@
             BlueprintIdentifier = "6E48374428EC991100B67CA4"
             BuildableName = "KeepinOn.app"
             BlueprintName = "KeepinOn"
-            ReferencedContainer = "container:app.xcodeproj">
+            ReferencedContainer = "container:portfolio.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>
