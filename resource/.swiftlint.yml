@@ -9,3 +9,6 @@ opt_in_rules:
 
 analyzer_rules:
 - unused_import
+
+line_length:
+  ignores_comments: true

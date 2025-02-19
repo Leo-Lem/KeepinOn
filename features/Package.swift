@@ -10,7 +10,7 @@ let comps = Target.Dependency.product(name: "SwiftUIComponents", package: "libra
 let lint = Target.PluginUsage.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
 
 let libs: [Target] = [
-  .target(name: "App", dependencies: [tca, str, comps], plugins: [lint]),
+  .target(name: "App", dependencies: [tca, str, comps], plugins: [lint])
 ]
 
 let package = Package(

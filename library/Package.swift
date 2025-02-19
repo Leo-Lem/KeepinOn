@@ -19,7 +19,7 @@ let package = Package(
     .package(url: "https://github.com/pointfreeco/swift-dependencies.git", from: "1.0.0"),
     .package(url: "https://github.com/liamnichols/xcstrings-tool-plugin.git", from: "0.1.0"),
     .package(url: "https://github.com/SimplyDanny/SwiftLintPlugins", from: "0.1.0"),
-    .package(path: "../extensions"),
+    .package(path: "../extensions")
   ],
   targets: libs + [
     .testTarget(name: "LibraryTest", dependencies: libs.map { .byName(name: $0.name) }, path: "Test", plugins: [lint])

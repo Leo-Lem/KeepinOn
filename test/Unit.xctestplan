@@ -9,15 +9,6 @@
     }
   ],
   "defaultOptions" : {
-    "codeCoverage" : {
-      "targets" : [
-        {
-          "containerPath" : "container:app.xcodeproj",
-          "identifier" : "6E48374428EC991100B67CA4",
-          "name" : "KeepinOn"
-        }
-      ]
-    },
     "testTimeoutsEnabled" : true
   },
   "testTargets" : [
