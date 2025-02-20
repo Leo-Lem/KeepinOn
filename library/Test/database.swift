@@ -1,6 +1,6 @@
 // Created by Leopold Lemmermann on 15.02.25.
 
-@testable import Database
+@testable import SwiftDatabase
 import Testing
 
 @Model class TestModel {

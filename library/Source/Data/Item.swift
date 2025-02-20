@@ -1,7 +1,7 @@
 //  Created by Leopold Lemmermann on 05.10.22.
 
 import Foundation
-import Database
+import SwiftDatabase
 
 @Model public class Item {
   var createdAt: Date

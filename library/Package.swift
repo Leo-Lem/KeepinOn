@@ -5,11 +5,11 @@ import PackageDescription
 let deps = Target.Dependency.product(name: "Dependencies", package: "swift-dependencies")
 let xcstrings = Target.Dependency.product(name: "XCStringsToolPlugin", package: "xcstrings-tool-plugin")
 let ext = Target.Dependency.product(name: "Extensions", package: "extensions")
+let db = Target.Dependency.product(name: "SwiftDatabase", package: "extensions")
 let lint = Target.PluginUsage.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
 let libs: [Target] = [
   .target(name: "SwiftUIComponents", dependencies: [xcstrings, deps, ext], plugins: [lint]),
-  .target(name: "Data", dependencies: [deps, "Database"], plugins: [lint]),
-  .target(name: "Database", dependencies: [deps], plugins: [lint]), // TODO: move to extensions package
+  .target(name: "Data", dependencies: [deps, db], plugins: [lint])
 ]
 
 let package = Package(
