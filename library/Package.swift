@@ -7,7 +7,8 @@ let xcstrings = Target.Dependency.product(name: "XCStringsToolPlugin", package: 
 let ext = Target.Dependency.product(name: "Extensions", package: "extensions")
 let lint = Target.PluginUsage.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
 let libs: [Target] = [
-  .target(name: "SwiftUIComponents", dependencies: [xcstrings, deps, ext], plugins: [lint])
+  .target(name: "SwiftUIComponents", dependencies: [xcstrings, deps, ext], plugins: [lint]),
+  .target(name: "Database", dependencies: [deps], plugins: [lint])
 ]
 
 let package = Package(
