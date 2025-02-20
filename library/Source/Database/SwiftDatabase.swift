@@ -10,17 +10,16 @@ public struct SwiftDatabase: Sendable {
 
 extension SwiftDatabase: DependencyKey {
   /// Configure the container using this static property.
-  @MainActor public static var container: ModelContainer?
-  @MainActor public static let context = {
-    guard let container else { fatalError("Configure the `SwiftDatabase.ModelContainer` first!") }
-    return ModelContext(container)
-  }()
+  @MainActor static var container: ModelContainer!
+  @MainActor static let context = { ModelContext(container) }()
+  
   public static let liveValue = SwiftDatabase(
     context: { Self.context }
   )
 }
 
-extension DependencyValues {
+public extension DependencyValues {
+  /// Interface to the SwiftData ModelContext.
   var data: SwiftDatabase {
     get { self[SwiftDatabase.self] }
     set { self[SwiftDatabase.self] = newValue }
