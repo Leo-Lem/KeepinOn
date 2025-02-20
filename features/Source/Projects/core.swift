@@ -2,28 +2,28 @@
 
 import ComposableArchitecture
 import Data
+import EditableProject
 import SwiftData
 
 @Reducer public struct Projects {
   @ObservableState public struct State: Equatable {
-    var projects: [Project]
+    var projects: IdentifiedArrayOf<EditableProject.State>
     var closed: Bool
-    var sorting: PartialKeyPath<Project>
 
     public init(
       projects: [Project] = [],
-      closed: Bool = false,
-      sorting: PartialKeyPath<Project> = \.createdAt
+      closed: Bool = false
     ) {
-      self.projects = projects
+      self.projects = IdentifiedArrayOf<EditableProject.State>(uniqueElements: projects.map(EditableProject.State.init))
       self.closed = closed
-      self.sorting = sorting
     }
   }
 
   public enum Action: ViewAction {
     case fetchProjects
-    case setProjects([Project])
+    case addProjects([Project])
+
+    case projects(IdentifiedActionOf<EditableProject>)
 
     case view(View)
     public enum View: BindableAction {
@@ -33,17 +33,38 @@ import SwiftData
   }
 
   public var body: some Reducer<State, Action> {
+    BindingReducer(action: \.view)
+
     Reduce { state, action in
       switch action {
-      case let .setProjects(projects):
-        state.projects = projects
+      case let .addProjects(projects):
+        state.projects.append(contentsOf: projects.map(EditableProject.State.init))
         return .none
+
+      case let .projects(.element(id, action)):
+        switch action {
+        case .delete:
+          state.projects.remove(id: id)
+          return .none
+
+        case .toggle:
+          state.closed.toggle()
+          return .none
+        }
+
+//      case let .removeItem(item):
+//        state.projects
+//          .first { $0.id == item.project?.id }?
+//          .project
+//          .items
+//          .removeAll { $0.id == item.id }
+//        return .none
 
       case .fetchProjects:
         return .run { @MainActor send in
           @Dependency(\.projects.fetch) var fetch
           let projects = try await fetch(FetchDescriptor<Project>())
-          send(.setProjects(projects))
+          send(.addProjects(projects))
         }
 
       case let .view(action):
@@ -56,7 +77,13 @@ import SwiftData
         }
       }
     }
+    .forEach(\.projects, action: \.projects, element: EditableProject.init)
   }
 
   public init() {}
+}
+
+public extension Projects.State {
+  var canEdit: Bool { !closed }
+  var filtered: IdentifiedArrayOf<EditableProject.State> { projects.filter { $0.project.closed == closed } }
 }

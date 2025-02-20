@@ -2,15 +2,15 @@
 
 import Foundation
 
-@Model public class Item {
-  var createdAt: Date
+@Model public class Item: @unchecked Sendable {
+  public var createdAt: Date
 
-  var title: String
-  var details: String
-  var priority: Priority?
-  var done: Bool
+  public var title: String
+  public var details: String
+  public var priority: Priority?
+  public var done: Bool
 
-  var project: Project?
+  public var project: Project?
 
   public init(
     createdAt: Date = .now,

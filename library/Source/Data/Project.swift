@@ -2,7 +2,7 @@
 
 import Foundation
 
-@Model public class Project {
+@Model public class Project: @unchecked Sendable {
   public var createdAt: Date
 
   public var title: String
@@ -11,6 +11,9 @@ import Foundation
   public var closed: Bool
 
   public var items: [Item]
+
+  // TODO: test
+  public var progress: Double { items.isEmpty ? 0 : Double(items.filter(\.done).count) / Double(items.count) }
 
   public init(
     createdAt: Date = .now,

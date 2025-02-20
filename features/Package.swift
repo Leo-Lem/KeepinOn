@@ -12,7 +12,8 @@ let lint = Target.PluginUsage.plugin(name: "SwiftLintBuildToolPlugin", package: 
 
 let libs: [Target] = [
   .target(name: "App", dependencies: [tca, str, comps, "Projects"], plugins: [lint]),
-  .target(name: "Projects", dependencies: [tca, str, data], plugins: [lint]),
+  .target(name: "Projects", dependencies: [tca, str, comps, data, "EditableProject"], plugins: [lint]),
+  .target(name: "EditableProject", dependencies: [tca, str, comps, data], plugins: [lint]),
 ]
 
 let package = Package(
