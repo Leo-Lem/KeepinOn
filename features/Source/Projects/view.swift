@@ -2,6 +2,7 @@
 
 import ComposableArchitecture
 import Data
+import EditableItem
 import EditableProject
 import SwiftUIComponents
 
@@ -14,7 +15,16 @@ public struct ProjectsView: View {
       List {
         ForEach(store.scope(state: \.filtered, action: \.projects)) { project in
           Section {
-//            items(project)
+            ForEach(project.state.project.items) { item in
+              ItemRow(Store(initialState: EditableItem.State(item), reducer: EditableItem.init))
+            }
+
+            if store.canEdit {
+              Button("ADD_ITEM", systemImage: "plus.circle") {
+                send(.addItem(to: project.state))
+              }
+              .accessibilityIdentifier("add-item")
+            }
           } header: {
             ProjectHeader(project)
           }
@@ -23,8 +33,16 @@ public struct ProjectsView: View {
     } header: {
       HStack {
         Text("Projects")
-          .font(.largeTitle)
+          .font(.title)
+
+        Button("ADD_PROJECT", systemImage: "rectangle.stack.badge.plus.fill") {
+          send(.addProject)
+        }
+        .labelStyle(.iconOnly)
+        .accessibilityIdentifier("add-project")
+
         Spacer()
+
         Toggle("closed", systemImage: store.closed ? "lock" : "lock.open", isOn: $store.closed)
           .toggleStyle(.button)
       }
@@ -33,74 +51,19 @@ public struct ProjectsView: View {
     .onAppear { send(.appear) }
   }
 
-  func items(_ project: Project) -> some View {
-    ForEach(project.items) { item in
-      HStack {
-        Image(systemName: item.icon)
-          .foregroundColor(project.color)
-
-        Text(item.title)
-
-        Text(item.details)
-          .lineLimit(1)
-          .foregroundColor(.secondary)
-      }
-      .accessibilityValue(item.title)
-      //            .accessibilityLabel(item.a11y)
-      .swipeActions(edge: .leading) {
-        if store.canEdit {
-          Button(
-            item.done ? "UNCOMPLETE_ITEM" : "COMPLETE_ITEM",
-            systemImage: item.done ? "checkmark.circle.badge.xmark" : "checkmark.circle"
-          ) {
-            item.done.toggle()
-          }
-          .tint(.green)
-          .accessibilityIdentifier("toggle-item")
-        }
-      }
-      .swipeActions(edge: .trailing) {
-        if store.canEdit && !item.done {
-          Button("DELETE", systemImage: "trash") {
-//            send(.deleteItem(item))
-          }
-          .tint(.red)
-          .accessibilityIdentifier("delete-item")
-
-          Button("EDIT", systemImage: "square.and.pencil") {
-            // TODO: edit item
-          }
-          .tint(.yellow)
-          .accessibilityIdentifier("edit-item")
-        }
-      }
-      .onTapGesture {
-        // TODO: item detail
-      }
-
-      if store.canEdit {
-        //              AsyncButton(indicatorStyle: .edge(.trailing), taskPriority: .userInitiated) {
-        //                guard !limitIsReached else { return }
-        //                await add()
-        //              } label: {
-        //                Label("ADD_ITEM", systemImage: "plus.circle")
-        //              }
-        //              .accessibilityIdentifier("add-item")
-      }
-    }
-  }
-
   public init(_ store: StoreOf<Projects>) { self.store = store }
 }
 
 #Preview {
   let project = Project(title: "Hello", details: "some details", accent: .blue)
 
-  ProjectsView(Store(initialState: Projects.State(projects: [
-    project,
-    Project(title: "Goodbye", details: "some other details which are longer", accent: .red),
-    Project(title: "Goodbye", details: "some other details which are longer", accent: .green, closed: true)
-  ])) { Projects()._printChanges() })
+  NavigationStack {
+    ProjectsView(Store(initialState: Projects.State(projects: [
+      project,
+      Project(title: "Goodbye", details: "some other details which are longer", accent: .red),
+      Project(title: "Goodbye", details: "some other details which are longer", accent: .green, closed: true)
+    ])) { Projects()._printChanges() })
+  }
   .onAppear {
     SwiftDatabase.start()
     project.items = [

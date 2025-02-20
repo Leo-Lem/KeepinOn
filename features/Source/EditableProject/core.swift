@@ -7,23 +7,44 @@ import Data
   @ObservableState public struct State: Equatable, Identifiable {
     public var project: Project
 
+    @Presents public var alert: AlertState<Action.Alert>?
+
     public var id: PersistentIdentifier { project.id }
 
-    public init(project: Project) { self.project = project }
+    public init(_ project: Project) { self.project = project }
   }
 
   public enum Action {
-    case delete
     case toggle
+    case delete
+
+    case alert(PresentationAction<Alert>)
+    public enum Alert: Equatable {
+      case delete
+    }
   }
 
   public var body: some Reducer<State, Action> {
     Reduce { state, action in
       switch action {
-      case .delete:
-        return .run { [delete, project = state.project] _ in
-          try await delete(project)
+      case let .alert(action):
+        return if case .presented(.delete) = action {
+          .run { [delete, project = state.project] _ in
+            try await delete(project)
+          }
+        } else {
+          .none
         }
+
+      case .delete:
+        state.alert = AlertState {
+          TextState("DELETE_PROJECT_ALERT_TITLE")
+        } actions: {
+          ButtonState(role: .destructive, action: .send(.delete)) {
+            TextState("DELETE")
+          }
+        }
+        return .none
 
       case .toggle:
         state.project.closed.toggle()

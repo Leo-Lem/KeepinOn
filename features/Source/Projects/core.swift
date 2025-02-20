@@ -29,6 +29,8 @@ import SwiftData
     public enum View: BindableAction {
       case binding(BindingAction<State>)
       case appear
+      case addProject
+      case addItem(to: EditableProject.State)
     }
   }
 
@@ -50,6 +52,8 @@ import SwiftData
         case .toggle:
           state.closed.toggle()
           return .none
+
+        case .alert: return .none
         }
 
 //      case let .removeItem(item):
@@ -61,8 +65,7 @@ import SwiftData
 //        return .none
 
       case .fetchProjects:
-        return .run { @MainActor send in
-          @Dependency(\.projects.fetch) var fetch
+        return .run { @MainActor [fetch] send in
           let projects = try await fetch(FetchDescriptor<Project>())
           send(.addProjects(projects))
         }
@@ -72,13 +75,31 @@ import SwiftData
         case .appear:
           return .send(.fetchProjects)
 
-        case .binding:
-          return .none
+        case .addProject:
+          let project = Project(title: "", details: "", accent: .green)
+          state.projects.append(EditableProject.State(project))
+          state.closed = false
+          return .run { @MainActor [insert] _ in
+            try await insert(project)
+          }
+
+        case let .addItem(project):
+          let item = Item(title: "", details: "", project: project.project)
+          state.projects.first { $0.id == project.id}?.project.items.append(item)
+          return .run { @MainActor [insertItem] _ in
+            try await insertItem(item)
+          }
+
+        case .binding: return .none
         }
       }
     }
     .forEach(\.projects, action: \.projects, element: EditableProject.init)
   }
+
+  @Dependency(\.projects.fetch) var fetch
+  @Dependency(\.projects.insert) var insert
+  @Dependency(\.items.insert) var insertItem
 
   public init() {}
 }

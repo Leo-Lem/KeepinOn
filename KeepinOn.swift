@@ -4,7 +4,7 @@ import App
 import SwiftUI
 
 @main
-struct App: SwiftUI.App {
+struct KeepinOnApp: App {
   var body: some Scene {
     WindowGroup {
       KeepinOnView()

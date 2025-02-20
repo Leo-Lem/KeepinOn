@@ -5,7 +5,7 @@ import Data
 import SwiftUIComponents
 
 public struct ProjectHeader: View {
-  public let store: StoreOf<EditableProject>
+  @Bindable public var store: StoreOf<EditableProject>
 
   public var body: some View{
     HStack {
@@ -17,6 +17,7 @@ public struct ProjectHeader: View {
             // TODO: project detail
           }
           .accessibilityIdentifier("show-project-details")
+          .disabled(true)
         }
 
         ProgressView(value: store.project.progress)
@@ -39,17 +40,13 @@ public struct ProjectHeader: View {
         }
         .tint(.yellow)
         .accessibilityIdentifier("edit-project")
+        .disabled(true)
 
         Button("DELETE_PROJECT", systemImage: "xmark.octagon") {
           store.send(.delete)
         }
         .tint(.red)
-        // TODO: move to reducer
-        //              .alert("DELETE_PROJECT_ALERT_TITLE") {
-        //                Button("DELETE", role: .destructive) {
-        //
-        //                }
-        //              } message: { Text("DELETE_PROJECT_ALERT_MESSAGE") }
+        .alert($store.scope(state: \.alert, action: \.alert))
         .accessibilityLabel("delete-project")
       }
     }
@@ -57,17 +54,19 @@ public struct ProjectHeader: View {
     .tint(store.project.color)
     .padding(.bottom, 10)
     .accessibilityElement(children: .contain)
-    //          .accessibilityLabel(project.a11y)
+    .accessibilityLabel("A11Y_PROJECT")
   }
 
   public init(_ store: StoreOf<EditableProject>) { self.store = store }
 }
 
 #Preview {
-  ProjectHeader(Store(initialState: EditableProject.State(
-      project: Project(title: "Project 1", details: "These are some descriptive details.", accent: .red)
-  )) {
-      EditableProject()._printChanges()
-    }
-  )
+  let project = Project(title: "Project 1", details: "These are some descriptive details.", accent: .red)
+  Section {
+    Text("Nothing to see here…")
+  } header: {
+    ProjectHeader(Store(initialState: EditableProject.State(project)) { EditableProject()._printChanges() })
+  }
+  .padding()
+  .onAppear { SwiftDatabase.start() }
 }
