@@ -9,7 +9,7 @@ let lint = Target.PluginUsage.plugin(name: "SwiftLintBuildToolPlugin", package: 
 let libs: [Target] = [
   .target(name: "SwiftUIComponents", dependencies: [xcstrings, deps, ext], plugins: [lint]),
   .target(name: "Data", dependencies: [deps, "Database"], plugins: [lint]),
-  .target(name: "Database", dependencies: [deps], plugins: [lint]),
+  .target(name: "Database", dependencies: [deps], plugins: [lint]), // TODO: move to extensions package
 ]
 
 let package = Package(

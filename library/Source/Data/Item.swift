@@ -1,7 +1,7 @@
 //  Created by Leopold Lemmermann on 05.10.22.
 
 import Foundation
-import SwiftData
+import Database
 
 @Model public class Item {
   var createdAt: Date
@@ -27,5 +27,12 @@ import SwiftData
     self.priority = priority
     self.done = done
     self.project = project
+  }
+}
+
+extension DependencyValues {
+  var items: Database<Item> {
+    get { self[Database<Item>.self] }
+    set { self[Database<Item>.self] = newValue }
   }
 }
