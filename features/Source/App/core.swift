@@ -1,14 +1,22 @@
 // Created by Leopold Lemmermann on 19.02.25.
 
 import ComposableArchitecture
+import Data
+import Projects
 
 @Reducer public struct KeepinOn {
   @ObservableState public struct State: Equatable {
-    public init() {}
+    var projects: Projects.State
+
+    public init(
+      projects: Projects.State = Projects.State()
+    ) {
+      self.projects = projects
+    }
   }
 
   public enum Action: ViewAction {
-    case something
+    case projects(Projects.Action)
 
     case view(View)
     public enum View: BindableAction {
@@ -18,9 +26,11 @@ import ComposableArchitecture
   }
 
   public var body: some Reducer<State, Action> {
+    Scope(state: \.projects, action: \.projects, child: Projects.init)
+
     Reduce { _, action in
       switch action {
-      case .something:
+      case .projects:
         return .none
 
       case let .view(action):

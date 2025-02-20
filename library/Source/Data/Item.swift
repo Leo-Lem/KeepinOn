@@ -1,7 +1,6 @@
 //  Created by Leopold Lemmermann on 05.10.22.
 
 import Foundation
-import SwiftDatabase
 
 @Model public class Item {
   var createdAt: Date
@@ -30,7 +29,7 @@ import SwiftDatabase
   }
 }
 
-extension DependencyValues {
+public extension DependencyValues {
   var items: Database<Item> {
     get { self[Database<Item>.self] }
     set { self[Database<Item>.self] = newValue }

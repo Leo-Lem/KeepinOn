@@ -27,9 +27,9 @@
 		6E10D4E82D66447E00EACE37 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		6E10D4E92D6644A700EACE37 /* features */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = features; sourceTree = "<group>"; };
 		6E10D4EA2D6644BD00EACE37 /* library */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = library; sourceTree = "<group>"; };
-		6E3D9ECE2D675FBC0068B39B /* KeepinOn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeepinOn.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E3D9ECE2D675FBC0068B39B /* KeepinOn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = KeepinOn.app; path = "/Users/leolem/Library/Mobile Documents/com~apple~CloudDocs/Dev/portfolio/build/Debug-iphoneos/KeepinOn.app"; sourceTree = "<absolute>"; };
 		6EC7C8712A18439800C783F0 /* KeepinOn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepinOn.swift; sourceTree = "<group>"; };
-		6EFAFD782D673833009F75C9 /* KeepinOnUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = KeepinOnUITests.xctest; path = "/Users/leolem/Library/Mobile Documents/com~apple~CloudDocs/Dev/portfolio/build/Debug-iphoneos/KeepinOnUITests-Runner.app/PlugIns/KeepinOnUITests.xctest"; sourceTree = "<absolute>"; };
+		6EF1B3BA2D67601500BAE418 /* KeepinOnUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = KeepinOnUITests.xctest; path = "/Users/leolem/Library/Mobile Documents/com~apple~CloudDocs/Dev/portfolio/build/Debug-iphoneos/KeepinOnUITests-Runner.app/PlugIns/KeepinOnUITests.xctest"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -78,7 +78,6 @@
 				6E8937072D662B0B00379273 /* resource */,
 				6E8937042D662AF700379273 /* test */,
 				6E10D4E72D66447E00EACE37 /* LICENSE */,
-				6E3D9ECE2D675FBC0068B39B /* KeepinOn.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -121,7 +120,7 @@
 			);
 			name = KeepinOnUITests;
 			productName = KeepinOnUITests;
-			productReference = 6EFAFD782D673833009F75C9 /* KeepinOnUITests.xctest */;
+			productReference = 6EF1B3BA2D67601500BAE418 /* KeepinOnUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */

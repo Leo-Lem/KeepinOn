@@ -6,11 +6,13 @@ let tca = Target.Dependency.product(name: "ComposableArchitecture", package: "sw
 let str = Target.Dependency.product(name: "XCStringsToolPlugin", package: "xcstrings-tool-plugin")
 let ext = Target.Dependency.product(name: "Extensions", package: "extensions")
 let comps = Target.Dependency.product(name: "SwiftUIComponents", package: "library")
+let data = Target.Dependency.product(name: "Data", package: "library")
 
 let lint = Target.PluginUsage.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
 
 let libs: [Target] = [
-  .target(name: "App", dependencies: [tca, str, comps], plugins: [lint])
+  .target(name: "App", dependencies: [tca, str, comps, "Projects"], plugins: [lint]),
+  .target(name: "Projects", dependencies: [tca, str, data], plugins: [lint]),
 ]
 
 let package = Package(
