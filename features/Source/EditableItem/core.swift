@@ -4,10 +4,8 @@ import ComposableArchitecture
 import Data
 
 @Reducer public struct EditableItem {
-  @ObservableState public struct State: Equatable, Identifiable {
+  @ObservableState public struct State: Equatable, Sendable {
     public var item: Item
-
-    public var id: PersistentIdentifier { item.id }
 
     public init(_ item: Item) { self.item = item }
   }
@@ -21,9 +19,8 @@ import Data
     Reduce { state, action in
       switch action {
       case .delete:
-        return .run { [delete, item = state.item] _ in
-          try await delete(item)
-        }
+        _ = try? database.write { try state.item.delete($0) }
+        return .none
 
       case .toggle:
         state.item.done.toggle()
@@ -32,11 +29,25 @@ import Data
     }
   }
 
-  @Dependency(\.items.delete) var delete
+  @Dependency(\.defaultDatabase) var database
 
   public init() {}
 }
 
 extension EditableItem.State {
-  var canEdit: Bool { !(item.project?.closed ?? false) }
+  var project: Project? {
+    @Dependency(\.defaultDatabase) var database
+    return try? database.read { try Project.fetchOne($0, key: item.projectId) }
+  }
+
+  var canEdit: Bool {
+    @Dependency(\.defaultDatabase) var database
+    return !((try? database.read {
+      try Project.filter(key: item.projectId).select([Column("closed")]).fetchOne($0)
+    }) ?? false)
+  }
+}
+
+extension EditableItem.State: Identifiable {
+  public var id: Int64 { item.id ?? 0 }
 }

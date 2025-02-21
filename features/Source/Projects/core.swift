@@ -6,105 +6,69 @@ import EditableProject
 import SwiftData
 
 @Reducer public struct Projects {
-  @ObservableState public struct State: Equatable {
-    var projects: IdentifiedArrayOf<EditableProject.State>
+  @ObservableState public struct State: Equatable, Sendable {
+    @SharedReader var projects: [Project]
     var closed: Bool
+
+    var editableProjects: IdentifiedArrayOf<EditableProject.State> {
+      get {
+        IdentifiedArray(uniqueElements: projects
+          .sorted { $0.createdAt! > $1.createdAt! } // TODO: move into SQL
+          .map { EditableProject.State($0) })
+      }
+      set { _ = newValue }
+    }
 
     public init(
       projects: [Project] = [],
       closed: Bool = false
     ) {
-      self.projects = IdentifiedArrayOf<EditableProject.State>(uniqueElements: projects.map(EditableProject.State.init))
+      _projects = SharedReader(wrappedValue: projects, .fetchAll(sql: """
+          SELECT * FROM project WHERE closed=? ORDER BY createdAt DESC
+        """, arguments: [closed])) // order doesnt work
       self.closed = closed
     }
   }
 
-  public enum Action: ViewAction {
-    case fetchProjects
-    case addProjects([Project])
+  public enum Action: BindableAction {
+    case addProject
 
     case projects(IdentifiedActionOf<EditableProject>)
 
-    case view(View)
-    public enum View: BindableAction {
-      case binding(BindingAction<State>)
-      case appear
-      case addProject
-      case addItem(to: EditableProject.State)
-    }
+    case binding(BindingAction<State>)
   }
 
   public var body: some Reducer<State, Action> {
-    BindingReducer(action: \.view)
+    BindingReducer()
 
     Reduce { state, action in
       switch action {
-      case let .addProjects(projects):
-        state.projects.append(contentsOf: projects.map(EditableProject.State.init))
-        return .none
+      case .projects(.element(_, .toggle)):
+        return .send(.binding(.set(\.closed, !state.closed)))
 
-      case let .projects(.element(id, action)):
-        switch action {
-        case .delete:
-          state.projects.remove(id: id)
-          return .none
+      case .addProject:
+        var project = Project(title: "", details: "", accent: .green)
+        try? database.write { try project.save($0) }
+        return .send(.binding(.set(\.closed, false)))
 
-        case .toggle:
-          state.closed.toggle()
-          return .none
-
-        case .alert: return .none
+      case .binding(\.closed):
+        return .run { [state] _ in
+          try? await state.$projects.load(.fetchAll(sql: """
+            SELECT * FROM project WHERE closed=?
+          """, arguments: [state.closed]))
         }
 
-//      case let .removeItem(item):
-//        state.projects
-//          .first { $0.id == item.project?.id }?
-//          .project
-//          .items
-//          .removeAll { $0.id == item.id }
-//        return .none
-
-      case .fetchProjects:
-        return .run { @MainActor [fetch] send in
-          let projects = try await fetch(FetchDescriptor<Project>())
-          send(.addProjects(projects))
-        }
-
-      case let .view(action):
-        switch action {
-        case .appear:
-          return .send(.fetchProjects)
-
-        case .addProject:
-          let project = Project(title: "", details: "", accent: .green)
-          state.projects.append(EditableProject.State(project))
-          state.closed = false
-          return .run { @MainActor [insert] _ in
-            try await insert(project)
-          }
-
-        case let .addItem(project):
-          let item = Item(title: "", details: "", project: project.project)
-          state.projects.first { $0.id == project.id}?.project.items.append(item)
-          return .run { @MainActor [insertItem] _ in
-            try await insertItem(item)
-          }
-
-        case .binding: return .none
-        }
+      case .binding, .projects: return .none
       }
     }
-    .forEach(\.projects, action: \.projects, element: EditableProject.init)
+    .forEach(\.editableProjects, action: \.projects) { EditableProject() }
   }
 
-  @Dependency(\.projects.fetch) var fetch
-  @Dependency(\.projects.insert) var insert
-  @Dependency(\.items.insert) var insertItem
+  @Dependency(\.defaultDatabase) var database
 
   public init() {}
 }
 
 public extension Projects.State {
   var canEdit: Bool { !closed }
-  var filtered: IdentifiedArrayOf<EditableProject.State> { projects.filter { $0.project.closed == closed } }
 }

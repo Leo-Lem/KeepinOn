@@ -4,7 +4,6 @@ import ComposableArchitecture
 import Data
 import Projects
 import SwiftUI
-import SwiftData
 
 public struct KeepinOnView: View {
   @Bindable var store: StoreOf<KeepinOn>
@@ -17,12 +16,13 @@ public struct KeepinOnView: View {
   }
 
   public init(_ store: StoreOf<KeepinOn> = Store(initialState: KeepinOn.State(), reducer: KeepinOn.init)) {
-    SwiftDatabase.start()
+      prepareDependencies {
+        $0.defaultDatabase = try! database() // swiftlint:disable:this force_try
+      }
     self.store = store
   }
 }
 
 #Preview {
   KeepinOnView()
-    .onAppear { SwiftDatabase.start() }
 }

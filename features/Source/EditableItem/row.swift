@@ -13,7 +13,7 @@ public struct ItemRow: View {
     } label: {
       HStack {
         Image(systemName: store.item.icon)
-          .foregroundColor(store.item.project?.color)
+          .foregroundColor(store.project?.color)
 
         Text(store.item.title)
 
@@ -60,11 +60,7 @@ public struct ItemRow: View {
 }
 
 #Preview {
-  let project = Project(title: "Project 1", details: "", accent: .red, closed: false)
-  let item = Item(title: "Item 1", details: "Some details about this item.", project: project)
-
   List {
-    ItemRow(Store(initialState: EditableItem.State(item)) { EditableItem()._printChanges() })
+    ItemRow(Store(initialState: EditableItem.State(previews().items[0])) { EditableItem()._printChanges() })
   }
-  .onAppear { SwiftDatabase.start() }
 }

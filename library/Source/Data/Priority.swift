@@ -1,6 +1,6 @@
 // Created by Leopold Lemmermann on 20.02.25.
 
-public enum Priority: Int, Comparable, Codable {
+public enum Priority: Int, Comparable, Codable, Sendable {
   case flexible = 1
   case prioritized
   case urgent

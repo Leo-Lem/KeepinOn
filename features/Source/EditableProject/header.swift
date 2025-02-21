@@ -20,7 +20,7 @@ public struct ProjectHeader: View {
           .disabled(true)
         }
 
-        ProgressView(value: store.project.progress)
+        ProgressView(value: store.progress)
           .progressViewStyle(.linear)
       }
 
@@ -46,7 +46,6 @@ public struct ProjectHeader: View {
           store.send(.delete)
         }
         .tint(.red)
-        .alert($store.scope(state: \.alert, action: \.alert))
         .accessibilityLabel("delete-project")
       }
     }
@@ -61,12 +60,12 @@ public struct ProjectHeader: View {
 }
 
 #Preview {
-  let project = Project(title: "Project 1", details: "These are some descriptive details.", accent: .red)
   Section {
     Text("Nothing to see here…")
   } header: {
-    ProjectHeader(Store(initialState: EditableProject.State(project)) { EditableProject()._printChanges() })
+    ProjectHeader(
+      Store(initialState: EditableProject.State(previews().projects[0])) { EditableProject()._printChanges() }
+    )
   }
   .padding()
-  .onAppear { SwiftDatabase.start() }
 }
