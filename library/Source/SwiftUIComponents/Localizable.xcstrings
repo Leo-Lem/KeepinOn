@@ -34,6 +34,28 @@
         }
       }
     },
+    "a11yProject" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Project"
+          }
+        }
+      }
+    },
+    "closed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Closed"
+          }
+        }
+      }
+    },
     "createdAt %@" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -41,6 +63,29 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Created on %@."
+          }
+        }
+      }
+    },
+    "items %lld" : {
+      "comment" : "Items per project.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld Items"
+          }
+        }
+      }
+    },
+    "open" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open"
           }
         }
       }

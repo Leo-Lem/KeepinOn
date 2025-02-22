@@ -7,16 +7,22 @@ import Data
   @ObservableState public struct State: Equatable, Sendable {
     public var item: Item
 
+    public var detail: Bool = false
+
     public init(_ item: Item) { self.item = item }
   }
 
-  public enum Action {
+  public enum Action: BindableAction {
     case delete
     case toggle
     case detail
+
+    case binding(BindingAction<State>)
   }
 
   public var body: some Reducer<State, Action> {
+    BindingReducer()
+
     Reduce { state, action in
       switch action {
       case .delete:
@@ -24,11 +30,16 @@ import Data
         return .none
 
       case .toggle:
-        state.item.done.toggle()
+        return .send(.binding(.set(\.item.done, !state.item.done)))
+
+      case .detail:
+        return .send(.binding(.set(\.detail, true)))
+
+      case .binding(\.item):
         try? database.write { try state.item.save($0) }
         return .none
 
-      case .detail: return .none
+      case .binding: return .none
       }
     }
   }
@@ -39,25 +50,22 @@ import Data
 }
 
 extension EditableItem.State {
-  var accent: Accent? {
+  var project: Project.WithItems {
     @Dependency(\.defaultDatabase) var database
-    return try? database.read {
+    return (try? database.read {
       try Project
+        .including(all: Project.items)
+        .asRequest(of: Project.WithItems.self)
         .filter(key: item.projectId)
-        .select([Column("accent")], as: String.self)
         .fetchOne($0)
-        .map(Accent.init)?.optional
-    }
+    }) ?? .init(Project(title: "", details: "", accent: .green, closed: false), items: [item])
   }
 
-  var canEdit: Bool {
-    @Dependency(\.defaultDatabase) var database
-    return !((try? database.read {
-      try Project.filter(key: item.projectId).select([Column("closed")]).fetchOne($0)
-    }) ?? false)
-  }
+  var accent: Accent { project.project.accent }
+
+  var canEdit: Bool { !project.project.closed }
 }
 
 extension EditableItem.State: Identifiable {
-  public var id: Int64 { item.id ?? 0 }
+  public var id: Int64? { item.id }
 }

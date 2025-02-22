@@ -27,11 +27,15 @@ import Testing
   }
 
   @Test func toggle() async throws {
-    await store.send(.toggle) {
+    await store.send(.toggle)
+
+    await store.receive(\.binding) {
       $0.item.done.toggle()
     }
 
-    await store.send(.toggle) {
+    await store.send(.toggle)
+
+    await store.receive(\.binding) {
       $0.item.done.toggle()
     }
   }

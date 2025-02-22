@@ -7,7 +7,6 @@ import Projects
 @Reducer public struct KeepinOn {
   @ObservableState public struct State: Equatable {
     public var projects: Projects.State
-    public var itemDetail: Item?
 
     public init(
       projects: Projects.State = Projects.State()
@@ -27,14 +26,8 @@ import Projects
 
     Scope(state: \.projects, action: \.projects, child: Projects.init)
 
-    Reduce { state, action in
+    Reduce { _, action in
       switch action {
-      case let .projects(.editableProjects(.element(projectIndex, .editableItems(.element(itemIndex, .detail))))):
-        return .send(.binding(.set(
-          \.itemDetail,
-           state.projects.editableProjects[id: projectIndex]?.editableItems[id: itemIndex]?.item
-        )))
-
       case .projects, .binding: return .none
       }
     }

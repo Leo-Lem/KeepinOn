@@ -13,7 +13,7 @@ public struct ItemRow: View {
     } label: {
       HStack {
         Image(systemName: store.item.icon)
-          .foregroundColor(store.accent?.color)
+          .foregroundColor(store.accent.color)
 
         Text(store.item.title)
 
@@ -47,10 +47,13 @@ public struct ItemRow: View {
         Button(.localizable(.edit), systemImage: "square.and.pencil") {
           // TODO: edit item
         }
+        .disabled(true)
         .tint(.yellow)
         .accessibilityIdentifier("edit-item")
-        .disabled(true)
       }
+    }
+    .sheet(isPresented: $store.detail) {
+      ItemDetail(store.item, project: store.project)
     }
   }
 
@@ -59,6 +62,8 @@ public struct ItemRow: View {
 
 #Preview {
   List {
-    ItemRow(Store(initialState: EditableItem.State(previews().items[0])) { EditableItem()._printChanges() })
+    ForEach(previews().items, id: \.id) { item in
+      ItemRow(Store(initialState: EditableItem.State(item)) { EditableItem()._printChanges() })
+    }
   }
 }

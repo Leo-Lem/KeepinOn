@@ -4,7 +4,7 @@ import Data
 
 public struct ItemDetail: View {
   let item: Item
-  let project: Project
+  let project: Project.WithItems
 
   public var body: some View {
     VStack {
@@ -25,19 +25,19 @@ public struct ItemDetail: View {
       }
       .padding()
       .frame(maxWidth: .infinity)
-      .foregroundColor(project.accent.color)
+      .foregroundColor(project.project.accent.color)
       .accessibilityAddTraits(.isHeader)
       .accessibilityIdentifier("item-detail-page-header")
 
-      Text(item.details.replacing("\n", with: ""))
+      Text(item.details.replacing("\n", with: " "))
         .font(.title2)
         .fontWeight(.semibold)
 
       Divider()
         .frame(width: 200)
 
-//      project?.peekView()
-//        .padding()
+      ProjectPeek(project)
+        .padding()
 
       Spacer()
 
@@ -50,7 +50,7 @@ public struct ItemDetail: View {
     .presentationDetents([.medium])
   }
 
-  public init(_ item: Item, project: Project) {
+  public init(_ item: Item, project: Project.WithItems) {
     self.item = item
     self.project = project
   }
@@ -61,9 +61,6 @@ public struct ItemDetail: View {
 
   Grid {}
     .sheet(isPresented: $presented) {
-      ItemDetail(
-        Item(createdAt: .now, projectId: 0, title: "Item 1", details: "Details of the item", priority: .urgent),
-        project: Project(title: "Project 1", details: "Project details", accent: .green)
-      )
+      ItemDetail(.example(), project: .init(.example(), items: [.example(), .example(), .example()]))
     }
 }
