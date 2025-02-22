@@ -45,9 +45,6 @@
         }
       }
     },
-    "delete-project" : {
-
-    },
     "deleteAlertTitle" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -91,9 +88,6 @@
           }
         }
       }
-    },
-    "toggle-project" : {
-
     }
   },
   "version" : "1.0"

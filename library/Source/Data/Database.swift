@@ -33,7 +33,6 @@ public extension DatabaseWriter where Self == DatabaseQueue {
   }
 }
 
-#if DEBUG
   public func previews() -> (projects: [Project], items: [Item]) {
     // swiftlint:disable all
     let _ = prepareDependencies {
@@ -43,7 +42,8 @@ public extension DatabaseWriter where Self == DatabaseQueue {
     @Dependency(\.defaultDatabase) var db
     var projects = [Project]()
     var items = [Item]()
-
+    
+#if DEBUG
     do {
       let _ = try db.write {
         for id in Int64.zero..<10 {
@@ -59,8 +59,8 @@ public extension DatabaseWriter where Self == DatabaseQueue {
     } catch {
       print(error)
     }
+#endif
 
     return (projects, items)
     // swiftlint:enable all
   }
-#endif

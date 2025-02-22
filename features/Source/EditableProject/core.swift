@@ -81,6 +81,7 @@ import EditableItem
       }
     }
     .forEach(\.editableItems, action: \.editableItems, element: EditableItem.init)
+    .ifLet(\.alert, action: \.alert)
   }
 
   @Dependency(\.defaultDatabase) var database
