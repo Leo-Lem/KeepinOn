@@ -10,9 +10,7 @@ public struct ProjectSection: View {
 
   public var body: some View {
     Section {
-      ForEach(store.scope(state: \.editableItems, action: \.items)) { item in
-        ItemRow(item)
-      }
+      ForEach(store.scope(state: \.editableItems, action: \.editableItems), content: ItemRow.init)
 
       if store.canEdit {
         Button("ADD_ITEM", systemImage: "plus.circle") {
@@ -24,6 +22,7 @@ public struct ProjectSection: View {
       ProjectHeader(store)
     }
     .alert($store.scope(state: \.alert, action: \.alert))
+    .onAppear { store.send(.appear) }
   }
 
   public init(_ store: StoreOf<EditableProject>) { _store = Bindable(store) }

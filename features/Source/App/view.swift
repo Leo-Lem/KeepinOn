@@ -10,19 +10,22 @@ public struct KeepinOnView: View {
 
   public var body: some View {
     VStack {
-      ProjectsView(store.scope(state: \.projects, action: \.projects))
+      ProjectsList(store.scope(state: \.projects, action: \.projects))
     }
     .environment(\.font, Font.custom("American TypeWriter", size: 14))
   }
 
-  public init(_ store: StoreOf<KeepinOn> = Store(initialState: KeepinOn.State(), reducer: KeepinOn.init)) {
+  public init(
+    _ store: StoreOf<KeepinOn> = Store(initialState: KeepinOn.State(), reducer: KeepinOn.init),
+    database: (Bool) throws -> DatabaseWriter = database
+  ) {
       prepareDependencies {
-        $0.defaultDatabase = try! database() // swiftlint:disable:this force_try
+        $0.defaultDatabase = try! database(false) // swiftlint:disable:this force_try
       }
     self.store = store
   }
 }
 
 #Preview {
-  KeepinOnView()
+  KeepinOnView(database: { _ in try database(inMemory: true) })
 }

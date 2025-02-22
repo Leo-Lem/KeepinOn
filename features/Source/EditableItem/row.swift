@@ -22,6 +22,7 @@ public struct ItemRow: View {
           .foregroundColor(.secondary)
       }
     }
+    .disabled(true)
     .accessibilityValue(store.item.title)
     .accessibilityLabel("A11Y_ITEM")
     .swipeActions(edge: .leading) {
@@ -43,7 +44,6 @@ public struct ItemRow: View {
         }
         .tint(.red)
         .accessibilityIdentifier("delete-item")
-        .disabled(true)
 
         Button("EDIT", systemImage: "square.and.pencil") {
           // TODO: edit item
@@ -53,7 +53,6 @@ public struct ItemRow: View {
         .disabled(true)
       }
     }
-    .disabled(true)
   }
 
   public init(_ store: StoreOf<EditableItem>) { self.store = store }

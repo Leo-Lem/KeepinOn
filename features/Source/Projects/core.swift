@@ -6,26 +6,17 @@ import EditableProject
 import SwiftData
 
 @Reducer public struct Projects {
-  @ObservableState public struct State: Equatable, Sendable {
+  @ObservableState public struct State: Equatable {
     @SharedReader var projects: [Project]
+    var editableProjects: IdentifiedArrayOf<EditableProject.State>
     var closed: Bool
-
-    var editableProjects: IdentifiedArrayOf<EditableProject.State> {
-      get {
-        IdentifiedArray(uniqueElements: projects
-          .sorted { $0.createdAt! > $1.createdAt! } // TODO: move into SQL
-          .map { EditableProject.State($0) })
-      }
-      set { _ = newValue }
-    }
 
     public init(
       projects: [Project] = [],
       closed: Bool = false
     ) {
-      _projects = SharedReader(wrappedValue: projects, .fetchAll(sql: """
-          SELECT * FROM project WHERE closed=? ORDER BY createdAt DESC
-        """, arguments: [closed])) // order doesnt work
+      _projects = SharedReader(value: projects)
+      editableProjects = []
       self.closed = closed
     }
   }
@@ -33,7 +24,10 @@ import SwiftData
   public enum Action: BindableAction {
     case addProject
 
-    case projects(IdentifiedActionOf<EditableProject>)
+    case editableProjects(IdentifiedActionOf<EditableProject>)
+    case appear
+    case projects([Project])
+    case loadProjects
 
     case binding(BindingAction<State>)
   }
@@ -43,7 +37,7 @@ import SwiftData
 
     Reduce { state, action in
       switch action {
-      case .projects(.element(_, .toggle)):
+      case .editableProjects(.element(_, .toggle)):
         return .send(.binding(.set(\.closed, !state.closed)))
 
       case .addProject:
@@ -52,16 +46,29 @@ import SwiftData
         return .send(.binding(.set(\.closed, false)))
 
       case .binding(\.closed):
-        return .run { [state] _ in
-          try? await state.$projects.load(.fetchAll(sql: """
-            SELECT * FROM project WHERE closed=?
-          """, arguments: [state.closed]))
+        return .send(.loadProjects)
+
+      case .loadProjects:
+        return .run { [projects = state.$projects, closed = state.closed] _ in
+          try? await projects.load(.fetchAll(sql: """
+            SELECT * FROM project WHERE closed=? ORDER BY createdAt DESC
+          """, arguments: [closed]))
         }
 
-      case .binding, .projects: return .none
+      case let .projects(projects):
+        state.editableProjects = IdentifiedArray(uniqueElements: projects.map { EditableProject.State($0) })
+        return .merge(state.editableProjects.ids.map { .send(.editableProjects(.element(id: $0, action: .appear)))})
+
+      case .appear:
+        return .merge(
+          .publisher { state.$projects.publisher.map { .projects($0) } },
+          .send(.loadProjects)
+        )
+
+      case .binding, .editableProjects: return .none
       }
     }
-    .forEach(\.editableProjects, action: \.projects) { EditableProject() }
+    .forEach(\.editableProjects, action: \.editableProjects, element: EditableProject.init)
   }
 
   @Dependency(\.defaultDatabase) var database

@@ -7,14 +7,8 @@ import EditableItem
 @Reducer public struct EditableProject {
   @ObservableState public struct State: Equatable {
     public var project: Project
-
-    @SharedReader var items: [Item]
-
-    var editableItems: IdentifiedArrayOf<EditableItem.State> {
-      get { IdentifiedArray(uniqueElements: items.map(EditableItem.State.init)) }
-      set { _ = newValue }
-    }
-
+    @SharedReader public var items: [Item]
+    public var editableItems: IdentifiedArrayOf<EditableItem.State>
     @Presents public var alert: AlertState<Action.Alert>?
 
     public init(
@@ -22,8 +16,10 @@ import EditableItem
       items: [Item] = []
     ) {
       self.project = project
-      _items = SharedReader(wrappedValue: items,
-                            .fetchAll(sql: "SELECT * FROM item WHERE item.projectId=?", arguments: [project.id]))
+      _items = SharedReader(wrappedValue: items, .fetchAll(sql: """
+        SELECT * FROM item WHERE projectId=? ORDER BY done
+        """, arguments: [project.id]))
+      editableItems = []
     }
   }
 
@@ -33,7 +29,9 @@ import EditableItem
     case edit
     case addItem
 
-    case items(IdentifiedActionOf<EditableItem>)
+    case appear
+    case items([Item])
+    case editableItems(IdentifiedActionOf<EditableItem>)
 
     case alert(PresentationAction<Alert>)
     public enum Alert: Equatable {
@@ -41,7 +39,7 @@ import EditableItem
     }
   }
 
-  public var body: some Reducer<State, Action> {
+  public var body: some ReducerOf<Self> {
     Reduce { state, action in
       switch action {
       case .delete:
@@ -53,7 +51,6 @@ import EditableItem
           }
         }
         return .none
-//        return .send(.alert(.presented(.delete)))
 
       case .toggle:
         state.project.closed.toggle()
@@ -71,10 +68,20 @@ import EditableItem
         _ = try? database.write { try state.project.delete($0) }
         return .none
 
-      case .edit, .alert, .items: return .none
+      case .appear:
+        return .merge(
+          .publisher { state.$items.publisher.map { .items($0) } },
+          .send(.items(state.items))
+        )
+
+      case let .items(items):
+        state.editableItems = IdentifiedArray(uniqueElements: items.map(EditableItem.State.init))
+        return .none
+
+      case .edit, .alert, .editableItems: return .none
       }
     }
-    .forEach(\.editableItems, action: \.items, element: EditableItem.init)
+    .forEach(\.editableItems, action: \.editableItems, element: EditableItem.init)
   }
 
   @Dependency(\.defaultDatabase) var database

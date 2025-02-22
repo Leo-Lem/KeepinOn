@@ -15,14 +15,8 @@ import Projects
     }
   }
 
-  public enum Action: ViewAction {
+  public enum Action {
     case projects(Projects.Action)
-
-    case view(View)
-    public enum View: BindableAction {
-      case binding(BindingAction<State>)
-      case tap
-    }
   }
 
   public var body: some Reducer<State, Action> {
@@ -30,17 +24,7 @@ import Projects
 
     Reduce { _, action in
       switch action {
-      case .projects:
-        return .none
-
-      case let .view(action):
-        switch action {
-        case .binding:
-          return .none
-
-        case .tap:
-          return .none
-        }
+      case .projects: return .none
       }
     }
   }

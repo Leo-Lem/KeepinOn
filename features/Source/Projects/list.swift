@@ -5,15 +5,13 @@ import Data
 import EditableProject
 import SwiftUIComponents
 
-public struct ProjectsView: View {
+public struct ProjectsList: View {
   @Bindable public var store: StoreOf<Projects>
 
   public var body: some View {
     Section {
       List {
-        ForEach(store.scope(state: \.editableProjects, action: \.projects)) { project in
-          ProjectSection(project)
-        }
+        ForEach(store.scope(state: \.editableProjects, action: \.editableProjects), content: ProjectSection.init)
       }
     } header: {
       HStack {
@@ -32,6 +30,7 @@ public struct ProjectsView: View {
           .toggleStyle(.button)
       }
       .padding()
+      .onAppear { store.send(.appear) }
     }
   }
 
@@ -42,6 +41,6 @@ public struct ProjectsView: View {
   let (_, _) = previews()
 
   NavigationStack {
-    ProjectsView(Store(initialState: Projects.State()) { Projects()._printChanges() })
+    ProjectsList(Store(initialState: Projects.State()) { Projects()._printChanges() })
   }
 }

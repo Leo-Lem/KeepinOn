@@ -24,6 +24,7 @@ import Data
 
       case .toggle:
         state.item.done.toggle()
+        try? database.write { try state.item.save($0) }
         return .none
       }
     }
