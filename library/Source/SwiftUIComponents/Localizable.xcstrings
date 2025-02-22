@@ -100,6 +100,17 @@
         }
       }
     },
+    "items" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Up next"
+          }
+        }
+      }
+    },
     "items %lld" : {
       "comment" : "Items per project.",
       "extractionState" : "manual",

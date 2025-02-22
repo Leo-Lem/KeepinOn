@@ -2,7 +2,7 @@
 
 import struct Foundation.Date
 
-public struct Item: Codable, Equatable, Sendable {
+public struct Item: Codable, Equatable, Sendable, Identifiable {
   public var id: Int64?
   public var createdAt: Date?
   public var projectId: Int64
@@ -42,10 +42,21 @@ extension Item: MutablePersistableRecord {
 }
 
 extension Item: TableRecord {
-  static let project = belongsTo(Project.self)
+  public static let project = belongsTo(Project.self)
 }
 
 extension Item: FetchableRecord {
+  public struct WithProject: Sendable, Codable, Identifiable, Equatable, FetchableRecord {
+    public var item: Item
+    public var project: Project
+
+    public var id: Int64? { item.id }
+
+    public init(_ item: Item, project: Project) {
+      self.item = item
+      self.project = project
+    }
+  }
 }
 
 extension Item {

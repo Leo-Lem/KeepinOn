@@ -54,6 +54,9 @@ public struct ItemRow: View {
     .sheet(isPresented: $store.detailing) {
       ItemDetail(store.item, project: store.project)
     }
+    .sheet(isPresented: $store.editing) {
+      ItemEditor(store)
+    }
   }
 
   public init(_ store: StoreOf<EditableItem>) { self.store = store }
