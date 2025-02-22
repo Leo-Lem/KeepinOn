@@ -3,14 +3,17 @@
 import ComposableArchitecture
 import Data
 import Projects
-import SwiftUI
+import SwiftUIComponents
 
 public struct KeepinOnView: View {
-  @Bindable var store: StoreOf<KeepinOn>
+  @Bindable public var store: StoreOf<KeepinOn>
 
   public var body: some View {
     VStack {
       ProjectsList(store.scope(state: \.projects, action: \.projects))
+    }
+    .sheet(item: $store.itemDetail) {
+      ItemDetail($0, project: Project(title: "", details: "", accent: .green)) // TODO: project
     }
     .environment(\.font, Font.custom("American TypeWriter", size: 14))
   }
@@ -26,6 +29,8 @@ public struct KeepinOnView: View {
   }
 }
 
+extension Item: @retroactive Identifiable {}
+
 #Preview {
-  KeepinOnView(database: .keepinOn())
+  KeepinOnView(database: .keepinOn(inMemory: true))
 }

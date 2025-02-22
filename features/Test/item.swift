@@ -47,7 +47,7 @@ import Testing
       try item.save($0)
     }
 
-    #expect(store.state.project?.color == project.color)
+    #expect(store.state.accent == project.accent)
   }
 
   @Test func canEdit() async throws {

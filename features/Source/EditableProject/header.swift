@@ -50,7 +50,7 @@ public struct ProjectHeader: View {
       }
     }
     .labelStyle(.iconOnly)
-    .tint(store.project.color)
+    .tint(store.project.accent.color)
     .padding(.bottom, 10)
     .accessibilityElement(children: .contain)
     .accessibilityLabel(.localizable(.a11yProject(store.progress.formatted(.percent))))

@@ -9,11 +9,11 @@ public struct ItemRow: View {
 
   public var body: some View {
     Button {
-      // TODO: item detail
+      store.send(.detail)
     } label: {
       HStack {
         Image(systemName: store.item.icon)
-          .foregroundColor(store.project?.color)
+          .foregroundColor(store.accent?.color)
 
         Text(store.item.title)
 
@@ -22,11 +22,8 @@ public struct ItemRow: View {
           .foregroundColor(.secondary)
       }
     }
-    .disabled(true)
     .accessibilityValue(store.item.title)
-    .accessibilityLabel(
-      .localizable(store.item.done ? .a11yCompleted : store.item.priority == .urgent ? .a11yUrgent : .a11yItem)
-    )
+    .accessibilityLabel(store.item.a11y)
     .swipeActions(edge: .leading) {
       if store.canEdit {
         Button(

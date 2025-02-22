@@ -13,6 +13,7 @@ import Data
   public enum Action {
     case delete
     case toggle
+    case detail
   }
 
   public var body: some Reducer<State, Action> {
@@ -26,6 +27,8 @@ import Data
         state.item.done.toggle()
         try? database.write { try state.item.save($0) }
         return .none
+
+      case .detail: return .none
       }
     }
   }
@@ -36,9 +39,15 @@ import Data
 }
 
 extension EditableItem.State {
-  var project: Project? {
+  var accent: Accent? {
     @Dependency(\.defaultDatabase) var database
-    return try? database.read { try Project.fetchOne($0, key: item.projectId) }
+    return try? database.read {
+      try Project
+        .filter(key: item.projectId)
+        .select([Column("accent")], as: String.self)
+        .fetchOne($0)
+        .map(Accent.init)?.optional
+    }
   }
 
   var canEdit: Bool {
