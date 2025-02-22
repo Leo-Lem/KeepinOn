@@ -6,16 +6,17 @@ public struct FeaturedItems: View {
   let items: [Item.WithProject]
 
   public var body: some View {
-      VStack {
-        Text(.localizable(.items))
-          .foregroundColor(.secondary)
-          .padding(.top)
+    VStack {
+      Text(.localizable(.items))
+        .foregroundColor(.secondary)
+        .padding(.top)
 
-        ForEach(items, id: \.item.id) { item in
-          ItemPeek(item.item, accent: item.project.accent)
-        }
+      ForEach(items, id: \.item.id) { item in
+        ItemPeek(item.item, accent: item.project.accent)
+          .background(item.project.accent.color.opacity(0.2), in: .capsule)
+          .transition(.slide)
       }
-      .padding()
+    }
   }
 
   public init(_ items: [Item.WithProject]) { self.items = items }

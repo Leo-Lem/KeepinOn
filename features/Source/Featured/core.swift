@@ -40,11 +40,13 @@ import Data
         LIMIT 3 
         """, arguments: [false]))
       __items = SharedReader(wrappedValue: items, .fetchAll(sql: """
-        SELECT * FROM item
-        WHERE done=?
-        ORDER BY createdAt DESC
+        SELECT item.*
+        FROM item
+        JOIN project ON project.id=item.projectId
+        WHERE item.done=0 AND project.closed=0
+        ORDER BY item.createdAt DESC
         LIMIT 3
-        """, arguments: [false]))
+        """))
     }
   }
 

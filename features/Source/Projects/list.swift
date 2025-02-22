@@ -11,7 +11,9 @@ public struct ProjectsList: View {
   public var body: some View {
     Section {
       List {
-        ForEach(store.scope(state: \.editableProjects, action: \.editableProjects), content: ProjectSection.init)
+        ForEach(store.scope(state: \.editableProjects, action: \.editableProjects)) { project in
+          ProjectSection(project)
+        }
       }
     } header: {
       HStack {
@@ -31,6 +33,7 @@ public struct ProjectsList: View {
       }
       .padding()
       .onAppear { store.send(.loadProjects) }
+      .animation(.default, value: store.projects)
     }
   }
 

@@ -6,19 +6,20 @@ public struct FeaturedProjects: View {
   let projects: [Project.WithItems]
 
   public var body: some View {
-    LazyVGrid(columns: [GridItem()]) {
-      ForEach(projects, id: \.project.id) { project in
-        ProjectPeek(project)
-          .onTapGesture { presented = project }
-          .background {
-            RoundedRectangle(cornerRadius: 10)
-              .stroke(project.project.accent.color, lineWidth: 2)
-              .rotationEffect(.degrees(3))
-          }
+    ScrollView(.horizontal) {
+      LazyHGrid(rows: [GridItem()]) {
+        ForEach(projects, id: \.project.id) { project in
+          ProjectPeek(project)
+            .transition(.move(edge: .top))
+            .onTapGesture { presented = project }
+            .background {
+              RoundedRectangle(cornerRadius: 10)
+                .stroke(project.project.accent.color, lineWidth: 2)
+                .rotationEffect(.degrees(3))
+            }
+        }
       }
     }
-    .padding(.horizontal)
-    .padding()
     .accessibilityIdentifier("featured-projects-list")
     .sheet(item: $presented) { ProjectDetail($0) }
   }

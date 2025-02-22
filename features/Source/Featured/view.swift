@@ -8,8 +8,14 @@ public struct FeaturedView: View {
   public var store: StoreOf<Featured>
 
   public var body: some View {
-    FeaturedProjects(store.projects)
-    FeaturedItems(store.items)
+    VStack {
+      FeaturedProjects(store.projects)
+      FeaturedItems(store.items)
+        .padding(.horizontal)
+    }
+    .transition(.move(edge: .top).combined(with: .opacity))
+    .animation(.default, value: store.projects)
+    .animation(.default, value: store.items)
   }
 
   public init(_ store: StoreOf<Featured>) { self.store = store }

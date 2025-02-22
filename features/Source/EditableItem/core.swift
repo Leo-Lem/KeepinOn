@@ -44,7 +44,7 @@ import Data
       case .detail:
         return .send(.binding(.set(\.detailing, true)))
 
-      case .binding(\.item):
+      case .binding(\.item), .binding(\.item.done):
         try? database.write { try state.item.save($0) }
         return .none
 

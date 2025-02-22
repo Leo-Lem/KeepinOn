@@ -22,7 +22,10 @@ import EditableItem
     ) {
       self.project = project
       _items = SharedReader(wrappedValue: items, .fetchAll(sql: """
-        SELECT * FROM item WHERE projectId=? ORDER BY done
+        SELECT * 
+        FROM item
+        WHERE projectId=? 
+        ORDER BY done
         """, arguments: [project.id]))
       editableItems = []
       self.detailing = detailing
@@ -77,7 +80,18 @@ import EditableItem
         return .none
 
       case let .items(items):
-        state.editableItems = IdentifiedArray(uniqueElements: items.map { EditableItem.State($0) })
+        for id in state.editableItems.ids {
+          if let item = items.first(where: { $0.id == id }) {
+            state.editableItems[id: id]?.item = item
+          } else {
+            state.editableItems.remove(id: id)
+          }
+        }
+
+        state.editableItems.append(
+          contentsOf: IdentifiedArray(uniqueElements: items.map { EditableItem.State($0) })
+        )
+
         return .none
 
       case .binding(\.project), .binding(\.project.closed):
