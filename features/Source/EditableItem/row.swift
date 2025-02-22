@@ -24,11 +24,13 @@ public struct ItemRow: View {
     }
     .disabled(true)
     .accessibilityValue(store.item.title)
-    .accessibilityLabel("A11Y_ITEM")
+    .accessibilityLabel(
+      .localizable(store.item.done ? .a11yCompleted : store.item.priority == .urgent ? .a11yUrgent : .a11yItem)
+    )
     .swipeActions(edge: .leading) {
       if store.canEdit {
         Button(
-          store.item.done ? "UNCOMPLETE_ITEM" : "COMPLETE_ITEM",
+          .localizable(store.item.done ? .uncomplete : .complete),
           systemImage: store.item.done ? "checkmark.circle.badge.xmark" : "checkmark.circle"
         ) {
           store.send(.toggle)
@@ -39,13 +41,13 @@ public struct ItemRow: View {
     }
     .swipeActions(edge: .trailing) {
       if store.canEdit && !store.item.done {
-        Button("DELETE", systemImage: "trash") {
+        Button(.localizable(.delete), systemImage: "trash") {
           store.send(.delete)
         }
         .tint(.red)
         .accessibilityIdentifier("delete-item")
 
-        Button("EDIT", systemImage: "square.and.pencil") {
+        Button(.localizable(.edit), systemImage: "square.and.pencil") {
           // TODO: edit item
         }
         .tint(.yellow)

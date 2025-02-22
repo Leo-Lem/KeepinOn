@@ -8,14 +8,13 @@ let ext = Target.Dependency.product(name: "Extensions", package: "extensions")
 let comps = Target.Dependency.product(name: "SwiftUIComponents", package: "library")
 let data = Target.Dependency.product(name: "Data", package: "library")
 
-let strings = Target.PluginUsage.plugin(name: "XCStringsToolPlugin", package: "xcstrings-tool-plugin")
 let lint = Target.PluginUsage.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
 
 let libs: [Target] = [
   .target(name: "App", dependencies: [tca, str, comps, "Projects"], plugins: [lint]),
   .target(name: "Projects", dependencies: [tca, str, comps, data, "EditableProject", "EditableItem"], plugins: [lint]),
-  .target(name: "EditableProject", dependencies: [tca, comps, data, "EditableItem"], plugins: [lint, strings]),
-  .target(name: "EditableItem", dependencies: [tca, comps, data], plugins: [lint]),
+  .target(name: "EditableProject", dependencies: [tca, str, comps, data, "EditableItem"], plugins: [lint]),
+  .target(name: "EditableItem", dependencies: [tca, str, comps, data], plugins: [lint]),
 ]
 
 let package = Package(

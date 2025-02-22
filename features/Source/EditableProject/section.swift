@@ -13,7 +13,7 @@ public struct ProjectSection: View {
       ForEach(store.scope(state: \.editableItems, action: \.editableItems), content: ItemRow.init)
 
       if store.canEdit {
-        Button("ADD_ITEM", systemImage: "plus.circle") {
+        Button(.localizable(.addItem), systemImage: "plus.circle") {
           store.send(.addItem)
         }
         .accessibilityIdentifier("add-item")

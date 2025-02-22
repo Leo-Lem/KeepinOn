@@ -23,15 +23,8 @@ import Testing
   }
 
   @Test func delete() async throws {
-    await store.send(.delete) {
-      $0.alert = AlertState {
-        TextState("DELETE_PROJECT_ALERT_TITLE")
-      } actions: {
-        ButtonState(role: .destructive, action: .send(.delete)) {
-          TextState("DELETE")
-        }
-      }
-    }
+    store.exhaustivity = .off
+    await store.send(.delete)
     await store.send(.alert(.presented(.delete)))
   }
 

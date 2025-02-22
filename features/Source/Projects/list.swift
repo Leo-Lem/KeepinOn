@@ -15,10 +15,10 @@ public struct ProjectsList: View {
       }
     } header: {
       HStack {
-        Text("Projects")
+        Text(localizable: .title)
           .font(.title)
 
-        Button("ADD_PROJECT", systemImage: "rectangle.stack.badge.plus.fill") {
+        Button(.localizable(.addProject), systemImage: "rectangle.stack.badge.plus.fill") {
           store.send(.addProject)
         }
         .labelStyle(.iconOnly)
@@ -26,7 +26,7 @@ public struct ProjectsList: View {
 
         Spacer()
 
-        Toggle("closed", systemImage: store.closed ? "lock" : "lock.open", isOn: $store.closed)
+        Toggle(.localizable(.closed), systemImage: store.closed ? "lock" : "lock.open", isOn: $store.closed)
           .toggleStyle(.button)
       }
       .padding()
@@ -38,9 +38,7 @@ public struct ProjectsList: View {
 }
 
 #Preview {
-  let (_, _) = previews()
-
   NavigationStack {
-    ProjectsList(Store(initialState: Projects.State()) { Projects()._printChanges() })
+    ProjectsList(Store(initialState: Projects.State(projects: previews().projects)) { Projects()._printChanges() })
   }
 }

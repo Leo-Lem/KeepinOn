@@ -43,10 +43,10 @@ import EditableItem
       switch action {
       case .delete:
         state.alert = AlertState {
-          TextState("DELETE_PROJECT_ALERT_TITLE")
+          TextState(.localizable(.deleteAlertTitle))
         } actions: {
           ButtonState(role: .destructive, action: .send(.delete)) {
-            TextState("DELETE")
+            TextState(.localizable(.delete))
           }
         }
         return .none

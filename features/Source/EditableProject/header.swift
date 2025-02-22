@@ -13,7 +13,7 @@ public struct ProjectHeader: View {
         HStack {
           Text(store.project.title).lineLimit(1)
 
-          Button("SHOW_PROJECT_DETAILS", systemImage: "info.bubble") {
+          Button(.localizable(.details), systemImage: "info.bubble") {
             // TODO: project detail
           }
           .accessibilityIdentifier("show-project-details")
@@ -27,33 +27,33 @@ public struct ProjectHeader: View {
       Spacer()
 
       Button(
-        store.project.closed ? "REOPEN_PROJECT" : "CLOSE_PROJECT",
+        .localizable(store.project.closed ? .reopen : .close),
         systemImage: store.project.closed ? "lock.open" : "lock"
       ) {
         store.send(.toggle)
       }
-      .accessibilityLabel("toggle-project")
+      .accessibilityIdentifier("toggle-project")
 
       if !store.project.closed {
-        Button("EDIT_PROJECT", systemImage: "square.and.pencil") {
+        Button(.localizable(.edit), systemImage: "square.and.pencil") {
           // TODO: edit project
         }
         .tint(.yellow)
         .accessibilityIdentifier("edit-project")
         .disabled(true)
 
-        Button("DELETE_PROJECT", systemImage: "xmark.octagon") {
+        Button(.localizable(.delete), systemImage: "xmark.octagon") {
           store.send(.delete)
         }
         .tint(.red)
-        .accessibilityLabel("delete-project")
+        .accessibilityIdentifier("delete-project")
       }
     }
     .labelStyle(.iconOnly)
     .tint(store.project.color)
     .padding(.bottom, 10)
     .accessibilityElement(children: .contain)
-    .accessibilityLabel("A11Y_PROJECT")
+    .accessibilityLabel(.localizable(.a11yProject(store.progress.formatted(.percent))))
   }
 
   public init(_ store: StoreOf<EditableProject>) { self.store = store }
