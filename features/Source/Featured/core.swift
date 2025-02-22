@@ -15,6 +15,7 @@ import Data
           .including(all: Project.items)
           .asRequest(of: Project.WithItems.self)
           .filter(ids: _projects.map(\.id))
+          .order(Column("createdAt").desc)
           .fetchAll(db)
       }) ?? []
     }
@@ -25,6 +26,7 @@ import Data
           .including(required: Item.project)
           .asRequest(of: Item.WithProject.self)
           .filter(ids: _items.map(\.id))
+          .order(Column("createdAt").desc)
           .fetchAll(db)
       }) ?? []
     }
