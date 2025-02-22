@@ -40,11 +40,21 @@ extension Project: MutablePersistableRecord {
 }
 
 extension Project: TableRecord {
-  static let items = hasMany(Item.self)
+  public static let items = hasMany(Item.self)
   public var items: QueryInterfaceRequest<Item> { request(for: Project.items) }
 }
 
 extension Project: FetchableRecord {
+  public struct WithItems: Codable, FetchableRecord {
+    public var project: Project
+    public var items: [Item]
+
+    public init(_ project: Project, items: [Item]) {
+      self.project = project
+      self.items = items
+    }
+  }
+
   /// Share of completed items.
   public func progress(_ db: Database) -> Double {
     do {

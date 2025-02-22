@@ -6,7 +6,7 @@ import Projects
 
 @Reducer public struct KeepinOn {
   @ObservableState public struct State: Equatable {
-    var projects: Projects.State
+    public var projects: Projects.State
 
     public init(
       projects: Projects.State = Projects.State()
@@ -15,16 +15,20 @@ import Projects
     }
   }
 
-  public enum Action {
+  public enum Action: BindableAction {
     case projects(Projects.Action)
+
+    case binding(BindingAction<State>)
   }
 
   public var body: some Reducer<State, Action> {
+    BindingReducer()
+
     Scope(state: \.projects, action: \.projects, child: Projects.init)
 
     Reduce { _, action in
       switch action {
-      case .projects: return .none
+      case .projects, .binding: return .none
       }
     }
   }

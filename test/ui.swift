@@ -24,6 +24,7 @@ final class KeepinOnUITests: XCTestCase {
   }
   
   func testAddingProject() throws {
-    
+    app.buttons["add-project"].tap()
+    XCTAssertTrue(app.progressIndicators["0 %"].exists)
   }
 }

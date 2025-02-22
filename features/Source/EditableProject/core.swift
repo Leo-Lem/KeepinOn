@@ -10,6 +10,7 @@ import EditableItem
     @SharedReader public var items: [Item]
     public var editableItems: IdentifiedArrayOf<EditableItem.State>
     @Presents public var alert: AlertState<Action.Alert>?
+    public var detail: Bool = false
 
     public init(
       _ project: Project,
@@ -23,7 +24,7 @@ import EditableItem
     }
   }
 
-  public enum Action {
+  public enum Action: BindableAction {
     case toggle
     case delete
     case addItem
@@ -36,9 +37,13 @@ import EditableItem
     public enum Alert: Equatable {
       case delete
     }
+
+    case binding(BindingAction<State>)
   }
 
   public var body: some ReducerOf<Self> {
+    BindingReducer()
+
     Reduce { state, action in
       switch action {
       case .delete:
@@ -77,7 +82,7 @@ import EditableItem
         state.editableItems = IdentifiedArray(uniqueElements: items.map(EditableItem.State.init))
         return .none
 
-      case .alert, .editableItems: return .none
+      case .alert, .editableItems, .binding: return .none
       }
     }
     .forEach(\.editableItems, action: \.editableItems, element: EditableItem.init)
@@ -90,6 +95,13 @@ import EditableItem
 }
 
 public extension EditableProject.State {
+  var withItems: Project.WithItems {
+    @Dependency(\.defaultDatabase) var database
+    return Project.WithItems(project, items: (try? database.read {
+      try project.items.fetchAll($0)
+    }) ?? [])
+  }
+
   var progress: Double {
     @Dependency(\.defaultDatabase) var database
     return (try? database.read { db in

@@ -32,35 +32,3 @@ public extension DatabaseWriter where Self == DatabaseQueue {
     } catch { fatalError("Failed to set up database: \(error)")}
   }
 }
-
-  public func previews() -> (projects: [Project], items: [Item]) {
-    // swiftlint:disable all
-    let _ = prepareDependencies {
-      $0.defaultDatabase = .keepinOn(inMemory: true)
-    }
-
-    @Dependency(\.defaultDatabase) var db
-    var projects = [Project]()
-    var items = [Item]()
-    
-#if DEBUG
-    do {
-      let _ = try db.write {
-        for id in Int64.zero..<10 {
-          var project = Project(id: id, title: "Project \(id)", details: "", accent: .green, closed: false)
-          try project.save($0)
-          var item = Item(id: id, projectId: project.id!, title: "Item \(id)", details: "Some details about this item.")
-          try item.save($0)
-
-          projects.append(project)
-          items.append(item)
-        }
-      }
-    } catch {
-      print(error)
-    }
-#endif
-
-    return (projects, items)
-    // swiftlint:enable all
-  }

@@ -14,10 +14,12 @@ public struct ProjectHeader: View {
           Text(store.project.title).lineLimit(1)
 
           Button(.localizable(.details), systemImage: "info.bubble") {
-            // TODO: project detail
+            store.detail = true
           }
           .accessibilityIdentifier("show-project-details")
-          .disabled(true)
+          .sheet(isPresented: $store.detail) {
+            ProjectDetail(store.withItems)
+          }
         }
 
         ProgressView(value: store.progress)
@@ -38,9 +40,9 @@ public struct ProjectHeader: View {
         Button(.localizable(.edit), systemImage: "square.and.pencil") {
           // TODO: edit project
         }
+        .disabled(true)
         .tint(.yellow)
         .accessibilityIdentifier("edit-project")
-        .disabled(true)
 
         Button(.localizable(.delete), systemImage: "xmark.octagon") {
           store.send(.delete)
@@ -50,10 +52,10 @@ public struct ProjectHeader: View {
       }
     }
     .labelStyle(.iconOnly)
-    .tint(store.project.color)
+    .tint(store.project.accent.color)
     .padding(.bottom, 10)
     .accessibilityElement(children: .contain)
-    .accessibilityLabel(.localizable(.a11yProject(store.progress.formatted(.percent))))
+    .accessibilityLabel(store.project.a11y)
   }
 
   public init(_ store: StoreOf<EditableProject>) { self.store = store }

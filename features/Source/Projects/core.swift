@@ -7,9 +7,9 @@ import SwiftData
 
 @Reducer public struct Projects {
   @ObservableState public struct State: Equatable {
-    @SharedReader var projects: [Project]
-    var editableProjects: IdentifiedArrayOf<EditableProject.State>
-    var closed: Bool
+    @SharedReader public var projects: [Project]
+    public var editableProjects: IdentifiedArrayOf<EditableProject.State>
+    public var closed: Bool
 
     public init(
       projects: [Project] = [],
@@ -32,7 +32,7 @@ import SwiftData
     case binding(BindingAction<State>)
   }
 
-  public var body: some Reducer<State, Action> {
+  public var body: some ReducerOf<Self> {
     BindingReducer()
 
     Reduce { state, action in

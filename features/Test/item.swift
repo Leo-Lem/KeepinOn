@@ -27,11 +27,15 @@ import Testing
   }
 
   @Test func toggle() async throws {
-    await store.send(.toggle) {
+    await store.send(.toggle)
+
+    await store.receive(\.binding) {
       $0.item.done.toggle()
     }
 
-    await store.send(.toggle) {
+    await store.send(.toggle)
+
+    await store.receive(\.binding) {
       $0.item.done.toggle()
     }
   }
@@ -47,7 +51,7 @@ import Testing
       try item.save($0)
     }
 
-    #expect(store.state.project?.color == project.color)
+    #expect(store.state.accent == project.accent)
   }
 
   @Test func canEdit() async throws {

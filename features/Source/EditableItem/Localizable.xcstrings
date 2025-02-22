@@ -1,39 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "a11yCompleted" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Completed"
-          }
-        }
-      }
-    },
-    "a11yItem" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Item"
-          }
-        }
-      }
-    },
-    "a11yUrgent" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Urgent"
-          }
-        }
-      }
-    },
     "complete" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -41,6 +8,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Complete Item"
+          }
+        }
+      }
+    },
+    "createdAt %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Created on %@"
           }
         }
       }

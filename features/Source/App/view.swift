@@ -3,10 +3,10 @@
 import ComposableArchitecture
 import Data
 import Projects
-import SwiftUI
+import SwiftUIComponents
 
 public struct KeepinOnView: View {
-  @Bindable var store: StoreOf<KeepinOn>
+  @Bindable public var store: StoreOf<KeepinOn>
 
   public var body: some View {
     VStack {
@@ -27,5 +27,5 @@ public struct KeepinOnView: View {
 }
 
 #Preview {
-  KeepinOnView(database: .keepinOn())
+  KeepinOnView(database: .keepinOn(inMemory: true))
 }

@@ -9,11 +9,11 @@ public struct ItemRow: View {
 
   public var body: some View {
     Button {
-      // TODO: item detail
+      store.send(.detail)
     } label: {
       HStack {
         Image(systemName: store.item.icon)
-          .foregroundColor(store.project?.color)
+          .foregroundColor(store.accent.color)
 
         Text(store.item.title)
 
@@ -22,11 +22,8 @@ public struct ItemRow: View {
           .foregroundColor(.secondary)
       }
     }
-    .disabled(true)
     .accessibilityValue(store.item.title)
-    .accessibilityLabel(
-      .localizable(store.item.done ? .a11yCompleted : store.item.priority == .urgent ? .a11yUrgent : .a11yItem)
-    )
+    .accessibilityLabel(store.item.a11y)
     .swipeActions(edge: .leading) {
       if store.canEdit {
         Button(
@@ -50,10 +47,13 @@ public struct ItemRow: View {
         Button(.localizable(.edit), systemImage: "square.and.pencil") {
           // TODO: edit item
         }
+        .disabled(true)
         .tint(.yellow)
         .accessibilityIdentifier("edit-item")
-        .disabled(true)
       }
+    }
+    .sheet(isPresented: $store.detail) {
+      ItemDetail(store.item, project: store.project)
     }
   }
 
@@ -62,6 +62,8 @@ public struct ItemRow: View {
 
 #Preview {
   List {
-    ItemRow(Store(initialState: EditableItem.State(previews().items[0])) { EditableItem()._printChanges() })
+    ForEach(previews().items, id: \.id) { item in
+      ItemRow(Store(initialState: EditableItem.State(item)) { EditableItem()._printChanges() })
+    }
   }
 }
