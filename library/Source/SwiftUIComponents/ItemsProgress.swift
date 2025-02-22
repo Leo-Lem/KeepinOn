@@ -7,7 +7,7 @@ public struct ItemsProgress: View {
   let accent: Accent
 
   public var body: some View {
-    ProgressView(value: Double(items.filter { !$0.done }.count), total: Double(items.count))
+    ProgressView(value: Double(items.filter { $0.done }.count), total: Double(items.count))
       .progressViewStyle(.linear)
       .tint(accent.color)
       .shadow(color: accent.color, radius: 10)
