@@ -26,7 +26,6 @@ import EditableItem
   public enum Action {
     case toggle
     case delete
-    case edit
     case addItem
 
     case appear
@@ -78,7 +77,7 @@ import EditableItem
         state.editableItems = IdentifiedArray(uniqueElements: items.map(EditableItem.State.init))
         return .none
 
-      case .edit, .alert, .editableItems: return .none
+      case .alert, .editableItems: return .none
       }
     }
     .forEach(\.editableItems, action: \.editableItems, element: EditableItem.init)

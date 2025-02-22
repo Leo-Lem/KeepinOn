@@ -17,15 +17,15 @@ public struct KeepinOnView: View {
 
   public init(
     _ store: StoreOf<KeepinOn> = Store(initialState: KeepinOn.State(), reducer: KeepinOn.init),
-    database: (Bool) throws -> DatabaseWriter = database
+    database: any DatabaseWriter = .keepinOn()
   ) {
       prepareDependencies {
-        $0.defaultDatabase = try! database(false) // swiftlint:disable:this force_try
+        $0.defaultDatabase = database
       }
     self.store = store
   }
 }
 
 #Preview {
-  KeepinOnView(database: { _ in try database(inMemory: true) })
+  KeepinOnView(database: .keepinOn())
 }

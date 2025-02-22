@@ -57,7 +57,9 @@ import SwiftData
 
       case let .projects(projects):
         state.editableProjects = IdentifiedArray(uniqueElements: projects.map { EditableProject.State($0) })
-        return .merge(state.editableProjects.ids.map { .send(.editableProjects(.element(id: $0, action: .appear)))})
+        return .merge(
+          state.editableProjects.ids.map { .send(.editableProjects(.element(id: $0, action: .appear)))}
+        )
 
       case .appear:
         return .merge(
@@ -74,8 +76,4 @@ import SwiftData
   @Dependency(\.defaultDatabase) var database
 
   public init() {}
-}
-
-public extension Projects.State {
-  var canEdit: Bool { !closed }
 }
