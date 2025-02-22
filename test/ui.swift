@@ -23,6 +23,7 @@ final class KeepinOnUITests: XCTestCase {
     }
   }
   
-  func test() throws {}
-  
+  func testAddingProject() throws {
+    
+  }
 }
