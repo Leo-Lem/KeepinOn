@@ -1,6 +1,28 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "a11yEditDetails" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit project details"
+          }
+        }
+      }
+    },
+    "a11yEditTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit project title"
+          }
+        }
+      }
+    },
     "a11yProject %@" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -56,6 +78,17 @@
         }
       }
     },
+    "deleteWarning" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deleting the project will delete all it’s associated items."
+          }
+        }
+      }
+    },
     "details" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -63,6 +96,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Project Details"
+          }
+        }
+      }
+    },
+    "detailsPlaceholder" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter your details"
           }
         }
       }
@@ -78,6 +122,29 @@
         }
       }
     },
+    "editProject" : {
+      "comment" : "Title for editing the project.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Editing Project"
+          }
+        }
+      }
+    },
+    "pickColor" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pick the project’s accent color"
+          }
+        }
+      }
+    },
     "reopen" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -85,6 +152,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Reopen Project"
+          }
+        }
+      }
+    },
+    "titlePlaceholder" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter a project title"
           }
         }
       }

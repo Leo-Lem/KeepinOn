@@ -11,6 +11,7 @@ import EditableItem
     public var editableItems: IdentifiedArrayOf<EditableItem.State>
     @Presents public var alert: AlertState<Action.Alert>?
     public var detail: Bool = false
+    public var editing: Bool = false
 
     public init(
       _ project: Project,
@@ -57,9 +58,7 @@ import EditableItem
         return .none
 
       case .toggle:
-        state.project.closed.toggle()
-        try? database.write { try state.project.save($0) }
-        return .none
+        return .send(.binding(.set(\.project.closed, !state.project.closed)))
 
       case .addItem:
         if let projectId = state.project.id {
@@ -72,15 +71,19 @@ import EditableItem
         _ = try? database.write { try state.project.delete($0) }
         return .none
 
+      case let .items(items):
+        state.editableItems = IdentifiedArray(uniqueElements: items.map(EditableItem.State.init))
+        return .none
+
+      case .binding(\.project):
+        try? database.write { try state.project.save($0) }
+        return .none
+
       case .appear:
         return .merge(
           .publisher { state.$items.publisher.map { .items($0) } },
           .send(.items(state.items))
         )
-
-      case let .items(items):
-        state.editableItems = IdentifiedArray(uniqueElements: items.map(EditableItem.State.init))
-        return .none
 
       case .alert, .editableItems, .binding: return .none
       }
