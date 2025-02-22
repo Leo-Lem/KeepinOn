@@ -18,6 +18,7 @@ public struct ProjectEditor: View {
           .accessibilityLabel(.localizable(.a11yEditDetails))
           .accessibilityIdentifier("edit-project-description")
       }
+      .foregroundStyle(store.project.accent.color.mix(with: .black, by: 0.3))
 
       Section(.localizable(.pickColor)) {
         AccentPicker($store.project.accent)
@@ -36,16 +37,16 @@ public struct ProjectEditor: View {
         Button(.localizable(.delete), systemImage: "xmark.octagon") {
           store.send(.delete)
         }
-        .tint(.red)
-        .alert($store.scope(state: \.alert, action: \.alert))
+        .foregroundStyle(.red)
         .accessibilityIdentifier("delete-project")
       } footer: {
         Text(localizable: .deleteWarning)
       }
+      .tint(.accentColor)
     }
     .formStyle(.grouped)
-    .navigationTitle(.localizable(.editProject))
     .animation(.default, value: store.project)
+    .presentationDetents([.fraction(0.75)])
   }
 
   public init(_ store: StoreOf<EditableProject>) { self.store = store }

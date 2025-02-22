@@ -14,10 +14,10 @@ public struct ProjectHeader: View {
           Text(store.project.title).lineLimit(1)
 
           Button(.localizable(.details), systemImage: "info.bubble") {
-            store.detail = true
+            store.detailing = true
           }
           .accessibilityIdentifier("show-project-details")
-          .sheet(isPresented: $store.detail) {
+          .sheet(isPresented: $store.detailing) {
             ProjectDetail(store.withItems)
           }
         }

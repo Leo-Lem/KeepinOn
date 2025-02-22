@@ -16,7 +16,7 @@ public struct KeepinOnView: View {
   }
 
   public init(
-    _ store: StoreOf<KeepinOn> = Store(initialState: KeepinOn.State(), reducer: KeepinOn.init),
+    _ store: StoreOf<KeepinOn> = Store(initialState: KeepinOn.State()) { KeepinOn() },
     database: any DatabaseWriter = .keepinOn()
   ) {
       prepareDependencies {

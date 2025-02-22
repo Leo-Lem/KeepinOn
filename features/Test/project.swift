@@ -40,7 +40,7 @@ import Testing
   }
 
   @Test func appear() async throws {
-    await store.send(.appear)
+    await store.send(.loadItems)
     await store.receive(\.items, [])
     await store.receive(\.items, [])
     await store.skipInFlightEffects()

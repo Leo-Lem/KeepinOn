@@ -21,7 +21,7 @@ public struct ProjectSection: View {
     } header: {
       ProjectHeader(store)
     }
-    .onAppear { store.send(.appear) }
+    .onAppear { store.send(.loadItems) }
   }
 
   public init(_ store: StoreOf<EditableProject>) { _store = Bindable(store) }

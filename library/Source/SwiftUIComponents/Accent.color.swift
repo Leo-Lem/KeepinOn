@@ -12,7 +12,7 @@ public extension Accent {
     case .purple: .purple
     case .orange: .orange
     case .teal: .teal
-    case .lightBlue: .blue.opacity(0.2)
+    case .lightBlue: .blue.opacity(0.5)
     case .gray: .gray
     }
   }

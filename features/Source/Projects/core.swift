@@ -24,10 +24,9 @@ import SwiftData
   public enum Action: BindableAction {
     case addProject
 
-    case editableProjects(IdentifiedActionOf<EditableProject>)
-    case appear
-    case projects([Project])
     case loadProjects
+    case projects([Project])
+    case editableProjects(IdentifiedActionOf<EditableProject>)
 
     case binding(BindingAction<State>)
   }
@@ -41,30 +40,36 @@ import SwiftData
         return .send(.binding(.set(\.closed, !state.closed)))
 
       case .addProject:
-        var project = Project(title: "", details: "", accent: .green)
+        var project = Project()
         try? database.write { try project.save($0) }
         return .send(.binding(.set(\.closed, false)))
 
       case .binding(\.closed):
         return .send(.loadProjects)
 
-      case .loadProjects:
-        return .run { [projects = state.$projects, closed = state.closed] _ in
-          try? await projects.load(.fetchAll(sql: """
-            SELECT * FROM project WHERE closed=? ORDER BY createdAt DESC
-          """, arguments: [closed]))
+      case let .projects(projects):
+        for id in state.editableProjects.ids {
+          if let project = projects.first(where: { $0.id == id }) {
+            state.editableProjects[id: id]?.project = project
+          } else {
+            state.editableProjects.remove(id: id)
+          }
         }
 
-      case let .projects(projects):
-        state.editableProjects = IdentifiedArray(uniqueElements: projects.map { EditableProject.State($0) })
-        return .merge(
-          state.editableProjects.ids.map { .send(.editableProjects(.element(id: $0, action: .appear)))}
+        state.editableProjects.append(
+          contentsOf: IdentifiedArray(uniqueElements: projects.map { EditableProject.State($0) })
         )
 
-      case .appear:
+        return .none
+
+      case .loadProjects:
         return .merge(
           .publisher { state.$projects.publisher.map { .projects($0) } },
-          .send(.loadProjects)
+          .run { [projects = state.$projects, closed = state.closed] _ in
+            try? await projects.load(.fetchAll(sql: """
+            SELECT * FROM project WHERE closed=? ORDER BY createdAt DESC
+          """, arguments: [closed]))
+          }
         )
 
       case .binding, .editableProjects: return .none

@@ -30,7 +30,7 @@ public struct ProjectsList: View {
           .toggleStyle(.button)
       }
       .padding()
-      .onAppear { store.send(.appear) }
+      .onAppear { store.send(.loadProjects) }
     }
   }
 

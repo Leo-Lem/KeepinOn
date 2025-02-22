@@ -15,9 +15,9 @@ public struct Project: Codable, Equatable, Sendable {
   public init(
     id: Int64? = nil,
     createdAt: Date? = nil,
-    title: String,
-    details: String,
-    accent: Accent,
+    title: String = "",
+    details: String = "",
+    accent: Accent = .blue,
     closed: Bool = false
   ) {
     self.id = id
