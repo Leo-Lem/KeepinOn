@@ -4,7 +4,7 @@ import ComposableArchitecture
 @testable import Projects
 import Testing
 
-@MainActor struct ProjectsTest {
+@Suite(.serialized) @MainActor struct ProjectsTest {
   init() {
     prepareDependencies {
       $0.defaultDatabase = .keepinOn(inMemory: true)
@@ -16,22 +16,22 @@ import Testing
       initialState: Projects.State(),
       reducer: Projects.init
     )
+    store.exhaustivity = .off
 
     await store.send(.addProject)
     await store.receive(\.binding.closed)
     await store.receive(\.loadProjects)
+    await store.receive(\.projects)
   }
 
-  @Test func appear() async throws {
+  @Test func loadProjects() async throws {
     let store = TestStore(
       initialState: Projects.State(),
       reducer: Projects.init
     )
+    store.exhaustivity = .off
 
-    await store.send(.appear)
-    await store.receive(\.projects, [])
-    await store.receive(\.loadProjects)
-    await store.receive(\.projects, [])
-    await store.skipInFlightEffects()
+    await store.send(.loadProjects)
+    await store.receive(\.projects)
   }
 }

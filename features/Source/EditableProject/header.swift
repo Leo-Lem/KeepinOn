@@ -14,10 +14,10 @@ public struct ProjectHeader: View {
           Text(store.project.title).lineLimit(1)
 
           Button(.localizable(.details), systemImage: "info.bubble") {
-            store.detail = true
+            store.detailing = true
           }
           .accessibilityIdentifier("show-project-details")
-          .sheet(isPresented: $store.detail) {
+          .sheet(isPresented: $store.detailing) {
             ProjectDetail(store.withItems)
           }
         }
@@ -38,17 +38,20 @@ public struct ProjectHeader: View {
 
       if !store.project.closed {
         Button(.localizable(.edit), systemImage: "square.and.pencil") {
-          // TODO: edit project
+          store.editing = true
         }
-        .disabled(true)
         .tint(.yellow)
         .accessibilityIdentifier("edit-project")
+        .sheet(isPresented: $store.editing) {
+          ProjectEditor(store)
+        }
 
         Button(.localizable(.delete), systemImage: "xmark.octagon") {
           store.send(.delete)
         }
         .tint(.red)
         .accessibilityIdentifier("delete-project")
+        .alert($store.scope(state: \.alert, action: \.alert))
       }
     }
     .labelStyle(.iconOnly)

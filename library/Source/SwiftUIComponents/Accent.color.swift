@@ -5,10 +5,15 @@ import Data
 public extension Accent {
   var color: Color {
     switch self {
-    case .blue: .blue
-    case .green: .green
     case .red: .red
-    @unknown default: .blue
+    case .green: .green
+    case .blue: .blue
+    case .pink: .pink
+    case .purple: .purple
+    case .orange: .orange
+    case .teal: .teal
+    case .lightBlue: .blue.opacity(0.5)
+    case .gray: .gray
     }
   }
 }

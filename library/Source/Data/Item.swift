@@ -16,8 +16,8 @@ public struct Item: Codable, Equatable, Sendable {
     id: Int64? = nil,
     createdAt: Date? = nil,
     projectId: Int64,
-    title: String,
-    details: String,
+    title: String = "",
+    details: String = "",
     priority: Priority = .flexible,
     done: Bool = false
   ) {

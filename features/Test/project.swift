@@ -29,7 +29,8 @@ import Testing
   }
 
   @Test func toggle() async throws {
-    await store.send(.toggle) {
+    await store.send(.toggle)
+    await store.receive(\.binding) {
       $0.project.closed.toggle()
     }
   }
@@ -39,7 +40,7 @@ import Testing
   }
 
   @Test func appear() async throws {
-    await store.send(.appear)
+    await store.send(.loadItems)
     await store.receive(\.items, [])
     await store.receive(\.items, [])
     await store.skipInFlightEffects()

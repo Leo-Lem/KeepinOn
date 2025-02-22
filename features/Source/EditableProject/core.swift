@@ -7,20 +7,26 @@ import EditableItem
 @Reducer public struct EditableProject {
   @ObservableState public struct State: Equatable {
     public var project: Project
+
     @SharedReader public var items: [Item]
     public var editableItems: IdentifiedArrayOf<EditableItem.State>
     @Presents public var alert: AlertState<Action.Alert>?
-    public var detail: Bool = false
+    public var detailing: Bool = false
+    public var editing: Bool = false
 
     public init(
       _ project: Project,
-      items: [Item] = []
+      items: [Item] = [],
+      detailing: Bool = false,
+      editing: Bool = false
     ) {
       self.project = project
       _items = SharedReader(wrappedValue: items, .fetchAll(sql: """
         SELECT * FROM item WHERE projectId=? ORDER BY done
         """, arguments: [project.id]))
       editableItems = []
+      self.detailing = detailing
+      self.editing = editing
     }
   }
 
@@ -29,7 +35,7 @@ import EditableItem
     case delete
     case addItem
 
-    case appear
+    case loadItems
     case items([Item])
     case editableItems(IdentifiedActionOf<EditableItem>)
 
@@ -57,13 +63,11 @@ import EditableItem
         return .none
 
       case .toggle:
-        state.project.closed.toggle()
-        try? database.write { try state.project.save($0) }
-        return .none
+        return .send(.binding(.set(\.project.closed, !state.project.closed)))
 
       case .addItem:
         if let projectId = state.project.id {
-          var item = Item(projectId: projectId, title: "", details: "")
+          var item = Item(projectId: projectId)
           try? database.write { try item.save($0) }
         }
         return .none
@@ -72,15 +76,19 @@ import EditableItem
         _ = try? database.write { try state.project.delete($0) }
         return .none
 
-      case .appear:
+      case let .items(items):
+        state.editableItems = IdentifiedArray(uniqueElements: items.map { EditableItem.State($0) })
+        return .none
+
+      case .binding(\.project), .binding(\.project.closed):
+        try? database.write { try state.project.save($0) }
+        return .none
+
+      case .loadItems:
         return .merge(
           .publisher { state.$items.publisher.map { .items($0) } },
           .send(.items(state.items))
         )
-
-      case let .items(items):
-        state.editableItems = IdentifiedArray(uniqueElements: items.map(EditableItem.State.init))
-        return .none
 
       case .alert, .editableItems, .binding: return .none
       }
@@ -113,5 +121,5 @@ public extension EditableProject.State {
 }
 
 extension EditableProject.State: Identifiable {
-  public var id: Int64 { project.id ?? 0 }
+  public var id: Int64? { project.id }
 }
