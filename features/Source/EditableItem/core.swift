@@ -7,9 +7,18 @@ import Data
   @ObservableState public struct State: Equatable, Sendable {
     public var item: Item
 
-    public var detail: Bool = false
+    public var detailing: Bool
+    public var editing: Bool
 
-    public init(_ item: Item) { self.item = item }
+    public init(
+      _ item: Item,
+      detailing: Bool = false,
+      editing: Bool = false
+    ) {
+      self.item = item
+      self.detailing = detailing
+      self.editing = editing
+    }
   }
 
   public enum Action: BindableAction {
@@ -33,7 +42,7 @@ import Data
         return .send(.binding(.set(\.item.done, !state.item.done)))
 
       case .detail:
-        return .send(.binding(.set(\.detail, true)))
+        return .send(.binding(.set(\.detailing, true)))
 
       case .binding(\.item):
         try? database.write { try state.item.save($0) }

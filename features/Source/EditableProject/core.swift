@@ -77,7 +77,7 @@ import EditableItem
         return .none
 
       case let .items(items):
-        state.editableItems = IdentifiedArray(uniqueElements: items.map(EditableItem.State.init))
+        state.editableItems = IdentifiedArray(uniqueElements: items.map { EditableItem.State($0) })
         return .none
 
       case .binding(\.project), .binding(\.project.closed):

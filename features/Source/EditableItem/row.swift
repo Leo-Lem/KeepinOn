@@ -45,14 +45,13 @@ public struct ItemRow: View {
         .accessibilityIdentifier("delete-item")
 
         Button(.localizable(.edit), systemImage: "square.and.pencil") {
-          // TODO: edit item
+          store.editing = true
         }
-        .disabled(true)
         .tint(.yellow)
         .accessibilityIdentifier("edit-item")
       }
     }
-    .sheet(isPresented: $store.detail) {
+    .sheet(isPresented: $store.detailing) {
       ItemDetail(store.item, project: store.project)
     }
   }
