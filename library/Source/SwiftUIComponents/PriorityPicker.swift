@@ -1,7 +1,6 @@
 // Created by Leopold Lemmermann on 22.02.25.
 
 import Data
-import SwiftUI
 
 public struct PriorityPicker: View {
   @Binding public var priority: Priority

@@ -3,7 +3,7 @@
 import struct Foundation.Date
 import SharingGRDB
 
-public struct Project: Codable, Equatable, Sendable {
+public struct Project: Codable, Equatable, Sendable, Identifiable {
   public var id: Int64?
   public var createdAt: Date?
 
@@ -45,9 +45,11 @@ extension Project: TableRecord {
 }
 
 extension Project: FetchableRecord {
-  public struct WithItems: Codable, FetchableRecord {
+  public struct WithItems: Sendable, Codable, Identifiable, Equatable, FetchableRecord {
     public var project: Project
     public var items: [Item]
+
+    public var id: Int64? { project.id }
 
     public init(_ project: Project, items: [Item]) {
       self.project = project
