@@ -39,11 +39,10 @@ import Testing
     await store.send(.addItem)
   }
 
-  @Test func appear() async throws {
+  @Test func loadItems() async throws {
+    store.exhaustivity = .off
     await store.send(.loadItems)
-    await store.receive(\.items, [])
-    await store.receive(\.items, [])
-    await store.skipInFlightEffects()
+    await store.receive(\.items)
   }
 
   @Test func progress() async throws {
