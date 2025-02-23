@@ -15,7 +15,7 @@ public struct Item: Codable, Equatable, Sendable, Identifiable {
   public init(
     id: Int64? = nil,
     createdAt: Date? = nil,
-    projectId: Int64,
+    projectId: Int64 = 0,
     title: String = "",
     details: String = "",
     priority: Priority = .flexible,
@@ -52,25 +52,12 @@ extension Item: FetchableRecord {
 
     public var id: Int64? { item.id }
 
-    public init(_ item: Item, project: Project) {
+    public init(
+      _ item: Item = Item(),
+      project: Project = Project()
+    ) {
       self.item = item
       self.project = project
-    }
-  }
-}
-
-extension Item {
-  static func migrate(_ migrator: inout DatabaseMigrator) {
-    migrator.registerMigration("Create item table") { db in
-      try db.create(table: "item") { t in
-        t.autoIncrementedPrimaryKey("id")
-        t.belongsTo("project", onDelete: .cascade).notNull()
-        t.column("createdAt", .datetime).notNull()
-        t.column("title", .text).notNull()
-        t.column("details", .text).notNull()
-        t.column("priority", .integer).notNull()
-        t.column("done", .boolean).notNull().defaults(to: false)
-      }
     }
   }
 }

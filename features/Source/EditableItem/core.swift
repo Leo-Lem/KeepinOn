@@ -4,53 +4,71 @@ import ComposableArchitecture
 import Data
 
 @Reducer public struct EditableItem {
-  @ObservableState public struct State: Equatable, Sendable {
-    public var item: Item
+  @ObservableState public struct State: Equatable {
+    @SharedReader public var itemWithProject: Item.WithProject
+    public var item: Item { itemWithProject.item }
 
-    public var detailing: Bool
-    public var editing: Bool
+    @Presents public var detail: ItemDetail.State?
+    @Presents public var edit: ItemEdit.State?
 
     public init(
-      _ item: Item,
-      detailing: Bool = false,
-      editing: Bool = false
+      _ id: Item.ID,
+      detail: ItemDetail.State? = nil,
+      edit: ItemEdit.State? = nil
     ) {
-      self.item = item
-      self.detailing = detailing
-      self.editing = editing
+      _itemWithProject = SharedReader(wrappedValue: Item.WithProject(), .fetch(ItemWithProjectRequest(id: id)))
+      self.detail = detail
+      self.edit = edit
+    }
+
+    private struct ItemWithProjectRequest: FetchKeyRequest {
+      let id: Item.ID
+
+      func fetch(_ db: Database) throws -> Item.WithProject {
+        try Item
+          .filter(id: id)
+          .including(required: Item.project)
+          .asRequest(of: Item.WithProject.self)
+          .fetchOne(db)
+        ?? Item.WithProject()
+      }
     }
   }
 
-  public enum Action: BindableAction {
-    case delete
-    case toggle
-    case detail
+  public enum Action {
+    case item(Item)
+    case deleteTapped
+    case editTapped
+    case detailTapped
 
-    case binding(BindingAction<State>)
+    case detail(PresentationAction<ItemDetail.Action>)
+    case edit(PresentationAction<ItemEdit.Action>)
   }
 
-  public var body: some Reducer<State, Action> {
-    BindingReducer()
-
+  public var body: some ReducerOf<Self> {
     Reduce { state, action in
       switch action {
-      case .delete:
+      case var .item(item):
+        try? database.write { try item.save($0) }
+        return .none
+
+      case .deleteTapped:
         _ = try? database.write { try state.item.delete($0) }
         return .none
 
-      case .toggle:
-        return .send(.binding(.set(\.item.done, !state.item.done)))
-
-      case .detail:
-        return .send(.binding(.set(\.detailing, true)))
-
-      case .binding(\.item), .binding(\.item.done):
-        try? database.write { try state.item.save($0) }
+      case .editTapped:
+        state.edit = ItemEdit.State(state.item)
         return .none
 
-      case .binding: return .none
+      case .detailTapped:
+        state.detail = ItemDetail.State(state.item.id)
+        return .none
+
+      case .detail, .edit: return .none
       }
     }
+    .ifLet(\.$edit, action: \.edit) { ItemEdit() }
+    .ifLet(\.$detail, action: \.detail) { ItemDetail() }
   }
 
   @Dependency(\.defaultDatabase) var database
@@ -59,22 +77,6 @@ import Data
 }
 
 extension EditableItem.State {
-  var project: Project.WithItems {
-    @Dependency(\.defaultDatabase) var database
-    return (try? database.read {
-      try Project
-        .including(all: Project.items)
-        .asRequest(of: Project.WithItems.self)
-        .filter(key: item.projectId)
-        .fetchOne($0)
-    }) ?? .init(Project(title: "", details: "", accent: .green, closed: false), items: [item])
-  }
-
-  var accent: Accent { project.project.accent }
-
-  var canEdit: Bool { !project.project.closed }
-}
-
-extension EditableItem.State: Identifiable {
-  public var id: Int64? { item.id }
+  var accent: Accent { itemWithProject.project.accent }
+  var canEdit: Bool { !itemWithProject.project.closed }
 }

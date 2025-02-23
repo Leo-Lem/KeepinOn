@@ -8,28 +8,35 @@ import EditableItem
   @ObservableState public struct State: Equatable {
     public var project: Project
 
-    @SharedReader public var items: [Item]
-    public var editableItems: IdentifiedArrayOf<EditableItem.State>
+    @SharedReader public var itemIds: [Item.ID]
+    public var items: IdentifiedArrayOf<EditableItem.State>
+
     @Presents public var alert: AlertState<Action.Alert>?
+
     public var detailing: Bool = false
     public var editing: Bool = false
 
     public init(
       _ project: Project,
-      items: [Item] = [],
       detailing: Bool = false,
       editing: Bool = false
     ) {
       self.project = project
-      _items = SharedReader(wrappedValue: items, .fetchAll(sql: """
-        SELECT * 
-        FROM item
-        WHERE projectId=? 
-        ORDER BY done
-        """, arguments: [project.id]))
-      editableItems = []
+      _itemIds = SharedReader(wrappedValue: [], .fetch(ItemIds(projectId: project.id)))
+      items = []
       self.detailing = detailing
       self.editing = editing
+    }
+
+    struct ItemIds: FetchKeyRequest {
+      let projectId: Project.ID
+
+      func fetch(_ db: Database) throws -> [Item.ID] {
+        try Item.all()
+          .filter(Column("projectId") == projectId)
+          .select(Column("id"))
+          .fetchAll(db)
+      }
     }
   }
 
@@ -39,8 +46,8 @@ import EditableItem
     case addItem
 
     case loadItems
-    case items([Item])
-    case editableItems(IdentifiedActionOf<EditableItem>)
+    case itemIds([Item.ID])
+    case items(IdentifiedActionOf<EditableItem>)
 
     case alert(PresentationAction<Alert>)
     public enum Alert: Equatable {
@@ -79,35 +86,25 @@ import EditableItem
         _ = try? database.write { try state.project.delete($0) }
         return .none
 
-      case let .items(items):
-        for id in state.editableItems.ids {
-          if let item = items.first(where: { $0.id == id }) {
-            state.editableItems[id: id]?.item = item
-          } else {
-            state.editableItems.remove(id: id)
-          }
-        }
-
-        state.editableItems.append(
-          contentsOf: IdentifiedArray(uniqueElements: items.map { EditableItem.State($0) })
-        )
-
+      case let .itemIds(ids):
+        state.items.removeAll { ids.contains($0.id) }
+        state.items.append(contentsOf: IdentifiedArray(uniqueElements: ids.map { EditableItem.State($0) }))
         return .none
 
-      case .binding(\.project), .binding(\.project.closed):
+      case .binding(\.project):
         try? database.write { try state.project.save($0) }
         return .none
 
       case .loadItems:
         return .merge(
-          .publisher { state.$items.publisher.map { .items($0) } },
-          .send(.items(state.items))
+          .publisher { state.$itemIds.publisher.map { .itemIds($0) } },
+          .send(.itemIds(state.itemIds))
         )
 
-      case .alert, .editableItems, .binding: return .none
+      case .alert, .items, .binding: return .none
       }
     }
-    .forEach(\.editableItems, action: \.editableItems, element: EditableItem.init)
+    .forEach(\.items, action: \.items, element: EditableItem.init)
     .ifLet(\.alert, action: \.alert)
   }
 
@@ -134,6 +131,6 @@ public extension EditableProject.State {
   var canEdit: Bool { !project.closed }
 }
 
-extension EditableProject.State: Identifiable {
-  public var id: Int64? { project.id }
+extension EditableItem.State: Identifiable {
+  public var id: Int64? { item.id }
 }

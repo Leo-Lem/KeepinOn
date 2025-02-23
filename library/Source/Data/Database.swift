@@ -24,8 +24,29 @@ public extension DatabaseWriter where Self == DatabaseQueue {
 #if DEBUG
       migrator.eraseDatabaseOnSchemaChange = true
 #endif
-      Project.migrate(&migrator)
-      Item.migrate(&migrator)
+      migrator.registerMigration("Create project table") { db in
+        try db.create(table: "project") { t in
+          t.autoIncrementedPrimaryKey("id")
+          t.column("createdAt", .datetime).notNull()
+          t.column("title", .text).notNull()
+          t.column("details", .text).notNull()
+          t.column("accent", .text).notNull()
+          t.column("closed", .boolean).notNull().defaults(to: false)
+        }
+      }
+      
+      migrator.registerMigration("Create item table") { db in
+        try db.create(table: "item") { t in
+          t.autoIncrementedPrimaryKey("id")
+          t.belongsTo("project", onDelete: .cascade).notNull()
+          t.column("createdAt", .datetime).notNull()
+          t.column("title", .text).notNull()
+          t.column("details", .text).notNull()
+          t.column("priority", .integer).notNull()
+          t.column("done", .boolean).notNull().defaults(to: false)
+        }
+      }
+
       try migrator.migrate(database)
 
       return database

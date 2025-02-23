@@ -1,47 +1,48 @@
 // Created by Leopold Lemmermann on 22.02.25.
 
+import ComposableArchitecture
 import Data
+import SwiftUIComponents
 
-public struct ItemDetail: View {
-  let item: Item
-  let project: Project.WithItems
+public struct ItemDetailView: View {
+  @Bindable public var store: StoreOf<ItemDetail>
 
   public var body: some View {
     VStack {
       HStack {
-        PriorityLabel(item.priority)
+        PriorityLabel(store.item.priority)
           .labelStyle(.iconOnly)
           .font(.headline)
           .bold()
 
-        Text(item.title)
+        Text(store.item.title)
           .font(.largeTitle)
           .fontWeight(.heavy)
           .lineLimit(1)
 
-        Image(systemName: item.done ? "checkmark.circle" : "circle")
+        Image(systemName: store.item.done ? "checkmark.circle" : "circle")
           .font(.title)
           .fontWeight(.bold)
       }
       .padding()
       .frame(maxWidth: .infinity)
-      .foregroundColor(project.project.accent.color)
+      .foregroundColor(store.projectWithItems.project.accent.color)
       .accessibilityAddTraits(.isHeader)
       .accessibilityIdentifier("item-detail-page-header")
 
-      Text(item.details.replacing("\n", with: " "))
+      Text(store.item.details.replacing("\n", with: " "))
         .font(.title2)
         .fontWeight(.semibold)
 
       Divider()
         .frame(width: 200)
 
-      ProjectPeek(project)
+      ProjectPeek(store.projectWithItems)
         .padding()
 
       Spacer()
 
-      if let createdAt = item.createdAt {
+      if let createdAt = store.item.createdAt {
         Text(localizable: .createdAt(createdAt.formatted(date: .abbreviated, time: .shortened)))
           .padding()
           .font(.subheadline)
@@ -50,10 +51,7 @@ public struct ItemDetail: View {
     .presentationDetents([.medium])
   }
 
-  public init(_ item: Item, project: Project.WithItems) {
-    self.item = item
-    self.project = project
-  }
+  public init(_ store: StoreOf<ItemDetail>) { self.store = store }
 }
 
 #Preview {
@@ -61,6 +59,8 @@ public struct ItemDetail: View {
 
   Grid {}
     .sheet(isPresented: $presented) {
-      ItemDetail(.example(), project: .init(.example(), items: [.example(), .example(), .example()]))
+      ItemDetailView(Store(initialState: ItemDetail.State(previews().items[0].id)) {
+        ItemDetail()._printChanges()
+      })
     }
 }

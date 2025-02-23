@@ -29,7 +29,28 @@ public struct Project: Codable, Equatable, Sendable, Identifiable {
   }
 }
 
-extension Project: MutablePersistableRecord {
+public extension Project {
+  struct Draft {
+    public var title: String
+    public var details: String
+    public var accent: Accent
+    public var closed: Bool
+
+    public init(
+      title: String = "",
+      details: String = "",
+      accent: Accent = .blue,
+      closed: Bool = false
+    ) {
+      self.title = title
+      self.details = details
+      self.accent = accent
+      self.closed = closed
+    }
+  }
+}
+
+extension Project: MutablePersistableRecord, TableRecord, FetchableRecord {
   public mutating func willInsert(_ db: Database) throws {
     if createdAt == nil { createdAt = try db.transactionDate }
   }
@@ -37,21 +58,20 @@ extension Project: MutablePersistableRecord {
   public mutating func didInsert(_ inserted: InsertionSuccess) {
     id = inserted.rowID
   }
-}
 
-extension Project: TableRecord {
   public static let items = hasMany(Item.self)
   public var items: QueryInterfaceRequest<Item> { request(for: Project.items) }
-}
 
-extension Project: FetchableRecord {
   public struct WithItems: Sendable, Codable, Identifiable, Equatable, FetchableRecord {
     public var project: Project
     public var items: [Item]
 
     public var id: Int64? { project.id }
 
-    public init(_ project: Project, items: [Item]) {
+    public init(
+      _ project: Project = Project(),
+      items: [Item] = []
+    ) {
       self.project = project
       self.items = items
     }
@@ -66,21 +86,6 @@ extension Project: FetchableRecord {
     } catch {
       assertionFailure(error.localizedDescription)
       return 0
-    }
-  }
-}
-
-extension Project {
-  static func migrate(_ migrator: inout DatabaseMigrator) {
-    migrator.registerMigration("Create project table") { db in
-      try db.create(table: "project") { t in
-        t.autoIncrementedPrimaryKey("id")
-        t.column("createdAt", .datetime).notNull()
-        t.column("title", .text).notNull()
-        t.column("details", .text).notNull()
-        t.column("accent", .text).notNull()
-        t.column("closed", .boolean).notNull().defaults(to: false)
-      }
     }
   }
 }

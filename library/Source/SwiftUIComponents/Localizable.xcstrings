@@ -67,6 +67,17 @@
         }
       }
     },
+    "complete" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Complete Item"
+          }
+        }
+      }
+    },
     "createdAt %@" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -269,6 +280,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Teal"
+          }
+        }
+      }
+    },
+    "uncomplete" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reopen Item"
           }
         }
       }

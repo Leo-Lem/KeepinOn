@@ -82,3 +82,7 @@ import SwiftData
 
   public init() {}
 }
+
+extension EditableProject.State: Identifiable {
+  public var id: Int64? { project.id }
+}

@@ -4,8 +4,8 @@ import ComposableArchitecture
 import Data
 import SwiftUIComponents
 
-public struct ItemEditor: View {
-  @Bindable public var store: StoreOf<EditableItem>
+public struct ItemEditView: View {
+  @Bindable public var store: StoreOf<ItemEdit>
 
   public var body: some View {
     Form {
@@ -23,14 +23,7 @@ public struct ItemEditor: View {
       }
 
       Section {
-        Button(
-          .localizable(store.item.done ? .uncomplete : .complete),
-          systemImage: store.item.done ? "checkmark.circle.badge.xmark" : "checkmark.circle"
-        ) {
-          store.send(.toggle)
-        }
-        .tint(.green)
-        .accessibilityIdentifier("toggle-item")
+        ItemToggle($store.item.done)
       }
     }
     .scrollDisabled(true)
@@ -38,7 +31,7 @@ public struct ItemEditor: View {
     .presentationDetents([.fraction(0.5)])
   }
 
-  public init(_ store: StoreOf<EditableItem>) { self.store = store }
+  public init(_ store: StoreOf<ItemEdit>) { self.store = store }
 }
 
 #Preview {
@@ -46,6 +39,6 @@ public struct ItemEditor: View {
 
   Grid {}
     .sheet(isPresented: $presenting) {
-      ItemEditor(Store(initialState: EditableItem.State(.example())) { EditableItem()._printChanges() })
+      ItemEditView(Store(initialState: ItemEdit.State(previews().items[0])) { ItemEdit()._printChanges() })
     }
 }

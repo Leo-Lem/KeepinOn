@@ -9,11 +9,15 @@ public struct ItemRow: View {
 
   public var body: some View {
     Button {
-      store.send(.detail)
+      store.send(.detailTapped)
     } label: {
       HStack {
-        Image(systemName: store.item.icon)
+        Toggle(.localizable(.edit), systemImage: store.item.icon, isOn: $store.item.sending(\.item).done)
+          .toggleStyle(.button)
+          .labelStyle(.iconOnly)
+          .tint(store.accent.color.opacity(0.7))
           .foregroundColor(store.accent.color)
+          .disabled(!store.canEdit)
 
         Text(store.item.title)
 
@@ -31,18 +35,6 @@ public struct ItemRow: View {
     .accessibilityValue(store.item.title)
     .accessibilityLabel(store.item.a11y)
     .swipeActions(edge: .leading) {
-      if store.canEdit {
-        Button(
-          .localizable(store.item.done ? .uncomplete : .complete),
-          systemImage: store.item.done ? "checkmark.circle.badge.xmark" : "checkmark.circle"
-        ) {
-          store.send(.toggle)
-        }
-        .tint(.green)
-        .accessibilityIdentifier("toggle-item")
-      }
-    }
-    .swipeActions(edge: .trailing) {
       if store.canEdit && !store.item.done {
         Button(.localizable(.delete), systemImage: "trash") {
           store.send(.delete)
@@ -51,11 +43,20 @@ public struct ItemRow: View {
         .accessibilityIdentifier("delete-item")
       }
     }
-    .sheet(isPresented: $store.detailing) {
-      ItemDetail(store.item, project: store.project)
+    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+      if store.canEdit {
+        Button(.localizable(.delete), systemImage: "trash") {
+          store.send(.deleteTapped)
+        }
+        .tint(.red)
+        .accessibilityIdentifier("delete-item")
+      }
     }
-    .sheet(isPresented: $store.editing) {
-      ItemEditor(store)
+    .sheet(item: $store.scope(state: \.detail, action: \.detail)) {
+      ItemDetailView($0)
+    }
+    .sheet(item: $store.scope(state: \.edit, action: \.edit)) {
+      ItemEditView($0)
     }
   }
 
@@ -65,7 +66,7 @@ public struct ItemRow: View {
 #Preview {
   List {
     ForEach(previews().items, id: \.id) { item in
-      ItemRow(Store(initialState: EditableItem.State(item)) { EditableItem()._printChanges() })
+      ItemRow(Store(initialState: EditableItem.State(item.id)) { EditableItem()._printChanges() })
     }
   }
 }

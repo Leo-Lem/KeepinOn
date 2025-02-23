@@ -10,7 +10,7 @@ public struct ProjectSection: View {
 
   public var body: some View {
     Section {
-      ForEach(store.scope(state: \.editableItems, action: \.editableItems), content: ItemRow.init)
+      ForEach(store.scope(state: \.items, action: \.items), content: ItemRow.init)
 
       if store.canEdit {
         Button(.localizable(.addItem), systemImage: "plus.circle") {

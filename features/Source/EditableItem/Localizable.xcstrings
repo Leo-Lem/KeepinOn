@@ -23,17 +23,6 @@
         }
       }
     },
-    "complete" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Complete Item"
-          }
-        }
-      }
-    },
     "createdAt %@" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -96,17 +85,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Enter a title"
-          }
-        }
-      }
-    },
-    "uncomplete" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Reopen"
           }
         }
       }
