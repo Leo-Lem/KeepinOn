@@ -20,6 +20,12 @@ public struct ItemRow: View {
         Text(store.item.details)
           .lineLimit(1)
           .foregroundColor(.secondary)
+
+        Button(.localizable(.edit), systemImage: "square.and.pencil") {
+          store.editing = true
+        }
+        .labelStyle(.iconOnly)
+        .accessibilityIdentifier("edit-item")
       }
     }
     .accessibilityValue(store.item.title)
@@ -43,12 +49,6 @@ public struct ItemRow: View {
         }
         .tint(.red)
         .accessibilityIdentifier("delete-item")
-
-        Button(.localizable(.edit), systemImage: "square.and.pencil") {
-          store.editing = true
-        }
-        .tint(.yellow)
-        .accessibilityIdentifier("edit-item")
       }
     }
     .sheet(isPresented: $store.detailing) {
