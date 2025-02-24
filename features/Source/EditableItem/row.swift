@@ -34,15 +34,6 @@ public struct ItemRow: View {
     }
     .accessibilityValue(store.item.title)
     .accessibilityLabel(store.item.a11y)
-    .swipeActions(edge: .leading) {
-      if store.canEdit && !store.item.done {
-        Button(.localizable(.delete), systemImage: "trash") {
-          store.send(.delete)
-        }
-        .tint(.red)
-        .accessibilityIdentifier("delete-item")
-      }
-    }
     .swipeActions(edge: .trailing, allowsFullSwipe: true) {
       if store.canEdit {
         Button(.localizable(.delete), systemImage: "trash") {
