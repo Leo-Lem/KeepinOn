@@ -59,7 +59,7 @@ public struct ItemDetailView: View {
 
   Grid {}
     .sheet(isPresented: $presented) {
-      ItemDetailView(Store(initialState: ItemDetail.State(previews().items[0].id)) {
+      ItemDetailView(Store(initialState: ItemDetail.State(previews().items[0])) {
         ItemDetail()._printChanges()
       })
     }

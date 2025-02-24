@@ -5,20 +5,14 @@ import Data
 
 @Reducer public struct ItemDetail {
   @ObservableState public struct State: Equatable {
-    @SharedReader public var item: Item
+    public var item: Item
     @SharedReader public var projectWithItems: Project.WithItems
 
-    public init(_ id: Item.ID) {
-      _item = SharedReader(wrappedValue: Item(), .fetch(ItemRequest(id: id)))
-      _projectWithItems = SharedReader(wrappedValue: Project.WithItems(), .fetch(ProjectWithItemsRequest(itemId: id)))
-    }
-
-    struct ItemRequest: FetchKeyRequest {
-      let id: Item.ID
-
-      func fetch(_ db: Database) throws -> Item {
-        try Item.fetchOne(db, id: id) ?? Item()
-      }
+    public init(_ item: Item) {
+      self.item = item
+      _projectWithItems = SharedReader(
+        wrappedValue: Project.WithItems(), .fetch(ProjectWithItemsRequest(itemId: item.id))
+      )
     }
 
     struct ProjectWithItemsRequest: FetchKeyRequest {

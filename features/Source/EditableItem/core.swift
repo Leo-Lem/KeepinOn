@@ -61,7 +61,7 @@ import Data
         return .none
 
       case .detailTapped:
-        state.detail = ItemDetail.State(state.item.id)
+        state.detail = ItemDetail.State(state.item)
         return .none
 
       case .detail, .edit: return .none
